@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'top/top'
   root 'top#top'
-  #root 'application#top'
+  get 'user/new_user'
+  get 'user/mypage'
+  get 'user/account_delete'
+  get 'top/top'
 end
