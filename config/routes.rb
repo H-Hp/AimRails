@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'footer/query'
+  get 'footer/terms'
   get 'aim/search'
   get 'aim/aim'
   get 'aim/create'
