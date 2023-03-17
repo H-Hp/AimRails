@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root 'application#top'
+  get 'top/top'
+  root 'top#top'
+  #root 'application#top'
 end
