@@ -1,15 +1,138 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+body{
+  color: #FFFFFF;
+}
+
+header{
+  position: absolute;
+  /*width: 1360px;*/
+  width:100%;
+  height: 62px;
+  left: 0px;
+  top: 0px;
+  background-color: #202020;
+}
+.Logo-a{
+  position: absolute;
+  width: 200px;
+  height: 70x;
+  left: 15px;
+  top: 15px; 
+} 
+.Logo{
+}
+.LogoTitle{
+  position: absolute;
+  width: 84px;
+  height: 28px;
+  left: 62px;
+  top: 15px;   
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #FFFFFF;
+}
+
+.NewUser_btn{
+  position: absolute;
+  width: 120px;
+  height: 29px;
+  left: 1056px;
+  top: 15px;
+  
+  background-color: #A7F195;
+}
+
+
+
+.Login_btn{
+  position: absolute;
+  width: 87px;
+  height: 29px;
+  left: 1180px;
+  top: 15px;
+  background: #D0DF24;
+}
+.Logout_btn{
+  display: none;
+}
+.SearchBox{
+  position: absolute;
+  width: 394px;
+  height: 29px;
+  left: 370px;
+  top: 15px;
+  
+  background: #121212;
+  border: 1px solid #303030;
+  box-sizing: border-box;
+  color: white;
+}
+.SearchBtn{
+  position: absolute;
+  width: 92px;
+  height: 29px;
+  left: 764px;
+  top: 15px;
+
+  background: #D0DF24;
+  border: 1px solid #303030;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+main{
+  background: #000000;
+  position: absolute;
+  width: 1094px;
+  height: 1568px;
+  left: 266px;
+  top: 62px;
+}
+
+.Left{
+position: absolute;
+width: 266px;
+height: 1650px;
+left: 0px;
+top: 62px;
+
+background: #212121;
+}
+
+.Left a ,.Left span　,.Left .copyright{
+  position: absolute;
+  width: 100%;
+  height: 28px;
+  left: 15px;
+  
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 28px;
+  
+  color: #FFFFFF;
+  
+}
+.policy_link{
+  top: 1450px;
+}
+.query_link{
+  top: 1500px;
+}
+.copyright{
+  top: 1550px;
+}
+
+@media only screen and (min-width:769px){/*PC*/
+
+}
+
+
+@media only screen and (max-device-width:480px){/*スマホ*/
+
+
+}
