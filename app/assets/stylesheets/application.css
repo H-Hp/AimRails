@@ -86,7 +86,8 @@ header{
 main{
   background: #000000;
   position: absolute;
-  width: 1094px;
+  /*width: 1094px;*/
+  width:70%;
   height: 1568px;
   left: 266px;
   top: 62px;

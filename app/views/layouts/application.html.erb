@@ -59,7 +59,7 @@
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">ログイン</h4>
             </div>
-            <form action="/mypage" method="get" id="in">
+            <form action="/mypage" method="post" id="in">
               <div class="modal-body">         
                     <a id="failure">入力ミスがあります。再度入力してください。</a>
                     <table align="center">
@@ -88,16 +88,16 @@
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">ユーザー新規登録</h4>
             </div>
-            <form action="/mypage" method="get" id="in">
+            <form action="/mypage" method="post" id="in">
               <div class="modal-body">         
                 <p id="NewUserOK">新規登録が完了しました。</p>
-                <form method="post" action="/NewUser">
+                
                   <table align="center">
                     <tr><td><input type="text" name="UserName" id="UserName" placeholder="ユーザーネーム/UserName"></td>
                     <tr>	<td><input type="email" name="MailAddress" id="Address" placeholder="メールアドレス/MailAddress"></td>
                     <tr><td><input type="password" name="Password" id="Pass" placeholder="パスワード/Password"></td>
                   </table>
-                </form>
+               
               </div>
               <div class="modal-footer">
                   <p id="agree">アカウント登録をクリックすることで、当サイト利用規約及びCookieの使用を含むデータに関するポリシーに同意するものとします</p>                  
