@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'top#top'
+  get '/'  => 'top#top'
   get 'query'  => 'footer#query'
   get 'terms'  => 'footer#terms'
   #get 'aim/search'
