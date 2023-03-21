@@ -1,7 +1,7 @@
 <ul>
   <% @aim.each do |aim| %>
     <div class="aim_wrap" id="">
-      <a href="/aim/">
+      <a href="/aim/<%= aim.id %>">
         <li><%= aim.title %></li>
         <li><%= aim.content %></li>
       </a>
