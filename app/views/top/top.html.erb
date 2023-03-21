@@ -1,6 +1,10 @@
-<h1>top</h1>
-
-<a href="/mypage">マイページへ</a><br>
-
-<a href="/aim/new">Aim新規作成</a><br>
-<a href="/aim">Aimページ</a><br>
+<ul>
+  <% @aim.each do |aim| %>
+    <div class="aim_wrap" id="">
+      <a href="/aim/">
+        <li><%= aim.title %></li>
+        <li><%= aim.content %></li>
+      </a>
+    </div>
+  <% end %>
+</ul>

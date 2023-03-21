@@ -102,6 +102,19 @@ top: 62px;
 background: #212121;
 }
 
+.mypage_div{
+  position: fixed;
+  right: 250px;
+  top: 30x;
+}
+.aim-new_div{
+  position: fixed;
+  right: 350px;
+  top: 30px;
+}
+
+
+
 .Left a ,.Left span ,.Left .copyright{
   position: fixed;
   /*width: 100%;*/

@@ -24,6 +24,7 @@ class AimController < ApplicationController
   end
 
   def aim
+    @aim = Aim.new
   end
 
   def edit
