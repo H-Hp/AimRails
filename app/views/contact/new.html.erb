@@ -1,0 +1,40 @@
+<h1>お問い合わせ</h1>
+
+<%= form_with(model: @contact, url: contact_index_path, local: true) do |form| %>
+  <% flash.each do |name, msg| %>
+    <% if msg.is_a?(String) %>
+      <%= content_tag :div, msg, class: "alert alert-#{name == :notice ? 'success' : 'danger'}" %>
+    <% end %>
+  <% end %>
+
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+      <% @contact.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_area :message, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "送信" %>
+  </div>
+<% end %>

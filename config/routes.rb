@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+
   root 'top#top'
   get '/'  => 'top#top'
-  get 'query'  => 'footer#query'
+  
+  
+  resources :contact, only: [:new, :create]
+
   get 'terms'  => 'footer#terms'
   #get 'aim/search'
   get 'search'  => 'aim#search'
