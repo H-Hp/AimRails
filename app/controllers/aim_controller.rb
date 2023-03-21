@@ -5,6 +5,9 @@ class AimController < ApplicationController
   def aim
   end
 
+  def new
+  end
+
   def create
   end
 
