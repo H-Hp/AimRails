@@ -1,1 +1,11 @@
-<h1>Aim編集</h1>
+<div>
+  <input type="text" id="title" name="title" value="<%= @aim.title %>" required>
+</div>
+
+<div>
+<textarea id="story" name="story"rows="5" cols="33">
+<%= @aim.content %>
+</textarea>
+</div>
+
+<button type="button" class="btn btn-warning">変更</button>

@@ -1,2 +1,6 @@
-<h1>Aim</h1>
-<a href="/aim_edit">Aim編集ページ</a><br>
+
+<h1><%= @aim.title %></h1>
+
+<p><%= @aim.content %></p>
+
+<a href="/aim/edit/<%= @aim.id %>">編集</a><br>

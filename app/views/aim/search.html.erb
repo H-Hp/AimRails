@@ -1,1 +1,9 @@
-<h1>search</h1>
+<ul>
+  <% @aim.each do |aim| %>
+    <div class="aim_wrap" id="">
+      <a href="/aim/<%= aim.id %>">
+        <li><%= aim.title %></li>
+      </a>
+    </div>
+  <% end %>
+</ul>
