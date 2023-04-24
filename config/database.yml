@@ -35,7 +35,7 @@ production: &production
 production-aim-mini:
   <<: *production
   port: 5432
-  host: <%= Rails.application.credentials.dig(:aim_mini, :db_host) %>
+  host: db
   database: <%= Rails.application.credentials.dig(:aim_mini, :db) %>
   username: <%= Rails.application.credentials.dig(:aim_mini, :db_user_name) %>
   password: <%= Rails.application.credentials.dig(:aim_mini, :db_password) %>
