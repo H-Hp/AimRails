@@ -39,3 +39,8 @@ production-aim-mini:
   database: <%= Rails.application.credentials.dig(:aim_mini, :db) %>
   username: <%= Rails.application.credentials.dig(:aim_mini, :db_user_name) %>
   password: <%= Rails.application.credentials.dig(:aim_mini, :db_password) %>
+
+production_render_com: #Render.comのDB設定
+  <<: *production
+  url: <%= ENV['RENDER_COM_DATABASE_URL'] %>
+  password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
