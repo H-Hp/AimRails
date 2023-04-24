@@ -1,0 +1,17 @@
+FROM ruby:2.7.3
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+
+RUN mkdir /aim-mini
+
+WORKDIR /aim-mini
+
+COPY Gemfile /aim-mini/Gemfile
+COPY Gemfile.lock /aim-mini/Gemfile.lock
+
+RUN bundle install
+
+COPY . /aim-mini
+
+EXPOSE 3000
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
