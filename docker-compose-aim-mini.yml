@@ -1,0 +1,46 @@
+version: '3'
+volumes:
+  postgres_data: {}
+services:
+  app:
+    image: aim-mini-app:v1
+    build:
+      context: .
+      dockerfile: ./Dockerfile.aim-app
+    environment:
+      RAILS_ENV: production-aim-mini
+      RACK_ENV: production
+      SECRET_KEY_BASE: <%= Rails.application.credentials.dig(:aim_mini, :secret_key_base) %>
+    depends_on:
+      - db
+    networks:
+      - aim-mini-network
+    #command: bundle exec rails db:migrate
+    #command: bundle exec puma -C config/puma.rb
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_HOST: <%= Rails.application.credentials.dig(:aim_mini, :db_host) %>
+      POSTGRES_DB: <%= Rails.application.credentials.dig(:aim_mini, :db) %>
+      POSTGRES_USER: <%= Rails.application.credentials.dig(:aim_mini, :db_user_name) %>
+      POSTGRES_PASSWORD: <%= Rails.application.credentials.dig(:aim_mini, :db_password) %>
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - aim-mini-network
+
+  web:
+    image: aim-mini-web:v1
+    build:
+      context: .
+      dockerfile: ./Dockerfile.aim-web
+    depends_on:
+      - app
+    ports:
+      - 80:80
+    networks:
+      - aim-mini-network
+networks:
+  aim-mini-network:
+    external: true
