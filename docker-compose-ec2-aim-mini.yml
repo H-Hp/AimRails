@@ -3,25 +3,19 @@ volumes:
   postgres_data: {}
 services:
   app:
-    image: aim-mini-app:v1
-    build:
-      context: .
-      dockerfile: ./Dockerfile.aim-app
+    image: dockermy7777/aim:mini-app_v1
     environment:
       RAILS_ENV: production-aim-mini
       RACK_ENV: production
       SECRET_KEY_BASE: <%= Rails.application.credentials.dig(:aim_mini, :secret_key_base) %>
-    volumes:
-      - ./config/master.key:/aim/config/master.key
     depends_on:
       - db
     networks:
       - aim-mini-network
     #command: bundle exec rails db:migrate
     #command: bundle exec puma -C config/puma.rb
-
   db:
-    image: postgres
+    image: dockermy7777/aim:mini-db_v1
     environment:
       POSTGRES_HOST: db
       POSTGRES_DB: <%= Rails.application.credentials.dig(:aim_mini, :db) %>
@@ -31,12 +25,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - aim-mini-network
-
   web:
-    image: aim-mini-web:v1
-    build:
-      context: .
-      dockerfile: ./Dockerfile.aim-web
+    image: dockermy7777/aim:mini-web_v1
     depends_on:
       - app
     ports:
