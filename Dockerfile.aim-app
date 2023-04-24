@@ -1,16 +1,16 @@
 FROM ruby:2.7.3
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 
-RUN mkdir /aim-mini
+RUN mkdir /aim
 
-WORKDIR /aim-mini
+WORKDIR /aim
 
-COPY Gemfile /aim-mini/Gemfile
-COPY Gemfile.lock /aim-mini/Gemfile.lock
+COPY Gemfile /aim/Gemfile
+COPY Gemfile.lock /aim/Gemfile.lock
 
 RUN bundle install
 
-COPY . /aim-mini
+COPY . /aim
 
 EXPOSE 3000
 
