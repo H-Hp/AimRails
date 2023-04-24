@@ -12,8 +12,10 @@ default: &default
 development:
   <<: *default
   port: 5432
-  username: <%= Rails.application.credentials.dig(:development, :db_host) %>
-  host: <%= Rails.application.credentials.dig(:development, :db_host) %>
+  username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
+  #host: <%= Rails.application.credentials.dig(:development, :db_host) %>
+  host: 0.0.0.0
+  password: <%= Rails.application.credentials.dig(:development, :db_password) %>
   database: <%= Rails.application.credentials.dig(:development, :db) %>
 
 # Warning: The database defined as "test" will be erased and
