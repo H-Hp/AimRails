@@ -1,0 +1,20 @@
+#キャッシュファイル
+.docker/
+.git/
+# tmp/
+log/
+vendor/
+node_modules/
+
+# 機密情報
+config/master.key
+
+# テストに必要なファイル
+test/
+spec/
+
+# 不要なシステムファイル
+.DS_Store
+.idea/
+*.swp
+Thumbs.db
