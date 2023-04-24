@@ -13,8 +13,7 @@ development:
   <<: *default
   port: 5432
   username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
-  #host: <%= Rails.application.credentials.dig(:development, :db_host) %>
-  host: 0.0.0.0
+  host: <%= Rails.application.credentials.dig(:development, :db_host) %>
   password: <%= Rails.application.credentials.dig(:development, :db_password) %>
   database: <%= Rails.application.credentials.dig(:development, :db) %>
 
@@ -23,7 +22,10 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
+  host: <%= Rails.application.credentials.dig(:development, :db_host) %>
+  password: <%= Rails.application.credentials.dig(:development, :db_password) %>
+  database: <%= Rails.application.credentials.dig(:development, :db) %>
 
 production:
   <<: *default
