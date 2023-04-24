@@ -11,6 +11,8 @@ services:
       RAILS_ENV: production-aim-mini
       RACK_ENV: production
       SECRET_KEY_BASE: <%= Rails.application.credentials.dig(:aim_mini, :secret_key_base) %>
+    volumes:
+      - ./config/master.key:/aim/config/master.key
     depends_on:
       - db
     networks:
