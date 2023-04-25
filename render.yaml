@@ -6,7 +6,7 @@ databases:
 
 services:
   - type: web
-    name: aim_db
+    name: Aim_Rails
     env: ruby
     region: singapore
     buildCommand: "./bin/render-build.sh"

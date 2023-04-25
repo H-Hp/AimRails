@@ -42,9 +42,8 @@ production-aim-mini:
 
 production_render_com: #Render.comのDB設定
   <<: *production
+  encoding: unicode
   port: 5432
-  host: <%= ENV['RENDER_HOST'] %>
+  #host: <%= ENV['RENDER_HOST'] %>
   url: <%= ENV['RENDER_COM_DATABASE_URL'] %>
-  password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
-
-
+  #password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
