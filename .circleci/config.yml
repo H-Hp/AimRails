@@ -1,0 +1,47 @@
+version: 2.1
+
+# このプロジェクトで実行するジョブの定義
+jobs:
+  build:
+    docker:
+      - image: dockermy7777/aim:mini_app_v1
+      #- image: dockermy7777/aim:big_app_v1
+      #- image: dockermy7777/aim:mini_app_latest
+      #- image: dockermy7777/aim:big_app_latest
+        auth:
+          username: dockermy7777
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+    steps:
+      - checkout
+  test:
+    docker:
+      - image: dockermy7777/aim:mini_app_v1
+        auth:
+          username: dockermy7777
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+    steps:
+      - checkout
+  deploy_to_render:
+    docker:
+      - image: dockermy7777/aim:mini_app_v1
+        auth:
+          username: dockermy7777
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Render.com
+          command: |
+            curl -X POST "https://api.render.com/deploy/srv-$RENDER_PROJECT_ID?key=$DEPLOY_KEY" 
+    #when: on_success
+
+# ジョブの実行順の指定
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test
+  deploy:
+    jobs:
+      - deploy_to_render:
+          context: render
