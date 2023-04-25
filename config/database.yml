@@ -40,6 +40,14 @@ production-aim-mini:
   username: <%= Rails.application.credentials.dig(:aim_mini, :db_user_name) %>
   password: <%= Rails.application.credentials.dig(:aim_mini, :db_password) %>
 
+production-aim-big:
+  <<: *production
+  port: 5432
+  host: <%= Rails.application.credentials.dig(:aim_big, :db_host) %>
+  username: <%= Rails.application.credentials.dig(:aim_big, :db_user_name) %>
+  password: <%= Rails.application.credentials.dig(:aim_big, :db_password) %>
+  database: <%= Rails.application.credentials.dig(:aim_big, :db) %>
+
 production_render_com: #Render.comのDB設定
   <<: *production
   encoding: unicode
