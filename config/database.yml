@@ -45,5 +45,10 @@ production_render_com: #Render.comのDB設定
   encoding: unicode
   port: 5432
   #host: <%= ENV['RENDER_HOST'] %>
-  url: <%= ENV['RENDER_COM_DATABASE_URL'] %>
+  #url: <%= ENV['RENDER_COM_DATABASE_URL'] %>
   #password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
+
+  database: aim_db
+  username: <%= ENV['RENDER_COM_DATABASE_USERNAME'] %>
+  password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
+  host: render-external-db-host.render.com
