@@ -50,5 +50,4 @@ production_render_com: #Render.comのDB設定
 
   #database: aim_db
   #username: <%= ENV['RENDER_COM_DATABASE_USERNAME'] %>
-  #password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
   #host: render-external-db-host.render.com

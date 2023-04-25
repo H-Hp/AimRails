@@ -1,0 +1,34 @@
+version: '3'
+volumes:
+  postgres_data: {}
+
+services:
+  app:
+    image: aim-big-app:v1
+    build:
+      context: .
+      dockerfile: ./Dockerfile.aim-app
+    environment:
+      RAILS_ENV: production-aim-big
+      RACK_ENV: production
+      SECRET_KEY_BASE: <%= Rails.application.credentials.aim_big[:secret_key_base] %>
+    volumes:
+      - ./config/master.key:/aim/config/master.key
+    networks:
+      - aim-big-network
+    #command: bundle exec rails db:migrate
+    #command: bundle exec puma -C config/puma.rb
+  web:
+    image: aim-big-web:v1
+    build:
+      context: .
+      dockerfile: ./Dockerfile.aim-web
+    depends_on:
+      - app
+    ports:
+      - 80:80
+    networks:
+      - aim-big-network
+networks:
+  aim-big-network:
+    external: true
