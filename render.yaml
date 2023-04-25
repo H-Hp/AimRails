@@ -1,7 +1,7 @@
 databases:
   - name: aim_db
     databaseName: aim_db
-    user: <%= ENV['RENDER_COM_DATABASE_USERNAME'] %>
+    user: wondman_
     region: singapore
 
 services:
