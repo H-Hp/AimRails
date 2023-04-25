@@ -92,4 +92,6 @@ production: &production
   cache_manifest: true
 
 production-aim-mini:
-  <<: *production 
+  <<: *production
+production-aim-big:
+  <<: *production
