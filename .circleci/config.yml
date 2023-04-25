@@ -4,10 +4,10 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: dockermy7777/aim:mini_app_v1
-      #- image: dockermy7777/aim:big_app_v1
-      #- image: dockermy7777/aim:mini_app_latest
-      #- image: dockermy7777/aim:big_app_latest
+      - image: dockermy7777/aim:mini-app_v1
+      #- image: dockermy7777/aim:big-app_v1
+      #- image: dockermy7777/aim:mini-app_latest
+      #- image: dockermy7777/aim:big-app_latest
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
@@ -15,7 +15,7 @@ jobs:
       - checkout
   test:
     docker:
-      - image: dockermy7777/aim:mini_app_v1
+      - image: dockermy7777/aim:mini-app_v1
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
@@ -23,7 +23,7 @@ jobs:
       - checkout
   deploy_to_render:
     docker:
-      - image: dockermy7777/aim:mini_app_v1
+      - image: dockermy7777/aim:mini-app_v1
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
