@@ -60,8 +60,8 @@ workflows:
     jobs:
       - deploy_to_render:
           context: render
-      - deploy_to_EC2_mini:
-          context: render
-          filters:
-            branches:
-              only: main
+#      - deploy_to_EC2_mini:
+#          context: render
+#          filters:
+#            branches:
+#              only: main
