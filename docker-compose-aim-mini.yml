@@ -3,7 +3,8 @@ volumes:
   postgres_data: {}
 services:
   app:
-    image: aim-mini-app:v1
+    #image: aim-mini-app:v1
+    image: aim-mini-app-image:latest
     build:
       context: .
       dockerfile: ./Dockerfile.aim-app
@@ -33,7 +34,7 @@ services:
       - aim-mini-network
 
   web:
-    image: aim-mini-web:v1
+    image: aim-mini-web-image:latest
     build:
       context: .
       dockerfile: ./Dockerfile.aim-web

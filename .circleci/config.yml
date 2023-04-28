@@ -35,6 +35,21 @@ jobs:
             curl -X POST "https://api.render.com/deploy/srv-$RENDER_PROJECT_ID?key=$DEPLOY_KEY" 
     #when: on_success
 
+  deploy_to_EC2_mini:
+    docker:
+      - image: dockermy7777/aim:mini-app-latest
+        auth:
+          username: dockermy7777
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "fc:15:79:51:be:36:08:e0:44:9f:a3:1d:4e:15:c0:e2"
+      - deploy:
+          name: Capistrano deploy
+          command: bundle exec cap production-aim-mini deploy
+
 # ジョブの実行順の指定
 workflows:
   build_and_test:
@@ -45,3 +60,8 @@ workflows:
     jobs:
       - deploy_to_render:
           context: render
+      - deploy_to_EC2_mini:
+          context: render
+          filters:
+            branches:
+              only: main
