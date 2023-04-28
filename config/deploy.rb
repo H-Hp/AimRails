@@ -19,7 +19,7 @@ set :log_level, :debug #出力するログレベル
 set :ssh_options, { # SSH接続設定
   auth_methods: ['publickey'], #SSH接続の認証方法としてpublickey を指定
   #keys: ['~/.ssh/プライベートキーの名前.pem']
-  keys: ['/Users/hayashihiroki/Desktop/Aim/Rails_Aim/aim-mini-ec2-keypair.pem']
+  keys: ['/Users/hayashihiroki/Desktop/Aim/Rails_Aim/aim-mini-ec2-keypair.pem'],
   #keys: [ENV.fetch('PRODUCTION_SSH_KEY').to_s],
   forward_agent: true #ローカル環境で管理しているSSH秘密鍵を中継できる・CircleCI上でSSHコマンドを実行する際に、ローカルで保持しているSSH鍵を使用して、EC2インスタンスにSSH接続することができます。つまり、CircleCIからローカルのSSH鍵を参照して、EC2にSSH接続できるようになります
 }
