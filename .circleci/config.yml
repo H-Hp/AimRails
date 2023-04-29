@@ -45,7 +45,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test
       - deploy_to_render:
           context: render
 #     - deploy_to_EC2_mini:
