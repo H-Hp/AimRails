@@ -14,14 +14,14 @@ jobs:
     steps:
       - checkout
       - run: bundle install
-      - run: bundle exec rake db:migrate
+      #- run: bundle exec rake db:migrate
       - run: bundle exec rspec spec/
   deploy_to_render:
     docker:
       - image: dockermy7777/aim:mini-app-latest
         auth:
           username: dockermy7777
-          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+          password: $DOCKERHUB_PASSWORD
      steps:
       - checkout
       - run:
