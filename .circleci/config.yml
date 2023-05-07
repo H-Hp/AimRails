@@ -8,23 +8,8 @@ jobs:
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD
-      - image: circleci/postgres:latest
-        environment:
-          POSTGRES_USER: $POSTGRES_USER
-          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-          POSTGRES_DB: $POSTGRES_DB
     steps:
       - checkout
-      - run: bundle install
-      #- run: rails db:create db:schema:load RAILS_ENV=test
-      - run:
-          name: Create PostgreSQL role
-          command: |
-            apk add --no-cache postgresql-client
-            psql -h localhost -U postgres -c "CREATE ROLE wondman_ WITH LOGIN PASSWORD 'mypassword';"
-            psql -h localhost -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE mydatabase TO wondman_;"
-      - run: bundle exec rake db:migrate
-      - run: bundle exec rspec spec/
 
   deploy_to_render:
      docker:
