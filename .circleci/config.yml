@@ -11,6 +11,7 @@ jobs:
     steps:
       - checkout
 
+
   deploy_to_render:
      docker:
       - image: dockermy7777/aim:mini-app-latest
