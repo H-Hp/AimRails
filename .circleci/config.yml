@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run: bundle install
       - run: rails db:create db:schema:load RAILS_ENV=test
-      #- run: bundle exec rake db:migrate
+      - run: bundle exec rake db:migrate
       - run: bundle exec rspec spec/
 
   deploy_to_render:
