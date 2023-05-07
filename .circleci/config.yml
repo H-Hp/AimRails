@@ -8,6 +8,11 @@ jobs:
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD
+      - image: circleci/postgres:latest
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "" 
+          POSTGRES_DB: $POSTGRES_DB
     steps:
       - checkout
 
