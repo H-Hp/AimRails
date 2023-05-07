@@ -5,6 +5,9 @@ jobs:
   build:
     docker:
       - image: dockermy7777/aim:mini-app-latest
+        auth:
+          username: dockermy7777
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
       #- image: dockermy7777/aim:big-app_v1
       #- image: dockermy7777/aim:mini-app_latest
       #- image: dockermy7777/aim:big-app_latest
@@ -13,9 +16,6 @@ jobs:
           POSTGRES_USER: $POSTGRES_USER
           POSTGRES_PASSWORD: $POSTGRES_PASSWORD
           POSTGRES_DB: $POSTGRES_DB
-        auth:
-          username: dockermy7777
-          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
     steps:
       - checkout
       - run: bundle install
