@@ -17,6 +17,12 @@ jobs:
       - checkout
       - run: bundle install
       #- run: rails db:create db:schema:load RAILS_ENV=test
+      - run:
+          name: Create PostgreSQL role
+          command: |
+            apk add --no-cache postgresql-client
+            psql -h localhost -U postgres -c "CREATE ROLE wondman_ WITH LOGIN PASSWORD 'mypassword';"
+            psql -h localhost -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE mydatabase TO wondman_;"
       - run: bundle exec rake db:migrate
       - run: bundle exec rspec spec/
 
