@@ -25,7 +25,7 @@ test:
   port: 5432
   host: 127.0.0.1
   database: <%= Rails.application.credentials.dig(:development, :db) %>
-  username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
+  username: postgres
   password: <%= Rails.application.credentials.dig(:development, :db_password) %>
 
 production: &production
