@@ -1,6 +1,5 @@
 lock "~> 3.17.2" # Capistranoのバージョン
 
-
 set :application, "Aim" #デプロイするアプリの名称
 set :repo_url, "git@github.com:H-Hp/AimRails.git" #リポジトリURL
 set :branch, 'main' #リポジトリのブランチ
