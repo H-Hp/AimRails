@@ -23,6 +23,7 @@ namespace :my_custom_task do
     run_locally do
       execute "ls"
       execute "echo 'pdw='; pwd"
+      execute "docker ps"
       execute "echo 'a'"
     end
   end
