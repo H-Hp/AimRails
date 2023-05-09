@@ -7,13 +7,31 @@ server '13.114.132.66', user: 'ec2-user', roles: %w{app db web}
 #この設定により、deploy:startingタスクが実行される前に、my_custom_task:runタスクが実行されます。
 #before 'deploy:starting', 'my_custom_task:local_ImageBuild'
 #before 'deploy:starting', 'my_custom_task:local_dockerhub_push'
-before 'deploy:starting', 'my_custom_task:ec2_up'
+#before 'deploy:starting', 'my_custom_task:ec2_up'
+
+#test
+before 'deploy:starting', 'my_custom_task:test_local'
+before 'deploy:starting', 'my_custom_task:test_ec2'
 
 #カスタムタスクを呼び出す・デプロイの完了後に my_custom_task:run タスクが実行される
 #after 'deploy:finished', 'my_custom_task:run'
 #after 'deploy:finished', 'my_custom_task:ec2_up'
 
 namespace :my_custom_task do
+  desc "testローカル"
+  task :test_local do
+    run_locally do
+      execute "ls"
+      execute "echo 'pdw='; pwd"
+      execute "echo 'a'"
+    end
+  end
+  desc "test EC2"
+  task :test_ec2 do
+    on roles(:app) do
+      execute "echo 'test EC2・pdw='; pwd"
+    end
+  end
   desc "ローカルでDockerImageをビルドして作成し、タグ付けを行う"
   task :local_ImageBuild do
     #on roles(:app) do
@@ -39,22 +57,8 @@ namespace :my_custom_task do
   task :ec2_up do
     on roles(:app) do
       execute "echo 'EC2での処理・pdw='; pwd"
-      execute "docker ps"
-      #execute "docker images"
       #execute "docker pull dockermy7777/aim:mini-app-latest"
-      
-      #execute "docker pull dockermy7777/aim:mini-web_latest"
-      #execute "cd /Aim"
-      #execute "pwd;ls -a"
-      #execute "docker-compose -f docker-compose-ec2-aim-mini.yml up -d"
-      #execute "docker-compose -f docker-compose-ec2-aim-mini.yml up"
-
       execute "docker-compose -f /Aim/docker-compose-ec2-aim-mini.yml up -d"
-      
-
-      #execute "docker exec -it d88f9042b7b5 bash" #appコンテナに入る
-      #execute "docker exec -it d88f9042b7b5 bash" 
-      #execute "docker exec -it aim_app_container rails -v" #appコンテナに入る
       
       execute "docker exec aim_app_container rails -v"
       execute "docker exec aim_app_container bundle install"
@@ -63,7 +67,8 @@ namespace :my_custom_task do
       #execute "docker exec aim_app_container apt-get install yarn"
       #execute "docker exec aim_app_container apt-get install yarn=1.22.5-1"
       #execute "docker exec aim_app_container rails assets:precompile"
-      execute "docker exec aim_app_container rake assets:precompile"
+      #execute "docker exec aim_app_container rake assets:precompile"
+      execute "docker exec aim_app_container rake assets:precompile RAILS_ENV=production-aim-mini"
       #execute "rails -v"
       #execute "rails db:migrate"
       #execute "exit" #appコンテナから抜ける

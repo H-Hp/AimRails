@@ -24,4 +24,3 @@ set :ssh_options, { # SSH接続設定
 }
 =begin
 =end
-
