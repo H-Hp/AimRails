@@ -54,6 +54,7 @@ jobs:
             - "fc:15:79:51:be:36:08:e0:44:9f:a3:1d:4e:15:c0:e2"
       - run: curl ipecho.net/plain; echo
       - run: bundle exec cap production-aim-mini my_custom_task:test_local
+      - run: cocker ps
       - run: bundle exec cap production-aim-mini my_custom_task:test_ec2
 #      - deploy:
 #          name: Capistrano deploy
