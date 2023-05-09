@@ -44,6 +44,7 @@ jobs:
   deploy_to_EC2_mini:
     docker:
       - image: dockermy7777/aim:mini-app-latest
+      - image: circleci/ruby:2.7
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
