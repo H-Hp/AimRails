@@ -8,7 +8,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update && apt-get install -y yarn
 
 #node v18をインストールする場合(使用するバージョンに合わせること)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | -E bash -
 RUN apt-get install -y nodejs
 
 RUN mkdir /aim
