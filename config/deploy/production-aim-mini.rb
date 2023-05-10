@@ -58,7 +58,7 @@ namespace :my_custom_task do
   task :ec2_up do
     on roles(:app) do
       execute "echo 'EC2での処理・pdw='; pwd"
-      #execute "docker pull dockermy7777/aim:mini-app-latest"
+      execute "docker pull dockermy7777/aim:mini-app-latest"
       execute "docker-compose -f /Aim/docker-compose-ec2-aim-mini.yml up -d"
       
       execute "docker exec aim_app_container rails -v"

@@ -81,7 +81,8 @@ jobs:
 #          echo $DOCKER_PASS | docker login -u dockermy7777 --password-stdin
 #          docker push CircleCI-Public/circleci-demo-docker:$TAG
       - run: bundle exec cap production-aim-mini my_custom_task:local_ImageBuild
-      - run: bundle exec cap production-aim-mini my_custom_task:test_ec2
+      - run: bundle exec cap production-aim-mini my_custom_task:local_dockerhub_push
+      - run: bundle exec cap production-aim-mini my_custom_task:ec2_up
 #      - deploy:
 #          name: Capistrano deploy
           #command: bundle exec cap production-aim-mini deploy
