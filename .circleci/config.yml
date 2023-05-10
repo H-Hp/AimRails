@@ -58,9 +58,20 @@ jobs:
       #- run: docker ps
       #- run: docker build -t my_image .
       #- run: bundle exec cap production-aim-mini my_custom_task:test_local
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
+#      - run: |
+#          TAG=0.1.$CIRCLE_BUILD_NUM
+#          docker build -t CircleCI-Public/circleci-demo-docker:$TAG .
+#          echo $DOCKER_PASS | docker login -u dockermy7777 --password-stdin
+#          docker push CircleCI-Public/circleci-demo-docker:$TAG
       - run: bundle exec cap production-aim-mini my_custom_task:local_ImageBuild
       - run: bundle exec cap production-aim-mini my_custom_task:test_ec2
 #      - deploy:
