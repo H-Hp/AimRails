@@ -43,11 +43,11 @@ jobs:
             curl -X POST "https://api.render.com/deploy/srv-$RENDER_PROJECT_ID?key=$DEPLOY_KEY" 
   deploy_to_EC2_mini:
     docker:
-      #- image: circleci/ruby:2.7.3
       - image: dockermy7777/aim:mini-app-latest
         auth:
           username: dockermy7777
           password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+      - image: circleci/ruby:2.7.3
     steps:
       - checkout
       - add_ssh_keys:
