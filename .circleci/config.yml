@@ -57,7 +57,8 @@ jobs:
       #- run: bundle install
       #- run: docker ps
       #- run: docker build -t my_image .
-      - run: bundle exec cap production-aim-mini my_custom_task:test_local
+      #- run: bundle exec cap production-aim-mini my_custom_task:test_local
+      - run: bundle exec cap production-aim-mini my_custom_task:local_ImageBuild
       - run: bundle exec cap production-aim-mini my_custom_task:test_ec2
 #      - deploy:
 #          name: Capistrano deploy
