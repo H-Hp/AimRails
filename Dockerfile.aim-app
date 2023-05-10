@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install yarn
 
 #node v18をインストールする場合(使用するバージョンに合わせること)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-RUN sudo apt install -y nodejs
+RUN apt install -y nodejs
 
 RUN mkdir /aim
 
