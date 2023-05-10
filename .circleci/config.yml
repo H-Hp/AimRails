@@ -58,6 +58,9 @@ jobs:
       #- run: docker ps
       #- run: docker build -t my_image .
       #- run: bundle exec cap production-aim-mini my_custom_task:test_local
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run: bundle exec cap production-aim-mini my_custom_task:local_ImageBuild
       - run: bundle exec cap production-aim-mini my_custom_task:test_ec2
 #      - deploy:
