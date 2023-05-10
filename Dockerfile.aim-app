@@ -5,7 +5,7 @@ RUN apt-get update -qq && apt-get install -y curl postgresql-client
 # 公式のインストール方法を参考に安定版で最新のyarnをインストールする
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install yarn
+RUN apt-get update && apt-get install -y yarn
 
 #node v18をインストールする場合(使用するバージョンに合わせること)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
