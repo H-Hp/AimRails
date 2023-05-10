@@ -77,4 +77,36 @@ namespace :my_custom_task do
       execute "docker-compose -f /Aim/docker-compose-ec2-aim-mini.yml restart"
     end
   end
+  desc "S3へ静的ファイルをpush"
+  task :s3_staticfile_push do
+    run_locally do
+      #bundle exec cap production-aim-mini my_custom_task:s3_staticfile_push
+      puts "Hello, world!"
+      #s3 = Aws::S3::Resource.new
+      #obj = s3.bucket('<%= Rails.application.credentials.dig(:aws, :bucket) %>').object('key')
+      #obj.upload_file('/path/to/file')
+      #obj.presigned_url(:get)
+      require_relative '../environment'
+      require 'aws-sdk-s3'
+      s3 = Aws::S3::Resource.new(
+        region: Rails.application.credentials.dig(:aws, :region),
+        credentials: Aws::Credentials.new(
+          Rails.application.credentials.dig(:aws, :access_key_id),
+          Rails.application.credentials.dig(:aws, :secret_access_key)
+        )
+      )
+      bucket_name = Rails.application.credentials.dig(:aws, :bucket)
+      bucket = s3.bucket(bucket_name)
+      raise "Bucket #{bucket_name} does not exist" unless bucket.exists?
+  
+      # ローカルの`public/assets`ディレクトリのファイルをS3にアップロード
+      Dir.glob('public/assets/**/*').each do |path|
+        next if File.directory?(path)
+  
+        key = path.gsub('public/', '') # `public`ディレクトリを除去してS3の`key`に設定
+        obj = bucket.object(key)
+        obj.upload_file(path)
+      end
+    end
+  end
 end
