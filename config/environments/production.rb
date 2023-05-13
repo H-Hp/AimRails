@@ -16,6 +16,7 @@ Rails.application.configure do
   config.assets.compile = false
   #config.active_storage.service = :local
   config.active_storage.service = :amazon
+  #config.action_controller.asset_host
   config.log_level = :info
   config.log_tags = [ :request_id ]
   config.action_mailer.perform_caching = false

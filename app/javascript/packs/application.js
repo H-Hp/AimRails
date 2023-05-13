@@ -8,6 +8,9 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+
+console.log("application.jsの読み込み")
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

@@ -31,6 +31,11 @@ test:
 production: &production
   <<: *default
   #database: db/production.sqlite3
+  port: 5432
+  username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
+  host: <%= Rails.application.credentials.dig(:development, :db_host) %>
+  password: <%= Rails.application.credentials.dig(:development, :db_password) %>
+  database: <%= Rails.application.credentials.dig(:development, :db) %>
 
 production-aim-mini:
   <<: *production

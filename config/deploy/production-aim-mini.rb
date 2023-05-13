@@ -80,6 +80,8 @@ namespace :my_custom_task do
   desc "S3へ静的ファイルをpush"
   task :s3_staticfile_push do
     run_locally do
+      execute "RAILS_ENV=production rake assets:precompile NODE_OPTIONS=--openssl-legacy-provider"
+      
       #bundle exec cap production-aim-mini my_custom_task:s3_staticfile_push
       puts "Hello, world!"
       #s3 = Aws::S3::Resource.new
@@ -104,6 +106,18 @@ namespace :my_custom_task do
         next if File.directory?(path)
   
         key = path.gsub('public/', '') # `public`ディレクトリを除去してS3の`key`に設定
+        puts 'assetsのpath='+path
+        puts 'assetsのkey='+key
+        obj = bucket.object(key)
+        obj.upload_file(path, content_type: 'text/css')
+        #obj.upload_file(path)
+      end
+      Dir.glob('public/packs/**/*').each do |path|
+        next if File.directory?(path)
+  
+        key = path.gsub('public/', '') # `public`ディレクトリを除去してS3の`key`に設定
+        puts 'packsのpath='+path
+        puts 'packsのkey='+key
         obj = bucket.object(key)
         obj.upload_file(path)
       end
