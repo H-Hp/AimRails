@@ -3,6 +3,14 @@ module S3Helper
     "Yahoo, #{manko}!"
   end
 
+  if Rails.env.production_render_com?
+    s3 = Aws::S3::Resource.new(region: 'ap-northeast-1',access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
+    bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
+  else
+    s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
+    bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
+  end
+
   def s3_asset_path(logical_path)
     s3 = Aws::S3::Resource.new(
       region: Rails.application.credentials.dig(:aws, :region),
@@ -60,8 +68,8 @@ module S3Helper
     favicon_link_tag(source)
   end
   def cloudfront_javascript_pack_tag(source, options = {})
-    s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
-    bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
+    #s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
+    #bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
     #fingerprinted_path = Rails.application.assets_manifest.packs[source]  # フィンガープリント付きのファイル名を取得
     #manifest_path = Rails.root.join('public', 'packs', 'manifest.json')
     #manifest = JSON.parse(File.read(manifest_path))

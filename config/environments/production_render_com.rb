@@ -9,7 +9,7 @@ Rails.application.configure do
   config.x.aws.region = 'ap-northeast-1'
   ENV['AWS_REGION'] = 'ap-northeast-1'
   #config.assets.compile = true
-  #config.active_storage.service = :local
+  config.active_storage.service = :local
 =begin
   config.paperclip_defaults = {
     :storage        => :s3,
