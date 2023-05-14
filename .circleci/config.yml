@@ -58,6 +58,7 @@ jobs:
       #- run: docker ps
       #- run: docker build -t my_image .
       #- run: bundle exec cap production-aim-mini my_custom_task:test_local
+      - run: bundle install
       - run:
           name: Install Docker Compose
           command: |
