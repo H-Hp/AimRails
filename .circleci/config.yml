@@ -37,6 +37,7 @@ jobs:
           password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
      steps:
       - checkout
+      - run: bundle install
       - run:
           name: Deploy to Render.com
           command: |
@@ -58,7 +59,6 @@ jobs:
       #- run: docker ps
       #- run: docker build -t my_image .
       #- run: bundle exec cap production-aim-mini my_custom_task:test_local
-      - run: bundle install
       - run:
           name: Install Docker Compose
           command: |
