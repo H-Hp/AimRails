@@ -8,4 +8,15 @@ Rails.application.configure do
   #config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
   #config.assets.compile = true
   #config.active_storage.service = :local
+  config.paperclip_defaults = {
+    :storage        => :s3,
+    :s3_region      => 'ap-northeast-1', # リージョン名を指定
+    :s3_host_name   => 's3-ap-northeast-1.amazonaws.com',
+    :bucket         => ENV['S3_BUCKET_NAME'],
+    :s3_credentials => {
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+
 end
