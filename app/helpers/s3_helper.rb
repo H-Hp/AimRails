@@ -2,6 +2,7 @@ module S3Helper
   def Yahoo(manko)
     "Yahoo, #{manko}!"
   end
+=begin
   s3 =''
   bucket = ''
   if Rails.env.production_render_com?
@@ -11,10 +12,10 @@ module S3Helper
     s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
     bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
   end
-
+=end
   def s3_asset_path(logical_path)
-    s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
-    bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
+    #s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
+    #bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
 
     # フィンガープリント付きのファイル名を取得
     fingerprinted_path = Rails.application.assets_manifest.assets[logical_path]
