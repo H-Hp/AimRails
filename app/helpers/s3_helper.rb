@@ -2,7 +2,8 @@ module S3Helper
   def Yahoo(manko)
     "Yahoo, #{manko}!"
   end
-
+  s3 =''
+  bucket = ''
   if Rails.env.production_render_com?
     s3 = Aws::S3::Resource.new(region: 'ap-northeast-1',access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
     bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
@@ -12,11 +13,7 @@ module S3Helper
   end
 
   def s3_asset_path(logical_path)
-    s3 = Aws::S3::Resource.new(
-      region: Rails.application.credentials.dig(:aws, :region),
-      access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
-      secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key)
-    )
+    s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
     bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
 
     # フィンガープリント付きのファイル名を取得
@@ -31,12 +28,8 @@ module S3Helper
     #https://aim-bucket.s3.ap-northeast-1.amazonaws.com/assets/Logo-32b516986ab7ce23f8ff68c83374d3cb621b507dc9a8a4aa86929d4b9531f30e.svg
   end
   def cloudfront_stylesheet_link_tag(source, options = {})
-    s3 = Aws::S3::Resource.new(
-      region: Rails.application.credentials.dig(:aws, :region),
-      access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
-      secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key)
-    )
-    bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
+    #s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))
+    #bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
 
     # フィンガープリント付きのファイル名を取得
     fingerprinted_path = Rails.application.assets_manifest.assets[source]
@@ -55,12 +48,8 @@ module S3Helper
   end
 
   def cloudfront_favicon_link_tag(source, options = {})
-    s3 = Aws::S3::Resource.new(
-      region: Rails.application.credentials.dig(:aws, :region),
-      access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),
-      secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key)
-    )
-    bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
+    #s3 = Aws::S3::Resource.new(region: Rails.application.credentials.dig(:aws, :region),access_key_id: Rails.application.credentials.dig(:aws, :access_key_id),secret_access_key: Rails.application.credentials.dig(:aws, :secret_access_key))  
+    #bucket = s3.bucket(Rails.application.credentials.dig(:aws, :bucket))
     fingerprinted_path = Rails.application.assets_manifest.assets[source]  # フィンガープリント付きのファイル名を取得
     key = "assets/#{fingerprinted_path}" # S3オブジェクトのキーを作成
     cloudfront_domain = 'd2hcwuo8gsf97u.cloudfront.net'
