@@ -288,7 +288,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  aws-eventstream (~> 1.2.0)
   aws-sdk-s3 (~> 1.48)
   bootsnap (>= 1.4.4)
   byebug

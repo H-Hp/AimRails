@@ -20,7 +20,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 #gem 'aws-sdk-s3'
 gem 'aws-sdk-s3', '~> 1.48'
-gem 'aws-eventstream', '~> 1.2.0'
+#gem 'aws-eventstream', '~> 1.2.0'
 gem 'rack-cors'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
