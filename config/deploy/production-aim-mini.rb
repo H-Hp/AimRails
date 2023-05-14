@@ -67,10 +67,12 @@ namespace :my_custom_task do
       #execute "docker exec aim_app_container apt-get update"
       #execute "docker exec aim_app_container apt-get install yarn"
       #execute "docker exec aim_app_container apt-get install yarn=1.22.5-1"
+      
       #execute "docker exec aim_app_container rails assets:precompile"
       #execute "docker exec aim_app_container rake assets:precompile"
-      execute "docker exec aim_app_container bundle exec rake assets:precompile RAILS_ENV=production NODE_OPTIONS=--openssl-legacy-provider"
       #execute "docker exec aim_app_container rake assets:precompile RAILS_ENV=production-aim-mini"
+      ###execute "docker exec aim_app_container bundle exec rake assets:precompile RAILS_ENV=production NODE_OPTIONS=--openssl-legacy-provider"
+      
       #execute "rails -v"
       #execute "rails db:migrate"
       #execute "exit" #appコンテナから抜ける

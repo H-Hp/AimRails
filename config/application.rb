@@ -11,12 +11,16 @@ module AimRails
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        # 許可するドメイン
+        #origins "{{ ローカル環境ドメイン }}", "{{ テスト環境ドメイン }}", "{{ 本番環境ドメイン }}"
+        origins "{{ localhost:3000 }}", "{{ 0.0.0.0:3000 }}", "{{ https://aim-yw6r.onrender.com/ }}", "{{ https://www.aim-get.com/ }}"
+        #origins 'http://localhost:3000'
+        #resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+        # 許可するヘッダとメソッドの種類
+        resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :head, :options]
+      end
+    end
   end
 end

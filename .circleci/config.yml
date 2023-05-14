@@ -81,6 +81,7 @@ jobs:
 #          echo $DOCKER_PASS | docker login -u dockermy7777 --password-stdin
 #          docker push CircleCI-Public/circleci-demo-docker:$TAG
       - run: docker login --username=dockermy7777 --password=$DOCKERHUB_PASSWORD
+      - run: bundle exec cap production-aim-mini my_custom_task:s3_staticfile_push
       - run: bundle exec cap production-aim-mini my_custom_task:local_ImageBuild
       - run: bundle exec cap production-aim-mini my_custom_task:local_dockerhub_push
       - run: bundle exec cap production-aim-mini my_custom_task:ec2_up
