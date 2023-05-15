@@ -18,19 +18,21 @@
     <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
     -->
-    <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' , as: 'style' %>
     
-
-
     <!--<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://d2hcwuo8gsf97u.cloudfront.net/packs/js/application-a19bc2af213c4adc9762.js" data-turbolinks-track="reload"></script>
     <script src="<%= cloudfront_javascript_pack_tag 'all' %>" data-turbolinks-track="reload"></script>
     -->
    
-    <script src="<%= cloudfront_javascript_pack_tag 'application' %>" data-turbolinks-track="reload"></script>
     
+    <% if Rails.env.development? %>
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
+      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% else %>
+      <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' , as: 'style' %>
+      <script src="<%= cloudfront_javascript_pack_tag 'application' %>" data-turbolinks-track="reload"></script>
+    <% end %>
     
-
     </head>
 
   <body>
@@ -47,35 +49,38 @@
   
     <div class="Logo-a">
     <a href="/">
-
-    <svg viewBox="0 0 3000 250" role="img" aria-labelledby="BAKERY COLNE" class="b-hero-cover03-bg-logo">
-      <!-- <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo"></use>      
+    <!-- <svg viewBox="0 0 3000 250" role="img" aria-labelledby="BAKERY COLNE" class="b-hero-cover03-bg-logo">
+      <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo"></use>      
       <use xlink:href="/assets/Logo.svg#Logo"></use>
       <use xlink:href="<%= asset_path('Logo.svg') %>#Logo"></use> 
-      <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo" crossOrigin="Anonymous"></use>
-      -->
-      <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %>
-    </svg>
-
+      <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo" crossOrigin="Anonymous"></use>  
+    </svg>-->
+    <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %>
     </a>
     </div>
-    <!--  -->
+      
 
     <form method="GET" action="/search" class="SearchForm">
       <input type="text" class="SearchBox" name="word" placeholder="検索">
-      <button type="submit" class="SearchBtn">検索</button>
+      <!--<a href=""><button type="submit" class="SearchBtn">検索</button></a>-->
+      <a href="" type="submit" class="SearchBtn"><%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %></a>
+    
     </form>
 
-    <div class="mypage_div">
-      <a href="/mypage">マイページへ</a>
-    </div>
-    <div class="aim-new_div">
-      <a href="/aim/new">Aim新規作成</a>
-    </div>
 
+    <% if user_signed_in? %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12" %><br>
+      <%= link_to "マイページ", "/mypage" ,class: "Login_btn btn btn-success mb-12" %>
+      <%= link_to "Aim新規作成", "/aim/new" ,class: "NewAim_btn btn btn-success mb-12" %>
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path ,class: "Login_btn btn btn-warning mb-12" %><br>
+      <%= link_to '登録', new_user_registration_path ,class: "NewUser_btn btn btn-success mb-12" %>
+    <% end %>
+    <!--
     <button  class="NewUser_btn btn btn-success mb-12" data-toggle="modal" data-target="#testModal2">ユーザー登録</button>
     <button  class="Login_btn btn btn-warning mb-12" data-toggle="modal" data-target="#testModal">ログイン</button>
     <button class="Logout_btn">ログアウト</button>
+    -->
   </header>
 
 <main>
@@ -83,11 +88,15 @@
 </main>
 
 <div class="Left">
-  <a href="/terms" class="policy_link">利用規約</a>
+  <!--<a href="/terms" class="policy_link">利用規約</a>-->
   <a href="/contact/new" class="contact_link">お問い合わせ</a>
   <span class="copyright">Copyright© <%= Date.today.year %> Hiroki Hayashi</span>
-  <p>v-5/10/15:33</p>
+  
+  
+
+
 </div>
+<span class="copyright">v-5/14/23:40</span>
 
 <!-- ログインモーダルウィンドウ -->
 <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

@@ -57,14 +57,23 @@ header{
 .Logout_btn{
   display: none;
 }
-
+.NewAim_btn{
+  position: fixed;
+  width: 120px;
+  height: 29px;
+  top: 15px;
+  right:250px;
+  background: #D0DF24;
+}
 .SearchForm{
   position: fixed;
   left: 150px;
+  /*right:430px;*/
   top: 15px;
 }
 .SearchBox{
-  width: 394px;
+  /*width: 394px;*/
+  width: 25vw;
   height: 29px;
   background: #121212;
   border: 1px solid #303030;
@@ -72,7 +81,8 @@ header{
   color: white;
 }
 .SearchBtn{
-  width: 92px;
+  /*width: 92px;*/
+  width: 10vw;
   height: 29px;
   background: #D0DF24;
   border: 1px solid #303030;
