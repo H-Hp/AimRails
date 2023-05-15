@@ -3,9 +3,26 @@
 </div>
 
 <div>
-<textarea id="story" name="story"rows="5" cols="33">
+<textarea id="content" name="story"rows="5" cols="33">
 <%= @aim.content %>
 </textarea>
 </div>
 
 <button type="button" class="btn btn-warning">変更</button>
+
+
+<%= form_with(model: @aim, url: "/aim/update/"+@aim.id.to_s, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_field :content, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "変更" %>
+  </div>
+<% end %>

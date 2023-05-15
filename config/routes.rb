@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'search'  => 'aim#search'
   #get 'create'  =>'aim#create'
   get '/aim/edit/:id'  =>'aim#edit'
+  patch '/aim/update/:id', to: 'aim#update'
  
   resources :user, only: [:new, :create, :edit, :aim]
   get 'new_user'  => 'user#new_user'

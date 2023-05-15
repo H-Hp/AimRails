@@ -26,4 +26,20 @@ Rails.application.configure do
   config.assets.debug = true
   config.assets.quiet = true
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+
+  config.action_mailer.default_url_options = { host: '127.0.0.1' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.mandrillapp.com",
+    :port => 25,
+    :user_name => ENV["MANDRILL_USERNAME"],
+    :password => ENV["MANDRILL_API_KEY"],
+    :enable_starttls_auto => true,
+    :authentication => 'login',
+    :domain => 'mydomain.com',
+  }
 end

@@ -106,20 +106,29 @@ namespace :my_custom_task do
       # ローカルの`public/assets`ディレクトリのファイルをS3にアップロード
       Dir.glob('public/assets/**/*').each do |path|
         next if File.directory?(path)
-  
         key = path.gsub('public/', '') # `public`ディレクトリを除去してS3の`key`に設定
-        puts 'assetsのpath='+path
-        puts 'assetsのkey='+key
+        #puts 'assetsのpath='+path
+        #puts 'assetsのkey='+key
         obj = bucket.object(key)
-        obj.upload_file(path, content_type: 'text/css')
+        #obj.upload_file(path, content_type: 'text/css')
         #obj.upload_file(path)
+        if key =~ /\.css$/ # .cssで終わる場合の処理
+          puts '.cssにマッチ'
+          puts 'assetsのkey='+key
+          obj.upload_file(path, content_type: 'text/css')
+        elsif key =~ /\.svg$/
+          puts '.svgにマッチ'
+          puts 'assetsのkey='+key
+          obj.upload_file(path, content_type: 'image/svg+xml')
+        else
+          obj.upload_file(path)
+        end
       end
       Dir.glob('public/packs/**/*').each do |path|
         next if File.directory?(path)
-  
         key = path.gsub('public/', '') # `public`ディレクトリを除去してS3の`key`に設定
-        puts 'packsのpath='+path
-        puts 'packsのkey='+key
+        #puts 'packsのpath='+path
+        #puts 'packsのkey='+key
         obj = bucket.object(key)
         obj.upload_file(path)
       end

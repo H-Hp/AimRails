@@ -25,6 +25,17 @@ class AimController < ApplicationController
     @aim = Aim.find_by(id: params[:id])
   end
 
+  def update
+    @aim = Aim.find(params[:id])
+    #@aim = Aim.find_by(id: params[:id])
+    if @aim.update(aim_params)
+      #redirect_to @aim
+      redirect_to new_aim_path
+    else
+      render 'edit'
+    end
+  end
+
   def search
     @aim = Aim.where('title LIKE ?', "%#{params[:word]}%")
   end
@@ -34,4 +45,5 @@ class AimController < ApplicationController
   def aim_params
     params.require(:aim).permit(:title, :content)
   end
+  
 end
