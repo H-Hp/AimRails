@@ -24,6 +24,7 @@ gem 'aws-sdk-rails'
 #gem 'aws-eventstream', '~> 1.2.0'
 gem 'rack-cors'
 gem 'devise'
+gem 'devise-i18n'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
