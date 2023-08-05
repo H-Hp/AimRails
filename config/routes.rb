@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
   devise_for :users
+  get 'user/regist_after' => 'user#regist_after'
+
   root 'top#top'
   get '/'  => 'top#top'
+  
   
   resources :contact, only: [:new, :create]
 
