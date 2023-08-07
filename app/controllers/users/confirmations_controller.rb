@@ -21,7 +21,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   # 認証メールを再送信した後に使用されるパス。 The path used after resending confirmation instructions.
    def after_resending_confirmation_instructions_path_for(resource_name)
     super(resource_name)
-    #user_regist_after_path
+    user_regist_after_path
     #sign_in(resource_name)# ユーザー登録が成功した後にログイン状態にする
    end
 
