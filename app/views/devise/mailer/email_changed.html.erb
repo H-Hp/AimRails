@@ -1,4 +1,4 @@
-<p>stepjump3333@yahoo.co.jp 様。</p>
+<p><%= @email %> 様。</p>
 <% if @resource.try(:unconfirmed_email?) %>
  <p>メールアドレスが <%= @resource.unconfirmed_email %> に変更されることをお知らせするためにご連絡しています。</p>
 <% else %>
