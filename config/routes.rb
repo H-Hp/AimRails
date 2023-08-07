@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  #devise_for :users
+  devise_for :users, controllers: {       # ← 恐らく最初は”devise_for:”のみの記載かと
+    registrations: "users/registrations",
+    confirmations: "users/confirmations"
+  }
+  get 'user/regist_after' => 'user#regist_after'
+
   root 'top#top'
   get '/'  => 'top#top'
+  
   
   resources :contact, only: [:new, :create]
 

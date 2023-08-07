@@ -2,6 +2,9 @@ class UserController < ApplicationController
   def new_user
   end
 
+  def regist_after
+  end
+
   def mypage
     @user = current_user
     @email = @user.email
