@@ -8,10 +8,10 @@ default: &default
   adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  port: 5432
 
 development:
   <<: *default
-  port: 5432
   username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
   host: <%= Rails.application.credentials.dig(:development, :db_host) %>
   password: <%= Rails.application.credentials.dig(:development, :db_password) %>
@@ -22,7 +22,6 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  port: 5432
   host: 127.0.0.1
   database: <%= Rails.application.credentials.dig(:development, :db) %>
   username: postgres
@@ -31,7 +30,6 @@ test:
 production: &production
   <<: *default
   #database: db/production.sqlite3
-  port: 5432
   username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
   host: <%= Rails.application.credentials.dig(:development, :db_host) %>
   password: <%= Rails.application.credentials.dig(:development, :db_password) %>
@@ -39,7 +37,6 @@ production: &production
 
 production-aim-mini:
   <<: *production
-  port: 5432
   host: db
   database: <%= Rails.application.credentials.dig(:aim_mini, :db) %>
   username: <%= Rails.application.credentials.dig(:aim_mini, :db_user_name) %>
@@ -47,7 +44,6 @@ production-aim-mini:
 
 production-aim-big:
   <<: *production
-  port: 5432
   host: <%= Rails.application.credentials.dig(:aim_big, :db_host) %>
   username: <%= Rails.application.credentials.dig(:aim_big, :db_user_name) %>
   password: <%= Rails.application.credentials.dig(:aim_big, :db_password) %>
@@ -56,11 +52,17 @@ production-aim-big:
 production_render_com: #Render.comのDB設定
   <<: *production
   encoding: unicode
-  port: 5432
   #host: <%= ENV['RENDER_HOST'] %>
   url: <%= ENV['RENDER_COM_DATABASE_URL'] %>
   #password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
 
+production-supabase:
+  <<: *production
+  host: <%= ENV["SUPABASE_HOST"] %>
+  password: <%= ENV["SUPABASE_PASSWORD"] %>
+  username: <%= ENV["SUPABASE_USERNAME"] %>
+  database: <%= ENV["SUPABASE_DATABASE"] %>
+
   #database: aim_db
   #username: <%= ENV['RENDER_COM_DATABASE_USERNAME'] %>
-  #host: render-external-db-host.render.com
+  #host: render-external-db-host.render.com 
