@@ -22,11 +22,13 @@ Rails.application.routes.draw do
   
   #resources :aim, only: [:new, :create, :edit, :aim, :search]
   resources :aim, only: [:new, :create, :edit, :aim]
+  
   #get 'aim'  =>'aim#aim'
-  get '/aim/:id', to: 'aim#aim'
   #get '/search/:id', to: 'aim#search'
-  get 'search'  => 'aim#search'
   #get 'create'  =>'aim#create'
+
+  get '/aim/:id', to: 'aim#aim',as: 'aim'
+  get 'search'  => 'aim#search'
   get '/aim/edit/:id'  =>'aim#edit'
   patch '/aim/update/:id', to: 'aim#update'
  

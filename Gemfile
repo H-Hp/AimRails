@@ -30,6 +30,7 @@ gem 'devise-i18n'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'meta-tags'
+gem 'sitemap_generator'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
