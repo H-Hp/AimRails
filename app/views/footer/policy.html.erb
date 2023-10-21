@@ -1,6 +1,8 @@
 
 <% content_for :title do %>プライバシーポリシー<% end %>
-<meta name="robots" content="noindex">
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:noindex => true) %>
+<% end %>
 
 <div class="wrap">
   <h1>プライバシーポリシー</h1>

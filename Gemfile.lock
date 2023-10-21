@@ -168,6 +168,8 @@ GEM
       net-smtp
     marcel (1.0.2)
     matrix (0.4.2)
+    meta-tags (2.19.0)
+      actionpack (>= 3.2.0, < 7.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.17.0)
@@ -339,6 +341,7 @@ DEPENDENCIES
   devise-i18n
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  meta-tags
   pg
   puma (~> 5.0)
   rack-cors

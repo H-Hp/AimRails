@@ -1,6 +1,8 @@
 
 <% content_for :title do %>ビジネス<% end %>
-<meta name="robots" content="noindex">
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:noindex => true) %>
+<% end %>
 
 <div class="wrap">
   <h1>ビジネス詳細</h1>
