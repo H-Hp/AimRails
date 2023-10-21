@@ -33,6 +33,8 @@
       <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' , as: 'style' %>
       <script src="<%= cloudfront_javascript_pack_tag 'application' %>" data-turbolinks-track="reload"></script>
     <% end %>
+
+    <!-- Google アナリティクスtag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJYSMQ091V"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KJYSMQ091V'); </script>
     
     </head>
 
