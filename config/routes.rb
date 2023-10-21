@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   
   resources :contact, only: [:new, :create]
 
+  get 'pricing'  => 'footer#pricing'
+  get 'business'  => 'footer#business'
+  get 'sctl'  => 'footer#sctl'
+  get 'policy'  => 'footer#policy'
   get 'terms'  => 'footer#terms'
   #get 'aim/search'
   

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Aim</title>
+    <title><%= yield (:title) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -95,6 +95,11 @@
 
 <div class="Left">
   <!--<a href="/terms" class="policy_link">利用規約</a>-->
+  <div class="link-div"><a href="/pricing" class="contact_link">料金/プラン</a></div>
+  <div class="link-div"><a href="/business">ビジネス</a></div>
+  <div class="link-div"><a href="/sctl">特定商取引法に基づく表記</a></div>
+  <div class="link-div"><a href="/policy">プライバシーポリシー</a></div>
+  <div class="link-div"><a href="/terms">利用規約</a></div>
   <a href="/contact/new" class="contact_link">お問い合わせ</a>
   <span class="copyright">Copyright© <%= Date.today.year %> Hiroki Hayashi</span>
   
