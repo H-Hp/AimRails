@@ -51,10 +51,10 @@ production-aim-big:
 
 production_render_com: #Render.comのDB設定
   <<: *production
-  encoding: unicode
-  #host: <%= ENV['RENDER_HOST'] %>
-  url: <%= ENV['RENDER_COM_DATABASE_URL'] %>
-  #password: <%= ENV['RENDER_COM_DB_PASSWORD'] %>
+  host: <%= ENV["SUPABASE_HOST"] %>
+  password: <%= ENV["SUPABASE_PASSWORD"] %>
+  username: <%= ENV["SUPABASE_USERNAME"] %>
+  database: <%= ENV["SUPABASE_DATABASE"] %>
 
 production-supabase:
   <<: *production
