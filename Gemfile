@@ -31,6 +31,7 @@ gem 'devise-i18n'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'meta-tags'
 gem 'sitemap_generator'
+gem 'whenever', require: false
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
