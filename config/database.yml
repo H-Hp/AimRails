@@ -12,10 +12,14 @@ default: &default
 
 development:
   <<: *default
-  username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
-  host: <%= Rails.application.credentials.dig(:development, :db_host) %>
-  password: <%= Rails.application.credentials.dig(:development, :db_password) %>
-  database: <%= Rails.application.credentials.dig(:development, :db) %>
+  #username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
+  #host: <%= Rails.application.credentials.dig(:development, :db_host) %>
+  #password: <%= Rails.application.credentials.dig(:development, :db_password) %>
+  #database: <%= Rails.application.credentials.dig(:development, :db) %>
+  host: <%= ENV["SUPABASE_HOST"] %>
+  password: <%= ENV["SUPABASE_PASSWORD"] %>
+  username: <%= ENV["SUPABASE_USERNAME"] %>
+  database: <%= ENV["SUPABASE_DATABASE"] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

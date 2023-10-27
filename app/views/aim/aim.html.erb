@@ -1,6 +1,18 @@
-
+<%= render 'shared/header' %>
+<%= render 'shared/sidemenu' %>
 <h1><%= @aim.title %></h1>
 
-<p><%= @aim.content %></p>
+<div id="content_div">
+<%= @aim.content %>
+</div>
 
 <a href="/aim/edit/<%= @aim.id %>">編集</a><br>
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+$(function(){
+const content_div = document.getElementById('content_div');
+content_div.innerHTML =marked.parse(content_div.innerHTML);
+}); 
+</script>

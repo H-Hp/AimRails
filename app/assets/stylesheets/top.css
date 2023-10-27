@@ -1,0 +1,17 @@
+.aim_wrap{
+  background-color: white;
+  height:200px;
+  margin: 50px;
+  padding: 20px;
+}
+.aim_wrap h2{
+  float: left;
+  margin-left: 50px;
+  color: black;
+}
+
+.thumbnail-img{
+  float: left;
+  width: 250px;
+  height: 160px;
+}

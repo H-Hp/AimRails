@@ -1,0 +1,187 @@
+<header>
+<div class ="head-wrap">
+<div class ="svg-wrap">
+    <!--
+    <img src="Logo.png" class="Logo" >
+    <span class="LogoTitle" >AimSite</span>
+    <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %>
+    -->
+    
+
+    <div class="Logo-a">
+    <a href="/">
+      <!-- 
+      <svg viewBox="0 0 3000 250" role="img" aria-labelledby="BAKERY COLNE" class="b-hero-cover03-bg-logo">
+        <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo"></use>      
+        <use xlink:href="/assets/Logo.svg#Logo"></use>
+        <use xlink:href="<%= asset_path('Logo.svg') %>#Logo"></use> 
+        <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo" crossOrigin="Anonymous"></use>  
+      </svg>
+      -->
+    <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %>
+    </a>
+    </div>
+      
+    <!--
+    <form method="GET" action="/search" class="SearchForm">
+      <input type="text" class="SearchBox" name="word" placeholder="検索">
+      <a href="" type="submit" class="SearchBtn"><%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %></a>
+    </form>
+    -->
+
+    <!--
+    <% if user_signed_in? %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12" %><br>
+      <%= link_to "マイページ", "/mypage" ,class: "Login_btn btn btn-success mb-12" %>
+      <%= link_to "Aim新規作成", "/aim/new" ,class: "NewAim_btn btn btn-success mb-12" %>
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path ,class: "Login_btn btn btn-warning mb-12" %><br>
+      <%= link_to '登録', new_user_registration_path ,class: "NewUser_btn btn btn-success mb-12" %>
+    <% end %>
+    -->
+  </div>
+
+    <div class ="items">
+  <form action="/search" method="get" class="search-form">
+    <span class="material-symbols-outlined search-form-span" aria-hidden="true">
+      search
+    </span>
+    <input type="search" autocomplete="off" placeholder="エイムを検索" value="" name="word" required="" class="search-form-input">
+  </form>
+  <button class="search-btn-mini">
+    <span class="material-symbols-outlined search-span" aria-label="記事、質問を検索">
+      search
+    </span>
+  </button>
+  
+    <!-- ログイン中のコンテンツ -->
+  <div class="notifications-wrap">
+    <button tabindex="0" class="notifications-button" id="notifications-button">
+      <span class="material-symbols-outlined notifications-span" aria-label="通知">notifications</span>
+    </button>
+  </div>
+  <div class ="user-icon">
+    <button id="header-user-icon-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+      </svg>
+    </button>
+    <!--<div class="dropdown-wrap">
+      <a href="/mypage" class="style-6cmdul"><span class="material-symbols-outlined style-uah80t" aria-hidden="true">person</span>マイページ</a>
+      <a href="{{ url('/setting') }}" class="style-6cmdul"><span class="material-symbols-outlined style-uah80t" aria-hidden="true">settings</span>設定</a>
+      <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit">ログアウト</button></form>
+    </div>-->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <div class="container"> 
+      <div class="dropdown-user-icon" id="dropdown-user-icon">
+        <a href="/mypage"><i class="bx bx-user"></i>マイページ</a>
+        <a href="/setting"><i class="bx bx-cog"></i>設定</a>
+        <!--<button id="logout-btn"><i class="bx bx-log-out"></i>ログアウト</button>-->
+        <form name="sample_form_name" method="POST" action="{{ route('logout') }}">
+
+          <a href="javascript:sample_form_name.submit()"><i class="bx bx-log-out"></i>ログアウト</a>
+      </form>
+      </div>
+      <div class="dropdown-notifications" id="dropdown-notifications">
+        <p>通知</p><hr>
+        <p>通知はありません。</p>
+        <a href="/notification"><i class="bx bx-bell"></i>通知一覧を見る</a>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+      <!-- ログイン中のコンテンツ 
+      <a href="{{ url('/setting') }}">設定</a>_header.html.erb
+      <form method="POST" action="{{ route('logout') }}">
+       
+      
+        <button type="submit">ログアウト</button>
+      </form>-->
+      
+      
+
+
+<script>
+// 要素を取得
+const toggleArrow = document.getElementById("arrow");
+
+const dropdownBtn_user_icon = document.getElementById("header-user-icon-btn");
+const dropdownMenu_user_icon = document.getElementById("dropdown-user-icon");
+// Toggle dropdown function
+const toggleDropdown_user_icon = function () {
+  dropdownMenu_user_icon.classList.toggle("show");
+  //toggleArrow.classList.toggle("arrow");
+};
+// Toggle dropdown open/close when dropdown button is clicked
+dropdownBtn_user_icon.addEventListener("click", function (e) {
+  e.stopPropagation();
+  toggleDropdown_user_icon();
+  dropdownMenu_notifications.style.zIndex = -1;
+  dropdownMenu_user_icon.style.zIndex = 10000;
+});
+// Close dropdown when dom element is clicked
+document.documentElement.addEventListener("click", function () {
+  if (dropdownMenu_user_icon.classList.contains("show")) {
+    toggleDropdown_user_icon();
+
+  }
+});
+
+const dropdownBtn_notifications = document.getElementById("notifications-button");
+const dropdownMenu_notifications = document.getElementById("dropdown-notifications");
+// Toggle dropdown function
+const toggleDropdown_notifications = function () {
+  dropdownMenu_notifications.classList.toggle("show");
+  //toggleArrow.classList.toggle("arrow");
+};
+// Toggle dropdown open/close when dropdown button is clicked
+dropdownBtn_notifications.addEventListener("click", function (e) {
+  e.stopPropagation();
+  toggleDropdown_notifications();
+  dropdownMenu_user_icon.style.zIndex = -1;
+  dropdownMenu_notifications.style.zIndex = 10000;
+  
+
+});
+// Close dropdown when dom element is clicked
+document.documentElement.addEventListener("click", function () {
+  if (dropdownMenu_notifications.classList.contains("show")) {
+    toggleDropdown_notifications();
+  }
+});
+
+//ログアウト
+const logout_btn = document.getElementById("logout-btn");
+logout_btn.addEventListener("click", function (e) {
+  //e.stopPropagation();
+  console.log("ログアウト")
+  /*fetch("{{ route('logout') }}", {
+    method: 'POST', 
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => {
+    console.error('Error:', error);
+  });*/
+  fetch('/logout', {
+    method: 'POST', 
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});
+
+
+</script>
+</header>

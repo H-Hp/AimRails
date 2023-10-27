@@ -9,7 +9,9 @@ class AimController < ApplicationController
     if @aim.save
       # お問い合わせ内容が保存された場合の処理
       flash[:success] = '登録されました。'
-      redirect_to new_aim_path
+      #redirect_to new_aim_path
+      #redirect_to root_path
+      redirect_to @aim
     else
       # お問い合わせ内容が保存されなかった場合の処理
       flash[:danger] = '正しく登録されませんでした。'
@@ -30,7 +32,8 @@ class AimController < ApplicationController
     #@aim = Aim.find_by(id: params[:id])
     if @aim.update(aim_params)
       #redirect_to @aim
-      redirect_to new_aim_path
+      #redirect_to new_aim_path
+      redirect_to @aim
     else
       render 'edit'
     end

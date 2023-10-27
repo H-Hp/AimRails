@@ -1,28 +1,87 @@
-<div>
-  <input type="text" id="title" name="title" value="<%= @aim.title %>" required>
-</div>
-
-<div>
-<textarea id="content" name="story"rows="5" cols="33">
-<%= @aim.content %>
-</textarea>
-</div>
-
-<button type="button" class="btn btn-warning">変更</button>
+<%= stylesheet_link_tag "create-edit" %>
+<%= render 'shared/create-edit-header' %>
 
 
-<%= form_with(model: @aim, url: "/aim/update/"+@aim.id.to_s, local: true) do |form| %>
+<%= form_with(model: @aim, url: "/aim/update/"+@aim.id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, required: true %>
+    <%= form.text_field :title, required: true, placeholder: "目標タイトル", class: "title", id:"title" %>
   </div>
 
+  <!--
   <div class="field">
     <%= form.label :content %>
     <%= form.text_field :content, required: true %>
   </div>
+  -->
 
-  <div class="actions">
-    <%= form.submit "変更" %>
+  <div class="field edit-container">
+    <%= form.text_area :content, required: true, placeholder: "内容をMarkdown記法で書いていきましょう!", class: "edit-input", id:"edit-input", rows: 20 %>
+    <!-- form.text_area :content, required: true, placeholder: "aaaaaaa", class: "edited-input", id:"edited-input", rows: 20 -->
+    <div id="previewArea" class="previewArea"></div>
   </div>
+
 <% end %>
+
+
+<script>
+document.getElementById("submitButton").addEventListener("click", function() {
+  document.getElementById("edit-form").submit();
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+const textarea = document.getElementById('edit-input');
+//const characterCount = document.getElementById('edited-input');
+const previewArea = document.getElementById('previewArea');
+
+textarea.addEventListener('input', function() {
+  const text = textarea.value;
+  const count = text.length;
+  //characterCount.textContent = `${count} characters`;
+
+  //編集textareaの文字列のtextarea.valueをマークダウンに変換
+  //let html = marked(textarea.value);
+
+  //characterCount.textContent =textarea.value //マークダウンをプレビューに入れる
+  //characterCount.textContent =html
+
+  //iDDivHtmlArea.innerHTML = marked('# This is Markdown Header #');
+
+  //characterCount.innerHTML =marked.parse('# Marked in the browser\n\nRendered by **marked**.');
+  //characterCount.innerHTML =marked.parse(textarea.value);
+  previewArea.innerHTML =marked.parse(textarea.value);
+  
+ console.log("aaaa") 
+ console.log("textarea:"+textarea.value) 
+});
+</script>
+
+
+
+
+<style>
+.edit-form{
+  height:100%;
+}
+.title{
+  width:100%;
+  font-size:30px;
+}
+.edit-container{
+  padding:5px;
+  display: flex;
+  height:100%;
+}
+.edit-input{
+  width:50%;
+  height:100%;
+}
+.previewArea{
+  margin-left:10px;
+  width:50%;
+  background:white;
+  color:black;
+}
+</style>
