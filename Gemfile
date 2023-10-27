@@ -33,6 +33,8 @@ gem 'meta-tags'
 gem 'sitemap_generator'
 gem 'whenever', require: false
 
+gem 'redcarpet'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
