@@ -37,4 +37,6 @@ Rails.application.routes.draw do
   get 'mypage'  => 'user#mypage'
   get 'account_delete'  => 'user#account_delete'
   #get 'top'  => 'top#top'
+
+  get 'mypage'  => 'user#mypage'
 end
