@@ -1,5 +1,6 @@
 <%= render 'shared/header' %>
 <%= render 'shared/sidemenu' %>
+<%= stylesheet_link_tag "contact" %>
 <h1>ご意見</h1>
 
 <%= form_with(model: @contact, url: contact_index_path, local: true) do |form| %>
@@ -22,21 +23,20 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, required: true %>
+    <%= form.text_field :name, placeholder: "お名前", class: "name", required: true %>
+
   </div>
 
   <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email, required: true %>
+    <%= form.email_field :email, placeholder: "メールアドレス", class: "email", required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :message %>
-    <%= form.text_area :message, required: true %>
+    <%= form.text_area :message, rows: 15, placeholder: "ご入力ください。", class: "message", required: true %>
+
   </div>
 
   <div class="actions">
-    <%= form.submit "送信" %>
+    <%= form.submit "送信", class: "btn btn-primary" %>
   </div>
 <% end %>
