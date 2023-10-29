@@ -1,11 +1,30 @@
+require 'net/http'
+require 'uri'
+require 'json'
+
 class ApplicationController < ActionController::Base
   before_action :set_cors_headers
 
-  PUSHCODE_API_KEY = "bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
-
+  PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
+  PUSHCODE_endpoint="https://api.pushcode.jp/v1/push/af9db06579f5de5aa32a5c165d269c2f69e0fc0cae45b607993edbb28d45b37d"
 	def top
-		render html: "Top hello, world!"
-    
+    uri = URI.parse(PUSHCODE_endpoint)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request["Authorization"] = PUSHCODE_API_KEY
+
+    response = http.request(request)
+    @pushes="1"
+    if response.code == "200"
+      @pushes = JSON.parse(response.body)
+      # プッシュ通知リストを処理する
+    else
+      @pushes ="error:#{response.code}"
+      puts "Error: #{response.code}"
+    end
+
+=begin
     url = "http://example.com/api"
     response = `curl \
     -H 'X-PUSHCODE-APIKEY: #{PUSHCODE_API_KEY}' \
@@ -22,6 +41,8 @@ class ApplicationController < ActionController::Base
    # )
 
     @pushes = JSON.parse(response.body)["pushes"]
+=end
+    render html: "Top hello, world!"
 	end
 
 
