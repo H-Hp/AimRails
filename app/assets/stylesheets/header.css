@@ -244,12 +244,13 @@ border-radius: 50%;
     transition: all 0.1s cubic-bezier(0.16, 1, 0.5, 1);
     right: 0;
     color:black;
+    overflow: auto;
   }
   .dropdown-notifications a {
-    display: flex;
+
     align-items: center;
     column-gap: var(--gap);
-    padding: 0.8rem 1rem;
+ 
     text-decoration: none;
     color: black;
   }
@@ -271,6 +272,20 @@ border-radius: 50%;
     transform: rotate(180deg);
     transition: 0.2s ease;
   }
+.nc_wrap{
+  width:90%;
+  height:50px;
+  display: flex;
+  
+}
+.nc_wrap:hover{
+  background-color: #F6F8FA;
+}
+.nc_a_wrap{
+  margin: 0;
+  word-break: break-all;
+  padding: 0;
+}
 
 /*
 .dropdown-wrap{
