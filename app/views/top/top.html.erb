@@ -6,6 +6,9 @@
 
 <%= link_to "+Aim新規作成", "/aim/new" ,class: "btn btn-success mb-12" %>
 
+<%= JSON.pretty_generate(@result) %> 
+
+
   <% @aim.each do |aim| %>
     
     <a href="/aim/<%= aim.id %>">

@@ -93,16 +93,32 @@ $(function(){
 
   // ローカルストレージから値を取得
   const theme = localStorage.getItem('theme');
+  const stretch = localStorage.getItem('stretch');
 
-  // 条件判定
   if (theme === 'light') {
     design_light();
   } else {
     design_dark();
   }
 
+  if (stretch === 'open') {
+    stretch_open();
+  } else if (stretch === 'close'){
+    stretch_close();
+  }else {
+    stretch_open();
+  }
+
 	$(".stretch-btn").click(function() {
-		console.log(".stretch-btn");
+    stretch_close();
+	});
+  
+  $(".stretch-btn-open").click(function() {
+    stretch_open();
+	}); 
+ 
+  function stretch_close(){
+    console.log(".stretch-btn");
     //$(".stretch-btn").toggleClass("menu-open");
 		$(".Left").css("width","25px") ;
     $("main").css("left","10px") ;
@@ -118,23 +134,19 @@ $(function(){
         // サイドメニューが閉じている場合、開く
         sideMenu.style.left = "0px";
     }*/
-	});
-  
-  $(".stretch-btn-open").click(function() {
-		console.log(".stretch-btn");
+    localStorage.setItem('stretch', 'close');
+  }
+  function stretch_open(){
+    console.log(".stretch-btn");
 		$(".Left").css("width","20%") ;
     $("main").css("left","20%") ;
     $("main").css("width","80%") ;
     $(".stretch-btn-open").hide();$(".stretch-btn").show();
     $(".Left-content").show();
+    localStorage.setItem('stretch', 'open');
+  }
+  
 
-	}); 
-
-  /*$(".stretch-btn-close").click(function() {
-		console.log(".stretch-btn-close");
-	
-	});
-  */
   $(".design-light").click(function() {
 		design_light();
 	});
@@ -184,11 +196,99 @@ $(function(){
 </script>
 
 
+
 <style>
 .stretch-btn.menu-open{
   width: 10px;
 }
 </style>
+
+<script>
+//こっからヘッダーの処理
+$(function(){
+  
+// 要素を取得
+const toggleArrow = document.getElementById("arrow");
+
+const dropdownBtn_user_icon = document.getElementById("header-user-icon-btn");
+const dropdownMenu_user_icon = document.getElementById("dropdown-user-icon");
+// Toggle dropdown function
+const toggleDropdown_user_icon = function () {
+  dropdownMenu_user_icon.classList.toggle("show");
+  //toggleArrow.classList.toggle("arrow");
+};
+// Toggle dropdown open/close when dropdown button is clicked
+dropdownBtn_user_icon.addEventListener("click", function (e) {
+  e.stopPropagation();
+  toggleDropdown_user_icon();
+  dropdownMenu_notifications.style.zIndex = -1;
+  dropdownMenu_user_icon.style.zIndex = 10000;
+});
+// Close dropdown when dom element is clicked
+document.documentElement.addEventListener("click", function () {
+  if (dropdownMenu_user_icon.classList.contains("show")) {
+    toggleDropdown_user_icon();
+
+  }
+});
+
+const dropdownBtn_notifications = document.getElementById("notifications-button");
+const dropdownMenu_notifications = document.getElementById("dropdown-notifications");
+// Toggle dropdown function
+const toggleDropdown_notifications = function () {
+  dropdownMenu_notifications.classList.toggle("show");
+  //toggleArrow.classList.toggle("arrow");
+};
+// Toggle dropdown open/close when dropdown button is clicked
+dropdownBtn_notifications.addEventListener("click", function (e) {
+  e.stopPropagation();
+  toggleDropdown_notifications();
+  dropdownMenu_user_icon.style.zIndex = -1;
+  dropdownMenu_notifications.style.zIndex = 10000;
+  
+
+});
+// Close dropdown when dom element is clicked
+document.documentElement.addEventListener("click", function () {
+  if (dropdownMenu_notifications.classList.contains("show")) {
+    toggleDropdown_notifications();
+  }
+});
+
+//ログアウト
+const logout_btn = document.getElementById("logout-btn");
+logout_btn.addEventListener("click", function (e) {
+  //e.stopPropagation();
+  console.log("ログアウト")
+  /*fetch("{{ route('logout') }}", {
+    method: 'POST', 
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => {
+    console.error('Error:', error);
+  });*/
+  fetch('/logout', {
+    method: 'POST', 
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});
+
+
+});
+//こっからヘッダーの処理ここまで
+</script>
 
 </body>
 </html>
