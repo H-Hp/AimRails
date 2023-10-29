@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_03_151126) do
+ActiveRecord::Schema.define(version: 2023_10_29_174321) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_graphql"
+  enable_extension "pg_stat_statements"
+  enable_extension "pgcrypto"
+  enable_extension "pgjwt"
+  enable_extension "pgsodium"
   enable_extension "plpgsql"
+  enable_extension "supabase_vault"
+  enable_extension "uuid-ossp"
 
   create_table "aims", force: :cascade do |t|
     t.string "title"
@@ -26,6 +33,17 @@ ActiveRecord::Schema.define(version: 2023_08_03_151126) do
     t.string "name"
     t.string "email"
     t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", default: "", null: false
+    t.string "body", default: "", null: false
+    t.string "image_url", default: "default", null: false
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -44,6 +62,7 @@ ActiveRecord::Schema.define(version: 2023_08_03_151126) do
     t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.check_constraint "(email_change_confirm_status >= 0) AND (email_change_confirm_status <= 2)", name: "users_email_change_confirm_status_check"
   end
 
 end

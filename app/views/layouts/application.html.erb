@@ -257,19 +257,10 @@ document.documentElement.addEventListener("click", function () {
   }
 });
 
+/*
 //ログアウト
 const logout_btn = document.getElementById("logout-btn");
 logout_btn.addEventListener("click", function (e) {
-  //e.stopPropagation();
-  console.log("ログアウト")
-  /*fetch("{{ route('logout') }}", {
-    method: 'POST', 
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch((error) => {
-    console.error('Error:', error);
-  });*/
   fetch('/logout', {
     method: 'POST', 
   })
@@ -287,6 +278,7 @@ logout_btn.addEventListener("click", function (e) {
   });
 });
 
+*/
 
 });
 //こっからヘッダーの処理ここまで

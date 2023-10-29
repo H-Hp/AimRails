@@ -77,11 +77,19 @@
       <div class="dropdown-user-icon" id="dropdown-user-icon">
         <a href="/mypage"><i class="bx bx-user"></i>マイページ</a>
         <a href="/setting"><i class="bx bx-cog"></i>設定</a>
-        <!--<button id="logout-btn"><i class="bx bx-log-out"></i>ログアウト</button>-->
-        <form name="sample_form_name" method="POST" action="{{ route('logout') }}">
 
+
+        <!--link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12"-->
+        <!--<form name="sample_form_name" method="DELETE" action="<%= destroy_user_session_path %>">
           <a href="javascript:sample_form_name.submit()"><i class="bx bx-log-out"></i>ログアウト</a>
-      </form>
+        </form>
+        -->
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12" do %><br>
+          <i class="bx bx-log-out"></i>
+        <% end %>
+
+
+
       </div>
       <div class="dropdown-notifications" id="dropdown-notifications">
         <p>通知</p><hr>
@@ -90,16 +98,5 @@
       </div>
     </div>
   </div>
-  
-</div>
-
-      <!-- ログイン中のコンテンツ 
-      <a href="{{ url('/setting') }}">設定</a>_header.html.erb
-      <form method="POST" action="{{ route('logout') }}">
-       
-      
-        <button type="submit">ログアウト</button>
-      </form>-->
-      
-      
+</div>      
 </header>
