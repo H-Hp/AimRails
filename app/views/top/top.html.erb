@@ -8,16 +8,23 @@
 
 <%= JSON.pretty_generate(@result) %> 
 
-
+<div class="content_wrap">
   <% @aim.each do |aim| %>
     
     <a href="/aim/<%= aim.id %>">
       <div class="aim_wrap" id="">
-        <%= image_tag '/baseball.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
-     
-        <h2><%= aim.title %></h2>
-        <!--<li><%= aim.content %></li>-->
-        
+        <div class="aim_img_div">
+          <%= image_tag '/baseball.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+        </div>
+        <div class="aim_title_content_div">
+          <div class="aim_title_div">
+            <h2 class="aim_title"><%= aim.title %></h2>
+          </div>
+          <div class="aim_content_div">
+            <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+          </div>
+        </div>
       </div>
     </a>
   <% end %>
+</div>

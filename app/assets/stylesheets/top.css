@@ -1,17 +1,52 @@
-.aim_wrap{
+.content_wrap{
   background-color: white;
-  height:200px;
+  height:2000px;
   margin: 50px;
   padding: 20px;
 }
-.aim_wrap h2{
-  float: left;
-  margin-left: 50px;
-  color: black;
+
+.aim_wrap{
+  background-color: white;
+  height:200px;
+  width: 100%;
+  margin: 5px;
+  padding: 20px;
+  display: flex;
+}
+.aim_wrap:hover {
+  background-color: #F6F8FA;
 }
 
+.aim_img_div{
+  width: 25%;
+  height: 100%;
+}
 .thumbnail-img{
   float: left;
-  width: 250px;
-  height: 160px;
+  width: 100%;
+  height: 100%;
+}
+
+.aim_title_content_div{
+  width: 60%;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.aim_title_div{
+  width: 100%;
+}
+.aim_title{
+  float: left;
+  color: black;
+}
+.aim_content_div{
+  width: 100%; /* 任意の幅を指定 */
+  height: 35%; 
+  
+  overflow: hidden;
+  text-overflow: ellipsis; /* 切り詰めた部分に省略記号 (...) を表示 */
+}
+.aim_content{
+  color: black;
 }
