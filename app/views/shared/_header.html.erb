@@ -18,7 +18,8 @@
         <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo" crossOrigin="Anonymous"></use>  
       </svg>
       -->
-    <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %>
+    <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml', class: 'Logo Logo-white')  %>
+    <%= image_tag 'Logo_Black.svg' , class: 'Logo Logo-black' %>
     </a>
     </div>
       

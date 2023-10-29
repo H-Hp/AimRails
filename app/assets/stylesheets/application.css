@@ -25,6 +25,14 @@ header{
   top: 15px; 
 } 
 .Logo{
+  
+}
+.Logo-black{
+  display:none;
+  width: 120px;
+  height:45px;
+  margin-top: -15px;
+  margin-left: -35px;
 }
 .LogoTitle{
   position: absolute;

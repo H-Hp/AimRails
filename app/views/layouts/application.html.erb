@@ -169,6 +169,7 @@ $(function(){
 
     $(".Left a").css("color","black") ;
     $(".design-light").hide();$(".design-dark").show();
+    $(".Logo-black").show();$(".Logo-white").hide();
     localStorage.setItem('theme', 'light');
   }
 
@@ -184,6 +185,7 @@ $(function(){
     $(".Left a").css("color","white") ;
 
     $(".design-light").show();$(".design-dark").hide();
+    $(".Logo-black").hide();$(".Logo-white").show();
     localStorage.setItem('theme', 'dark');
 
     $(".user-icon button").css("color","white") ;
@@ -206,7 +208,7 @@ $(function(){
 <script>
 //こっからヘッダーの処理
 $(function(){
-  
+
 // 要素を取得
 const toggleArrow = document.getElementById("arrow");
 
