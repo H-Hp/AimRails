@@ -39,4 +39,6 @@ Rails.application.routes.draw do
   #get 'top'  => 'top#top'
 
   get 'mypage'  => 'user#mypage'
+
+  resources :notifications, only: :index
 end
