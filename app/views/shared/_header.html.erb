@@ -40,9 +40,14 @@
       <%= link_to '登録', new_user_registration_path ,class: "NewUser_btn btn btn-success mb-12" %>
     <% end %>
     -->
+
+    <% if !user_signed_in? %>
+      <%= link_to "ログイン", new_user_session_path ,class: "Login_btn btn btn-warning mb-12" %><br>
+      <%= link_to '登録', new_user_registration_path ,class: "NewUser_btn btn btn-success mb-12" %>
+    <% end %>
   </div>
 
-    <div class ="items">
+<div class ="items">
   <form action="/search" method="get" class="search-form">
     <span class="material-symbols-outlined search-form-span" aria-hidden="true">
       search
@@ -55,7 +60,8 @@
     </span>
   </button>
   
-    <!-- ログイン中のコンテンツ -->
+  <!-- ログイン中のコンテンツ -->
+  <% if user_signed_in? %>
   <div class="notifications-wrap">
     <button tabindex="0" class="notifications-button" id="notifications-button">
       <span class="material-symbols-outlined notifications-span" aria-label="通知">notifications</span>
@@ -77,19 +83,14 @@
       <div class="dropdown-user-icon" id="dropdown-user-icon">
         <a href="/mypage"><i class="bx bx-user"></i>マイページ</a>
         <a href="/setting"><i class="bx bx-cog"></i>設定</a>
-
-
         <!--link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12"-->
         <!--<form name="sample_form_name" method="DELETE" action="<%= destroy_user_session_path %>">
           <a href="javascript:sample_form_name.submit()"><i class="bx bx-log-out"></i>ログアウト</a>
         </form>
         -->
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12" do %><br>
-          <i class="bx bx-log-out"></i>
+        <%= link_to destroy_user_session_path, method: :delete  do %>
+          <i class="bx bx-log-out"></i>"ログアウト"
         <% end %>
-
-
-
       </div>
       <div class="dropdown-notifications" id="dropdown-notifications">
         <p>通知</p><hr>
@@ -98,5 +99,6 @@
       </div>
     </div>
   </div>
+  <% end %>
 </div>      
 </header>

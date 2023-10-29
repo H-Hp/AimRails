@@ -52,7 +52,7 @@ header{
   position: fixed;
   width: 120px;
   height: 29px;
-  right: 110px;
+  left: 250px;
   top: 15px;
 }
 
@@ -63,7 +63,7 @@ header{
   height: 29px;
   /*left: 1180px;*/
   top: 15px;
-  right:0;
+  left:150px;
   background: #D0DF24;
 }
 .Logout_btn{

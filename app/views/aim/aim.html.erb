@@ -7,4 +7,6 @@
 
 </div>
 
+<% if user_signed_in? %>
 <a href="/aim/edit/<%= @aim.id %>">編集</a><br>
+<% end %>
