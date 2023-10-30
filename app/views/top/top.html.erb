@@ -4,9 +4,7 @@
 <%= render 'shared/sidemenu' %>
 <%= stylesheet_link_tag "top" %>
 
-<%= link_to "+Aim新規作成", "/aim/new" ,class: "btn btn-success mb-12" %>
-
-<%= @pushes %> 
+<%= link_to "+Aim新規作成", "/aim/new" ,class: "newAim-btn btn mb-12" %>
 
 <div class="content_wrap">
   <% @aim.each do |aim| %>
@@ -28,3 +26,4 @@
     </a>
   <% end %>
 </div>
+<a href="notifications/new">通知作成</a>

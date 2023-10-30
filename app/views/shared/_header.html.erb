@@ -65,6 +65,7 @@
   <div class="notifications-wrap">
     <button tabindex="0" class="notifications-button" id="notifications-button">
       <span class="material-symbols-outlined notifications-span" aria-label="通知">notifications</span>
+      <p class="badge"> </p>
     </button>
   </div>
   <div class ="user-icon">
@@ -83,6 +84,10 @@
       <div class="dropdown-user-icon" id="dropdown-user-icon">
         <a href="/mypage"><i class="bx bx-user"></i>マイページ</a>
         <a href="/setting"><i class="bx bx-cog"></i>設定</a>
+
+        <a href="#" class="design-light" id="design-light"><i class="bx bx-adjust"></i>デザイン:ライト</a>
+        <a href="#" class="design-dark" id="design-dark"><i class="bx bx-adjust"></i>デザイン:ダーク</a>
+
         <!--link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12"-->
         <!--<form name="sample_form_name" method="DELETE" action="<%= destroy_user_session_path %>">
           <a href="javascript:sample_form_name.submit()"><i class="bx bx-log-out"></i>ログアウト</a>
@@ -94,7 +99,7 @@
       </div>
       <div class="dropdown-notifications" id="dropdown-notifications">
         <p>通知</p><hr>
-        <p>通知はありません。</p>
+        <p class="notification-notthing">通知はありません。</p>
         <% 
           @ntc= [
             {title: "登録完了のお知らせ", 
@@ -108,22 +113,23 @@
             { title: "いちご", body: "赤い", url: "/mypage" ,created_at: "2023-10-24 08:50:07.354647" ,image_url:"dafault"}
           ]
         %>
-        <% @ntc.each do |nc| %>
+        <% @notifications.each do |nc| %>
           <div class="nc_wrap">
             <div class="nc_img_wrap">
               <%= image_tag '/baseball.png', alt: "img", id: "thumbnail-img",loading:"lazy" ,height:"26", width:"26"%>
             </div>
             <a href="<%= nc[:url] %>" class="nc_a_wrap">
               <p><%= nc[:title] %></p>
-              <time datetime="2023-10-23T06:10:16Z" class="style-19rsmo4">2023/10/23 15:10</time>
+              <time datetime="<%= nc[:created_at] %>" class="style-19rsmo4"><%= nc[:created_at] %></time>
+              <!--<time datetime="2023-10-23T06:10:16Z" class="style-19rsmo4">2023/10/23 15:10</time>-->
             </a>
           </div>
         <% end %>
 
-        <a href="/notification"><i class="bx bx-bell"></i>通知一覧を見る</a>
+        <a href="/notifications"><i class="bx bx-bell"></i>通知一覧を見る</a>
       </div>
     </div>
   </div>
   <% end %>
-</div>      
+</div>
 </header>

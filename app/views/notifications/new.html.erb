@@ -1,0 +1,55 @@
+<%= stylesheet_link_tag "create-edit" %>
+
+<h2>通知を作成(全体告知)</h2>
+<%= form_with(model: @aim, url: aim_index_path, local: true, html:{ class:"edit-form",id:"edit-form" }) do |form| %>
+  <div class="field">
+    <%= form.text_field :title, required: true, placeholder: "タイトル", class: "title", id:"title" %>
+    <%= form.text_field :URL, required: true, placeholder: "URL", class: "URL", id:"URL" %><br>
+    <%= form.text_field :URL, required: true, placeholder: "画像URL(default)", class: "URL", id:"URL",value:"default" %><br>
+    <%= form.text_field :URL, required: true, placeholder: "送信者(運営/ユーザー)", class: "URL", id:"URL",value:"our" %><br>
+    <%= form.text_field :URL, required: true, placeholder: "action(news/signup)", class: "URL", id:"URL",value:"news" %>
+  </div>
+  <%= form.submit "送信", class: "submit-button" %>
+
+<% end %>
+
+<h2>通知を削除</h2>
+<p>checkがtrueのものを全削除</p>
+<p>actionを指定して全削除</p>
+
+<h2>
+・user_id
+・title: 
+・URL
+・image_url: default
+・action : news
+・checked:false
+</h2>
+
+<style>
+input[type="text"] {
+  font-size:15px;
+  width:50%
+}
+p{
+  font-size:15px;
+}
+.title{
+  width:100%;
+}
+.edit-container{
+  padding:5px;
+  display: flex;
+  height:100%;
+}
+.edit-input{
+  width:50%;
+  height:100%;
+}
+.previewArea{
+  margin-left:10px;
+  width:50%;
+  background:white;
+  color:black;
+}
+</style>

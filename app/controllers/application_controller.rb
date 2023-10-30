@@ -5,6 +5,13 @@ require 'json'
 class ApplicationController < ActionController::Base
   before_action :set_cors_headers
 
+  before_action :set_notifications
+
+  def set_notifications
+    #@notifications = Notification.find_by(user_id: current_user.id)
+    @notifications = Notification.where(user_id: current_user.id)
+  end
+
   PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
   PUSHCODE_endpoint="https://api.pushcode.jp/v1/push/af9db06579f5de5aa32a5c165d269c2f69e0fc0cae45b607993edbb28d45b37d"
 	def top

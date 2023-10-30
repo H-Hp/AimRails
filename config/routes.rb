@@ -40,5 +40,5 @@ Rails.application.routes.draw do
 
   get 'mypage'  => 'user#mypage'
 
-  resources :notifications, only: :index
+  resources :notifications, only: [:index, :new, :create]
 end

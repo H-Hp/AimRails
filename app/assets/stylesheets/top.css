@@ -50,3 +50,11 @@
 .aim_content{
   color: black;
 }
+.newAim-btn{
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  /*background-color: #29b0ff;*/
+  background-color:#9600ff;
+  color: #F6F8FA;
+}
