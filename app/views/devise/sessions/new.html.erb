@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag "login" %>
+
+<!--
 <h2>ログイン</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -24,3 +27,48 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+-->
+
+
+
+
+<div class="container">
+
+
+<div class="Login" >
+  <div class="Login2">
+    <!--<form method="POST" action="/login" class="Form">-->
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "Form" }) do |f| %>
+      <div class="SignIn">アカウントにサインイン</div>
+      <div class="Mailadress">メールアドレス</div>
+      <!--<input class="MailInput" name="email" type="email" value="{{old('email')}}" />-->
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",  class: "MailInput" %>
+      <div class="Password" >パスワード</div>
+      <!--<input class="PasswordInput" name="password" type="password" />-->
+       <%= f.password_field :password, autocomplete: "current-password", class: "PasswordInput" %>
+      
+      <div class="MemolyPassword">
+        <input type="checkbox">
+        1週間パスワードを記録する
+      </div>
+      
+      <a class="PasswordFoget" href="/users/password/new">パスワードをお忘れの場合</a></div>
+      <button type="submit" class="LoginBtn">
+        ログイン
+      </button>
+      <div>
+        <p>アカウントをお持ちでない方は<a href="/users/sign_up">こちら</a>へ</p>
+      </div>
+      <div>
+        <a href="/">@Aim</a>
+      </div>
+    <!--</form>-->
+    <% end %>
+  </div>
+</div>
+
+
+<div class="db-RegisterAndLoginBackground-background"><div class="db-RegisterAndLoginBackground-grayBackground"></div><div class="db-RegisterAndLoginBackground-verticalLine db-RegisterAndLoginBackground-verticalLine--first"></div><div class="db-RegisterAndLoginBackground-verticalLine db-RegisterAndLoginBackground-verticalLine--second"></div><div class="db-RegisterAndLoginBackground-verticalLine db-RegisterAndLoginBackground-verticalLine--third"></div><div class="db-RegisterAndLoginBackground-verticalLine db-RegisterAndLoginBackground-verticalLine--fourth"></div><div class="db-RegisterAndLoginBackground-verticalLine db-RegisterAndLoginBackground-verticalLine--fifth"></div><div class="db-RegisterAndLoginBackground-firstLeftStripe" style="background: rgb(128, 233, 255);"></div><div class="db-RegisterAndLoginBackground-secondLeftStripe" style="background: rgb(122, 115, 255);"></div><div class="db-RegisterAndLoginBackground-firstAndSecondLeftStripeBlend" style="background: rgb(0, 72, 229);"></div><div class="db-RegisterAndLoginBackground-firstRightStripe" style="background: rgb(122, 115, 255);"></div></div>
+
+</div>

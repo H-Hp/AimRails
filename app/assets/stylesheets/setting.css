@@ -1,0 +1,40 @@
+.form-control  {
+  background-color: var(--color-surface);
+    border: 1px solid var(--color-divider);
+    border-radius: 8px;
+    color: var(--color-text-high-emphasis);
+    cursor: text;
+    display: block;
+    font-size: var(--font-size-body-1);
+    line-height: var(--line-height-body-dense);
+    padding: 8px 12px;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    width: 100%;
+}
+/*カスタムCSSを使用上書き*/
+.nameChange.form-control {
+  padding: 8px 12px !important;
+  font-size: 15px;
+}
+.MailChange.form-control {
+  padding: 8px 12px !important;
+  font-size: 15px;
+}
+.PasswordChange.form-control {
+  padding: 8px 12px !important;
+  font-size: 15px;
+}
+.NewPasswordChange.form-control {
+  padding: 8px 12px !important;
+  font-size: 15px;
+}
+
+.MailChange.form-control div {
+  margin-left:0;
+}
+
+button.btn{
+  height:35px;
+  margin-top: 20px;
+  font-size: 15px;
+}

@@ -1,7 +1,140 @@
 <%= render 'shared/header' %>
+<%= stylesheet_link_tag "setting" %>
 
 <h1>設定</h1>
 <a href="/account_delete">アカウント削除</a><br>
 <a href="/password_forget">パスワードを忘れた方</a><br>
 <p><%= @email  %></p>
 <p><%= @encrypted_password  %></p>
+
+
+<div class="container">
+<h1>設定</h1>
+    <div class="menu-wrap row justify-content-center">
+        <div class=" col-md-10">   
+            <div class="card">
+                <div class="card-header"><h2>アカウント名を変更</h2></div>
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+                    <form method="POST" action="{{ route('user.update', ['user_id' => $user_id]) }}">
+                      @csrf
+                        <div class="form-group row">
+                            <div class="col-md-6 p-8">
+                                <input id="name" type="txt" class="nameChange form-control @error('name') is-invalid @enderror" name="name" value="{{ $name }}" required autocomplete="name">
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <button type="submit" class="btn btn-primary">
+                            アカウント名変更
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-header"><h2>メールアドレスを変更</h2></div>
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+
+                    <form method="POST" action="{{ route('user.update', ['user_id' => $user_id]) }}">
+                      @csrf
+
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="MailChange form-control @error('email') is-invalid @enderror" name="email" value="{{ $email }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">
+                                メールアドレス変更
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-header"><h2>パスワードを変更</h2></div>
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+                    <form method="POST" action="{{ route('user.update', ['user_id' => $user_id]) }}">
+                      @csrf
+
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <h3>現在のパスワード</h3>
+                                <input id="old-password" type="password" class="PasswordChange form-control @error('old-password') is-invalid @enderror" name="old-password"  required >
+
+                                <h3>新しいパスワード</h3>
+                                <input id="new-password" type="password" class="NewPasswordChange form-control @error('new-password') is-invalid @enderror" name="new-password"  required>
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">
+                                パスワード変更
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="card-header"><h2>アカウント削除</h2></div>
+                <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
+
+                    <form method="POST" action="{{ route('user.delete', ['user_id' => $user_id]) }}">
+                      @csrf
+                        <div class="form-group row mb-0">
+                            <div class="">
+                                <button type="submit" class="alert alert-danger" role="alert">
+                                アカウント削除
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
