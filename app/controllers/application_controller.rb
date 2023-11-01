@@ -5,17 +5,26 @@ require 'json'
 class ApplicationController < ActionController::Base
   before_action :set_cors_headers
 
-  before_action :set_notifications, if: :user_signed_in?
+  before_action :set_init, if: :user_signed_in?
 
-  def set_notifications
+  def set_init
     #@notifications = Notification.find_by(user_id: current_user.id)
     @notifications = Notification.where(user_id: current_user.id) #通知を取得して変数に入れて他のコントローラーでも使えるように
     @nocheck_notification_count = Notification.where(user_id: current_user.id,checked: false).count
+    @current_user_id=current_user.id
   end
 
   PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
   PUSHCODE_endpoint="https://api.pushcode.jp/v1/push/af9db06579f5de5aa32a5c165d269c2f69e0fc0cae45b607993edbb28d45b37d"
 	def top
+    payload = {when: {immediate: true}}.to_json
+    response = Faraday.post PUSHCODE_endpoint do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['X-PUSHCODE-APIKEY'] = PUSHCODE_API_KEY  
+      req.body = payload 
+    end
+
+=begin  
     uri = URI.parse(PUSHCODE_endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -32,7 +41,7 @@ class ApplicationController < ActionController::Base
       puts "Error: #{response.code}"
     end
 
-=begin
+
     url = "http://example.com/api"
     response = `curl \
     -H 'X-PUSHCODE-APIKEY: #{PUSHCODE_API_KEY}' \

@@ -4,12 +4,12 @@
   <h2>通知を作成(全体告知)</h2>
   <%= form_with(model: @notifications, html:{ class:"edit-form",id:"edit-form" }) do |form| %>
     <div class="field">
-      <%= form.number_field :user_id, required: true, placeholder: "1", class: "title", id:"title",value:1 %>
-      <%= form.number_field :sended_id, required: true, placeholder: "送信者(運営/ユーザー)", class: "URL", id:"URL",value:5 %><br>
-      <%= form.text_field :title, required: true, placeholder: "タイトル", class: "title", id:"title" ,value:"title" %>
-      <%= form.text_field :url, required: true, placeholder: "URL", class: "URL", id:"URL" ,value:"/" %><br>
-      <%= form.text_field :image_url, required: true, placeholder: "画像URL(default)", class: "URL", id:"URL",value:"default" %><br>
-      <%= form.text_field :action, required: true, placeholder: "action(news/signup)", class: "URL", id:"URL",value:"news" %><br>
+      <span>user_id：</span><%= form.number_field :user_id, required: true, placeholder: "1", class: "title", id:"title",value:@current_user_id %>
+      <span>sended：</span><%= form.number_field :sended_id, required: true, placeholder: "送信者(運営/ユーザー)", class: "URL", id:"URL",value:1 %><br>
+      <span>title：</span><%= form.text_field :title, required: true, placeholder: "タイトル", class: "title", id:"title" ,value:"title" %>
+      <span>url：</span><%= form.text_field :url, required: true, placeholder: "URL", class: "URL", id:"URL" ,value:"/" %><br>
+      <span>image_url：</span><%= form.text_field :image_url, required: true, placeholder: "画像URL(default)", class: "URL", id:"URL",value:"default" %><br>
+      <span>action(news/signup)：</span><%= form.text_field :action, required: true, placeholder: "action(news/signup)", class: "URL", id:"URL",value:"news" %><br>
       
     </div>
     <%= form.submit "送信", class: "submit-button" %>
