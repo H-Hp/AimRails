@@ -1,32 +1,68 @@
 <%= stylesheet_link_tag "create-edit" %>
 
-<h2>通知を作成(全体告知)</h2>
-<%= form_with(model: @aim, url: aim_index_path, local: true, html:{ class:"edit-form",id:"edit-form" }) do |form| %>
-  <div class="field">
-    <%= form.text_field :title, required: true, placeholder: "タイトル", class: "title", id:"title" %>
-    <%= form.text_field :URL, required: true, placeholder: "URL", class: "URL", id:"URL" %><br>
-    <%= form.text_field :URL, required: true, placeholder: "画像URL(default)", class: "URL", id:"URL",value:"default" %><br>
-    <%= form.text_field :URL, required: true, placeholder: "送信者(運営/ユーザー)", class: "URL", id:"URL",value:"our" %><br>
-    <%= form.text_field :URL, required: true, placeholder: "action(news/signup)", class: "URL", id:"URL",value:"news" %>
-  </div>
-  <%= form.submit "送信", class: "submit-button" %>
+<div class="create-form">
+  <h2>通知を作成(全体告知)</h2>
+  <%= form_with(model: @notifications, html:{ class:"edit-form",id:"edit-form" }) do |form| %>
+    <div class="field">
+      <%= form.number_field :user_id, required: true, placeholder: "1", class: "title", id:"title",value:1 %>
+      <%= form.number_field :sended_id, required: true, placeholder: "送信者(運営/ユーザー)", class: "URL", id:"URL",value:5 %><br>
+      <%= form.text_field :title, required: true, placeholder: "タイトル", class: "title", id:"title" ,value:"title" %>
+      <%= form.text_field :url, required: true, placeholder: "URL", class: "URL", id:"URL" ,value:"/" %><br>
+      <%= form.text_field :image_url, required: true, placeholder: "画像URL(default)", class: "URL", id:"URL",value:"default" %><br>
+      <%= form.text_field :action, required: true, placeholder: "action(news/signup)", class: "URL", id:"URL",value:"news" %><br>
+      
+    </div>
+    <%= form.submit "送信", class: "submit-button" %>
+  <% end %>
+</div>
+<!--< form.check_box :checked, required: true %>-->
 
-<% end %>
+<div class="delete">
+  <h2>通知を削除</h2>
+  <p>checkがtrueのものを全削除</p>
+  <p>actionを指定して全削除</p>
+</div>
 
-<h2>通知を削除</h2>
-<p>checkがtrueのものを全削除</p>
-<p>actionを指定して全削除</p>
-
-<h2>
-・user_id
-・title: 
-・URL
+<div class="info">
+<pre>
+アカウント登録
+・user_id：1
+・sended_id：our
+・title: 【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！
 ・image_url: default
+・url：/
+・action : signup
+・checked：false
+プライバシーポリシーの変更
+・user_id：1
+・sended_id：our
+・title：2023年6月16日にプライバシーポリシーを改定しました。詳しい改定内容はページをご覧ください。
+・image_url: default
+・url：/policy
 ・action : news
-・checked:false
-</h2>
+・checked：false
+ニュース/告知例
+・user_id：1
+・sended_id：our
+・title：Amazonギフトカード5,000円分が抽選で当たる🎁Qiitaユーザーアンケートのお願い
+・image_url: default
+・url：/aim/1
+・action : news
+・checked：false
+</pre>
+</div>
 
 <style>
+.create-form{
+  margin-bottom:50px;
+}
+.delete{
+  margin-bottom:50px;
+}
+.info{
+
+}
+
 input[type="text"] {
   font-size:15px;
   width:50%
@@ -51,5 +87,8 @@ p{
   width:50%;
   background:white;
   color:black;
+}
+pre{
+  font-size:20px;
 }
 </style>

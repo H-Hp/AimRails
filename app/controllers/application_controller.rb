@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
 
   def set_notifications
     #@notifications = Notification.find_by(user_id: current_user.id)
-    @notifications = Notification.where(user_id: current_user.id)
+    @notifications = Notification.where(user_id: current_user.id) #通知を取得して変数に入れて他のコントローラーでも使えるように
+    @nocheck_notification_count = Notification.where(user_id: current_user.id,checked: false).count
   end
 
   PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"

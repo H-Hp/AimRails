@@ -40,5 +40,8 @@ Rails.application.routes.draw do
 
   get 'mypage'  => 'user#mypage'
 
+  #resources :notifications, only: [:index, :new, :create, :check]
   resources :notifications, only: [:index, :new, :create]
+  patch '/notifications/check', to: 'notifications#check'
+  post '/notifications/check', to: 'notifications#check'
 end

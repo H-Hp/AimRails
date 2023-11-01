@@ -65,7 +65,11 @@
   <div class="notifications-wrap">
     <button tabindex="0" class="notifications-button" id="notifications-button">
       <span class="material-symbols-outlined notifications-span" aria-label="通知">notifications</span>
-      <p class="badge"> </p>
+     
+      <% if @nocheck_notification_count > 0 %>
+         <p class="badge"> </p>
+      <% end %>
+      
     </button>
   </div>
   <div class ="user-icon">
@@ -100,6 +104,13 @@
       <div class="dropdown-notifications" id="dropdown-notifications">
         <p>通知</p><hr>
         <p class="notification-notthing">通知はありません。</p>
+
+        <%= form_with(model: @notifications, url: notifications_check_path, local: true, html:{ name:"notification_check_form" ,class:"edit-form" ,id:"edit-form"}) do |form| %>
+        <% end %>
+
+       <!-- <form name="notification_check_form" method="POST" action="/notifications/check/">
+        </form> -->
+
         <% 
           @ntc= [
             {title: "登録完了のお知らせ", 

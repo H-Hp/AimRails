@@ -249,6 +249,9 @@ dropdownBtn_notifications.addEventListener("click", function (e) {
   toggleDropdown_notifications();
   dropdownMenu_user_icon.style.zIndex = -1;
   dropdownMenu_notifications.style.zIndex = 10000;
+
+  javascript:notification_check_form.submit()//通知を既読にする
+  document.querySelector('.badge').style.display = 'none';//通知バッジを非表示
   
 
 });

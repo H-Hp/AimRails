@@ -1,0 +1,28 @@
+.content_wrap{
+  background-color: white;
+  height:100%;
+}
+
+.notification-notthing{
+  display: none;
+}
+.nc_wrap{
+  width:90%;
+  height:50px;
+  display: flex;
+  
+}
+.nc_wrap:hover{
+  background-color: #F6F8FA;
+}
+.nc_a_wrap{
+  margin: 0;
+  word-break: break-all;
+  padding: 0;
+  margin-left: 10px;
+  color: black;
+}
+.nc_a_wrap p{
+  font-size: 12px;
+  font-weight: 550;
+}
