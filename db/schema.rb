@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_01_071849) do
+ActiveRecord::Schema.define(version: 2023_11_01_195412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2023_11_01_071849) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.string "image_url"
   end
 
   create_table "contacts", force: :cascade do |t|
