@@ -9,6 +9,7 @@ class UserController < ApplicationController
     @user = current_user
     @email = @user.email
     @encrypted_password = @user.encrypted_password
+    
   end
 
   def account_delete

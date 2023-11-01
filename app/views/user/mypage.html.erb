@@ -1,7 +1,36 @@
 <%= render 'shared/header' %>
+<%= stylesheet_link_tag "mypage" %>
+<%= stylesheet_link_tag "top" %>
 
 <h1>マイページ</h1>
-<a href="/account_delete">アカウント削除</a><br>
-<a href="/password_forget">パスワードを忘れた方</a><br>
-<p><%= @email  %></p>
-<p><%= @encrypted_password  %></p>
+<div class="mypage_wrap">
+  <div class ="user-icon">
+    <button id="header-user-icon-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+  <h3><%= @email  %>様</h3>
+  <h3>作成した記事数：<%=  @create_aim_count %></h3>
+</div>
+<div class="create_aims_wrap">
+<h1>作成したAim一覧</h1>
+  <% @create_aims.each do |aim| %>
+    <a href="/aim/<%= aim.id %>">
+      <div class="aim_wrap" id="">
+        <div class="aim_img_div">
+          <%= image_tag '/baseball.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+        </div>
+        <div class="aim_title_content_div">
+          <div class="aim_title_div">
+            <h2 class="aim_title"><%= aim.title %></h2>
+          </div>
+          <div class="aim_content_div">
+            <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+          </div>
+        </div>
+      </div>
+    </a>
+  <% end %>
+</div>
