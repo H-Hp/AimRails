@@ -5,7 +5,7 @@ require 'json'
 class ApplicationController < ActionController::Base
   before_action :set_cors_headers
 
-  before_action :set_notifications
+  before_action :set_notifications, if: :user_signed_in?
 
   def set_notifications
     #@notifications = Notification.find_by(user_id: current_user.id)
@@ -62,6 +62,11 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  def user_signed_in?
+    # ログイン済みか判定するメソッド
+    current_user.present? 
+  end
 
   def set_cors_headers
     response.set_header('Access-Control-Allow-Origin', 'd2hcwuo8gsf97u.cloudfront.net')
