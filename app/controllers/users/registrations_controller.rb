@@ -53,6 +53,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # サインアップ後に使用されるパス。The path used after sign up.
    def after_sign_up_path_for(resource)
      #super(resource)
+     user_id = resource.id
+     @notifications = Notification.new
+     #@notifications = Notification.create(user_id:current_user.id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
+     @notifications = Notification.create(user_id:user_id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
+     @notifications.save
+     
      user_regist_after_path
      #sign_in(resource)# ユーザー登録が成功した後にログイン状態にする
    end
