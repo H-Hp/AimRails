@@ -40,8 +40,12 @@ Rails.application.routes.draw do
 
   get 'mypage'  => 'user#mypage'
 
-  resources :setting, only: [:edit]
+  #resources :setting, only: [:update_password]
   get 'setting'  => 'setting#setting_page'
+  post '/setting/update_mail/:id', to: 'setting#update_mail'
+  post '/setting/update_password/:id', to: 'setting#update_password'
+  patch '/setting/update_password/:id', to: 'setting#update_password'
+  post '/setting/delete_user/:id', to: 'setting#delete_user'
 
   #resources :notifications, only: [:index, :new, :create, :check]
   resources :notifications, only: [:index, :new, :create]

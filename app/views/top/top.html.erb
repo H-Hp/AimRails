@@ -4,14 +4,13 @@
 <%= render 'shared/sidemenu' %>
 <%= stylesheet_link_tag "top" %>
 
-<%= link_to "+Aim新規作成", "/aim/new" ,class: "newAim-btn btn mb-12" %>
-
-
+<% if user_signed_in? %>
+  <%= link_to "+Aim新規作成", "/aim/new" ,class: "newAim-btn btn mb-12" %>
+<% end %>
 
 
 <div class="content_wrap">
   <% @aim.each do |aim| %>
-    
     <a href="/aim/<%= aim.id %>">
       <div class="aim_wrap" id="">
         <div class="aim_img_div">
@@ -29,4 +28,7 @@
     </a>
   <% end %>
 </div>
-<a href="notifications/new">通知作成</a>
+
+<% if @current_email== "stepjump3333@yahoo.co.jp" %>
+  <a href="notifications/new">通知作成</a>
+<% end %>

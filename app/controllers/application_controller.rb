@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     @notifications = Notification.where(user_id: current_user.id) #通知を取得して変数に入れて他のコントローラーでも使えるように
     @nocheck_notification_count = Notification.where(user_id: current_user.id,checked: false).count
     @current_user_id=current_user.id
+    @current_email=current_user.email
     @create_aim_count = Aim.where(user_id: current_user.id).count
     @create_aims = Aim.where(user_id: current_user.id)
   end
