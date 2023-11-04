@@ -102,15 +102,17 @@
  
                     form_for(@resource, as: :resource_name, url: password_path(:resource_name), html: { method: :put }) do |form| 
                     -->
-                     <%= form_with(model: @user,url: "/setting/update_password/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+                     <%= form_with(url: "/setting/update_password/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <h3>現在のパスワード</h3>
-                                <input id="old-password" type="password" class="PasswordChange form-control @error('old-password') is-invalid @enderror" name="old-password"  required >
-                                
+                                <%= form.password_field :old_password, autofocus: true, autocomplete: "old_password" , id: "old-password", class: "PasswordChange form-control" , required: true %>
                                 <h3>新しいパスワード</h3>
+                                <%= form.password_field :new_password, autofocus: true, autocomplete: "new_password" , id: "new-password", class: "PasswordChange form-control" , required: true %>
+                                <!--
+                                <input id="old-password" type="password" class="PasswordChange form-control @error('old-password') is-invalid @enderror" name="old-password"  required >
                                 <input id="new-password" type="password" class="NewPasswordChange form-control @error('new-password') is-invalid @enderror" name="new-password"  required>
-<!--
+     
                                 <input autofocus="autofocus" autocomplete="new-password" type="password" name="user[password]" id="user_password" aria-autocomplete="list">
                                 <input autocomplete="new-password" type="password" name="user[password_confirmation]" id="user_password_confirmation">
                                 
@@ -121,10 +123,10 @@
                                 <= form.password_field :current_password, autocomplete: "off" %>
                             
                                 <= form.password_field :password, autocomplete: "off" %>
-
-                                <h3>新しいパスワードを確認</h3>
-                                <= form.password_field :password_confirmation, autocomplete: "off" %>
                             -->
+                                <h3>新しいパスワードを確認</h3>
+                                <%= form.password_field :password_confirmation, autocomplete: "off" , id: "password_confirmation", class: "PasswordChange form-control" , required: true %>
+                           
                                <!-- @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

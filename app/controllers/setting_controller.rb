@@ -4,10 +4,8 @@ class SettingController < ApplicationController
   def setting_page
     @user = current_user
     @email = @user.email
-    @encrypted_password = @user.encrypted_password
-
-    resource = current_user
-    resource_name = "user"
+    #@email = current_user.email
+    #@encrypted_password = @user.encrypted_password
   end
   def update_mail
     user = User.find(params[:id])
@@ -24,16 +22,37 @@ class SettingController < ApplicationController
   end
   def update_password
     user = User.find(params[:id])
-    user.reset_password("aaaaaa", "aaaaaa")
-
+    #user.reset_password("aaaaaa", "aaaaaa")
     #もしかしたら暗号化しないといけないかもnew_password=params[:new-password]
-    @old_password = params[:old_password]
-    @new_password = params[:new_password]
-    binding.pry #デバッガ有効
+    old_password = params[:old_password]
+    new_password = params[:new_password]
+    password_confirmation = params[:password_confirmation]
+    
+    if new_password == password_confirmation
+        #input_old_encrypted_password = BCrypt::Password.create(new_password)
+        #binding.pry #デバッガ有効
+        #if input_old_encrypted_password == @encrypted_password
+        if current_user.valid_password?(old_password)
+              if user.reset_password(new_password, new_password)
+                #if user.update_with_password(password_params)
+                  #bypass_sign_in(current_user) # ログイン状態を維持
+                  sign_in(user, bypass: true)# ログイン状態を維持 # パスワードが正常にリセットされた場合に再認証する
+                  #redirect_to root_path, notice: "パスワードが更新されました。"
+                  redirect_to setting_path, notice: "パスワードが更新されました。"
+                else
+                  redirect_to setting_path, notice: "エラーが起きました"
+                end
+          else
+            redirect_to setting_path, notice: "現在のパスワードが間違っています"
+          end
+    else
+      redirect_to setting_path, notice: "確認用パスワードが一致しません"
+    end
+    
+  end
     #@old_password = params[:current_password]
     #@new_password = params[:password]
-    @input_old_encrypted_password = BCrypt::Password.create(@new_password)
-    if @input_old_encrypted_password == @encrypted_password
+    
       # ストロングパラメーター 
      #user_params = {
      #  current_password: @old_password,
@@ -57,20 +76,9 @@ class SettingController < ApplicationController
       #if user.save
 
       #User.find(id).reset_password(password, password)
-      if user.reset_password(@new_password, @new_password)
-      #if user.update_with_password(password_params)
-        bypass_sign_in(current_user) # ログイン状態を維持
-        #redirect_to root_path, notice: "パスワードが更新されました。"
-        redirect_to setting_path, notice: "パスワードが更新されました。#{@old_password} #{@new_password}"
-      else
-        redirect_to mypage_path
-      end
+  
 
-    else
-      redirect_to root_path
-    end
 
-  end
 
   def delete_user
     user = User.find(params[:id])
