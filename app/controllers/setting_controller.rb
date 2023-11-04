@@ -29,6 +29,7 @@ class SettingController < ApplicationController
     #もしかしたら暗号化しないといけないかもnew_password=params[:new-password]
     @old_password = params[:old_password]
     @new_password = params[:new_password]
+    binding.pry #デバッガ有効
     #@old_password = params[:current_password]
     #@new_password = params[:password]
     @input_old_encrypted_password = BCrypt::Password.create(@new_password)
