@@ -44,8 +44,14 @@
 
 
     <!--通知のPushCode-->
-<script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
-<link rel="manifest" href="/manifest.json">
+    <script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- 広告のTheMoneytizerのCMP（Cookie同意バナー）設置-->
+    <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+    <script type="text/javascript" async=true src="Moneytizer_CMP.js"></script>
+    <!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+
 <script>
 window.PushCodeInit = function() {
   try {
