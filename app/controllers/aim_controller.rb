@@ -1,3 +1,5 @@
+require 'rake'
+
 class AimController < ApplicationController
 
   def new
@@ -5,9 +7,9 @@ class AimController < ApplicationController
   end
 
   def create
-
     @aim = Aim.new(aim_params)
     if @aim.save
+      #Rake::Task["sitemap:create"].invoke #sitemapを更新
       # お問い合わせ内容が保存された場合の処理
       flash[:success] = '登録されました。'
       #redirect_to new_aim_path
@@ -46,7 +48,8 @@ class AimController < ApplicationController
 
   def delete
     aim = Aim.find(params[:id])
-    aim.destroy   
+    aim.destroy
+    Rake::Task["sitemap:create"].invoke #sitemapを更新
     #redirect_to root_path
     if request.referer&.include?("/edit")
       redirect_to root_path
