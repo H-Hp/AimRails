@@ -2,12 +2,15 @@
 <%= render 'shared/header' %>
 
 <%= render 'shared/sidemenu' %>
+
+
 <%= stylesheet_link_tag "top" %>
 
 <% if user_signed_in? %>
   <%= link_to "+Aim新規作成", "/aim/new" ,class: "newAim-btn btn mb-12" %>
 <% end %>
 
+<%= render 'shared/side-ads' %>
 
 <div class="content_wrap">
   <% @aim.each do |aim| %>
