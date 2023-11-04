@@ -10,6 +10,6 @@
 
 </div>
 
-<% if user_signed_in? %>
-<a href="/aim/edit/<%= @aim.id %>">編集</a><br>
+<% if user_signed_in? && @aim.user_id == current_user.id %>
+  <a href="/aim/edit/<%= @aim.id %>">編集</a><br>
 <% end %>
