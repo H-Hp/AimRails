@@ -5,6 +5,7 @@ class AimController < ApplicationController
   end
 
   def create
+
     @aim = Aim.new(aim_params)
     if @aim.save
       # お問い合わせ内容が保存された場合の処理
@@ -58,7 +59,8 @@ class AimController < ApplicationController
   private
 
   def aim_params
-    params.require(:aim).permit(:title, :content)
+    #params.require(:aim).permit(:title, :content)
+    params.require(:aim).permit(:title, :content).merge(user_id: current_user.id,image_url: "default")
   end
   
 end
