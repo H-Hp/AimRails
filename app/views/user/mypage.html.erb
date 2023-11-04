@@ -32,5 +32,13 @@
         </div>
       </div>
     </a>
+      <!--aim削除-->
+      <%= form_with(url: "/aim/delete/"+aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"edit-form"}) do |form| %>
+          <div class="form-group row mb-0">
+              <button type="submit" class="alert alert-danger" role="alert">
+              削除
+              </button>
+          </div>
+      <% end %>
   <% end %>
 </div>

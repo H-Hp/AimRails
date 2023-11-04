@@ -43,6 +43,18 @@ class AimController < ApplicationController
     @aim = Aim.where('title LIKE ?', "%#{params[:word]}%")
   end
 
+  def delete
+    aim = Aim.find(params[:id])
+    aim.destroy   
+    #redirect_to root_path
+    if request.referer&.include?("/edit")
+      redirect_to root_path
+    elsif request.referer&.include?("/mypage") 
+      redirect_to mypage_path
+    end
+  end
+
+
   private
 
   def aim_params
