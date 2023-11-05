@@ -65,7 +65,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <input id="email" type="email" class="MailChange form-control @error('email') is-invalid @enderror" name="email" value="<%= @email %>" required autocomplete="email">
+                                <input id="email" type="email" class="MailChange form-control valid" name="email" value="<%= @email %>" required autocomplete="email">
 
                                 <!--@error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -106,9 +106,9 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <h3>現在のパスワード</h3>
-                                <%= form.password_field :old_password, autofocus: true, autocomplete: "old_password" , id: "old-password", class: "PasswordChange form-control" , required: true %>
+                                <%= form.password_field :old_password,  autocomplete: "old_password" , id: "old-password", class: "PasswordChange form-control" , required: true %>
                                 <h3>新しいパスワード</h3>
-                                <%= form.password_field :new_password, autofocus: true, autocomplete: "new_password" , id: "new-password", class: "PasswordChange form-control" , required: true %>
+                                <%= form.password_field :new_password,  autocomplete: "new_password" , id: "new-password", class: "PasswordChange form-control" , required: true %>
                                 <!--
                                 <input id="old-password" type="password" class="PasswordChange form-control @error('old-password') is-invalid @enderror" name="old-password"  required >
                                 <input id="new-password" type="password" class="NewPasswordChange form-control @error('new-password') is-invalid @enderror" name="new-password"  required>

@@ -1,13 +1,12 @@
 .content_wrap{
-  background-color: white;
-  height:2000px;
+  height:fit-content;
   margin: 50px;
   padding: 20px;
+  width: 65%;
 }
 
 .aim_wrap{
-  background-color: white;
-  height:200px;
+  height:130px;
   width: 100%;
   margin: 5px;
   padding: 20px;

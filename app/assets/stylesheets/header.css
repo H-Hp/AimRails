@@ -259,6 +259,7 @@ border-radius: 50%;
     right: 0;
     color:black;
     overflow: auto;
+    height:300px;
   }
   .dropdown-notifications a {
 
@@ -294,6 +295,7 @@ border-radius: 50%;
   height:45px;
   display: flex;
   margin-bottom: 10px;
+  
 }
 .nc_wrap:hover{
   background-color: #F6F8FA;
@@ -311,7 +313,10 @@ border-radius: 50%;
   overflow: hidden;
   margin: 0;
 }
-
+#to_nc_list{
+  bottom: 0;
+  position: absolute;
+}
 /*
 .dropdown-wrap{
   display: none;

@@ -2,7 +2,6 @@
 <%= stylesheet_link_tag "mypage" %>
 <%= stylesheet_link_tag "top" %>
 
-<h1>マイページ</h1>
 <div class="mypage_wrap">
   <div class ="user-icon">
     <button id="header-user-icon-btn">
@@ -35,7 +34,7 @@
       <!--aim削除-->
       <%= form_with(url: "/aim/delete/"+aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"edit-form"}) do |form| %>
           <div class="form-group row mb-0">
-              <button type="submit" class="alert alert-danger" role="alert">
+              <button type="submit" class="aim-delete-btn alert alert-danger" role="alert">
               削除
               </button>
           </div>

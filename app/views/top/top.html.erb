@@ -7,7 +7,9 @@
 <%= stylesheet_link_tag "top" %>
 
 <% if user_signed_in? %>
-  <%= link_to "+Aim新規作成", "/aim/new" ,class: "newAim-btn btn mb-12" %>
+  <%= link_to  "/aim/new" ,class: "newAim-btn btn mb-12" do %>
+  <i class="fas fa-edit"></i> Aim作成
+  <% end %>
 <% end %>
 
 <%= render 'shared/side-ads' %>

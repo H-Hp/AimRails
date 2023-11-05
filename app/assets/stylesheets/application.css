@@ -24,9 +24,7 @@ header{
   left: 15px;
   top: 15px; 
 } 
-.Logo{
-  
-}
+
 .Logo-black{
   display:none;
   width: 120px;
@@ -172,6 +170,10 @@ background: #212121;
 }
 .copyright{
   top: 260px;
+}
+
+.aim-delete-btn{
+  cursor: pointer;
 }
 
 @media only screen and (min-width:769px){/*PC*/
