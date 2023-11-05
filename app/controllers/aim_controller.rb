@@ -49,7 +49,7 @@ class AimController < ApplicationController
   def delete
     aim = Aim.find(params[:id])
     aim.destroy
-    Rake::Task["sitemap:create"].invoke #sitemapを更新
+    #Rake::Task["sitemap:create"].invoke #sitemapを更新
     #redirect_to root_path
     if request.referer&.include?("/edit")
       redirect_to root_path

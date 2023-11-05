@@ -49,7 +49,8 @@ Rails.application.routes.draw do
   post '/setting/delete_user/:id', to: 'setting#delete_user'
 
   #resources :notifications, only: [:index, :new, :create, :check]
-  resources :notifications, only: [:index, :new, :create]
+  resources :notifications, only: [:index, :new ,:create]
   patch '/notifications/check', to: 'notifications#check'
   post '/notifications/check', to: 'notifications#check'
+  #post '/notifications/create/', to: 'notifications#create'
 end
