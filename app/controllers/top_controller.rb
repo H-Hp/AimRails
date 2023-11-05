@@ -59,6 +59,8 @@ class TopController < ApplicationController
     end
 =end
     @aim = Aim.all
+    
+
     if user_signed_in?
       # ログイン中の場合の処理
       @login_or_out = 'ログイン中'

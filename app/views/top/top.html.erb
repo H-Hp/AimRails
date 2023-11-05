@@ -28,7 +28,17 @@
           <div class="aim_content_div">
             <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
           </div>
+          
         </div>
+        <div class="aim_updated_div">
+        <%   time = Time.parse(aim.updated_at.to_s)
+              #time = Time.parse('2023-11-04 14:17:24 UTC')
+              #2023-11-04 14:17:24 UTC
+              #2023-11-04 14:17:24 UTC
+             time_jst = time.in_time_zone('Tokyo')
+             formatted_time = time_jst.strftime('%Y年%m月%d日')%>
+              <time datetime="<%= formatted_time %>" class="update-date"><%= formatted_time %></time>
+          </div>
       </div>
     </a>
   <% end %>
