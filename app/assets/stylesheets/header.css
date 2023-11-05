@@ -291,9 +291,9 @@ border-radius: 50%;
 }
 .nc_wrap{
   width:90%;
-  height:50px;
+  height:45px;
   display: flex;
-  
+  margin-bottom: 10px;
 }
 .nc_wrap:hover{
   background-color: #F6F8FA;
@@ -307,6 +307,9 @@ border-radius: 50%;
 .nc_a_wrap p{
   font-size: 12px;
   font-weight: 550;
+  height:35px;
+  overflow: hidden;
+  margin: 0;
 }
 
 /*

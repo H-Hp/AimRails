@@ -8,9 +8,7 @@
 }
 .nc_wrap{
   width:90%;
-  height:50px;
   display: flex;
-  
 }
 .nc_wrap:hover{
   background-color: #F6F8FA;
