@@ -1,5 +1,5 @@
 require 'bcrypt'
-
+require 'digest/md5'
 class SettingController < ApplicationController
   def setting_page
     @user = current_user
@@ -7,6 +7,9 @@ class SettingController < ApplicationController
     @user_name= @user.user_name
     #@email = current_user.email
     #@encrypted_password = @user.encrypted_password
+
+    email = 'stepjump3333@yahoo.co.jp'
+    @hashed_email = Digest::MD5.hexdigest(email)
   end
   def update_mail
     user = User.find(params[:id])
@@ -90,7 +93,31 @@ class SettingController < ApplicationController
   
 
 
+  def custom_img
+  
+  end
 
+  def upload_img
+    #user_id=params[:id]
+    #ストレージに画像をアップロード
+    #file = params[:user][:image]
+    #@user.image.attach(io: file, filename: 'image.jpg')# ストレージにアップロード
+    @user = User.find(params[:id])
+
+    # ストロングパラメータ
+    #params.require(:user).permit(:user_icon_image)
+    #params.require(:setting).permit(:user_icon_image) 
+    params.permit(:user_icon_image) 
+    
+    # アタッチ
+    #@user.user_icon_image.attach(params[:user][:user_icon_image])
+    @user.user_icon_image.attach(io: params[:user_icon_image], filename: "test_file_name")
+
+    if @user.save
+      redirect_to root_path
+    end
+  end
+  
   def delete_user
     user = User.find(params[:id])
     user.destroy   
@@ -98,6 +125,9 @@ class SettingController < ApplicationController
   end
 
   private
+    def user_icon_image_params
+      params.require(:user).permit(:user_icon_image)
+    end
 
     #def password_params
     #  params.require(:user).permit(:password, :password_confirmation, :current_password)

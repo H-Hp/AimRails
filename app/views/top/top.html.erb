@@ -6,6 +6,8 @@
 
 <%= stylesheet_link_tag "top" %>
 
+<%= image_tag current_user.user_icon_image %>
+
 <% if user_signed_in? %>
   <%= link_to  "/aim/new" ,class: "newAim-btn btn mb-12" do %>
   <i class="fas fa-edit"></i> Aim作成

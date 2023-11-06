@@ -14,6 +14,48 @@
     <div class="menu-wrap row justify-content-center">
         <div class=" col-md-10">   
             <div class="card">
+
+                <div class="card-header"><h2>アイコン<%= @hashed_email %></h2></div>
+                <div class="card-body">
+                    <%= form_with(url: "/setting/icon/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+                        <div class="form-group row mb-0">
+                            <div class="us-ImageSelect_item">
+                                <label class="us-ImageSelect_itemIcon" for="user_gravatar_icon">
+                                    <input id="user_gravatar_icon" type="radio" value="https://secure.gravatar.com/avatar/ae42b0a4f0ea9e49b96a17c3851b9d9f" name="user[profile_image_url]" data-gtm-form-interact-field-id="0">
+                                    <img title="abcdegolira@gmail.com" src="https://secure.gravatar.com/avatar/ae42b0a4f0ea9e49b96a17c3851b9d9f">
+                                    
+
+                                    <!--
+                                    <img src="https://www.gravatar.com/avatar/<%= @hashed_email %>?s=200" alt="User's Gravatar">
+                                    -->
+                                </label>
+                                <div class="us-ImageSelect_itemCaption">
+                                    Gravatar
+                                    <a target="_blank" class="us-ImageSelect_itemCaption_icon" href="https://ja.gravatar.com/">
+                                        <span class="material-symbols-outlined">
+                                        open_in_new
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        
+
+                            <div class="us-ImageSelect_item">
+                                <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
+                                    <input id="user_uploaded_profile_image" type="radio" value="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473" name="user[profile_image_url]">
+                                    <img alt="RollTall" src="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473">
+                                </label>
+                                <div class="us-ImageSelect_itemCaption">
+                                    <a href="/setting/user/custom_img">
+                                        画像アップロード
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+
+
                 <div class="card-header"><h2>アカウント名を変更</h2></div>
                 <div class="card-body">
                     <!--<form method="POST" action="{{ route('user.update', ['user_id' => $user_id]) }}">-->

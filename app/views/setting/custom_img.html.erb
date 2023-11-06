@@ -1,0 +1,35 @@
+<%= render 'shared/header' %>
+<%= stylesheet_link_tag "setting" %>
+
+<div class="wrap">
+    <h2>ユーザーアイコンをアップロード</h2>
+
+    <!--<form class="simple_form mt-4" id="edit_profile_image_129533" enctype="multipart/form-data" action="/settings/account/custom_image" accept-charset="UTF-8" method="post">-->
+    <%= form_with(url: "/setting/upload_img/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+        <label class="" for="profile_image_file">
+            <div class="us-customImage">
+                <div class="us-customImage_icon">
+                    <img src="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/044c1709e4649cdc60ee877c26cc7ae0111aa48a/large.png?1699253572" width="60" height="60">
+                </div>
+                <div>
+
+
+                    <!--
+                      <input required="required" accept="image/gif, image/jpeg, image/png" type="file" name="user_icon_image" id="user_icon_image">
+                    
+                      <= form.file_field :user_icon_image,  autocomplete: "old_password" , id: "user_icon_image", class: "PasswordChange form-control" , required: true %>
+                    -->
+                    <%= form.file_field :user_icon_image, required: true, accept: 'image/gif, image/jpeg, image/png' %>
+                    <p class="us-customImage_detail">10 MB まで</p>
+                </div>
+            </div>
+        </label>
+        <div class="us-customImage_Buttons">
+          <%= form.submit " aa" %>
+            <input type="submit" name="commit" value="新しい画像をアップロードする" class="st-newForm_greenFillSubmit" data-disable-with="新しい画像をアップロードする">
+            <a class="st-newForm_grayBorderSubmit" style="-webkit-appearance: none" href="/settings/account">
+                キャンセル
+            </a>
+        </div>
+    <% end %>
+</div>

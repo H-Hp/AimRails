@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   #get 'mypage'  => 'user#mypage'
   get '/user/:username', to: 'user#mypage'
-
+  
   #resources :setting, only: [:update_password]
   get 'setting'  => 'setting#setting_page'
   post '/setting/update_mail/:id', to: 'setting#update_mail'
@@ -49,6 +49,9 @@ Rails.application.routes.draw do
   post '/setting/update_password/:id', to: 'setting#update_password'
   patch '/setting/update_password/:id', to: 'setting#update_password'
   post '/setting/delete_user/:id', to: 'setting#delete_user'
+
+  get '/setting/user/custom_img'  => 'setting#custom_img'
+  post '/setting/upload_img/:id', to: 'setting#upload_img'
 
   #resources :notifications, only: [:index, :new, :create, :check]
   resources :notifications, only: [:index, :new ,:create]
