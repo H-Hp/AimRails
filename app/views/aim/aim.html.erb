@@ -3,6 +3,10 @@
 
 <%= render 'shared/side-ads' %>
 
+<h4>
+<a href="/user/<%= current_user.user_name %>">@<%= current_user.user_name %></a>
+</h4>
+
 <h1><%= @aim.title %></h1>
 
 <div id="content_div">
@@ -11,5 +15,5 @@
 </div>
 
 <% if user_signed_in? && @aim.user_id == current_user.id %>
-  <a href="/aim/edit/<%= @aim.id %>">編集</a><br>
+  <a href="/aim/edit/<%= @aim.id %>">編集</a>
 <% end %>

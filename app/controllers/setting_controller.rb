@@ -4,6 +4,7 @@ class SettingController < ApplicationController
   def setting_page
     @user = current_user
     @email = @user.email
+    @user_name= @user.user_name
     #@email = current_user.email
     #@encrypted_password = @user.encrypted_password
   end
@@ -17,9 +18,19 @@ class SettingController < ApplicationController
       #redirect_to root_path
       redirect_to setting_path
     else
-      render 'edit'
+      redirect_to setting_path, notice: "エラーが発生しました"
     end
   end
+
+  def update_username
+    user = User.find(params[:id])
+    if user.update(user_name: params[:user_name])
+      redirect_to setting_path
+    else
+      redirect_to setting_path, notice: "エラーが発生しました"
+    end
+  end
+
   def update_password
     user = User.find(params[:id])
     #user.reset_password("aaaaaa", "aaaaaa")

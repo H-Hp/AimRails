@@ -8,6 +8,7 @@ class UserController < ApplicationController
   def mypage
     @user = current_user
     @email = @user.email
+    @user_name = @user.user_name
     @encrypted_password = @user.encrypted_password
     
   end

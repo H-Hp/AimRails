@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   #resources :setting, only: [:update_password]
   get 'setting'  => 'setting#setting_page'
   post '/setting/update_mail/:id', to: 'setting#update_mail'
+  post '/setting/update_username/:id', to: 'setting#update_username'
   post '/setting/update_password/:id', to: 'setting#update_password'
   patch '/setting/update_password/:id', to: 'setting#update_password'
   post '/setting/delete_user/:id', to: 'setting#delete_user'

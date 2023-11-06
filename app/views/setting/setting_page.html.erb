@@ -14,25 +14,14 @@
     <div class="menu-wrap row justify-content-center">
         <div class=" col-md-10">   
             <div class="card">
-                <!--<div class="card-header"><h2>アカウント名を変更</h2></div>
+                <div class="card-header"><h2>アカウント名を変更</h2></div>
                 <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    
-                    <form method="POST" action="{{ route('user.update', ['user_id' => $user_id]) }}">
-                      @csrf
+                    <!--<form method="POST" action="{{ route('user.update', ['user_id' => $user_id]) }}">-->
+                    <%= form_with(url: "/setting/update_username/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+
                         <div class="form-group row">
                             <div class="col-md-6 p-8">
-                                <input id="name" type="txt" class="nameChange form-control @error('name') is-invalid @enderror" name="name" value="{{ $name }}" required autocomplete="name">
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="name" type="txt" class="nameChange form-control" name="user_name" value="<%= @user_name %>" required autocomplete="name">
                             </div>
                         </div>
 
@@ -41,8 +30,8 @@
                             アカウント名変更
                             </button>
                         </div>
-                    </form>
-                </div>-->
+                    <% end %>
+                </div>
 
                 <div class="card-header"><h2>メールアドレスを変更</h2></div>
                 <div class="card-body">
