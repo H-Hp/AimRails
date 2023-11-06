@@ -24,6 +24,8 @@ class AimController < ApplicationController
 
   def aim
     @aim = Aim.find_by(id: params[:id])
+    @author_id =@aim.user_id
+    @author = User.find_by(id: @author_id)
   end
 
   def edit

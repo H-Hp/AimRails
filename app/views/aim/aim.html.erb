@@ -4,7 +4,7 @@
 <%= render 'shared/side-ads' %>
 
 <h4>
-<a href="/user/<%= current_user.user_name %>">@<%= current_user.user_name %></a>
+<a href="/user/<%= @author.user_name %>">@<%= @author.user_name %></a>
 </h4>
 
 <h1><%= @aim.title %></h1>

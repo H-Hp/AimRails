@@ -39,7 +39,8 @@ Rails.application.routes.draw do
   get 'account_delete'  => 'user#account_delete'
   #get 'top'  => 'top#top'
 
-  get 'mypage'  => 'user#mypage'
+  #get 'mypage'  => 'user#mypage'
+  get '/user/:username', to: 'user#mypage'
 
   #resources :setting, only: [:update_password]
   get 'setting'  => 'setting#setting_page'

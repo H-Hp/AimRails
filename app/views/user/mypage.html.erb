@@ -33,15 +33,17 @@
         </div>
       </div>
     </a>
-    <!--aim削除-->
-    <button id="open-dialog-<%= aim.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
-    <div id="dialog-overlay-<%= aim.id %>" class="dialog-overlay" style=" display:none;">
-      <div id="dialog-box-<%= aim.id %>" class="dialog-box">
-        <p>本当に削除しますか？</p>
-        <button type="submit" id="confirm-delete-<%= aim.id %>" class="confirm-delete">はい</button>
-        <button id="cancel-delete-<%= aim.id %>" class="ancel-delete">いいえ</button>
+    <!--aim削除・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
+    <% if @user.id==@current_user_id %>
+      <button id="open-dialog-<%= aim.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
+      <div id="dialog-overlay-<%= aim.id %>" class="dialog-overlay" style=" display:none;">
+        <div id="dialog-box-<%= aim.id %>" class="dialog-box">
+          <p>本当に削除しますか？</p>
+          <button type="submit" id="confirm-delete-<%= aim.id %>" class="confirm-delete">はい</button>
+          <button id="cancel-delete-<%= aim.id %>" class="ancel-delete">いいえ</button>
+        </div>
       </div>
-    </div>
+    <% end %>
 
 <script>
 let openDialogButton_<%= aim.id %> = document.getElementById('open-dialog-<%= aim.id %>');

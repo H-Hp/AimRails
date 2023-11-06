@@ -86,7 +86,8 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <div class="container"> 
       <div class="dropdown-user-icon" id="dropdown-user-icon">
-        <a href="/mypage"><i class="bx bx-user"></i>マイページ</a>
+        <!--<a href="/mypage"><i class="bx bx-user"></i>マイページ</a>-->
+        <a href="/user/<%= current_user.user_name %>"><i class="bx bx-user"></i>マイページ</a>
         <a href="/setting"><i class="bx bx-cog"></i>設定</a>
 
         <a href="#" class="design-light" id="design-light"><i class="bx bx-adjust"></i>デザイン:ライト</a>

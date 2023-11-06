@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
     @nocheck_notification_count = Notification.where(user_id: current_user.id,checked: false).count
     @current_user_id=current_user.id
     @current_email=current_user.email
-    @create_aim_count = Aim.where(user_id: current_user.id).count
-    @create_aims = Aim.where(user_id: current_user.id)
   end
 
   PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
