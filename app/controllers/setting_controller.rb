@@ -7,7 +7,7 @@ class SettingController < ApplicationController
     @user_name= @user.user_name
     #@email = current_user.email
     #@encrypted_password = @user.encrypted_password
-
+    @icon_type= @user.icon_url
     email = 'stepjump3333@yahoo.co.jp'
     @hashed_email = Digest::MD5.hexdigest(email)
   end
@@ -95,6 +95,17 @@ class SettingController < ApplicationController
 
   def custom_img
   
+  end
+
+  def icon_type_change
+    user = User.find(params[:id])
+    #params[:icon_url]・・・valueの値が取得される
+    if user.update(icon_url: params[:icon_url])
+      redirect_to setting_path
+    else
+      redirect_to setting_path, notice: "エラーが発生しました"
+      #redirect_to setting_path, notice: "icon_type=#{params[:icon_url]}"
+    end
   end
 
   def upload_img

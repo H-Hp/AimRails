@@ -17,11 +17,11 @@
 
                 <div class="card-header"><h2>アイコン<%= @hashed_email %></h2></div>
                 <div class="card-body">
-                    <%= form_with(url: "/setting/icon/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+                    <%= form_with(url: "/setting/icon_type_change/"+@current_user_id.to_s, local: true, html:{ class:"icon-edit-form" ,id:"icon-edit-form"}) do |form| %>
                         <div class="form-group row mb-0">
                             <div class="us-ImageSelect_item">
                                 <label class="us-ImageSelect_itemIcon" for="user_gravatar_icon">
-                                    <input id="user_gravatar_icon" type="radio" value="https://secure.gravatar.com/avatar/ae42b0a4f0ea9e49b96a17c3851b9d9f" name="user[profile_image_url]" data-gtm-form-interact-field-id="0">
+                                    <input id="user_gravatar_icon" type="radio" value="gravatar" name="icon_url" <%= 'checked="checked"' if @icon_type == 'gravatar' %> >
                                     <img title="abcdegolira@gmail.com" src="https://secure.gravatar.com/avatar/ae42b0a4f0ea9e49b96a17c3851b9d9f">
                                     
 
@@ -42,7 +42,7 @@
 
                             <div class="us-ImageSelect_item">
                                 <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
-                                    <input id="user_uploaded_profile_image" type="radio" value="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473" name="user[profile_image_url]">
+                                    <input id="user_uploaded_profile_image" type="radio" value="custom" name="icon_url" <%= 'checked="checked"' if @icon_type == 'custom' %> >
                                     <img alt="RollTall" src="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473">
                                 </label>
                                 <div class="us-ImageSelect_itemCaption">
@@ -51,10 +51,46 @@
                                     </a>
                                 </div>
                             </div>
+
+                            <div class="us-ImageSelect_item">
+                                <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
+                                    <input id="user_uploaded_profile_image" type="radio" value="default" name="icon_url" <%= 'checked="checked"' if @icon_type == 'default' %> >
+                                    <img alt="RollTall" src="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473">
+                                </label>
+                                <div class="us-ImageSelect_itemCaption">
+                                        デフォルト
+                                </div>
+                            </div>
                         </div>
                     <% end %>
                 </div>
+                <script>
+                //ラジオボタンを押すごとにsubmit
+                //$(document).ready(function() {
+                    /*console.log("aaa")
+                    $('input[type="radio"]').on('change', function() {
+                    //$('#user_uploaded_profile_image').on('change', function() {
+                        console.log("ds");
+                        $('#icon-edit-form').submit();
+                        
+                    });
+                //});
+                */
+               // ラジオボタンを取得  
+const radioButtons = document.querySelectorAll('input[name="icon_url"]');
 
+// クリックイベントを追加
+radioButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    console.log("a")
+    // フォーム要素を取得
+    const form = button.closest('form');
+    
+    // フォーム送信
+    form.submit(); 
+  });
+});
+                </script>
 
                 <div class="card-header"><h2>アカウント名を変更</h2></div>
                 <div class="card-body">

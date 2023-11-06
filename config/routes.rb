@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   patch '/setting/update_password/:id', to: 'setting#update_password'
   post '/setting/delete_user/:id', to: 'setting#delete_user'
 
+  post '/setting/icon_type_change/:id', to: 'setting#icon_type_change'
   get '/setting/user/custom_img'  => 'setting#custom_img'
   post '/setting/upload_img/:id', to: 'setting#upload_img'
 
