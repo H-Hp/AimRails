@@ -181,7 +181,11 @@ border-radius: 50%;
     overflow: hidden;
     width: 32px;
   }
-
+.user-icon_img{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
 
 
   @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
