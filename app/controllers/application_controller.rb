@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_init, if: :user_signed_in?
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   def set_init
     #@notifications = Notification.find_by(user_id: current_user.id)
     @notifications = Notification.where(user_id: current_user.id) #通知を取得して変数に入れて他のコントローラーでも使えるように
@@ -85,5 +87,9 @@ class ApplicationController < ActionController::Base
 		#response.set_header('Access-Control-Allow-Origin', 'http://0.0.0.0:3000')
     response.set_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     response.set_header('Access-Control-Allow-Headers', 'Content-Type')
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:user_name])
   end
 end
