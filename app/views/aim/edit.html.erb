@@ -1,5 +1,12 @@
 <%= stylesheet_link_tag "create-edit" %>
 <%= render 'shared/create-edit-header' %>
+<%= stylesheet_link_tag "aim-delete-dialog" %>
+
+<!--<= javascript_pack_tag 'aim-delete-dialog' %>
+<= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+<script src="< asset_path('aim-delete-dialog.js') %>"></script>
+<script type="text/javascript" async=true src="aim-delete-dialog.js"></script>
+-->
 
 
 <%= form_with(model: @aim, url: "/aim/update/"+@aim.id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
@@ -23,12 +30,17 @@
 <% end %>
 
 <!--aim削除-->
-<%= form_with(url: "/aim/delete/"+@aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"edit-form"}) do |form| %>
-    <div class="form-group row mb-0">
-        <button type="submit" class="aim-delete-btn alert alert-danger" role="alert">
-        削除
-        </button>
-    </div>
+<button id="open-dialog"class="aim-delete-btn alert alert-danger" role="alert">削除</button>
+<div id="dialog-overlay" class="dialog-overlay" style=" display:none;">
+  <div id="dialog-box" class="dialog-box">
+    <p>本当に削除しますか？</p>
+    <button id="confirm-delete">はい</button>
+    <button id="cancel-delete">いいえ</button>
+  </div>
+</div>
+
+<%= form_with(url: "/aim/delete/"+@aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"aim-delete-form"}) do |form| %>
+
 <% end %>
 
 
@@ -94,3 +106,38 @@ textarea.addEventListener('input', function() {
   color:black;
 }
 </style>
+
+
+<script>
+//aim削除
+const openDialogButton = document.getElementById('open-dialog');
+const dialogOverlay = document.getElementById('dialog-overlay');
+const dialogBox = document.getElementById('dialog-box');
+const confirmDeleteButton = document.getElementById('confirm-delete');
+const cancelDeleteButton = document.getElementById('cancel-delete');
+
+openDialogButton.addEventListener('click', () => {
+  dialogOverlay.style.display = 'flex';
+});
+
+function closeDialog() {
+  dialogOverlay.style.display = 'none';
+}
+
+dialogOverlay.addEventListener('click', (e) => {
+  if (e.target === dialogOverlay) {
+    closeDialog();
+  }
+});
+
+confirmDeleteButton.addEventListener('click', () => {
+  // 削除の確認を実行
+  // ここに削除処理を追加
+  document.getElementById("aim-delete-form").submit();
+  closeDialog();
+});
+
+cancelDeleteButton.addEventListener('click', () => {
+  closeDialog();
+});
+</script>

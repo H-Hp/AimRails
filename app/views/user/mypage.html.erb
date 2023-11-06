@@ -1,6 +1,8 @@
 <%= render 'shared/header' %>
 <%= stylesheet_link_tag "mypage" %>
 <%= stylesheet_link_tag "top" %>
+<%= stylesheet_link_tag "aim-delete-dialog" %>
+
 
 <div class="mypage_wrap">
   <div class ="user-icon">
@@ -31,13 +33,109 @@
         </div>
       </div>
     </a>
+    <!--aim削除-->
+    <button id="open-dialog-<%= aim.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
+    <div id="dialog-overlay-<%= aim.id %>" style=" display:none;">
+    <div id="dialog-box-<%= aim.id %>">
+      <p>本当に削除しますか？</p>
+      <button type="submit" id="confirm-delete-<%= aim.id %>" >はい</button>
+      <button id="cancel-delete-<%= aim.id %>" >いいえ</button>
+    </div>
+
+<script>
+let openDialogButton_<%= aim.id %> = document.getElementById('open-dialog-<%= aim.id %>');
+let dialogOverlay_<%= aim.id %> = document.getElementById('dialog-overlay-<%= aim.id %>');
+let dialogBox_<%= aim.id %> = document.getElementById('dialog-box-<%= aim.id %>');
+let confirmDeleteButton_<%= aim.id %> = document.getElementById('confirm-delete-<%= aim.id %>');
+let cancelDeleteButton_<%= aim.id %> = document.getElementById('cancel-delete-<%= aim.id %>');
+
+openDialogButton_<%= aim.id %>.addEventListener('click', () => {
+  dialogOverlay_<%= aim.id %>.style.display = 'flex';
+});
+
+function closeDialog() {
+  dialogOverlay_<%= aim.id %>.style.display = 'none';
+}
+
+dialogOverlay_<%= aim.id %>.addEventListener('click', (e) => {
+  if (e.target === dialogOverlay_<%= aim.id %>) {
+    closeDialog();
+  }
+});
+
+confirmDeleteButton_<%= aim.id %>.addEventListener('click', () => {
+  // 削除の確認を実行
+  // ここに削除処理を追加
+  document.getElementById("aim-delete-form-<%= aim.id %>").submit();
+  closeDialog();
+});
+
+cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
+  closeDialog();
+});
+//console.log("aim.id:"+<%= aim.id %>)
+</script>
       <!--aim削除-->
-      <%= form_with(url: "/aim/delete/"+aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"edit-form"}) do |form| %>
-          <div class="form-group row mb-0">
-              <button type="submit" class="aim-delete-btn alert alert-danger" role="alert">
-              削除
-              </button>
-          </div>
+      <%= form_with(url: "/aim/delete/"+aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"aim-delete-form-#{aim.id}"}) do |form| %>
+
+      
+      </div>
       <% end %>
   <% end %>
 </div>
+
+
+<script>
+/*
+//aim削除
+//const openDialogButton = document.getElementById('open-dialog');
+const openDialogButton =document.getElementsByClassName("open-dialog");
+
+
+const dialogOverlay = document.getElementById('dialog-overlay');
+const dialogBox = document.getElementById('dialog-box');
+const confirmDeleteButton = document.getElementById('confirm-delete');
+const cancelDeleteButton = document.getElementById('cancel-delete');
+
+var delete_aim_id;
+var delete_aim_id2;
+var ii=11;
+console.log(ii);
+for (var i = 0; i < openDialogButton.length; i++) {
+  //delete_aim_id = openDialogButton[i].id;
+  //console.log(delete_aim_id);
+  delete_aim_id=openDialogButton[i].id;
+  console.log("delete_aim_id1="+delete_aim_id);
+
+  openDialogButton[i].addEventListener('click', () => {
+    //dialogOverlay.style.display = 'flex';
+    dialogOverlay[i].style.display = 'flex';
+    //delete_aim_id=openDialogButton[i].id;
+    //delete_aim_id2=delete_aim_id;
+    //console.log("delete_aim_id2:"+delete_aim_id2);
+  });
+
+function closeDialog() {
+  dialogOverlay.style.display = 'none';
+}
+
+dialogOverlay.addEventListener('click', (e) => {
+  if (e.target === dialogOverlay) {
+    closeDialog();
+  }
+});
+
+cancelDeleteButton.addEventListener('click', () => {
+  closeDialog();
+});
+}
+
+confirmDeleteButton.addEventListener('click', () => {
+  // 削除の確認を実行
+  // ここに削除処理を追加
+  //document.getElementById("aim-delete-form").submit();
+  document.getElementById("aim-delete-form-"+delete_aim_id).submit();
+  closeDialog();
+});
+*/
+</script>
