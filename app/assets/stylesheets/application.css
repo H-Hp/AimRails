@@ -180,12 +180,17 @@ background: #212121;
   color:black;
 }
 
-@media only screen and (min-width:769px){/*PC*/
+/* スマートフォン用：画面幅が600px以下 */
+@media only screen and (max-width: 600px) {
+  
+}
+
+/* タブレット用：画面幅が600px以上と900px以下 */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
 
 }
 
-
-@media only screen and (max-device-width:480px){/*スマホ*/
-
+/* PC用：画面幅が901px以上 */
+@media only screen and (min-width: 901px) {
 
 }
