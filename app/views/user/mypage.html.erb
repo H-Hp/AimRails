@@ -35,11 +35,12 @@
     </a>
     <!--aim削除-->
     <button id="open-dialog-<%= aim.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
-    <div id="dialog-overlay-<%= aim.id %>" style=" display:none;">
-    <div id="dialog-box-<%= aim.id %>">
-      <p>本当に削除しますか？</p>
-      <button type="submit" id="confirm-delete-<%= aim.id %>" >はい</button>
-      <button id="cancel-delete-<%= aim.id %>" >いいえ</button>
+    <div id="dialog-overlay-<%= aim.id %>" class="dialog-overlay" style=" display:none;">
+      <div id="dialog-box-<%= aim.id %>" class="dialog-box">
+        <p>本当に削除しますか？</p>
+        <button type="submit" id="confirm-delete-<%= aim.id %>" class="confirm-delete">はい</button>
+        <button id="cancel-delete-<%= aim.id %>" class="ancel-delete">いいえ</button>
+      </div>
     </div>
 
 <script>
@@ -59,7 +60,8 @@ function closeDialog() {
 
 dialogOverlay_<%= aim.id %>.addEventListener('click', (e) => {
   if (e.target === dialogOverlay_<%= aim.id %>) {
-    closeDialog();
+    dialogOverlay_<%= aim.id %>.style.display = 'none';
+    //closeDialog();
   }
 });
 
@@ -67,11 +69,13 @@ confirmDeleteButton_<%= aim.id %>.addEventListener('click', () => {
   // 削除の確認を実行
   // ここに削除処理を追加
   document.getElementById("aim-delete-form-<%= aim.id %>").submit();
-  closeDialog();
+  dialogOverlay_<%= aim.id %>.style.display = 'none';
+  //closeDialog();
 });
 
 cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
-  closeDialog();
+  dialogOverlay_<%= aim.id %>.style.display = 'none';
+  //closeDialog();
 });
 //console.log("aim.id:"+<%= aim.id %>)
 </script>
@@ -79,7 +83,7 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
       <%= form_with(url: "/aim/delete/"+aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"aim-delete-form-#{aim.id}"}) do |form| %>
 
       
-      </div>
+      
       <% end %>
   <% end %>
 </div>
