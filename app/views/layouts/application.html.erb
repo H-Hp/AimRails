@@ -26,6 +26,7 @@
     -->
 
     <%= stylesheet_link_tag "header" %>
+    <%= stylesheet_link_tag "side-menu" %>
     <%= stylesheet_link_tag "side-ads" %>
 
     
@@ -129,7 +130,8 @@ $(function(){
     //$(".stretch-btn").toggleClass("menu-open");
 		$(".Left").css("width","25px") ;
     $("main").css("left","10px") ;
-    $("main").css("width","90%") ;
+    //$("main").css("width","90%") ;
+    $("main").css("width","99%") ;
     $(".stretch-btn").hide();$(".stretch-btn-open").show();
     $(".Left-content").hide();
     /*$(".stretch-btn").addClass(".stretch-btn-close");
@@ -163,11 +165,15 @@ $(function(){
   
   function design_light(){
     console.log("design-light");
-    $("body").css("background-color","white") ;
-    $("main").css("background-color","white") ;
-    $("header").css("background-color","#F5F6F6") ;
+    //$("body").css("background-color","white") ;
+    //$("main").css("background-color","white") ;
+    $("body").css("background-color","#F4F5F7") ;
+    $("main").css("background-color","#F4F5F7") ;
+    //$("header").css("background-color","#F5F6F6") ;
+    $("header").css("background-color","white") ;
     $(".SearchBox").css("background-color","white") ;
-    $(".Left").css("background-color","#F5F6F6") ;
+    //$(".Left").css("background-color","#F5F6F6") ;
+    $(".Left").css("background-color","white") ;
 
 
     $("main").css("color","black") ;

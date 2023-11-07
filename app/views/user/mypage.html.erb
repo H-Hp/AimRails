@@ -4,22 +4,48 @@
 <%= stylesheet_link_tag "aim-delete-dialog" %>
 
 
-<div class="mypage_wrap">
-  <div class ="user-icon">
-    <button id="header-user-icon-btn">
-       <%= render 'shared/user_icon' %>
-    </button>
-  </div>
-  <h3>@<%= @user_name  %></h3>
-  <h3>作成した記事数：<%=  @create_aim_count %></h3>
+<div class="profile_wrap">
+    <div class="profile_content">
+        <div class ="user-icon">
+            <button id="header-user-icon-btn">
+            <% @un=@user  %>
+              <%= render 'shared/user_icon' %>
+            </button>
+        </div>
+        <div class ="username_wrap">
+            <h3>@<%= @user_name  %></h3>
+        </div>
+        <div class ="create_aim_length_wrap">
+            <h3>作成した記事数：<%=  @create_aim_count %></h3>
+        </div>
+
+        <div class ="menu">
+            <div class ="nice">
+                <h3>7いいね</h3>
+            </div>
+            <div class ="follower">
+                <h3>フォロワー : 4</h3>
+            </div>
+            <div class ="follow">
+                <h3>フォロー : 8</h3>
+            </div>
+        </div>
+
+        <div class ="edit_btn_wrap">
+            <button id="edit-btn" class="edit_btn btn btn-primary">
+                プロフィールを編集する
+            </button>
+        </div>
+    </div>
 </div>
+
 <div class="create_aims_wrap">
 <h1>作成したAim一覧</h1>
   <% @create_aims.each do |aim| %>
     <a href="/aim/<%= aim.id %>">
       <div class="aim_wrap" id="">
         <div class="aim_img_div">
-          <%= image_tag '/baseball.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+          <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
         </div>
         <div class="aim_title_content_div">
           <div class="aim_title_div">

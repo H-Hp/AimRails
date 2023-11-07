@@ -1,0 +1,32 @@
+
+.cont:hover{
+  background-color: rgb(232, 232, 220);
+  color: white;
+}
+.cont{
+  width: 200px;
+}
+/* user_wrapを横並びにする */
+.user_ranking_user_wrap {
+  display: flex;
+  height: 90px;
+  margin-bottom: 25px;
+}
+
+/* No, icon, hopを横並び */  
+.user_ranking_No_wrap,
+.user-icon_img,  
+.hop {
+  display: inline-block; 
+}
+
+/* hop内要素を縦並び */
+.hop {
+  display: flex;
+  flex-direction: column; 
+}
+
+.user_ranking_username_wrap,
+.user_ranking_createNum_wrap {
+  display: block;
+}

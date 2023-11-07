@@ -13,8 +13,24 @@ class ApplicationController < ActionController::Base
     #@notifications = Notification.find_by(user_id: current_user.id)
     @notifications = Notification.where(user_id: current_user.id) #通知を取得して変数に入れて他のコントローラーでも使えるように
     @nocheck_notification_count = Notification.where(user_id: current_user.id,checked: false).count
+    
+    #time = Time.parse(aim.updated_at.to_s)
+    #time_jst = time.in_time_zone('Tokyo')
+    #@notifications_formatted_time = time_jst.strftime('%Y年%m月%d日')
+    
+    
     @current_user_id=current_user.id
     @current_email=current_user.email
+
+    #ユーザーランキング
+    #Aimモデルから最もユーザー数が多いデータ(記事の作成数が多い順でランキング)を10個取得
+    duplicated_user_id = Aim.group(:user_id).having('count(user_id) > 1').pluck(:user_id)
+    #@users_with_duplicated_names = User.where(user_id: duplicated_user_id).limit(10)
+    @users_with_duplicated_names = User.where(id: duplicated_user_id).limit(10)
+    
+    #
+    #duplicated_usernames_count = Aim.group(:user_name).having('count(user_name) > 1').count
+
   end
 
   PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"

@@ -1,17 +1,73 @@
+<%= stylesheet_link_tag "user-ranking" %>
+
 <div class="Left">
   <button class="stretch-btn" id="stretch-btn">←</button>
   <button class="stretch-btn-open" id="stretch-btn-open">→</button>
 
   <div class="Left-content">
-    <div class="link-div"><a href="/pricing" class="contact_link">料金/プラン</a></div>
-    <div class="link-div"><a href="/business">ビジネス</a></div>
-    <div class="link-div"><a href="/sctl">特定商取引法に基づく表記</a></div>
-    <div class="link-div"><a href="/policy">プライバシーポリシー</a></div>
-    <div class="link-div"><a href="/terms">利用規約</a></div>
-    <div class="link-div"><a href="/contact/new" class="contact_link">お問い合わせ</a></div>
-    <div class="link-div"><span class="copyright">Copyright© <%= Date.today.year %> Hiroki Hayashi</span></div>
-    <% if @current_email== "stepjump3333@yahoo.co.jp" %>
-      <a href="notifications/new">通知作成</a>
+
+<div class="UserRanking_wrap">
+      <h4>ユーザーランキング</h4>
+<% 
+#@aa = User.where(id: 1).limit(10)
+@rank_users = User.joins(:aims)
+            .group("users.id")
+            .order("count(aims.id) DESC")
+            .limit(3)
+i=1;
+@rank_users.each do |user|
+    @un=user
+    #user_ranking_user_wrapの子要素のuser_ranking_No_wrapと、user-icon_imgと、hopを横並びにして
+    #hopの子要素のuser_ranking_username_wrapとuser_ranking_createNum_wrapとfollow-btnを縦並びにして
+%>
+<div class="user_ranking_user_wrap">
+<div class="cont">
+    <a href="/user/<%= user.user_name %>">
+          <div class="user_ranking_No_wrap"><%= i %></div><% i=i+1; %>
+          <%= render 'shared/user_icon' %>
+          <div class="hop">
+                <div class="user_ranking_username_wrap">@<%= user.user_name %></div>
+                <div class="user_ranking_createNum_wrap">パワー：<%= 5 %></div>
+                    <% if user_signed_in? %>
+                          <button class="follow-btn">フォロー</button>
+                    <% end %>
+          </div>
+    </a>
+</div>
+</div>
+<% end %>
+</div>
+<!--
+    <% if user_signed_in? %>
+        <div class="UserRanking_wrap">
+            <h4>ユーザーランキング</h4>
+            <% @users_with_duplicated_names.each do |user|%>
+                  <a href="/user/<%= user.user_name %>">
+                        <p>@<%= user.user_name %><p>
+                        <p>記事数：<%= 5 %><p>
+                  </a>
+                  <button class="follow-btn">フォロー</button>
+            <% end %>
+            </div>
     <% end %>
+-->
+    <script>
+    
+    </script>
+
+   
+    <div class="footer-wrap">
+        <hr>
+        <div class="link-div"><a href="/pricing" class="contact_link">料金/プラン</a></div>
+        <div class="link-div"><a href="/business">ビジネス</a></div>
+        <div class="link-div"><a href="/sctl">特定商取引法に基づく表記</a></div>
+        <div class="link-div"><a href="/policy">プライバシーポリシー</a></div>
+        <div class="link-div"><a href="/terms">利用規約</a></div>
+        <div class="link-div"><a href="/contact/new" class="contact_link">お問い合わせ</a></div>
+        <% if @current_email== "stepjump3333@yahoo.co.jp" %>
+          <a href="notifications/new">通知作成</a>
+        <% end %>
+        <div class="link-div"><span class="copyright">© <%= Date.today.year %> Roll Tall</span></div>
+    </div>
   </div>
 </div>

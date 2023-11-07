@@ -1,10 +1,14 @@
 .content_wrap{
   height:fit-content;
-  margin: 50px;
-  padding: 20px;
   width: 65%;
+  margin-left: 50px;
+  margin-bottom: 200px;
 }
 
+.aim_wrap_a:hover {
+  background-color: #3b70a4;
+  /*background-color: #F6F8FA; */
+}
 .aim_wrap{
   height:130px;
   width: 100%;
@@ -13,7 +17,8 @@
   display: flex;
 }
 .aim_wrap:hover {
-  background-color: #F6F8FA;
+  background-color: #05dc09;
+  /*background-color: #F6F8FA; */
 }
 
 .aim_img_div{
@@ -27,8 +32,8 @@
 }
 
 .aim_title_content_div{
-  width: 60%;
-  margin-left: 50px;
+  width: 50%;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -49,14 +54,14 @@
 .aim_content{
   color: black;
 }
-.newAim-btn{
-  width: 150px;
-  height: 40px;
-  font-size: 20px;
-  /*background-color: #29b0ff;*/
-  background-color:#9600ff;
-  color: #F6F8FA;
-}
+
 .aim_updated_div{
   float: right;
+}
+
+
+.add_aim_btn{
+  width: 50%;
+  font-size: 20px;
+  border-radius: 10%;
 }

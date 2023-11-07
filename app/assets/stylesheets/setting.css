@@ -1,3 +1,10 @@
+.menu-wrap{
+  margin-bottom: 200px;
+}
+
+.card-header{
+  background-color: #E4EFFF;
+}
 .form-control  {
   background-color: var(--color-surface);
 
@@ -37,4 +44,19 @@ button.btn{
   height:35px;
   margin-top: 20px;
   font-size: 15px;
+}
+
+.icon-edit-form{
+  margin-left: 20px;
+}
+.setting_icon_img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.us-ImageSelect_item{
+  width: 100px;
+}
+#to_gravatar_link_span{
+  font-size:15px;
 }

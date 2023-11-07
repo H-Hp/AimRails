@@ -15,24 +15,20 @@
         <div class=" col-md-10">   
             <div class="card">
 
-                <div class="card-header"><h2>アイコン<%= @hashed_email %></h2></div>
+                <div class="card-header"><h2>アイコン</h2></div>
                 <div class="card-body">
                     <%= form_with(url: "/setting/icon_type_change/"+@current_user_id.to_s, local: true, html:{ class:"icon-edit-form" ,id:"icon-edit-form"}) do |form| %>
                         <div class="form-group row mb-0">
                             <div class="us-ImageSelect_item">
                                 <label class="us-ImageSelect_itemIcon" for="user_gravatar_icon">
                                     <input id="user_gravatar_icon" type="radio" value="gravatar" name="icon_url" <%= 'checked="checked"' if @icon_type == 'gravatar' %> >
-                                    <img title="abcdegolira@gmail.com" src="https://secure.gravatar.com/avatar/ae42b0a4f0ea9e49b96a17c3851b9d9f">
-                                    
-
-                                    <!--
-                                    <img src="https://www.gravatar.com/avatar/<%= @hashed_email %>?s=200" alt="User's Gravatar">
-                                    -->
+                                    <img title="" src="https://secure.gravatar.com/avatar/ae42b0a4f0ea9e49b96a17c3851b9d9f" class="setting_icon_img">
+                                    <!-- <img src="https://www.gravatar.com/avatar/<%= @hashed_email %>?s=200" alt="User's Gravatar"> -->
                                 </label>
                                 <div class="us-ImageSelect_itemCaption">
-                                    Gravatar
-                                    <a target="_blank" class="us-ImageSelect_itemCaption_icon" href="https://ja.gravatar.com/">
-                                        <span class="material-symbols-outlined">
+                                    <span>Gravatar</span>
+                                    <a target="_blank"  class="us-ImageSelect_itemCaption_icon" href="https://ja.gravatar.com/">
+                                        <span class="material-symbols-outlined" id="to_gravatar_link_span">
                                         open_in_new
                                         </span>
                                     </a>
@@ -43,7 +39,12 @@
                             <div class="us-ImageSelect_item">
                                 <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
                                     <input id="user_uploaded_profile_image" type="radio" value="custom" name="icon_url" <%= 'checked="checked"' if @icon_type == 'custom' %> >
-                                    <img alt="RollTall" src="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473">
+                                        <% if current_user&.user_icon_image.attached? %>
+                                            <%= image_tag current_user.user_icon_image ,class:"setting_icon_img" %>
+                                        <% else %>
+                                            <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
+                                            <img alt="RollTall" src="/default_user_icon.png"  class="setting_icon_img">
+                                        <% end %>
                                 </label>
                                 <div class="us-ImageSelect_itemCaption">
                                     <a href="/setting/user/custom_img">
@@ -53,9 +54,9 @@
                             </div>
 
                             <div class="us-ImageSelect_item">
-                                <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
-                                    <input id="user_uploaded_profile_image" type="radio" value="default" name="icon_url" <%= 'checked="checked"' if @icon_type == 'default' %> >
-                                    <img alt="RollTall" src="https://s3-ap-northeast-1.amazonaws.com/qiita-image-store/0/3474369/782e3903184a5490fda419103dc9ea0a2dca5570/large.png?1698632473">
+                                <label class="us-ImageSelect_itemIcon" for="user_default_icon">
+                                    <input id="user_default_icon" type="radio" value="default" name="icon_url" <%= 'checked="checked"' if @icon_type == 'default' %> >
+                                    <img alt="RollTall" src="/default_user_icon.png" class="setting_icon_img">
                                 </label>
                                 <div class="us-ImageSelect_itemCaption">
                                         デフォルト
@@ -98,7 +99,7 @@ radioButtons.forEach(button => {
                     <%= form_with(url: "/setting/update_username/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
 
                         <div class="form-group row">
-                            <div class="col-md-6 p-8">
+                            <div class="col-md-12 p-8">
                                 <input id="name" type="txt" class="nameChange form-control" name="user_name" value="<%= @user_name %>" required autocomplete="name">
                             </div>
                         </div>
@@ -131,7 +132,7 @@ radioButtons.forEach(button => {
                     <%= form_with(url: "/setting/update_mail/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
 
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input id="email" type="email" class="MailChange form-control valid" name="email" value="<%= @email %>" required autocomplete="email">
 
                                 <!--@error('email')
@@ -142,7 +143,7 @@ radioButtons.forEach(button => {
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group mb-0">
                             <div class="">
                                 <button type="submit" class="btn btn-primary">
                                 メールアドレス変更
@@ -171,7 +172,7 @@ radioButtons.forEach(button => {
                     -->
                      <%= form_with(url: "/setting/update_password/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
                         <div class="form-group row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <h3>現在のパスワード</h3>
                                 <%= form.password_field :old_password,  autocomplete: "old_password" , id: "old-password", class: "PasswordChange form-control" , required: true %>
                                 <h3>新しいパスワード</h3>
@@ -202,7 +203,7 @@ radioButtons.forEach(button => {
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group mb-0">
                             <div class="">
                                 <button type="submit" class="btn btn-primary">
                                 パスワード変更
@@ -225,7 +226,7 @@ radioButtons.forEach(button => {
 
                     <!--<form method="POST" action="{{ route('user.delete', ['user_id' => $user_id]) }}">-->
                     <%= form_with(url: "/setting/delete_user/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
-                        <div class="form-group row mb-0">
+                        <div class="form-group mb-0">
                             <div class="">
                                 <button type="submit" class="alert alert-danger" role="alert">
                                 アカウント削除

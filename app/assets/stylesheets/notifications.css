@@ -1,18 +1,27 @@
-.content_wrap{
+.nc_list_content_wrap{
   background-color: white;
   height:100%;
+  width: 70%;
 }
 
 .notification-notthing{
   display: none;
 }
+.ncs_wrap{
+  display: grid;
+}
 .nc_wrap{
-  width:90%;
   display: flex;
+  width: 100%;
 }
 .nc_wrap:hover{
   background-color: #F6F8FA;
 }
+
+.nc_img{
+  border-radius: 50%;
+}
+
 .nc_a_wrap{
   margin: 0;
   word-break: break-all;
