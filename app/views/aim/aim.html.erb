@@ -3,17 +3,21 @@
 
 <%= render 'shared/side-ads' %>
 
-<h4>
-<a href="/user/<%= @author.user_name %>">@<%= @author.user_name %></a>
-</h4>
+<%= stylesheet_link_tag "aim" %>
 
-<h1><%= @aim.title %></h1>
+<div class="aim_wrap">
+    <h4>
+    <a href="/user/<%= @author.user_name %>">@<%= @author.user_name %></a>
+    </h4>
 
-<div id="content_div">
-<%= markdown(@aim.content) %>
+    <h1><%= @aim.title %></h1>
 
+    <div class="content_wrap">
+    <%= markdown(@aim.content) %>
+
+    </div>
+
+    <% if user_signed_in? && @aim.user_id == current_user.id %>
+      <a href="/aim/edit/<%= @aim.id %>">編集</a>
+    <% end %>
 </div>
-
-<% if user_signed_in? && @aim.user_id == current_user.id %>
-  <a href="/aim/edit/<%= @aim.id %>">編集</a>
-<% end %>

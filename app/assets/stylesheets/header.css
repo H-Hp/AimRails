@@ -60,6 +60,22 @@ header{
   color: #F6F8FA;
   margin-right: 12px;
 }
+.goLLM_btn{
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+  background-color:#ecf021;
+  color: #06325e;
+  margin-right: 12px;
+}
+.goPlay_btn{
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+  background-color:#0471c9;
+  color: #F6F8FA;
+  margin-right: 12px;
+}
 .search-form{
   margin-right: 12px;
     position: relative;
