@@ -63,4 +63,5 @@ Rails.application.routes.draw do
   get '/llm'  => 'llm#index'
 
   get '/play'  => 'play#index'
+  post '/play', to: 'play#post'
 end

@@ -1,4 +1,30 @@
+main{
+  position: fixed;
+}
 .content_wrap{
   min-height: 600px;
+  width: 90%;
   padding: 20px;
+}
+.edit-form{
+bottom: 100px;
+position: fixed;
+}
+.input{
+  width: 300px;
+}
+
+.live_wrap{
+  margin-left: 700px;
+  margin-top: -120px;
+}
+.video{
+  background-color: black;
+  width:500px ;
+  height:500px ;
+}
+
+.comments_wrap{
+  bottom: 300px;
+position: fixed;
 }
