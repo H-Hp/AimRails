@@ -1,0 +1,2 @@
+class LlmController < ApplicationController
+end

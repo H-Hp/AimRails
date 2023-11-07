@@ -59,4 +59,8 @@ Rails.application.routes.draw do
   patch '/notifications/check', to: 'notifications#check'
   post '/notifications/check', to: 'notifications#check'
   #post '/notifications/create/', to: 'notifications#create'
+
+  get '/llm'  => 'llm#index'
+
+  get '/play'  => 'play#index'
 end
