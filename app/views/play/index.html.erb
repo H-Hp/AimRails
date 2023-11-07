@@ -3,32 +3,39 @@
 <%= stylesheet_link_tag "play" %>
 
 <div class="content_wrap">
-  <h1>遊び</h1>
+  <h1>遊・完全匿名/Completely anonymous・好きなこと書いてね/Write what you like</h1>
      <h5>毎日24時間、先着1人だけ配信できます。</h5>
      <h5>1人6時間までです。</h5>
      <h5>画面全部使うのでバナー広告</h5>
+     <h5>作業中や暇なときになんとなくアクセスできて、なんとなくいられればいい</h5>
+     <h5>完全匿名/Completely anonymous</h5>
+     <h5>好きなこと書いてね/Write what you like</h5>
      <h5>Twitterでゲームやります！この画面内で謎を解いてアイテムを発見すると1000円プレゼントします！</h5>
      <p>同時接続数：12355人</p>
 
   <div class="live_wrap">
-    <div class="video">
-    </div>
+      <div class="video">
+          <button class="live_start_btn btn btn-danger">ライブを開始する</button>
+      </div>
+  </div>
+
+  <div class="movie_wrap">
+      <div class="movie">
+           <iframe width="560" height="315" src="https://www.youtube.com/embed/TEZ607s_1b4?si=ANGdVL-AwTXBBQ7t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
   </div>
 
 <div class="comments_wrap">
     <% @plays.each do |play|%>
-        <div class="form-group row"><%= play.message %></div>
+        <div class="form-group"><span class="chat_user">anonymous: </span><%= play.message %></div>
     <% end %>
-</div>
 
- <%= form_with(url: "/play/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
-
+     <%= form_with(url: "/play/", local: true, html:{ class:"comment_upload_form" ,id:"comment_upload_form"}) do |form| %>
       <div class="form-group row">
           <div class="col-md-12 p-8">
               <input id="name" type="txt" class="input form-control" placeholder="メッセージを送信" name="message" value="" required autocomplete="name">
           </div>
       </div>
-
       <div class="form-group mb-0">
           <button type="submit" class="btn btn-primary">
           投稿する
@@ -36,3 +43,22 @@
       </div>
   <% end %>
 </div>
+
+
+
+
+
+</div>
+
+<!-- Twitch -->
+<!-- Add a placeholder for the Twitch embed -->
+<div id="twitch-embed"></div>
+<!-- Load the Twitch embed script -->
+<script src="https://player.twitch.tv/js/embed/v1.js"></script>
+<!-- Create a Twitch.Player object. This will render within the placeholder div -->
+<script type="text/javascript">
+  new Twitch.Player("twitch-embed", {
+    channel: "kato_junichi0817"
+  });
+</script>
+<!-- Twitch -->

@@ -1,22 +1,20 @@
 main{
-  position: fixed;
-}
-.content_wrap{
-  min-height: 600px;
-  width: 90%;
-  padding: 20px;
-}
-.edit-form{
-bottom: 100px;
-position: fixed;
-}
-.input{
-  width: 300px;
+  width: 100% !important;
 }
 
+.content_wrap{
+  height: fit-content;
+  width: 75%;
+  padding: 50px;
+  margin-left: 5px;
+}
+
+
+
 .live_wrap{
-  margin-left: 700px;
-  margin-top: -120px;
+}
+.live_start_btn{
+  font-size:30px;
 }
 .video{
   background-color: black;
@@ -24,7 +22,24 @@ position: fixed;
   height:500px ;
 }
 
+.movie_wrap{
+}
+
 .comments_wrap{
-  bottom: 300px;
-position: fixed;
+  right: 5px;
+  top:50px;
+  width: 250px;
+  height:95%;
+  position: fixed;
+  background-color: rgb(188, 207, 207);
+}
+.comment_upload_form{
+  position: fixed;
+  bottom:0;
+}
+.input{
+  width: 250px;
+}
+.chat_user{
+  color: red;
 }
