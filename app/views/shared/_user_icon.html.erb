@@ -1,14 +1,14 @@
 <button id="header-user-icon-btn">
-      <% if @un.icon_url=="default" %>
+      <% if @this_user.icon_url=="default" %>
             <img alt="default_user_icon" src="/default_user_icon.png"  class="user-icon_img">
-      <% elsif @un.icon_url=="custom" %>
-            <% if @un&.user_icon_image.attached? %>
-                  <%= image_tag @un.user_icon_image ,class:"user-icon_img" %>
+      <% elsif @this_user.icon_url=="custom" %>
+            <% if @this_user&.user_icon_image.attached? %>
+                  <%= image_tag @this_user.user_icon_image ,class:"user-icon_img" %>
             <% else %>
                   <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
                   <img alt="default_user_icon" src="/default_user_icon.png"  class="user-icon_img">
             <% end %>
-      <% elsif @un.icon_url=="gravatar" %>
-            <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(@un.email) %>?s=200" alt="User's Gravatar" class="user-icon_img" >
+      <% elsif @this_user.icon_url=="gravatar" %>
+            <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(@this_user.email) %>?s=200" alt="User's Gravatar" class="user-icon_img" >
       <% end %>
 </button>

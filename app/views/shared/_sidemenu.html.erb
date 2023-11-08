@@ -8,6 +8,8 @@
 
 <div class="UserRanking_wrap">
       <h4>ユーザーランキング</h4>
+      
+
 <% 
 #@aa = User.where(id: 1).limit(10)
 @rank_users = User.joins(:aims)
@@ -16,49 +18,17 @@
             .limit(3)
 i=1;
 @rank_users.each do |user|
-    @un=user
+    @this_user=user
     #user_ranking_user_wrapの子要素のuser_ranking_No_wrapと、user-icon_imgと、hopを横並びにして
     #hopの子要素のuser_ranking_username_wrapとuser_ranking_createNum_wrapとfollow-btnを縦並びにして
 %>
+  <div class="user_ranking_No_wrap"><%= i %></div><% i=i+1; %>
+
+
 <div class="user_ranking_user_wrap">
-<div class="cont">
-    <a href="/user/<%= user.user_name %>">
-          <div class="user_ranking_No_wrap"><%= i %></div><% i=i+1; %>
-          <%= render 'shared/user_icon' %>
-          <div class="hop">
-                <div class="user_ranking_username_wrap">@<%= user.user_name %></div>
-                <div class="user_ranking_createNum_wrap">パワー：<%= 5 %></div>
-    </a>
-                    <% if user_signed_in? %>
-                          <div class="follow_btn">
-                                <% #ランキングユーザーをフォローしているか、していないかを判定
-
-  #フォロー中かどうか判定・フォローしている場合にtrueを返し、そうでない場合にfalseを返す
-  #def following?(other_user)
-    #active_relationships.exists?(followed: other_user)
-  #end
-
-# 既にフォロー関係が存在するか確認
-relationship = Relationship.find_by(follower_id: current_user.id, followed_id: user.id)
-                                if relationship
-                                #if current_user.following?(user) # すでに「フォロー」している場合の処理 
-                                #followerはフォローする人・followedはフォローされる人
-                                %>
-                                    <%= form_with(url: "/user/follow_delete", local: true, html:{ class:"follow_delete_form" ,id:"follow_delete_form"}) do |form| %>
-                                          <%= form.hidden_field :follower_id, value: current_user.id %>
-                                          <%= form.hidden_field :followed_id, value: user.id %>
-                                          <%= form.submit "フォロー中" %>
-                                    <% end %> 
-                                <% else # まだ「フォロー」していない場合の処理 %>
-                                    <%= form_with(url: "/user/follow", local: true, html:{ class:"follow_form" ,id:"follow_form"}) do |form| %>
-                                          <%= form.hidden_field :follower_id, value: current_user.id %>
-                                          <%= form.hidden_field :followed_id, value: user.id %>
-                                          <%= form.submit "フォロー" %>
-                                    <% end %> 
-                                <% end %>
-                            </div>
-                    <% end %>
-          </div>
+    <div class="cont">
+        <%= render 'shared/user_list' %> 
+    </div>
 </div>
 </div>
 <% end %>

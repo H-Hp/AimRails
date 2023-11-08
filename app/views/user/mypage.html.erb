@@ -8,7 +8,7 @@
     <div class="profile_content">
         <div class ="user-icon">
             <button id="header-user-icon-btn">
-            <% @un=@user  %>
+            <% @this_user=@user  %>
               <%= render 'shared/user_icon' %>
             </button>
         </div>
@@ -169,8 +169,10 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
     relationships = Relationship.where(follower_id: @user.id)
     relationships.each do |relationship| 
         user=User.find(relationship.followed_id)
+        @this_user=user
     %>
-    <%= user.user_name %>
+       <%= render 'shared/user_list' %> 
+        
     <% end %>
     </div>
 </div>
@@ -183,8 +185,9 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
     relationships = Relationship.where(followed_id: @user.id)
     relationships.each do |relationship| 
         user=User.find(relationship.follower_id)
+        @this_user=user
     %>
-        <%= user.user_name %>
+        <%= render 'shared/user_list' %> 
     <% end %>
 </div>
  </div>
