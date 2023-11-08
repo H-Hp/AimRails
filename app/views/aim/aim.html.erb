@@ -5,7 +5,38 @@
 
 <%= stylesheet_link_tag "aim" %>
 
+
+
 <div class="aim_wrap">
+
+<div class="toolbar">
+    <% if user_signed_in? %>
+        <div class="iike_btn">
+            <% #いいねしているか、していないかを判定
+            aim = Aim.find(@aim.id) 
+            if current_user.likes.exists?(aim_id: aim.id) # すでに「いいね」している場合の処理 %>
+                <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
+                      <%= form.hidden_field :user_id, value: current_user.id %>
+                      <%= form.hidden_field :aim_id, value: @aim.id %>
+                      <%= button_tag(type: 'submit') do %>
+                          <i class="material-symbols-outlined" style="color:#d2fe34">favorite</i>  
+                      <% end %>
+                <% end %> 
+            <% else # まだ「いいね」していない場合の処理 %>
+                <!--= form_for url: '/aim/like', method: :post do |f| %-->
+                <%= form_with(url: "/aim/like", local: true, html:{ class:"like_form" ,id:"like_form"}) do |form| %>
+                      <%= form.hidden_field :user_id, value: current_user.id %>
+                      <%= form.hidden_field :aim_id, value: @aim.id %>
+                      <%= button_tag(type: 'submit') do %>
+                        <i class="material-symbols-outlined">favorite</i>
+                      <% end %>
+                <% end %> 
+            <% end %>
+        </div>
+    <% end %>
+</div>
+
+
     <h4>
     <a href="/user/<%= @author.user_name %>">@<%= @author.user_name %></a>
     </h4>

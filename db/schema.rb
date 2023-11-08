@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_07_114256) do
+ActiveRecord::Schema.define(version: 2023_11_08_044405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 2023_11_07_114256) do
     t.text "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "aim_id"
   end
 
   create_table "notifications", force: :cascade do |t|

@@ -32,7 +32,10 @@ Rails.application.routes.draw do
   get '/aim/edit/:id'  =>'aim#edit'
   patch '/aim/update/:id', to: 'aim#update'
   post '/aim/delete/:id', to: 'aim#delete'
- 
+
+  post '/aim/like/', to: 'aim#like'
+  post '/aim/like_delete/', to: 'aim#like_delete'
+
   resources :user, only: [:new, :create, :edit, :aim]
   get 'new_user'  => 'user#new_user'
   get 'mypage'  => 'user#mypage'

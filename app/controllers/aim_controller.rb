@@ -60,6 +60,33 @@ class AimController < ApplicationController
     end
   end
 
+  def like
+    like_params=params.permit(:user_id, :aim_id)
+    aim=Aim.find(params[:aim_id])
+    @like = Like.new(like_params)
+    if @like.save
+      redirect_to aim
+    else
+      # お問い合わせ内容が保存されなかった場合の処理
+      flash[:danger] = 'いいねできませんでした。'
+      redirect_to aim
+    end
+  end
+  def like_delete
+    like_params=params.permit(:user_id, :aim_id)
+    aim=Aim.find(params[:aim_id])
+    #like = Like.find(like_params)
+    #like = Like.find(params[:id])
+    like = Like.where(user_id: params[:user_id], aim_id: params[:aim_id]).first
+    if like.destroy
+      redirect_to aim
+    else
+      # お問い合わせ内容が保存されなかった場合の処理
+      flash[:danger] = 'いいねを取り消しできませんでした'
+      redirect_to aim
+    end
+  end
+
 
   private
 
