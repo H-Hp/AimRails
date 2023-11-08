@@ -18,4 +18,29 @@ class UserController < ApplicationController
 
   def account_delete
   end
+
+  ##followerはフォローする人・followedはフォローされる人
+  def follow
+    follow_params=params.permit(:follower_id, :followed_id)
+    relationship = Relationship.new(follow_params)
+    if relationship.save
+      #redirect_to aim
+      redirect_back(fallback_location: root_path)#リファラが利用できない場合にはルートパス（root_path）にリダイレクト
+    else
+      flash[:danger] = 'フォローできませんでした。'
+      redirect_to aim
+    end
+  end
+  def follow_delete
+    follow_params=params.permit(:follower_id, :followed_id)
+    relationship = Relationship.where(follow_params).first
+    if relationship.destroy
+      # 送信元のビューにリダイレクト
+      redirect_back(fallback_location: root_path)#リファラが利用できない場合にはルートパス（root_path）にリダイレクト
+    else
+      flash[:danger] = 'フォローを外すことができませんでした'
+      redirect_to aim
+    end
+  end
+
 end

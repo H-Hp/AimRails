@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   }, skip: :confirmations
   get 'user/regist_after' => 'user#regist_after'
 
+  post '/user/follow/', to: 'user#follow'
+  post '/user/follow_delete', to: 'user#follow_delete'
+
+
   root 'top#top'
   get '/'  => 'top#top'
   

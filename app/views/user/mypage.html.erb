@@ -51,7 +51,7 @@
 <h1>作成したAim一覧</h1>
   <% @create_aims.each do |aim| %>
     <a href="/aim/<%= aim.id %>">
-      <div class="aim_wrap" id="">
+      <div class="aim_wrap">
         <div class="aim_img_div">
           <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
         </div>
@@ -124,6 +124,7 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
 
 
 <div class="likes_wrap tabcontent" id="likes_wrap">
+<div class="aim_wrap">
   <h1>いいねしたAim一覧</h1>
 
   <% 
@@ -158,15 +159,35 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
       <% end %> 
   <% end %>
 </div>
+</div>
 
 <div id="followeds_wrap" class="followeds_wrap tabcontent">
+<div class="aim_wrap">
   <p>フォロー</p> 
+    <% 
+    #followerはフォローする人・followedはフォローされる人
+    relationships = Relationship.where(follower_id: @user.id)
+    relationships.each do |relationship| 
+        user=User.find(relationship.followed_id)
+    %>
+    <%= user.user_name %>
+    <% end %>
+    </div>
 </div>
 
 <div id="followers_wrap" class="followers_wrap tabcontent">
+<div class="aim_wrap">
   <p>フォロワー</p> 
+    <% 
+    #followerはフォローする人・followedはフォローされる人
+    relationships = Relationship.where(followed_id: @user.id)
+    relationships.each do |relationship| 
+        user=User.find(relationship.follower_id)
+    %>
+        <%= user.user_name %>
+    <% end %>
 </div>
-
+ </div>
 
 <script>
 /*

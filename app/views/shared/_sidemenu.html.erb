@@ -28,11 +28,37 @@ i=1;
           <div class="hop">
                 <div class="user_ranking_username_wrap">@<%= user.user_name %></div>
                 <div class="user_ranking_createNum_wrap">パワー：<%= 5 %></div>
+    </a>
                     <% if user_signed_in? %>
-                          <button class="follow-btn">フォロー</button>
+                          <div class="follow_btn">
+                                <% #ランキングユーザーをフォローしているか、していないかを判定
+
+  #フォロー中かどうか判定・フォローしている場合にtrueを返し、そうでない場合にfalseを返す
+  #def following?(other_user)
+    #active_relationships.exists?(followed: other_user)
+  #end
+
+# 既にフォロー関係が存在するか確認
+relationship = Relationship.find_by(follower_id: current_user.id, followed_id: user.id)
+                                if relationship
+                                #if current_user.following?(user) # すでに「フォロー」している場合の処理 
+                                #followerはフォローする人・followedはフォローされる人
+                                %>
+                                    <%= form_with(url: "/user/follow_delete", local: true, html:{ class:"follow_delete_form" ,id:"follow_delete_form"}) do |form| %>
+                                          <%= form.hidden_field :follower_id, value: current_user.id %>
+                                          <%= form.hidden_field :followed_id, value: user.id %>
+                                          <%= form.submit "フォロー中" %>
+                                    <% end %> 
+                                <% else # まだ「フォロー」していない場合の処理 %>
+                                    <%= form_with(url: "/user/follow", local: true, html:{ class:"follow_form" ,id:"follow_form"}) do |form| %>
+                                          <%= form.hidden_field :follower_id, value: current_user.id %>
+                                          <%= form.hidden_field :followed_id, value: user.id %>
+                                          <%= form.submit "フォロー" %>
+                                    <% end %> 
+                                <% end %>
+                            </div>
                     <% end %>
           </div>
-    </a>
 </div>
 </div>
 <% end %>

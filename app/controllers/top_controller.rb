@@ -70,4 +70,5 @@ class TopController < ApplicationController
     end
 
   end
+  
 end
