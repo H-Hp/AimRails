@@ -1,9 +1,13 @@
 main{
-  left:10px;
-  width:100%;
+  left:10px !important;
+  width: 100% !important;
+  position: fixed;
 }
 .items{
   float: right;
+}
+.tabcontent {
+  display: none;
 }
 .aim-delete-form{
   float: right;

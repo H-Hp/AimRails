@@ -39,7 +39,15 @@
     </div>
 </div>
 
-<div class="create_aims_wrap">
+<div class="tab_change_menu">
+    <button class="tablink btn btn-primary" onclick="openTab('create_aims_wrap', this)" id="defaultOpen">作成したAim</button>
+    <button class="tablink btn btn-primary" onclick="openTab('likes_wrap', this)">いいね</button>
+    <button class="tablink btn btn-primary" onclick="openTab('followeds_wrap', this)">フォロー</button>
+    <button class="tablink btn btn-primary" onclick="openTab('followers_wrap', this)">フォロワー</button>
+</div>
+
+
+<div class="create_aims_wrap tabcontent" id="create_aims_wrap" >
 <h1>作成したAim一覧</h1>
   <% @create_aims.each do |aim| %>
     <a href="/aim/<%= aim.id %>">
@@ -115,7 +123,7 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
 
 
 
-<div class="likes_wrap">
+<div class="likes_wrap tabcontent" id="likes_wrap">
   <h1>いいねしたAim一覧</h1>
 
   <% 
@@ -151,7 +159,13 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
   <% end %>
 </div>
 
+<div id="followeds_wrap" class="followeds_wrap tabcontent">
+  <p>フォロー</p> 
+</div>
 
+<div id="followers_wrap" class="followers_wrap tabcontent">
+  <p>フォロワー</p> 
+</div>
 
 
 <script>
@@ -207,4 +221,25 @@ confirmDeleteButton.addEventListener('click', () => {
   closeDialog();
 });
 */
+</script>
+
+
+<script>
+//タブの切替・作成したAimといいねしたAim
+function openTab(tabName, elmnt) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(tabName).style.display = "block";
+    elmnt.style.backgroundColor = "green";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
 </script>
