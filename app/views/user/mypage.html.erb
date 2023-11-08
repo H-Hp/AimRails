@@ -107,12 +107,51 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
 </script>
       <!--aim削除-->
       <%= form_with(url: "/aim/delete/"+aim.id.to_s, local: true, html:{ class:"aim-delete-form" ,id:"aim-delete-form-#{aim.id}"}) do |form| %>
-
-      
-      
       <% end %>
   <% end %>
 </div>
+
+
+
+
+
+<div class="likes_wrap">
+  <h1>いいねしたAim一覧</h1>
+
+  <% 
+  likes = Like.where(user_id: @user)
+  likes.each do |like| 
+  aim=Aim.find(like.aim_id)
+  %>
+    <a href="/aim/<%= aim.id %>">
+      <div class="aim_wrap" id="">
+        <div class="aim_img_div">
+          <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+        </div>
+        <div class="aim_title_content_div">
+          <div class="aim_title_div">
+            <h2 class="aim_title"><%= aim.title %></h2>
+          </div>
+          <div class="aim_content_div">
+            <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+          </div>
+        </div>
+      </div>
+    </a>
+      <!--いいねを取り消し・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
+      <% if @user.id==@current_user_id %>
+          <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
+                <%= form.hidden_field :user_id, value: @user.id %>
+                <%= form.hidden_field :aim_id, value: aim.id %>
+                <%= button_tag(type: 'submit') do %>
+                    <i class="material-symbols-outlined" style="color:#d2fe34">favorite</i>  
+                <% end %>
+          <% end %> 
+      <% end %> 
+  <% end %>
+</div>
+
+
 
 
 <script>

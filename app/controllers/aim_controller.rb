@@ -79,7 +79,9 @@ class AimController < ApplicationController
     #like = Like.find(params[:id])
     like = Like.where(user_id: params[:user_id], aim_id: params[:aim_id]).first
     if like.destroy
-      redirect_to aim
+      #redirect_to aim
+      # 送信元のビューにリダイレクト
+      redirect_back(fallback_location: root_path)#リファラが利用できない場合にはルートパス（root_path）にリダイレクト
     else
       # お問い合わせ内容が保存されなかった場合の処理
       flash[:danger] = 'いいねを取り消しできませんでした'
