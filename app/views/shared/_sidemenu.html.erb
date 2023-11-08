@@ -6,33 +6,29 @@
 
   <div class="Left-content">
 
-<div class="UserRanking_wrap">
-      <h4>ユーザーランキング</h4>
-      
-
-<% 
-#@aa = User.where(id: 1).limit(10)
-@rank_users = User.joins(:aims)
-            .group("users.id")
-            .order("count(aims.id) DESC")
-            .limit(3)
-i=1;
-@rank_users.each do |user|
-    @this_user=user
-    #user_ranking_user_wrapの子要素のuser_ranking_No_wrapと、user-icon_imgと、hopを横並びにして
-    #hopの子要素のuser_ranking_username_wrapとuser_ranking_createNum_wrapとfollow-btnを縦並びにして
-%>
-  <div class="user_ranking_No_wrap"><%= i %></div><% i=i+1; %>
-
-
-<div class="user_ranking_user_wrap">
-    <div class="cont">
-        <%= render 'shared/user_list' %> 
-    </div>
-</div>
-</div>
-<% end %>
-</div>
+      <div class="UserRanking_wrap">
+            <h4>ユーザーランキング</h4>
+            <% 
+            #@aa = User.where(id: 1).limit(10)
+            @rank_users = User.joins(:aims)
+                        .group("users.id")
+                        .order("count(aims.id) DESC")
+                        .limit(3)
+            i=1;
+            @rank_users.each do |user|
+                @this_user=user
+                #user_ranking_user_wrapの子要素のuser_ranking_No_wrapと、user-icon_imgと、hopを横並びにして
+                #hopの子要素のuser_ranking_username_wrapとuser_ranking_createNum_wrapとfollow-btnを縦並びにして
+                %>
+                      <div class="user_ranking_No_wrap"><%= i %></div><% i=i+1; %>
+                      <div class="user_ranking_user_wrap">
+                          <div class="cont">
+                              <%= render 'shared/user_list' %> 
+                          </div>
+                      </div>
+            <% end %>
+      </div>
+  
 <!--
     <% if user_signed_in? %>
         <div class="UserRanking_wrap">
@@ -66,4 +62,5 @@ i=1;
         <div class="link-div"><span class="copyright">© <%= Date.today.year %> Roll Tall</span></div>
     </div>
   </div>
+</div>
 </div>
