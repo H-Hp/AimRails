@@ -33,12 +33,17 @@ class AimController < ApplicationController
   end
 
   def update
+    
     @aim = Aim.find(params[:id])
     #@aim = Aim.find_by(id: params[:id])
     if @aim.update(aim_params)
-      #redirect_to @aim
-      #redirect_to new_aim_path
-      redirect_to @aim
+      #サムネのアップロード
+      params.permit(:aim_thumb_img) 
+      if @aim.aim_thumb_img.attach(io: params[:aim_thumb_img], filename: "aim_thumb_"+@aim.id.to_s)
+        redirect_to @aim
+      else
+        render 'edit'
+      end
     else
       render 'edit'
     end
@@ -94,7 +99,9 @@ class AimController < ApplicationController
 
   def aim_params
     #params.require(:aim).permit(:title, :content)
-    params.require(:aim).permit(:title, :content).merge(user_id: current_user.id,image_url: "default")
+    #params.require(:aim).permit(:title, :content).merge(user_id: current_user.id,image_url: "default")
+    params.permit(:title, :content).merge(user_id: current_user.id,image_url: "default")
+
   end
   
 end

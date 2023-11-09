@@ -15,7 +15,12 @@
     <a href="/aim/<%= aim.id %>" class="aim_wrap_a">
       <div class="aim_wrap" id="">
         <div class="aim_img_div">
-          <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+              <% if aim&.aim_thumb_img.attached? %>
+                  <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
+              <% else %>
+                  <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
+                  <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+              <% end %>
         </div>
         <div class="aim_title_content_div">
           <div class="aim_title_div">

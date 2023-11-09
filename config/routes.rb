@@ -34,7 +34,8 @@ Rails.application.routes.draw do
   get '/aim/:id', to: 'aim#aim',as: 'aim'
   get 'search'  => 'aim#search'
   get '/aim/edit/:id'  =>'aim#edit'
-  patch '/aim/update/:id', to: 'aim#update'
+  #patch '/aim/update/:id', to: 'aim#update'
+  post '/aim/update/:id', to: 'aim#update'
   post '/aim/delete/:id', to: 'aim#delete'
 
   post '/aim/like/', to: 'aim#like'

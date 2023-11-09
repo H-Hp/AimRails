@@ -9,7 +9,23 @@
 -->
 
 
-<%= form_with(model: @aim, url: "/aim/update/"+@aim.id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+
+<!-- form_with(model: @aim, url: "/aim/update/"+@aim.id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>-->
+<%= form_with(url: "/aim/update/"+@aim.id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+
+  <div class="toggle-container">
+      <p>サムネイルを設定する</p>
+      <label class="toggle-switch">
+          <input type="checkbox" id="toggle" />
+          <span class="slider round"></span>
+      </label>
+
+      <div class="uproad_wrap" id="uproad_wrap">
+          <%= form.file_field :aim_thumb_img, required: true, accept: 'image/gif, image/jpeg, image/png' %>
+          <p>選択されていません</p>
+      </div>
+  </div>
+
   <div class="field">
     <%= form.text_field :title, required: true, placeholder: "目標タイトル", class: "title", id:"title" %>
   </div>
@@ -73,9 +89,6 @@ textarea.addEventListener('input', function() {
   //characterCount.innerHTML =marked.parse('# Marked in the browser\n\nRendered by **marked**.');
   //characterCount.innerHTML =marked.parse(textarea.value);
   previewArea.innerHTML =marked.parse(textarea.value);
-  
- console.log("aaaa") 
- console.log("textarea:"+textarea.value) 
 });
 </script>
 
@@ -88,7 +101,7 @@ textarea.addEventListener('input', function() {
 }
 .title{
   width:100%;
-  font-size:30px;
+  font-size:22px;
 }
 .edit-container{
   padding:5px;
@@ -139,5 +152,27 @@ confirmDeleteButton.addEventListener('click', () => {
 
 cancelDeleteButton.addEventListener('click', () => {
   closeDialog();
+});
+</script>
+
+
+
+<script>
+//サムネ設定のトグル切替
+const toggleSwitch = document.getElementById('toggle');
+const uproad_wrap = document.getElementById('uproad_wrap');
+
+toggleSwitch.addEventListener('change', function () {
+    const slider = document.querySelector('.slider');
+    if (this.checked) {
+        slider.style.backgroundColor = '#2196F3';
+        uproad_wrap.style.display = 'block';
+        console.log("true");
+    } else {
+        slider.style.backgroundColor = '#ccc';
+        uproad_wrap.style.display = 'none';
+        console.log("false・img_urlをdefaultにする");
+
+    }
 });
 </script>
