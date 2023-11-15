@@ -13,6 +13,10 @@ SitemapGenerator::Sitemap.create do
   add '/terms', :changefreq => 'monthly'
   add '/contact/new', :changefreq => 'monthly'
 
+  add '/llm', :changefreq => 'monthly'
+  add '/play', :changefreq => 'monthly'
+
+  
   # 各投稿をsitemapに追加する
   Aim.all.each do |aim|
     #add aim_path(aim), lastmod: aim.updated_at

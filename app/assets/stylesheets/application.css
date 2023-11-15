@@ -159,7 +159,8 @@ background: #212121;
 
 /* スマートフォン用：画面幅が600px以下 */
 @media only screen and (max-width: 600px) {
-  
+  .ads-PC{display: none;}
+  .ads-mobile{display: block;}
 }
 
 /* タブレット用：画面幅が600px以上と900px以下 */
@@ -169,5 +170,5 @@ background: #212121;
 
 /* PC用：画面幅が901px以上 */
 @media only screen and (min-width: 901px) {
-
+  .ads-mobile{display: none;}
 }
