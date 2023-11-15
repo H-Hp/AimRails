@@ -1,4 +1,7 @@
 <% content_for :title do %>編集<% end %>
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:noindex => true) %>
+<% end %>
 <%= stylesheet_link_tag "create-edit" %>
 <%= render 'shared/create-edit-header' %>
 <%= stylesheet_link_tag "aim-delete-dialog" %>
