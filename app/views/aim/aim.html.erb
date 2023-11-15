@@ -1,4 +1,7 @@
 <% content_for :title do %><% @aim.title %><% end %>
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:description => sanitize(markdown(@aim.content))) %>
+<% end %>
 
 <%= render 'shared/header' %>
 <%= render 'shared/side-ads' %>
