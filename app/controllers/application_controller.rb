@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_init, if: :user_signed_in?
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_locale
 
   def set_init
     #@notifications = Notification.find_by(user_id: current_user.id)
@@ -105,5 +106,10 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:user_name])
+  end
+
+  def set_locale
+    @lang = cookies[:lang] || I18n.default_locale
+    I18n.locale = cookies[:lang] || I18n.default_locale
   end
 end

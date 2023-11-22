@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= @lang %>">
   <head prefix="og: https://ogp.me/ns#">
     <title><%= yield (:title) %> - Aim</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :meta_tags %>
+
+    <!-- 多言語・hreflangタグ -->
+    <link rel="alternate" hreflang="ja" href="https://www.aim-get.com<%= request.path %>">
+    <link rel="alternate" hreflang="en" href="https://www.aim-get.com<%= request.path %>">
+    <link rel="alternate" hreflang="zh-CN" href="https://www.aim-get.com<%= request.path %>">
+    <link rel="alternate" hreflang="x-default" href="https://www.aim-get.com<%= request.path %>">
 
     <meta property="og:url" content="https://aim-get.com">
     <meta property="og:type" content="website">
@@ -66,6 +72,9 @@
     <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
     <script type="text/javascript" async=true src="Moneytizer_CMP.js"></script>
     <!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+
+<!-- js-cookie読込-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
 
 <script>
 window.PushCodeInit = function() {
