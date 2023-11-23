@@ -164,8 +164,8 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
                 <%= form.hidden_field :user_id, value: @user.id %>
                 <%= form.hidden_field :aim_id, value: aim.id %>
                 <%= button_tag(type: 'submit') do %>
-                    <i class="material-symbols-outlined" style="color:#d2fe34">favorite</i>  
-                <% end %>
+                    <%= render 'shared/favorite-btn-already' %>
+                 <% end %>
           <% end %> 
       <% end %> 
   <% end %>

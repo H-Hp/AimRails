@@ -21,8 +21,8 @@
                       <%= form.hidden_field :user_id, value: current_user.id %>
                       <%= form.hidden_field :aim_id, value: @aim.id %>
                       <%= button_tag(type: 'submit') do %>
-                          <i class="material-symbols-outlined" style="color:#d2fe34">favorite</i>  
-                      <% end %>
+                            <%= render 'shared/favorite-btn-already' %>
+                       <% end %>
                 <% end %> 
             <% else # まだ「いいね」していない場合の処理 %>
                 <!--= form_for url: '/aim/like', method: :post do |f| %-->
@@ -30,7 +30,7 @@
                       <%= form.hidden_field :user_id, value: current_user.id %>
                       <%= form.hidden_field :aim_id, value: @aim.id %>
                       <%= button_tag(type: 'submit') do %>
-                        <i class="material-symbols-outlined">favorite</i>
+                            <%= render 'shared/favorite-btn' %>
                       <% end %>
                 <% end %> 
             <% end %>

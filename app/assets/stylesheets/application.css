@@ -157,6 +157,11 @@ background: #212121;
   color:black;
 }
 
+.favorite-btn{
+  width: 50px;
+  height:50px;
+}
+
 /* スマートフォン用：画面幅が600px以下 */
 @media only screen and (max-width: 600px) {
   .ads-PC{display: none;}
