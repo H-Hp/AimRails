@@ -2,6 +2,7 @@ module S3Helper
   def Yahoo(manko)
     "Yahoo, #{manko}!"
   end
+
 =begin
   s3 =''
   bucket = ''
@@ -82,6 +83,13 @@ module S3Helper
     #javascript_pack_tag(source, 'data-turbolinks-track': 'reload')
     #javascript_pack_tag(fingerprinted_path, 'data-turbolinks-track': 'reload')
     #<script src="ahttps://d2hcwuo8gsf97u.cloudfront.net/packs/js/application-a19bc2af213c4adc9762.js" data-turbolinks-track="reload"></script>
+  end
+
+  def cloudfront_s3_user_icon_img_link_tag(source, options = {})
+    key = "user_icon/#{source}" # S3オブジェクトのキーを作成
+    cloudfront_domain = 'd2hcwuo8gsf97u.cloudfront.net'
+    source = "https://#{cloudfront_domain}/#{key}"
+    image_tag(source)
   end
 =begin
   def s3_svg(key)

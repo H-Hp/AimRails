@@ -122,7 +122,10 @@ class SettingController < ApplicationController
     
     # アタッチ
     #@user.user_icon_image.attach(params[:user][:user_icon_image])
-    @user.user_icon_image.attach(io: params[:user_icon_image], filename: "test_file_name")
+    #@user.user_icon_image.attach(io: params[:user_icon_image], filename: "/user_icon/"+@user.id.to_s)
+    #@user.user_icon_image.attach(io: params[:user_icon_image], filename: "/user_icon/#{@user.id.to_s}")
+    #@user.user_icon_image.attach key: "user_icon/#{@user.id.to_s}", io: params[:user_icon_image], content_type: "image/jpeg", filename: "#{@user.id.to_s}"
+    @user.user_icon_image.attach key: "user_icon/#{@user.id.to_s}", io: params[:user_icon_image], filename: "#{@user.id.to_s}"
 
     if @user.save
       redirect_to root_path
