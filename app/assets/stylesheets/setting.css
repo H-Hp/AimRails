@@ -2,21 +2,15 @@
   margin-bottom: 200px;
 }
 
-.card-header{
-  background-color: #E4EFFF;
-}
 .form-control  {
-  background-color: var(--color-surface);
-
-    border-radius: 8px;
-    color: var(--color-text-high-emphasis);
-    cursor: text;
-    display: block;
-    font-size: var(--font-size-body-1);
-    line-height: var(--line-height-body-dense);
-    padding: 8px 12px;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    width: 100%;
+  border-radius: 8px;
+  cursor: text;
+  display: block;
+  font-size: var(--font-size-body-1);
+  line-height: var(--line-height-body-dense);
+  padding: 8px 12px;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  width: 100%;
 }
 /*カスタムCSSを使用上書き*/
 .nameChange.form-control {

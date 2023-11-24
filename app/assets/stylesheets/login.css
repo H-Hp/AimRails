@@ -5,12 +5,9 @@
   width:50%;
   /*position: relative; */
   position: absolute;
-  background: #F0F7FB;
-  box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25); 
 }
 .Login2{
   padding: 56px 48px;
-  background:white;
 }
 .Form{
   /*width: 676px; 
@@ -21,18 +18,13 @@
   height: 593px; 
   left: 387px; 
   top: 38px;
-
-  /*position: absolute; */
-  /*background: #DEEFFF; */
-  background-color: white;
-  
+  /*position: absolute; */  
   backdrop-filter: blur(21px)
 }
 .Mailadress{
   left: 61px; 
   top: 97px; 
   position: absolute; 
-  color: black; 
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -45,10 +37,7 @@
   left: 63px; 
   top: 141px; 
   position: absolute; 
-  background: white; 
-  border: 0.50px #C5BCBC solid
 }
-
 .PasswordInput{
   /*width: 551px;height: 58px;*/
   width:75%;
@@ -56,14 +45,11 @@
   left: 63px; 
   top: 312px; 
   position: absolute; 
-  background: white; 
-  border: 0.50px #C5BCBC solid
 }
 .Password{
   left: 61px; 
   top: 268px; 
   position: absolute; 
-  color: black; 
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -73,7 +59,6 @@
   left: 86px; 
   top: 395px; 
   position: absolute; 
-  color: black; 
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -97,7 +82,6 @@
   left: 61px; 
   top: 34px; 
   position: absolute; 
-  color: black; 
   font-size: 24px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -114,10 +98,8 @@
   top: 75%;
   /*bottom: 20%;  */
   position: absolute; 
-  background: #6343FF; 
   border-radius: 10px;
   cursor: pointer;
-  color: white;
   line-height:28px;
 }
 .LoginBtnTxt{
@@ -126,7 +108,6 @@
   left: 281px; 
   top: 411px; 
   position: absolute; 
-  color: #FEFEFE; 
   font-size: 24px; 
   font-family: Inter; 
   font-weight: 400; 
@@ -136,7 +117,6 @@
   left: 448px; 
   top: 126px; 
   position: absolute; 
-  color: black; 
   font-size: 32px; 
   font-family: Irish Grover; 
   font-weight: 400; 

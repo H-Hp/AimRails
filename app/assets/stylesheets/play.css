@@ -10,10 +10,6 @@ main{
   margin-left: 5px;
 }
 
-
-
-.live_wrap{
-}
 .live_start_btn{
   font-size:30px;
 }
@@ -23,16 +19,12 @@ main{
   height:500px ;
 }
 
-.movie_wrap{
-}
-
 .comments_wrap{
   right: 5px;
   top:50px;
   width: 250px;
   height:95%;
   position: fixed;
-  background-color: rgb(188, 207, 207);
 }
 .comment_upload_form{
   position: fixed;

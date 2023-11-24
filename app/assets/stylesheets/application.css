@@ -1,7 +1,5 @@
 body{
-  color: #FFFFFF;
-  background-color: #121920;
-  /*height: 650px;*/
+  font-family: 'Arial', sans-serif;
 }
 a{
   text-decoration:none !important;
@@ -9,12 +7,10 @@ a{
 
 header{
   position: fixed;
-  /*width: 1360px;*/
   width:100%;
   height: 62px;
   left: 0px;
   top: 0px;
-  background-color: #202020;
   z-index: 2000;
 }
 .Logo-a{
@@ -43,7 +39,6 @@ header{
   font-weight: normal;
   font-size: 24px;
   line-height: 28px;
-  color: #FFFFFF;
 }
 
 .NewUser_btn{
@@ -78,34 +73,24 @@ header{
 .SearchForm{
   position: fixed;
   left: 150px;
-  /*right:430px;*/
   top: 15px;
 }
 .SearchBox{
-  /*width: 394px;*/
   width: 25vw;
   height: 29px;
-  background: #121212;
   border: 1px solid #303030;
   box-sizing: border-box;
-  color: white;
 }
 .SearchBtn{
-  /*width: 92px;*/
   width: 10vw;
   height: 29px;
-  background: #D0DF24;
   border: 1px solid #303030;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 main{
-  background: #000000;
-  /*position: absolute;*/
   position: relative;
-  /*width: 1094px;
-  width:73%;*/
   width:80%;
   height: 100%;
   left: 266px;
@@ -115,12 +100,9 @@ main{
 
 .Left{
 position: fixed;
-width: 266px;
 height: 1650px;
 left: 0px;
 top: 62px;
-
-background: #212121;
 }
 #stretch-btn{
   float:right;
@@ -152,11 +134,6 @@ background: #212121;
 .aim-delete-btn{
   cursor: pointer;
 }
-
-.update-date{
-  color:black;
-}
-
 .favorite-btn{
   width: 50px;
   height:50px;
@@ -166,6 +143,7 @@ background: #212121;
 @media only screen and (max-width: 600px) {
   .ads-PC{display: none;}
   .ads-mobile{display: block;}
+  .Left{width: 400px;}
 }
 
 /* タブレット用：画面幅が600px以上と900px以下 */
@@ -176,4 +154,5 @@ background: #212121;
 /* PC用：画面幅が901px以上 */
 @media only screen and (min-width: 901px) {
   .ads-mobile{display: none;}
+  .Left{width: 266px;}
 }

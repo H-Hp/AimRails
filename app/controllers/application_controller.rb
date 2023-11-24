@@ -33,16 +33,19 @@ class ApplicationController < ActionController::Base
     #duplicated_usernames_count = Aim.group(:user_name).having('count(user_name) > 1').count
 
   end
-
+ 
   PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
   PUSHCODE_endpoint="https://api.pushcode.jp/v1/push/af9db06579f5de5aa32a5c165d269c2f69e0fc0cae45b607993edbb28d45b37d"
 	def top
+=begin 
     payload = {when: {immediate: true}}.to_json
     response = Faraday.post PUSHCODE_endpoint do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['X-PUSHCODE-APIKEY'] = PUSHCODE_API_KEY  
       req.body = payload 
+
     end
+=end
 
 =begin  
     uri = URI.parse(PUSHCODE_endpoint)
@@ -99,7 +102,7 @@ class ApplicationController < ActionController::Base
 
   def set_cors_headers
     response.set_header('Access-Control-Allow-Origin', 'd2hcwuo8gsf97u.cloudfront.net')
-		#response.set_header('Access-Control-Allow-Origin', 'http://0.0.0.0:3000')
+		response.set_header('Access-Control-Allow-Origin', 'http://0.0.0.0:3000')
     response.set_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     response.set_header('Access-Control-Allow-Headers', 'Content-Type')
   end

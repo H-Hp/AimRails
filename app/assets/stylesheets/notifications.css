@@ -3,7 +3,6 @@
   position: fixed;
 }
 .nc_list_content_wrap{
-  background-color: white;
   height:100%;
   width: 70%;
 }
@@ -18,9 +17,6 @@
   display: flex;
   width: 100%;
 }
-.nc_wrap:hover{
-  background-color: #F6F8FA;
-}
 
 .nc_img{
   border-radius: 50%;
@@ -31,7 +27,6 @@
   word-break: break-all;
   padding: 0;
   margin-left: 10px;
-  color: black;
 }
 .nc_a_wrap p{
   font-size: 12px;

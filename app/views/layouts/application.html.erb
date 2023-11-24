@@ -34,41 +34,25 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-    
-    <!-- <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
-    <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all' , as: 'style' %>
-    <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-    -->
-    
-    <!--<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://d2hcwuo8gsf97u.cloudfront.net/packs/js/application-a19bc2af213c4adc9762.js" data-turbolinks-track="reload"></script>
-    <script src="<%= cloudfront_javascript_pack_tag 'all' %>" data-turbolinks-track="reload"></script>
-    -->
+  
 
     <%= stylesheet_link_tag "header" %>
     <%= stylesheet_link_tag "side-menu" %>
     <%= stylesheet_link_tag "side-ads" %>
+    <%= stylesheet_link_tag "color-dark-light" %>
 
-    
-    <% if Rails.env.development? %>
-      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> 
-      <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% else %>
-      <%= cloudfront_stylesheet_link_tag 'application.css', media: 'all', 'data-turbolinks-track': 'reload' , as: 'style' %>
-      <script src="<%= cloudfront_javascript_pack_tag 'application' %>" data-turbolinks-track="reload"></script>
-    <% end %>
+    <%= stylesheet_link_tag 'application' %> 
+    <%= javascript_pack_tag 'application' %>
 
     <!-- Google アナリティクスtag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJYSMQ091V"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KJYSMQ091V'); </script>
     
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-LPEYP3Q3WT"></script>
 
-
     <!--通知のPushCode-->
-    <script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
+    <!--<script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
     <link rel="manifest" href="/manifest.json">
+    -->
 
     <!-- 広告のTheMoneytizerのCMP（Cookie同意バナー）設置-->
     <!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
@@ -79,6 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
 
 <script>
+/*
 window.PushCodeInit = function() {
   try {
     if (PushCode && PushCode.isSupport()) {
@@ -93,10 +78,11 @@ window.PushCodeInit = function() {
     }
   }
 };
+*/
 </script>
     </head>
 
-  <body>
+  <body class="light-mode">
   
   
 
@@ -118,149 +104,36 @@ window.PushCodeInit = function() {
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 <script>
+// ローカルストレージから値を取得
+  const theme = localStorage.getItem('theme');
+  const stretch = localStorage.getItem('stretch');
+
+
+  //ダーク-ライトモードここから
+  // 初期テーマの設定
+  setTheme(theme);
+
+  // テーマを切り替える関数
+  function toggleTheme() {
+    const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
+
+  // テーマに応じてスタイルを設定する関数
+  function setTheme(theme) {
+    document.body.className = theme + '-mode';
+  }
+  //ダーク-ライトモードここまで
+
 $(function(){
 	$(".Logo , .LogoTitle").click(function() {//セレクタorでどっちかにマッチ
 		location.href="/";
 	});
-
-  // ローカルストレージから値を取得
-  const theme = localStorage.getItem('theme');
-  const stretch = localStorage.getItem('stretch');
-
-  if (theme === 'light') {
-    design_light();
-  } else {
-    design_dark();
-  }
-
-  if (stretch === 'open') {
-    stretch_open();
-  } else if (stretch === 'close'){
-    stretch_close();
-  }else {
-    stretch_open();
-  }
-
-	$(".stretch-btn").click(function() {
-    stretch_close();
-	});
-  
-  $(".stretch-btn-open").click(function() {
-    stretch_open();
-	}); 
- 
-  function stretch_close(){
-    console.log(".stretch-btn");
-    //$(".stretch-btn").toggleClass("menu-open");
-		$(".Left").css("width","25px") ;
-    $("main").css("left","10px") ;
-    //$("main").css("width","90%") ;
-    $("main").css("width","99%") ;
-    $(".stretch-btn").hide();$(".stretch-btn-open").show();
-    $(".Left-content").hide();
-    /*$(".stretch-btn").addClass(".stretch-btn-close");
-    //$("#myElement").removeClass("old-class").addClass(new-cl
-    if (sideMenu.style.left === "0px") {
-        // サイドメニューが開いている場合、閉じる
-        sideMenu.style.left = "-250px";
-    } else {
-        // サイドメニューが閉じている場合、開く
-        sideMenu.style.left = "0px";
-    }*/
-    localStorage.setItem('stretch', 'close');
-  }
-  function stretch_open(){
-    console.log(".stretch-btn");
-		$(".Left").css("width","20%") ;
-    $("main").css("left","20%") ;
-    $("main").css("width","70%") ;
-    $(".stretch-btn-open").hide();$(".stretch-btn").show();
-    $(".Left-content").show();
-    localStorage.setItem('stretch', 'open');
-  }
-  
-
-  $(".design-light").click(function() {
-		design_light();
-	});
-  $(".design-dark").click(function() {
-    design_dark();
-	});
-  
-  function design_light(){
-    console.log("design-light");
-    //$("body").css("background-color","white") ;
-    //$("main").css("background-color","white") ;
-    $("body").css("background-color","#F4F5F7") ;
-    $("main").css("background-color","#F4F5F7") ;
-    //$("header").css("background-color","#F5F6F6") ;
-    $("header").css("background-color","white") ;
-    $(".SearchBox").css("background-color","white") ;
-    //$(".Left").css("background-color","#F5F6F6") ;
-    $(".Left").css("background-color","white") ;
-
-
-    $("main").css("color","black") ;
-    $(".SearchBox").css("color","black") ;
-
-    $(".user-icon button").css("color","black") ;
-    $(".copyright").css("color","black") ;
-    $(".content_wrap").css("background-color","white") ;
-    $(".aim_wrap").css("background-color","white") ;
-    $(".aim_wrap:hover").css("background-color","black") ;$(".aim_wrap_a:hover").css("background-color","black") ;
-
-    
-    $(".Left a").css("color","black") ;
-    $(".design-light").hide();$(".design-dark").show();
-    $(".Logo-black").show();$(".Logo-white").hide();
-    localStorage.setItem('theme', 'light');
-  }
-
-  function design_dark(){
-    console.log("design-dark");
-    $("body").css("background-color","#000000") ;
-    $("main").css("background-color","#000000") ;
-    $("main").css("color","white") ;
-    $("header").css("background-color","#202020") ;
-    $(".SearchBox").css("background-color","#121212") ;
-    $(".SearchBox").css("color","white") ;
-    $(".Left").css("background-color","#212121") ;
-    $(".Left a").css("color","white") ;
-    $(".copyright").css("color","white") ;
-
-    $(".content_wrap").css("background-color","#2f3232") ;
-    $(".aim_wrap").css("background-color","#2f3232") ;
-        $(".aim_wrap:hover").css("background-color","black") ;$(".aim_wrap_a:hover").css("background-color","black") ;
-
-    $(".aim_title").css("color","white") ;
-    $(".aim_content").css("color","white") ;
-
-    $(".nc_a_wrap-indexpage").css("color","white") ;
-
-
-
-    
-
-    $(".design-light").show();$(".design-dark").hide();
-    $(".Logo-black").hide();$(".Logo-white").show();
-    localStorage.setItem('theme', 'dark');
-
-    $(".user-icon button").css("color","white") ;
-    $(".search-form-input").css("color","black") ;
-  }
-	
 });
-
-
 </script>
-
-
-
-<style>
-.stretch-btn.menu-open{
-  width: 10px;
-}
-</style>
 
 <script>
 //こっからヘッダーの処理

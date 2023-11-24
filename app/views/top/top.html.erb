@@ -10,6 +10,8 @@
 <%= render 'shared/ads-mobile' %>
 
 <div class="content_wrap">
+<a href="#" onclick="toggleTheme()"><i class="bx bx-adjust"></i>テーマ切替</a>
+
   <% @aim.each do |aim| %>
     <a href="/aim/<%= aim.id %>" class="aim_wrap_a">
       <div class="aim_wrap" id="">

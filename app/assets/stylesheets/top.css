@@ -4,11 +4,6 @@
   margin-left: 50px;
   margin-bottom: 200px;
 }
-
-.aim_wrap_a:hover {
-  background-color: #3b70a4;
-  /*background-color: #F6F8FA; */
-}
 .aim_wrap{
   height:130px;
   width: 100%;
@@ -16,11 +11,6 @@
   padding: 20px;
   display: flex;
 }
-.aim_wrap:hover {
-  background-color: #05dc09;
-  /*background-color: #F6F8FA; */
-}
-
 .aim_img_div{
   width: 25%;
   height: 100%;
@@ -30,7 +20,6 @@
   width: 100%;
   height: 100%;
 }
-
 .aim_title_content_div{
   width: 50%;
   margin-left: 10px;
@@ -42,24 +31,16 @@
 }
 .aim_title{
   float: left;
-  color: black;
 }
 .aim_content_div{
   width: 100%; /* 任意の幅を指定 */
   height: 35%; 
-  
   overflow: hidden;
   text-overflow: ellipsis; /* 切り詰めた部分に省略記号 (...) を表示 */
 }
-.aim_content{
-  color: black;
-}
-
 .aim_updated_div{
   float: right;
 }
-
-
 .add_aim_btn{
   width: 50%;
   font-size: 20px;

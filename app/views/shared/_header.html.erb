@@ -103,8 +103,7 @@
         <a href="/user/<%= current_user.user_name %>"><i class="bx bx-user"></i>マイページ</a>
         <a href="/setting"><i class="bx bx-cog"></i>設定</a>
 
-        <a href="#" class="design-light" id="design-light"><i class="bx bx-adjust"></i>デザイン:ライト</a>
-        <a href="#" class="design-dark" id="design-dark"><i class="bx bx-adjust"></i>デザイン:ダーク</a>
+<a href="#" onclick="toggleTheme()"><i class="bx bx-adjust"></i>テーマ切替</a>
 
         <!--link_to "ログアウト", destroy_user_session_path, method: :delete ,class: "NewUser_btn btn btn-success mb-12"-->
         <!--<form name="sample_form_name" method="DELETE" action="<%= destroy_user_session_path %>">

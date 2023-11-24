@@ -13,20 +13,15 @@ html {
   width: 50%; 
   min-width: 50%;
   position: absolute;
-  background: #F0F7FB;
-  box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25); 
 }
 .Newuser2{
   padding: 56px 48px;
-  background:white;
 }
 .Form{
   width: 100%; 
   height: 593px; 
   left: 387px; 
   top: 38px;
-  /*background: #DEEFFF; */
-  background: white;
   backdrop-filter: blur(21px)
 }
 .SignIn{
@@ -35,7 +30,6 @@ html {
   left: 61px; 
   top: 0px; 
   position: absolute; 
-  color: black; 
   font-size: 24px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -45,7 +39,6 @@ html {
   top: 100px;
   left: 61px; 
   position: absolute; 
-  color: black; 
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -56,7 +49,6 @@ input{
   min-height: 44px;
   left:50px;
   position: absolute; 
-  background: white; 
   border: 0.50px #C5BCBC solid
 }
 .Name{
@@ -93,13 +85,11 @@ input{
   background: #6343FF; 
   border-radius: 10px;
   cursor: pointer;
-  color:white;
 }
 .Oneforall{
   left: 448px; 
   top: 126px; 
   position: absolute; 
-  color: white; 
   font-size: 32px; 
   font-family: Irish Grover; 
   font-weight: 400; 
@@ -112,7 +102,6 @@ input{
   left: 248px; 
   top: 623px; 
   position: absolute; 
-  color: #FEFEFE; 
   font-size: 24px; 
   font-family: Inter; 
   font-weight: 400; 
