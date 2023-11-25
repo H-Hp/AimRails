@@ -40,22 +40,37 @@
                             </div>
                         
 
+ 
+
                             <div class="us-ImageSelect_item">
-                                <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
-                                    <input id="user_uploaded_profile_image" type="radio" value="custom" name="icon_url" <%= 'checked="checked"' if @icon_type == 'custom' %> >
-                                        <% if current_user&.user_icon_image.attached? %>
-                                            <%= image_tag current_user.user_icon_image ,class:"setting_icon_img" %>
-                                        <% else %>
-                                            <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
-                                            <img alt="RollTall" src="/custom_fefault.jpeg"  class="setting_icon_img">
-                                        <% end %>
-                                </label>
+                                    <label class="us-ImageSelect_itemIcon" for="user_uploaded_profile_image">
+                                        <input id="user_uploaded_profile_image" type="radio" value="custom" name="icon_url" <%= 'checked="checked"' if @icon_type == 'custom' %> >
+                                            <% if current_user&.user_icon_image.attached? #アイコンがアップされていたら%>
+                                                <%= image_tag current_user.user_icon_image ,class:"setting_icon_img" %>
+                                            <% else %>
+                                                <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
+                                                <img alt="RollTall" src="/custom_fefault.jpeg"  class="setting_icon_img">
+                                            <% end %>
+                                    </label>
                                 <div class="us-ImageSelect_itemCaption">
                                     <a href="/setting/user/custom_img">
                                         画像アップロード
                                     </a>
                                 </div>
                             </div>
+                        <% if !current_user&.user_icon_image.attached? #アイコンがアップされてなかったら %>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#user_uploaded_profile_image').on('click', function() {
+                                        location.href = "/setting/user/custom_img";
+                                    });
+                                });
+                            </script>
+                        <% end %>
+
+                               <% if !current_user&.user_icon_image.attached? #アイコンがアップされてなかったら %>
+                                    </a>
+                                <% end %>
 
                             <div class="us-ImageSelect_item">
                                 <label class="us-ImageSelect_itemIcon" for="user_default_icon">

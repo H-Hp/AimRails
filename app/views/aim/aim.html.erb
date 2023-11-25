@@ -58,10 +58,13 @@
       <a href="/aim/edit/<%= @aim.id %>">編集</a>
     <% end %>
 </div>
+<% if user_signed_in? %>
 <script>
 //いいねを非同期で行う
 $(document).on('click', '.like_btn', function() {
-   $(this).replaceWith('<button type="button" class="like_delete_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorited-btn-bounce' %></button>');
+ 
+      $(this).replaceWith('<button type="button" class="like_delete_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorited-btn-bounce' %></button>');
+
   $.ajax({
     type: 'POST',
     url: '/aim/like',
@@ -74,12 +77,13 @@ $(document).on('click', '.like_btn', function() {
     },
     error: (res) => {
       console.log("失敗"+res.responseText)
+            $(this).replaceWith('<button type="button" class="like_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorite-btn' %></button>');
     }
   });
 });
 
 $(document).on('click', '.like_delete_btn', function() {
-  $(this).replaceWith('<button type="button" class="like_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorite-btn' %></button>');
+      $(this).replaceWith('<button type="button" class="like_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorite-btn' %></button>');
   $.ajax({
     type: 'POST',
     url: '/aim/like_delete',
@@ -89,12 +93,12 @@ $(document).on('click', '.like_delete_btn', function() {
         },
     success: (res) => {
       console.log("成功")
-
     },
     error: (res) => {
       console.log("失敗"+res.responseText)
-      $(this).replaceWith('<button type="button" class="like_delete_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorited-btn-bounce' %></button>');
+          $(this).replaceWith('<button type="button" class="like_delete_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorited-btn-bounce' %></button>');
     }
   });
 });
 </script>
+<% end %>
