@@ -20,18 +20,18 @@
                 <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
                       <%= form.hidden_field :user_id, value: current_user.id %>
                       <%= form.hidden_field :aim_id, value: @aim.id %>
-                      <%= button_tag(type: 'submit') do %>
+                       <%= button_tag(type: 'button', class: 'like_delete_btn favorite-btn', data: { user_id: current_user.id,aim_id: @aim.id }) do %>
                             <%= render 'shared/favorite-btn-already' %>
-                       <% end %>
+                        <% end %>
                 <% end %> 
             <% else # まだ「いいね」していない場合の処理 %>
                 <!--= form_for url: '/aim/like', method: :post do |f| %-->
                 <%= form_with(url: "/aim/like", local: true, html:{ class:"like_form" ,id:"like_form"}) do |form| %>
                       <%= form.hidden_field :user_id, value: current_user.id %>
                       <%= form.hidden_field :aim_id, value: @aim.id %>
-                      <%= button_tag(type: 'submit') do %>
+                      <%= button_tag(type: 'button', class: 'like_btn favorite-btn', data: { user_id: current_user.id,aim_id: @aim.id }) do %>
                             <%= render 'shared/favorite-btn' %>
-                      <% end %>
+                       <% end %>
                 <% end %> 
             <% end %>
         </div>
@@ -58,3 +58,158 @@
       <a href="/aim/edit/<%= @aim.id %>">編集</a>
     <% end %>
 </div>
+<script>
+//いいねを非同期で行う
+
+
+
+/*
+document.addEventListener('click', function(event) {
+    console.log("b")
+  //if (event.target.matches('.like_delete_btn')) {
+    console.log("b")
+    var userId = event.target.getAttribute('data-user_id');
+    var aimId = event.target.getAttribute('data-aim_id');
+    fetch('/aim/like_delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        user_id: userId,
+        aim_id: aimId,
+      })
+    }).then(function(response) {
+      if (response.ok) {
+        // ここでいいね画像を更新する
+      }
+    });
+  //}
+});
+*/
+                        
+
+
+
+
+$(document).on('click', '.like_btn', function() {
+  $.ajax({
+    type: 'POST',
+    url: '/aim/like',
+    data: { 
+        user_id: <%= current_user.id %>,
+        aim_id: <%= @aim.id %>
+        },
+    success: (res) => {
+      console.log("成功")
+      $(this).replaceWith('<button type="button" class="like_delete_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorited-btn-bounce' %></button>');
+    },
+    error: (res) => {
+      console.log("失敗"+res.responseText)
+    }
+  });
+});
+
+$(document).on('click', '.like_delete_btn', function() {
+  $.ajax({
+    type: 'POST',
+    url: '/aim/like_delete',
+    data: { 
+        user_id: <%= current_user.id %>,
+        aim_id: <%= @aim.id %>
+        },
+    success: (res) => {
+      console.log("成功")
+      $(this).replaceWith('<button type="button" class="like_btn favorite-btn" data-user_id="<%= current_user.id %>" data-aim_id="<%= @aim.id %>"><%= render 'shared/favorite-btn' %></button>');
+
+    },
+    error: (res) => {
+      console.log("失敗"+res.responseText)
+    }
+  });
+});
+
+
+
+/*
+$(document).on('click', '.like_btn', function() {
+  //var userId = $(this).data('user_id');var aimId = $(this).data('aim_id');
+  var userId = $('.like_btn').data('user_id');var aimId = $(this).data('aim_id');
+
+  $.ajax({
+    type: 'POST',
+    url: '/aim/like',
+    data: { 
+        user_id: <%= current_user.id %>,
+        aim_id: userId,
+        },
+    success: (res) => {
+      // ここでいいね画像を更新する
+    },
+    error: (res) => {
+      console.log("失敗"+res)
+    }
+  });
+});
+
+document.getElementById("like_button").addEventListener("click", () => {
+  // user_idをデータとして送信 
+  //const userId = <%= current_user.id %>;
+  console.log("aa")
+  $.ajax({
+    url: "/aim/like",
+    type: "POST",
+    data: { 
+        user_id: <%= current_user.id %>,
+        aim_id: <%= @aim.id %>
+        },
+
+    success: (res) => {
+      // 成功時の処理 
+      // 例:いいねアイコンの更新
+      console.log("成功"+res)
+      $("#like_icon").replaceWith("<span>❤️</span>");
+      alert("いいね成功")
+    },
+
+    error: (res) => {
+      console.log("失敗"+res)
+
+      alert("Error"+res); 
+    }
+  });
+
+});
+
+
+document.getElementById("like_delete_button").addEventListener("click", () => {
+  // user_idをデータとして送信 
+  //const userId = <%= current_user.id %>;
+    console.log("b")
+
+  $.ajax({
+    url: "/aim/like_delete",
+    type: "POST",
+    data: { 
+        user_id: <%= current_user.id %>,
+        aim_id: <%= @aim.id %>
+        },
+
+    success: (res) => {
+      // 成功時の処理 
+      // 例:いいねアイコンの更新
+      console.log("成功"+res)
+      $("#like_icon").replaceWith("<span>❤️</span>");
+      alert("いいね成功")
+    },
+
+    error: (res) => {
+      console.log("失敗"+res)
+
+      alert("Error"+res); 
+    }
+  });
+
+});
+*/
+</script>

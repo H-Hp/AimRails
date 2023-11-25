@@ -1,6 +1,7 @@
 require 'rake'
 
 class AimController < ApplicationController
+  protect_from_forgery #AjaxのCSRF対策回避
 
   def new
     @aim = Aim.new

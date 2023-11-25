@@ -137,6 +137,7 @@ top: 62px;
 .favorite-btn{
   width: 50px;
   height:50px;
+  background: none!important;
 }
 
 /* スマートフォン用：画面幅が600px以下 */
