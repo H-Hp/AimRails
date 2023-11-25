@@ -4,6 +4,7 @@
 <% end %>
 <%= render 'shared/header' %>
 <%= stylesheet_link_tag "setting" %>
+<%= stylesheet_link_tag "aim-delete-dialog" %>
 
 <!--
 <h1>設定</h1>
@@ -244,18 +245,56 @@ radioButtons.forEach(button => {
                     
 
                     <!--<form method="POST" action="{{ route('user.delete', ['user_id' => $user_id]) }}">-->
-                    <%= form_with(url: "/setting/delete_user/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+                    <%= form_with(url: "/setting/delete_user/"+@current_user_id.to_s, local: true, html:{ class:"edit-form" ,id:"aim-delete-form"}) do |form| %>
                         <div class="form-group mb-0">
                             <div class="">
-                                <button type="submit" class="alert alert-danger" role="alert">
-                                アカウント削除
-                                <!--<a href="/account_delete">アカウント削除</a>-->
-                                </button>
+                                <!--<button type="submit" class="alert alert-danger" role="alert">アカウント削除</button>-->
                             </div>
                         </div>
                      <!--</form>-->
                     <% end %>
+                    <button id="open-dialog" type="button" class="account-delete-btn alert alert-danger" role="alert">アカウント削除</button>
+                        <div id="dialog-overlay" class="dialog-overlay" style=" display:none;">
+                        <div id="dialog-box" class="dialog-box">
+                            <p>本当に削除しますか？</p>
+                            <button id="confirm-delete">はい</button>
+                            <button id="cancel-delete">いいえ</button>
+                        </div>
+                    </div>
                 </div>
         </div>
     </div>
 </div>
+<script>
+//アカウント削除ダイアログ表示/
+const openDialogButton = document.getElementById('open-dialog');
+const dialogOverlay = document.getElementById('dialog-overlay');
+const dialogBox = document.getElementById('dialog-box');
+const confirmDeleteButton = document.getElementById('confirm-delete');
+const cancelDeleteButton = document.getElementById('cancel-delete');
+
+openDialogButton.addEventListener('click', () => {
+  dialogOverlay.style.display = 'flex';
+});
+
+function closeDialog() {
+  dialogOverlay.style.display = 'none';
+}
+
+dialogOverlay.addEventListener('click', (e) => {
+  if (e.target === dialogOverlay) {
+    closeDialog();
+  }
+});
+
+confirmDeleteButton.addEventListener('click', () => {
+  // 削除の確認を実行
+  // ここに削除処理を追加
+  document.getElementById("aim-delete-form").submit();
+  closeDialog();
+});
+
+cancelDeleteButton.addEventListener('click', () => {
+  closeDialog();
+});
+</script>
