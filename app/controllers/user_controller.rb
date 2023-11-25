@@ -1,4 +1,6 @@
 class UserController < ApplicationController
+  protect_from_forgery #AjaxのCSRF対策回避
+  
   def new_user
   end
 

@@ -24,14 +24,65 @@ relationship = Relationship.find_by(follower_id: current_user.id, followed_id: @
                                     <%= form_with(url: "/user/follow_delete", local: true, html:{ class:"follow_delete_form" ,id:"follow_delete_form"}) do |form| %>
                                           <%= form.hidden_field :follower_id, value: current_user.id %>
                                           <%= form.hidden_field :followed_id, value: @this_user.id %>
-                                          <%= form.submit "フォロー中" %>
+                                          <%= button_tag("フォロー中", type: 'button', class: 'follow_delete_btn follow-btn', id: 'follow_delete_btn', data: { follower_id: current_user.id, followed_id: @this_user.id }) %>
+
                                     <% end %> 
                                 <% else # まだ「フォロー」していない場合の処理 %>
                                     <%= form_with(url: "/user/follow", local: true, html:{ class:"follow_form" ,id:"follow_form"}) do |form| %>
                                           <%= form.hidden_field :follower_id, value: current_user.id %>
                                           <%= form.hidden_field :followed_id, value: @this_user.id %>
-                                          <%= form.submit "フォロー" %>
+                                          <%= button_tag("フォロー", type: 'button', class: 'follow_btn follow-btn', id: 'follow_btn', data: { follower_id: current_user.id, followed_id: @this_user.id }) %>
                                     <% end %> 
                                 <% end %>
                             </div>
                     <% end %>
+
+<script>
+$(document).ready(function() {//HTMLドキュメントが完全に読み込まれてからJavaScriptコードが実行されるようになります
+
+//フォロー/フォロー外しを非同期で行う
+$(document).on('click', '#follow_btn', function() {
+      let follower_id = $(this).data('followerId');//_を外して最初大文字
+      let followed_id = $(this).data('followedId');
+     $(this).replaceWith('<%= button_tag("フォロー中", type: 'button', class: 'follow_delete_btn follow-btn', id: 'follow_delete_btn', data: { follower_id: current_user.id, followed_id: @this_user.id }) %>');
+      $.ajax({
+      type: 'POST',
+      url: '/user/follow',
+      data: { 
+            follower_id: follower_id,
+            followed_id: followed_id
+            },
+      success: (res) => {
+            console.log("成功")
+      },
+      error: (res) => {
+            console.log("失敗"+res.responseText)
+            $(this).replaceWith('<%= button_tag("フォロー", type: 'button', class: 'follow_btn follow-btn', id: 'follow_btn', data: { follower_id: current_user.id, followed_id: @this_user.id }) %>');
+
+      }
+      });
+});
+
+$(document).on('click', '#follow_delete_btn', function() {
+      let follower_id = $(this).data('followerId');
+      let followed_id = $(this).data('followedId');
+      $(this).replaceWith('<%= button_tag("フォロー", type: 'button', class: 'follow_btn follow-btn', id: 'follow_btn', data: { follower_id: current_user.id, followed_id: @this_user.id }) %>');
+      $.ajax({
+      type: 'POST',
+      url: '/user/follow_delete',
+      data: { 
+            follower_id: follower_id,
+            followed_id: followed_id
+            },
+      success: (res) => {
+            console.log("成功")
+      },
+      error: (res) => {
+            console.log("失敗"+res.responseText)
+            $(this).replaceWith('<%= button_tag("フォロー中", type: 'button', class: 'follow_delete_btn follow-btn', id: 'follow_delete_btn', data: { follower_id: current_user.id, followed_id: @this_user.id }) %>');
+      }
+      });
+});
+
+});
+</script>
