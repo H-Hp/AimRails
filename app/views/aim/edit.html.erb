@@ -31,7 +31,7 @@
   </div>
 
   <div class="field">
-    <%= form.text_field :title, required: true, placeholder: "目標タイトル", class: "title", id:"title" %>
+    <%= form.text_field :title, required: true, placeholder: "目標タイトル", class: "title", id:"title",value:@aim.title%>
   </div>
 
   <!--
@@ -42,7 +42,7 @@
   -->
 
   <div class="field edit-container">
-    <%= form.text_area :content, required: true, placeholder: "内容をMarkdown記法で書いていきましょう!", class: "edit-input", id:"edit-input", rows: 20 %>
+    <%= form.text_area :content, required: true, placeholder: "内容をMarkdown記法で書いていきましょう!", class: "edit-input", id:"edit-input", rows: 20 ,value:@aim.content %>
     <!-- form.text_area :content, required: true, placeholder: "aaaaaaa", class: "edited-input", id:"edited-input", rows: 20 -->
     <div id="previewArea" class="previewArea"></div>
   </div>

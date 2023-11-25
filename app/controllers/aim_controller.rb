@@ -60,6 +60,8 @@ class AimController < ApplicationController
   def delete
     aim = Aim.find(params[:id])
     aim.destroy
+    likes = Like.where(aim_id: aim.id)
+    likes.destroy_all
     #Rake::Task["sitemap:create"].invoke #sitemapを更新
     #redirect_to root_path
     if request.referer&.include?("/edit")
