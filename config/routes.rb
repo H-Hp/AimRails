@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get 'search'  => 'aim#search'
   get '/aim/edit/:id'  =>'aim#edit'
   #patch '/aim/update/:id', to: 'aim#update'
+  post '/aim/create/', to: 'aim#create'
   post '/aim/update/:id', to: 'aim#update'
   post '/aim/delete/:id', to: 'aim#delete'
 

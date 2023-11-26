@@ -5,7 +5,8 @@
 <%= stylesheet_link_tag "create-edit" %>
 <%= render 'shared/create-edit-header' %>
 
-<%= form_with(model: @aim, url: aim_index_path, local: true, html:{ class:"edit-form",id:"edit-form" }) do |form| %>
+<%= form_with(url: "/aim/create/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+
   <% flash.each do |name, msg| %>
     <% if msg.is_a?(String) %>
       <%= content_tag :div, msg, class: "alert alert-#{name == :notice ? 'success' : 'danger'}" %>

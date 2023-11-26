@@ -59,6 +59,7 @@ class AimController < ApplicationController
 
   def delete
     aim = Aim.find(params[:id])
+    aim.aim_thumb_img.purge_later#Active Storageが管理するすべてのファイルと、それに関連するすべてのActive Storageのデータベースレコードを削除
     aim.destroy
     likes = Like.where(aim_id: aim.id)
     likes.destroy_all
