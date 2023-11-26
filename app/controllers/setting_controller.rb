@@ -134,7 +134,25 @@ class SettingController < ApplicationController
   
   def delete_user
     user = User.find(params[:id])
-    user.destroy   
+    notifications = Notification.where(user_id: user.id)
+    notifications.destroy_all
+
+    likes = Like.where(user_id: user.id)
+    likes.destroy_all
+
+    #フォロー・followerはフォローする人・followedはフォローされる人
+    #アカウントを削除するユーザーがフォローされたデータ(follower_idが他人、followed_idがアカウント削除する人)を消す
+    relationships = Relationship.where(followed_id: user.id)
+    relationships.destroy_all
+    #アカウントを削除するユーザーがフォローしたデータ(follower_idがアカウント削除する人で、followed_idが他人)を消す
+    relationships = Relationship.where(follower_id: user.id)
+    relationships.destroy_all
+
+    aim = Aim.where(user_id: user.id).update_all(user_id:0)
+
+    user.user_icon_image.purge_later#Active Storageが管理するすべてのファイルと、それに関連するすべてのActive Storageのデータベースレコードを削除
+    user.destroy
+
     redirect_to root_path
   end
 
