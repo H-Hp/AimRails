@@ -16,7 +16,7 @@ header{
 .Logo-a{
   position: absolute;
   width: 200px;
-  height: 70x;
+  height: 70px;
   left: 15px;
   top: 15px; 
 } 
@@ -158,12 +158,14 @@ top: 62px;
 
 /* スマートフォン用：画面幅が600px以下 */
 @media only screen and (max-width: 600px) {
+  .Logo-a{left:70px;top:25px;}
   main{width: 100%;left:0;padding-top: 0;}
   .ads-mobile{display: block;}
   .Left{display: none;}
   .newAim-btn{display: none;}
   .goLLM_btn{display: none;}
   .goPlay_btn{display: none;}
+  .mobile-menu-icon{display: block;}
 }
 
 /* タブレット用：画面幅が600px以上と900px以下 */

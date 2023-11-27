@@ -335,3 +335,7 @@ header{
   bottom: 0;
   position: absolute;
 }
+
+.mobile-menu-icon{
+  display: none;
+}

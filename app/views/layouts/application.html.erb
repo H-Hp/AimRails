@@ -130,6 +130,17 @@ window.PushCodeInit = function() {
   }
   //ダーク-ライトモードここまで
 
+  //スマホ用のハンバーガーアイコンのクリックで再度メニュを開閉
+document.querySelector('.mobile-menu-icon').addEventListener('click', function() {
+  var leftMenu = $(".Left");
+  if (leftMenu.css("display") === "none") {
+    leftMenu.css("display", "block");
+  } else {
+    leftMenu.css("display", "none");
+  }
+});
+
+
 $(function(){
 	$(".Logo , .LogoTitle").click(function() {//セレクタorでどっちかにマッチ
 		location.href="/";
