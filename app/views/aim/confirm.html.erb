@@ -1,0 +1,28 @@
+<% content_for :title do %>確認<% end %>
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:noindex => true) %>
+<% end %>
+<%= stylesheet_link_tag "create-edit" %>
+<%= render 'shared/create-edit-header' %>
+
+
+<h1>以下の内容で登録します</h1>
+
+<p>
+  <%= @aim.title %>
+</p>
+
+<p>
+  <%= @aim.content %>
+</p>
+
+<%= form_with(url: "/aim/create/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+  <%= form.hidden_field :title , value: @aim.title %>
+  <%= form.hidden_field :content, value: @aim.content %>
+<% end %>
+
+<script>
+document.getElementById("submitButton").addEventListener("click", function() {
+  document.getElementById("edit-form").submit();
+});
+</script>

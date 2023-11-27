@@ -23,6 +23,10 @@ class AimController < ApplicationController
     end
   end
 
+  def confirm
+    @aim = Aim.new(aim_params)
+  end
+
   def aim
     @aim = Aim.find_by(id: params[:id])
     @author_id =@aim.user_id

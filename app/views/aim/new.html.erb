@@ -5,7 +5,7 @@
 <%= stylesheet_link_tag "create-edit" %>
 <%= render 'shared/create-edit-header' %>
 
-<%= form_with(url: "/aim/create/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+<%= form_with(url: "/aim/new_confirm/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
 
   <% flash.each do |name, msg| %>
     <% if msg.is_a?(String) %>
@@ -35,8 +35,6 @@
     <div id="previewArea" class="previewArea"></div>
   </div>
  
-
-
 <% end %>
 
 
@@ -69,9 +67,7 @@ textarea.addEventListener('input', function() {
   //characterCount.innerHTML =marked.parse('# Marked in the browser\n\nRendered by **marked**.');
   //characterCount.innerHTML =marked.parse(textarea.value);
   previewArea.innerHTML =marked.parse(textarea.value);
-  
- console.log("aaaa") 
- console.log("textarea:"+textarea.value) 
+  console.log("textarea:"+textarea.value) 
 });
 </script>
 
