@@ -141,4 +141,25 @@
   </div>
   <% end %>
 </div>
+
+
 </header>
+
+<!--<div class="mobile-search-form" id="mobile-search-form">
+  <input type="text" placeholder="Search...">
+</div>-->
+<form action="/search" method="get" class="mobile-search-form" id="mobile-search-form">
+  <span class="material-symbols-outlined search-form-span" aria-hidden="true">
+    search
+  </span>
+  <input type="search" autocomplete="off" placeholder="エイムを検索" value="" name="word" required="" class="search-form-input" id="mobile-search-form-input">
+</form>
+
+<script>
+document.querySelector('.search-btn-mini').addEventListener('click', function() {
+  //this.classList.toggle('active');
+  var searchBar = document.getElementById('mobile-search-form');
+      searchBar.style.display = (searchBar.style.display === 'none' || searchBar.style.display === '') ? 'block' : 'none';
+      document.getElementById('mobile-search-form-input').focus();
+});
+</script>

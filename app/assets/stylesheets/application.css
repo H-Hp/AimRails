@@ -88,6 +88,22 @@ header{
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+.SearchForm{
+  position: fixed;
+  left: 150px;
+  top: 15px;
+}
+.mobile-search-form{
+  display: none;
+  position: fixed;
+  top:50px;
+  width: 100%;
+}
+.mobile-search-form input{
+  width: 100%;
+  height:50px;
+}
+
 
 main{
   position: relative;
@@ -142,9 +158,12 @@ top: 62px;
 
 /* スマートフォン用：画面幅が600px以下 */
 @media only screen and (max-width: 600px) {
-  .ads-PC{display: none;}
+  main{width: 100%;left:0;padding-top: 0;}
   .ads-mobile{display: block;}
-  .Left{width: 400px;}
+  .Left{display: none;}
+  .newAim-btn{display: none;}
+  .goLLM_btn{display: none;}
+  .goPlay_btn{display: none;}
 }
 
 /* タブレット用：画面幅が600px以上と900px以下 */
