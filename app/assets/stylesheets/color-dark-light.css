@@ -1,52 +1,147 @@
 /* ライトモードのスタイル */
-body.light-mode {background-color: white;color: #333;transition: background-color 0.3s ease;}
+body.light-mode {background-color: #eee;color: #333;transition: background-color 0.3s ease;}
 /* ダークモードのスタイル */
-body.dark-mode {background-color: #333;color: #fff;transition: background-color 0.3s ease;}
+body.dark-mode {background-color: #333; color: #fff;transition: background-color 0.3s ease;}
 
 body.light-mode main {background-color: #eee;color: #333;}
-body.dark-mode main {background-color: #555;color: #fff;}
+body.dark-mode main {background-color: #333;color: #fff;}
 
 body.light-mode header {background-color: white;color: #333;}
 body.dark-mode header {background-color: #0F0F0F;color: #fff;}
-.nc_wrap:hover{background-color: #F6F8FA;}
+
+body.light-mode .dropdown-user-icon {background-color: white;color: #333;}
+body.dark-mode .dropdown-user-icon {background-color: #0F0F0F;color: #fff;}
+body.light-mode .dropdown-user-icon a{color: #333;}
+body.dark-mode .dropdown-user-icon a{color: #fff;}
+body.light-mode .dropdown-user-icon a:hover{background-color: #F2F2F2;}
+body.dark-mode .dropdown-user-icon a:hover{background-color: #272727;}
+
+body.light-mode .dropdown-notifications {background-color: white;color: #333;}
+body.dark-mode .dropdown-notifications {background-color: #0F0F0F;color: #fff;}
+body.light-mode .nc_wrap a {color: #333;}
+body.dark-mode .nc_wrap a{color: #fff;}
+body.light-mode #to_nc_list {color: #333;}
+body.dark-mode #to_nc_list{color: #fff;}
+body.light-mode .nc_wrap:hover{background-color: #F2F2F2;}
+body.dark-mode .nc_wrap:hover{background-color: #272727;}
+
+body.light-mode .search-form-input{background-color: #EDEEEE;color: #333;}
+body.dark-mode .search-form-input {background-color: #494B4B;color: #fff;}
+
 
 /*サイドメニュー*/
-body.light-mode .Left {background-color: #eee;color: #333;}
-body.dark-mode .Left {background-color: #333;color: #fff;}
-body.light-mode .Left a ,.Left span ,.Left .copyright{color: #333;}
-body.dark-mode .Left a ,.Left span ,.Left .copyright{color: #fff;}
+body.light-mode .Left {background-color: white;color: #333;}
+body.dark-mode .Left {background-color: black;color: #fff;}
+body.light-mode .Left a ,.Left span ,.Left.copyright{color: #333;}
+body.dark-mode .Left a ,.Left span ,.Left.copyright{color: #fff;}
 /*ユーザーランキング一覧*/
-body.light-mode .cont:hover{background-color: rgb(99, 99, 73);}
-body.dark-mode .cont:hover{background-color: rgb(68, 68, 45);}
+body.light-mode .cont:hover{background-color: #F2F2F2;}
+body.dark-mode .cont:hover{background-color: #272727;}
+
+body.light-mode .link-div:hover{background-color: #F2F2F2;}
+body.dark-mode .link-div:hover{background-color: #272727;}
+
+/*お問合せ*/
+body.light-mode .footer_content_wrap input[type="text"]{background-color: white;color: black;}
+body.dark-mode .footer_content_wrap input[type="text"] {background-color: #494B4B;color: #fff;}
+body.light-mode .footer_content_wrap input[type="email"]{background-color: white;color: black;}
+body.dark-mode .footer_content_wrap input[type="email"] {background-color: #494B4B;color: #fff;}
+body.light-mode .footer_content_wrap textarea{background-color: white;color: black;}
+body.dark-mode .footer_content_wrap textarea{background-color: #494B4B;color: #fff;}
 
 /*top*/
-body.light-mode .aim_wrap:hover {background-color: #94a594;}
-body.dark-mode .aim_wrap:hover {background-color: #94a594;}
+body.light-mode .aim_wrap{background-color: white;}
+body.dark-mode .aim_wrap{background-color: black;}
+/*body.light-mode .aim_wrap:hover {background-color: #94a594;}
+body.dark-mode .aim_wrap:hover {background-color: #94a594;}*/
 body.light-mode .aim_title{color: black;}
 body.dark-mode .aim_title{color: white;}
 body.light-mode .aim_content{color: black;}
 body.dark-mode .aim_content{color: white;}
+body.light-mode .aim_updated_div {color: black;}
+body.dark-mode .aim_updated_div {color: white;}
 
-/*通知*/
-.nc_wrap:hover{background-color: #F6F8FA;}
-.nc_a_wrap{color: black;}
+/*通知一覧ページ*/
+body.light-mode .nc_list_content_wrap{background-color: white;}
+body.dark-mode .nc_list_content_wrap{background-color: black;}
+.nc_list_content_wrap{padding: 15px;min-height: 600px;margin-left: 15px;}
+/*.nc_a_wrap{color: black;}*/
 
+/*設定*/
+/*
+body.light-mode .setting_wrap .card-header{background-color: white;color: #333;}
+body.dark-mode .setting_wrap .card-header {background-color: black;color: #fff;}
+*/
+body.light-mode .setting_wrap .card-header{background-color: #E4EFFF;color: #333;}
+body.dark-mode .setting_wrap .card-header {background-color: #15315c;color: #fff;}
+
+body.light-mode .setting_wrap .card-body{background-color: white;color: #333;}
+body.dark-mode .setting_wrap .card-body {background-color: black;color: #fff;}
+
+body.light-mode .setting_wrap .form-control {background-color: white;color: #333;}
+body.dark-mode .setting_wrap .form-control  {background-color: #494B4B;color: #fff;}
+/*
+.card-header{background-color: #E4EFFF;}
+.form-control  {
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  color: var(--color-text-high-emphasis);
+}
+*/
+
+/*Aim作成/編集*/
+body.light-mode .aim_create_edit_wrap input[type="text"]{background-color: white;color: black;}
+body.dark-mode .aim_create_edit_wrap input[type="text"] {background-color: #494B4B;color: #fff;}
+body.light-mode .aim_create_edit_wrap textarea{background-color: white;color: black;}
+body.dark-mode .aim_create_edit_wrap textarea{background-color: #494B4B;color: #fff;}
+
+body.light-mode .aim_create_edit_wrap .previewArea{background-color: white;color: black;}
+body.dark-mode .aim_create_edit_wrap .previewArea{background-color: #494B4B;color: #fff;}
 
 /*アカウント作成*/
-.Newuser{background: #F0F7FB;box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25); }
-.Newuser2{background:white;}
+body.light-mode .Newuser_wrap{background-color: white;color: black;box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25);}
+body.dark-mode .Newuser_wrap{background-color: #494B4B;color: #fff;box-shadow: 33px 31px 4px white;}
+
+body.light-mode .Newuser_wrap2{background-color: white;color: black;}
+body.dark-mode .Newuser_wrap2{background-color: #494B4B;color: #fff;}
+
+body.light-mode .Form{background-color: white;color: black;}
+body.dark-mode .Form{background-color: #494B4B;color: #fff;}
+
+body.light-mode .SignIn{color: black;}
+body.dark-mode .SignIn{color: #fff;}
+
+body.light-mode .inputTitle{background-color: white;color: black;}
+body.dark-mode .inputTitle{background-color: #494B4B;color: #fff;}
+
+body.light-mode .Newuser_wrap2 input{background-color: white;color: black;}
+body.dark-mode .Newuser_wrap2 input{background-color: #494B4B;color: #fff;}
+/*
+.Newuser_wrap{background: #F0F7FB; }
+.Newuser_wrap2{background:white;}
 .Form{background: white;}
 .SignIn{color: black; }
 .inputTitle{color: black; }
 input{background: white; border: 0.50px #C5BCBC solid}
 .LoginBtn{color:white;}
 .Oneforall{color: white; }
-.LoginBtnTxt{color: #FEFEFE; }
+.LoginBtnTxt{color: #FEFEFE; }*/
 
 
 /*ログイン*/
-.Login{background: #F0F7FB;box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25); }
-.Login2{background:white;}
+body.light-mode .Login_wrap{background-color: white;color: black;box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25);}
+body.dark-mode .Login_wrap{background-color: #494B4B;color: #fff;box-shadow: 33px 31px 4px white;}
+
+body.light-mode .Login_wrap2{background-color: white;color: black;}
+body.dark-mode .Login_wrap2{background-color: #494B4B;color: #fff;}
+
+body.light-mode .Login_wrap2 input{background-color: white;color: black;}
+body.dark-mode .Login_wrap2 input{background-color: #494B4B;color: #fff;}
+
+.LoginBtn{background: #6343FF; color: white;}
+
+/*.Login_wrap{background: #F0F7FB;box-shadow: 33px 31px 4px rgba(0, 0, 0, 0.25); }
+.Login_wrap2{background:white;}
 .Form{background-color: white;}
 .Mailadress{color: black; }
 .MailInput{background: white; border: 0.50px #C5BCBC solid}
@@ -56,19 +151,26 @@ input{background: white; border: 0.50px #C5BCBC solid}
 .SignIn{color: black; }
 .LoginBtn{background: #6343FF; color: white;}
 .LoginBtnTxt{color: #FEFEFE; }
-.Oneforall{color: black; }
+.to_aim{color: black; }
+*/
 
-
-/*設定*/
-.card-header{background-color: #E4EFFF;}
-.form-control  {
-  background-color: var(--color-surface);
-  border-radius: 8px;
-  color: var(--color-text-high-emphasis);
-}
 /*削除ダイアログ*/
+body.light-mode .dialog-box{background-color: white;color: black;}
+body.dark-mode .dialog-box{background-color: #494B4B;color: #fff;}
+
 .dialog-overlay {background: rgba(0, 0, 0, 0.7);}
-.dialog-box {background: white;}
+/*.dialog-box {background: white;}
+*/
 
 /*Play*/
-.comments_wrap{background-color: rgb(188, 207, 207);}
+body.light-mode .content_wrap{background-color: white;color: #000000;}
+body.dark-mode .content_wrap{background-color: #000000;color: #fff;}
+body.light-mode .comments_wrap{background-color: white;color: #000000;}
+body.dark-mode .comments_wrap{background-color: #000000;color: #fff;}
+body.light-mode .comment_upload_form{background-color: white;color: black;}
+body.dark-mode .comment_upload_form{background-color: #000000;color: #fff;}
+.comment_submit_btn{background-color:#9147FF;color:white;}
+
+/*.comments_wrap{background-color: rgb(188, 207, 207);}*/
+
+/*LLM*/

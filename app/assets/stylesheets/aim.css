@@ -3,6 +3,7 @@ main{
 }
 .aim_wrap{
   height: fit-content;
+  min-height: 1000px;
   width: 65%;
   margin-left: 50px;
   margin-bottom: 200px;

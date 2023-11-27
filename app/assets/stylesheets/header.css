@@ -61,8 +61,8 @@ header{
   width: 100px;
   height: 35px;
   font-size: 16px;
-  background-color:#ecf021;
-  color: #06325e;
+  background-color:#80CE2B;
+  color: white;
   margin-right: 12px;
 }
 .goPlay_btn{
@@ -181,7 +181,8 @@ header{
   position: relative;
   float: right;
 } 
-.user-icon button{
+/*.user-icon button{*/
+.header-user-icon-btn{
   -webkit-box-align: center;
   align-items: center;
   cursor: pointer;
@@ -191,6 +192,7 @@ header{
   outline: none;
   padding: 4px;
   user-select: none;
+  background: none;
 }
 .user-icon button svg{
     border-radius: 50%;
@@ -225,6 +227,7 @@ header{
     transform: translateY(0.5rem);
     transition: all 0.1s cubic-bezier(0.16, 1, 0.5, 1);
     right: 0;
+    background-color: white;
   }
   .dropdown-user-icon a {
     display: flex;
@@ -286,11 +289,11 @@ header{
     text-decoration: none;
     color: black;
   }
-  .dropdown-notifications a:hover {
-    /*background-color: var(--color);*/
+  /*.dropdown-notifications a:hover {
     background-color: #F5F6F6;
-    /*color: white;*/
-  }
+  }*/
+  /*color: white;*/
+   /*background-color: var(--color);*/
   
   .show {
     visibility: visible;

@@ -1,109 +1,73 @@
-html {
-  box-sizing: border-box;
-  font-size: 62.5%;
-  -webkit-text-size-adjust: 100%;
-  word-break: normal;
-  tab-size: 4;
+main{
+  left:0; top:0; width: 100%; 
+  padding:15px;
 }
-*, ::before, ::after {
-  box-sizing: inherit;
+/* スマートフォン用：画面幅が600px以下 */
+@media only screen and (max-width: 600px) {
+  main{padding:0;}
 }
 
-.Newuser{
-  width: 50%; 
-  min-width: 50%;
-  position: absolute;
+.Newuser_wrap{
+  padding: 15px;
+  width:50%;
+  margin: auto;
+  background-color: white;
 }
-.Newuser2{
-  padding: 56px 48px;
+.Newuser_wrap2{
+  padding: 15px 35px;
 }
 .Form{
   width: 100%; 
-  height: 593px; 
-  left: 387px; 
-  top: 38px;
+  min-height: 600px; 
   backdrop-filter: blur(21px)
 }
 .SignIn{
-  width: 377px; 
-  height: 38px; 
-  left: 61px; 
-  top: 0px; 
-  position: absolute; 
+  margin-top: 30px;
   font-size: 24px; 
   font-family: Irish Grover; 
   font-weight: 400; 
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 .inputTitle{
-  top: 100px;
-  left: 61px; 
-  position: absolute; 
+  width: 100%;
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 input{
-  width: 75%;
+  width: 100%;
   min-height: 44px;
-  left:50px;
-  position: absolute; 
-  border: 0.50px #C5BCBC solid
+  border: 0.50px #C5BCBC solid;
 }
 .Name{
-  top: 100px; 
-}
-.NameInput{
-  top: 130px;
+  margin-top: 30px;
 }
 .Mailadress{
-  top: 200px; 
-}
-.MailInput{
-  top: 230px; 
+  margin-top: 30px;
 }
 .Password{
-  top: 300px; 
-}
-.PasswordInput{
-  top: 330px; 
+  margin-top: 30px;
 }
 .Password2{
-  top: 400px; 
-}
-.PasswordInput2{
-  top: 430px; 
+  margin-top: 30px;
 }
 .LoginBtn{
+  margin-top: 30px;
   font-size: 20px;
-  width: 345px;  
-  height: 57px; 
-  left: 43px; 
-  top: 500px; 
-  position: absolute; 
+  width: 100%;  
+  height: 57px;
   background: #6343FF; 
   border-radius: 10px;
   cursor: pointer;
 }
-.Oneforall{
-  left: 448px; 
-  top: 126px; 
-  position: absolute; 
-  font-size: 32px; 
-  font-family: Irish Grover; 
-  font-weight: 400; 
-  line-height: 38.05px; 
-  letter-spacing: 5.28px; 
-  word-wrap: break-word
+.to_sign_up{
+  font-size: 15px; 
+  bottom: 20px;
+  position: absolute;
 }
-.LoginBtnTxt{
-  width: 176px; 
-  left: 248px; 
-  top: 623px; 
-  position: absolute; 
-  font-size: 24px; 
-  font-family: Inter; 
-  font-weight: 400; 
-  word-wrap: break-word
+.to_aim{
+  font-size: 15px; 
+  bottom: 0;
+  position: absolute;
 }

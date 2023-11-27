@@ -1,126 +1,130 @@
-
-.Login{
-  /*width: 1440px; 
-  height: 1024px; */
-  width:50%;
-  /*position: relative; */
-  position: absolute;
+main{
+  left:0; top:0; width: 100%; 
+  padding:15px;
 }
-.Login2{
-  padding: 56px 48px;
+/* スマートフォン用：画面幅が600px以下 */
+@media only screen and (max-width: 600px) {
+  main{padding:0;}
+}
+
+.Login_wrap{
+  padding: 15px;
+  width:50%;
+  margin: auto;
+  /*position: absolute;*/
+  background-color: white;
+}
+.Login_wrap2{
+  padding: 15px 35px;
 }
 .Form{
-  /*width: 676px; 
-  height: 593px; 
-  left: 387px; 
-  top: 178px; */
   width: 100%; 
-  height: 593px; 
-  left: 387px; 
-  top: 38px;
-  /*position: absolute; */  
+  min-height: 600px; 
   backdrop-filter: blur(21px)
 }
 .Mailadress{
-  left: 61px; 
+  /*left: 61px; 
   top: 97px; 
-  position: absolute; 
+  position: absolute; */
+  margin-top: 30px;
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
   word-wrap: break-word
 }
 .MailInput{
-  /*width: 551px;height: 58px; */
-  width: 75%;
+  width: 100%;
   min-height: 44px;
-  left: 63px; 
+  /*left: 63px; 
   top: 141px; 
-  position: absolute; 
+  position: absolute; */
 }
-.PasswordInput{
-  /*width: 551px;height: 58px;*/
-  width:75%;
-  min-height: 44px;
-  left: 63px; 
-  top: 312px; 
-  position: absolute; 
+.password_flex_container{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.flex-child {
+  flex: 1;
+}
+.PasswordFoget a{
+  /*left: 197px; 
+  top: 268px; 
+  position: absolute; */
+  width: max-content;
+  /*float: right;
+  clear: both;*/
+  color: #1143F4; 
+  color:#95a5df;
+  font-size: 16px; 
+  font-family: Irish Grover; 
+  font-weight: 400; 
+  word-wrap: break-word;
 }
 .Password{
-  left: 61px; 
+  /*left: 61px; 
   top: 268px; 
-  position: absolute; 
+  position: absolute; */
   font-size: 16px; 
   font-family: Irish Grover; 
   font-weight: 400; 
-  word-wrap: break-word
+  word-wrap: break-word;
 }
-.MemolyPassword{
-  left: 86px; 
-  top: 395px; 
-  position: absolute; 
-  font-size: 16px; 
-  font-family: Irish Grover; 
-  font-weight: 400; 
-  word-wrap: break-word
-}
-.PasswordFoget{
-  left: 197px; 
-  top: 268px; 
-  width: max-content;
-  position: absolute; 
-  color: #1143F4; 
-  font-size: 16px; 
-  font-family: Irish Grover; 
-  font-weight: 400; 
-  word-wrap: break-word
+.PasswordInput{
+  width:100%;
+  min-height: 44px;
+  /*left: 63px; 
+  top: 312px; 
+  position: absolute; */
 }
 
+.MemolyPassword{
+  /*left: 86px; 
+  top: 395px; 
+  position: absolute; */
+  margin-top: 30px;
+  font-size: 16px; 
+  font-family: Irish Grover; 
+  font-weight: 400; 
+  word-wrap: break-word;
+}
+
+
 .SignIn{
-  width: 377px; 
+  width: 100%;
   height: 38px; 
-  left: 61px; 
-  top: 34px; 
-  position: absolute; 
   font-size: 24px; 
   font-family: Irish Grover; 
   font-weight: 400; 
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 .LoginBtn{
+  margin-top: 30px;
   font-size: 20px;
-  /* width: 75%; */
-  width: 321px;  
+  width: 100%;
   height: 57px; 
-  /*left: 63px; 
-  top: 253px; */
-  left: 110px; 
-  top: 75%;
-  /*bottom: 20%;  */
-  position: absolute; 
+  /*top: 75%;
+  position: absolute; */
   border-radius: 10px;
   cursor: pointer;
   line-height:28px;
 }
-.LoginBtnTxt{
-  /*width: 114px; */
-  width: 75%; 
-  left: 281px; 
-  top: 411px; 
-  position: absolute; 
-  font-size: 24px; 
-  font-family: Inter; 
-  font-weight: 400; 
-  word-wrap: break-word
+.to_sign_up{
+  font-size: 15px; 
+ /* margin-top: 50px;*/
+  bottom: 20px;
+  position: absolute;
 }
-.Oneforall{
-  left: 448px; 
+.to_aim{
+  /*left: 448px; 
   top: 126px; 
-  position: absolute; 
-  font-size: 32px; 
-  font-family: Irish Grover; 
+  position: absolute; */
+  font-size: 15px; 
+  bottom: 0;
+  position: absolute;
+  /*font-family: Irish Grover; 
   font-weight: 400; 
   line-height: 38.05px; 
   letter-spacing: 5.28px; 
-  word-wrap: break-word
+  word-wrap: break-word;*/
 }

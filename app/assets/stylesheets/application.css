@@ -13,20 +13,16 @@ header{
   top: 0px;
   z-index: 2000;
 }
-.Logo-a{
-  position: absolute;
-  width: 200px;
-  height: 70px;
-  left: 15px;
-  top: 15px; 
+.Logo{
+  margin-top: -15px;
+  width: 50px;
+  height:80px;
 } 
-
+.Logo-white{ 
+  display:block;
+}
 .Logo-black{
   display:none;
-  width: 120px;
-  height:45px;
-  margin-top: -15px;
-  margin-left: -35px;
 }
 .LogoTitle{
   position: absolute;
@@ -42,23 +38,43 @@ header{
 }
 
 .NewUser_btn{
-  position: fixed;
+  left:165px;
+  position: relative;
+  width: 125px;
+  height: 35px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #6343FF;
+  color: white;
+  /*position: fixed;
   width: 120px;
   height: 29px;
   left: 250px;
-  top: 15px;
+  top: 15px;*/
 }
 
 .Login_btn{
-  /*position: absolute;*/
+  left:150px;
+  position: relative;
+  width: 100px;
+  height: 35px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #EF4056;
+  color: white;
+  /*background-color: #ecf021;
+  color: #06325e;*/
+}
+/*
   position: fixed;
   width: 87px;
   height: 29px;
-  /*left: 1180px;*/
   top: 15px;
-  left:150px;
   background: #D0DF24;
-}
+*/
+  /*position: absolute;*/
+  /*left: 1180px;*/
+
 .Logout_btn{
   display: none;
 }
@@ -156,21 +172,57 @@ top: 62px;
   background: none!important;
 }
 
+
+.footer_content_wrap{
+  padding: 20px;
+}
+
+
+
+
 /* スマートフォン用：画面幅が600px以下 */
 @media only screen and (max-width: 600px) {
-  .Logo-a{left:70px;top:25px;}
-  main{width: 100%;left:0;padding-top: 0;}
-  .ads-mobile{display: block;}
+  .Logo{margin-left:10px;margin-top:-9px;}
+   main{width: 100%;left:0;padding-top: 0;}
+  .side-ads-wrap{display: none;}
+  .ads-mobile{display: block;bottom: 0;position: fixed;}
+  /*サイドメニュー*/
   .Left{display: none;}
+  /*header*/
   .newAim-btn{display: none;}
   .goLLM_btn{display: none;}
   .goPlay_btn{display: none;}
   .mobile-menu-icon{display: block;}
+  /*top*/
+  .aim_wrap{width: 100%!important; margin-left:0!important; margin-bottom:15px!important; padding:15px!important;}
+  .aim_content_div{height: 60%!important;}
+  .profile_wrap{width: 100%!important; border-radius:0!important;}
+  /*aim作成/編集*/
+  .create_edit_header .Logo-a{top:15px;left:15px;}
+  .create_edit_header .head-wrap{padding: 8px 10px 8px;}
+  .create_edit_header .items{top:15px;left:15px;}
+  .aim_create_edit_wrap{top:35px; position: relative; }
+  .previewArea{display: none;}
+  .edit-input{width: 100%!important;}
+  /*設定*/
+  .setting_wrap{margin-left: 0!important;margin-right: 0!important;}
+  /*通知一覧*/
+  .nc_list_content_wrap{width: 100%!important;margin-left:0!important;}
+  /*アカウント作成*/
+  .Newuser_wrap{width: 100%!important;margin-left:0!important;}
+  /*ログイン*/
+  .Login_wrap{width: 100%!important;margin-left:0!important;}
+  /*play*/
+  .content_wrap{width: 100%!important;padding: 15px!important;margin-left: 0!important;}
+  .comments_wrap{width: 100%!important; height: fit-content!important; bottom:0!important;right:0!important;top:550px!important;}
+  .comment_upload_form{width: 100%!important;height: 25%;}
+  .comment_upload_input{width: 80%!important;font-size: 35px;height: 50px;}
 }
 
 /* タブレット用：画面幅が600px以上と900px以下 */
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-
+  .side-ads-wrap{display: none;}
+  .ads-mobile{display: block;bottom: 0;position: fixed;}
 }
 
 /* PC用：画面幅が901px以上 */

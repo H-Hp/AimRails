@@ -109,6 +109,8 @@ window.PushCodeInit = function() {
 // ローカルストレージから値を取得
   const theme = localStorage.getItem('theme');
   const stretch = localStorage.getItem('stretch');
+  console.log("theme:"+theme)
+  if(theme=="dark"){$(".Logo-black").hide();$(".Logo-white").show();}else if(theme=="light"){$(".Logo-black").show();$(".Logo-white").hide();}
 
 
   //ダーク-ライトモードここから
@@ -119,6 +121,9 @@ window.PushCodeInit = function() {
   function toggleTheme() {
     const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    if(newTheme=="dark"){$(".Logo-black").hide();$(".Logo-white").show();}else if(newTheme=="light"){$(".Logo-black").show();$(".Logo-white").hide();}
+
 
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);

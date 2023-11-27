@@ -5,38 +5,39 @@
 <%= stylesheet_link_tag "create-edit" %>
 <%= render 'shared/create-edit-header' %>
 
-<%= form_with(url: "/aim/new_confirm/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
+<div class="aim_create_edit_wrap">
+    <%= form_with(url: "/aim/new_confirm/", local: true, html:{ class:"edit-form" ,id:"edit-form"}) do |form| %>
 
-  <% flash.each do |name, msg| %>
-    <% if msg.is_a?(String) %>
-      <%= content_tag :div, msg, class: "alert alert-#{name == :notice ? 'success' : 'danger'}" %>
-    <% end %>
-  <% end %>
-
-  <% if @aim.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@aim.errors.count, "error") %> prohibited this contact from being saved:</h2>
-
-      <ul>
-      <% @aim.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <%= content_tag :div, msg, class: "alert alert-#{name == :notice ? 'success' : 'danger'}" %>
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.text_field :title, required: true, placeholder: "目標タイトル", class: "title", id:"title" %>
-  </div>
+      <% if @aim.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@aim.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
-  <div class="field edit-container">
-    <%= form.text_area :content, required: true, placeholder: "内容をMarkdown記法で書いていきましょう!", class: "edit-input", id:"edit-input", rows: 20 %>
-    <!-- form.text_area :content, required: true, placeholder: "aaaaaaa", class: "edited-input", id:"edited-input", rows: 20 -->
-    <div id="previewArea" class="previewArea"></div>
-  </div>
- 
-<% end %>
+          <ul>
+          <% @aim.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
 
+      <div class="field">
+        <%= form.text_field :title, required: true, placeholder: "目標タイトル", class: "title", id:"title" %>
+      </div>
+
+      <div class="field edit-container">
+        <%= form.text_area :content, required: true, placeholder: "内容をMarkdown記法で書いていきましょう!", class: "edit-input", id:"edit-input", rows: 20 %>
+        <!-- form.text_area :content, required: true, placeholder: "aaaaaaa", class: "edited-input", id:"edited-input", rows: 20 -->
+        <div id="previewArea" class="previewArea"></div>
+      </div>
+    
+    <% end %>
+</div>
 
 <script>
 document.getElementById("submitButton").addEventListener("click", function() {

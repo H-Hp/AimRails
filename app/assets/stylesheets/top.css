@@ -1,8 +1,8 @@
 .content_wrap{
   height:fit-content;
   width: 65%;
-  margin-left: 50px;
-  margin-bottom: 200px;
+  margin-left: 15px;
+  margin-bottom: 50px;
 }
 .aim_wrap{
   height:130px;
@@ -10,6 +10,9 @@
   margin: 5px;
   padding: 20px;
   display: flex;
+}
+.aim_wrap:hover .aim_title{
+  text-decoration: underline;
 }
 .aim_img_div{
   width: 25%;

@@ -1,8 +1,16 @@
 .menu-wrap{
   margin-bottom: 200px;
 }
+.card{
+  border: none;
+  background: none;
+}
+.card-header {
+  border: none;
+}
 
 .form-control  {
+  border:none;
   border-radius: 8px;
   cursor: text;
   display: block;

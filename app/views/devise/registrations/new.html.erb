@@ -4,71 +4,28 @@
 <% end %>
 <%= stylesheet_link_tag "register" %>
 
-<!--
-<h2>新規登録</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :メールアドレス %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :パスワード %>
-    <% if @minimum_password_length %>
-    <em>(最低<%= @minimum_password_length %>文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :パスワード再入力 %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-
--->
-
-
-
-<div class="Newuser">
-	<div class="Newuser2">
-			<!--<form method="post" action="{{route('register')}}" class="Form">-->
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "Form" }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-				<div class="SignIn">アカウント作成</div>
-				<div class="name inputTitle">ユーザー名</div>
-				  <!--<input type="text" class="NameInput" name="user_name">-->
-          <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name", class: "NameInput" %>
-
-				<div class="Mailadress inputTitle">メールアドレス</div>
-				  <!--<input type="text" class="MailInput" name="email">-->
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "MailInput" %>
-				<div class="Password inputTitle">パスワード<em>(最低<%= @minimum_password_length %>文字以上)</em></div>
-				  <!--<input type="password" class="PasswordInput" name="password">-->
-          <% if @minimum_password_length %>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "new-password" , class: "PasswordInput" %>
-				<div class="Password2 inputTitle">パスワードを再入力</div>
-				  <input type="password" class="PasswordInput2" name="password_confirmation">
-				<button type="submit" class="LoginBtn">アカウント作成</button>
-			<!--</form>-->
-      <% end %>
-			<!--<div class="Oneforall">OneForALl</div>-->
-	
-			<div>
-				<p>アカウントをお持ちの場合 <a href="/users/sign_in">ログイン</a></p>
-			</div>
-			<div>
-				<a href="/">@Aim</a>
-			</div>
-			</div>
+<div class="Newuser_wrap">
+      <div class="Newuser_wrap2">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "Form" }) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: resource %>
+                  <div class="SignIn">アカウント作成</div>
+                  <div class="Name inputTitle">ユーザー名</div>
+                        <%= f.text_field :user_name, autofocus: true, autocomplete: "user_name", class: "NameInput" %>
+                  <div class="Mailadress inputTitle">メールアドレス</div>
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "MailInput" %>
+                  <div class="Password inputTitle">パスワード<em>(最低<%= @minimum_password_length %>文字以上)</em></div>
+                        <% if @minimum_password_length %>
+                        <% end %>
+                        <%= f.password_field :password, autocomplete: "new-password" , class: "PasswordInput" %>
+                  <div class="Password2 inputTitle">パスワードを再入力</div>
+                        <input type="password" class="PasswordInput2" name="password_confirmation">
+                  <button type="submit" class="LoginBtn">アカウント作成</button>     
+                  <div  class="to_sign_up">
+                      <p>アカウントをお持ちの場合 <a href="/users/sign_in">ログイン</a></p>
+                  </div>
+                  <div class="to_aim">
+                      <a href="/">@Aim</a>
+                  </div>
+            <% end %>
+      </div>
 </div>

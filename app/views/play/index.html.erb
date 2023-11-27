@@ -34,11 +34,11 @@
      <%= form_with(url: "/play/", local: true, html:{ class:"comment_upload_form" ,id:"comment_upload_form"}) do |form| %>
       <div class="form-group row">
           <div class="col-md-12 p-8">
-              <input id="name" type="txt" class="input form-control" placeholder="メッセージを送信" name="message" value="" required autocomplete="name">
+              <input id="name" type="txt" class="input comment_upload_input form-control" placeholder="メッセージを送信" name="message" value="" required autocomplete="name">
           </div>
       </div>
       <div class="form-group mb-0">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn comment_submit_btn">
           投稿する
           </button>
       </div>

@@ -1,15 +1,15 @@
-<header>
+<header class ="create_edit_header">
   <div class ="head-wrap">
     <div class ="svg-wrap">
       <div class="Logo-a">
         <a href="/">
-          <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml') %>
+              <%= image_tag 'Logo_White.svg' , class: 'Logo Logo-white' %>
+              <%= image_tag 'Logo_Black.svg' , class: 'Logo Logo-black' %>
         </a>
       </div>
     </div>
-
     <div class="items">
-        <button id="submitButton" class="btn btn-success m-12">公開</button>
+        <button id="submitButton" class="btn btn-warning m-12">公開</button>
     </div>
   </div>
 </header>

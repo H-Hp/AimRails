@@ -1,13 +1,20 @@
+body{
+  width: 100% !important;
+}
 main{
   width: 100% !important;
   position: static;
-}
+}body.light-mode{background-color: white;color: #000000;}
+body.dark-mode{background-color: #000000;color: #fff;}
+body.light-mode main{background-color: white;color: #000000;}
+body.dark-mode main{background-color: #000000;color: #fff;}
 
 .content_wrap{
   height: fit-content;
   width: 75%;
   padding: 50px;
   margin-left: 5px;
+  margin-top: 50px;
 }
 
 .live_start_btn{
@@ -15,14 +22,18 @@ main{
 }
 .video{
   background-color: black;
-  width:500px ;
-  height:500px ;
+  width:350px ;
+  height:350px ;
+}
+
+.movie_wrap{
+  margin-top: 100px;;
 }
 
 .comments_wrap{
   right: 5px;
   top:50px;
-  width: 250px;
+  width: 350px;
   height:95%;
   position: fixed;
 }
@@ -30,9 +41,17 @@ main{
   position: fixed;
   bottom:0;
 }
-.input{
-  width: 250px;
+.comment_upload_input{
+  width: 350px;
+  height: 40px;
+  font-size: 16px;
 }
 .chat_user{
   color: red;
+}
+.comment_submit_btn{
+  float: right;
+  width: 80px;
+  height: 35px;
+  font-size: 14px;
 }

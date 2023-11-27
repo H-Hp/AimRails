@@ -20,8 +20,10 @@
         <use xlink:href="<%= asset_path('Logo.svg') %>#Logo"></use> 
         <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo" crossOrigin="Anonymous"></use>  
       </svg>
-      -->
-    <%= image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml', class: 'Logo Logo-white')  %>
+      
+    image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml', class: 'Logo Logo-white')  
+    -->
+    <%= image_tag 'Logo_White.svg' , class: 'Logo Logo-white' %>
     <%= image_tag 'Logo_Black.svg' , class: 'Logo Logo-black' %>
     </a>
     </div>
@@ -45,8 +47,8 @@
     -->
 
     <% if !user_signed_in? %>
-      <%= link_to "ログイン", new_user_session_path ,class: "Login_btn btn btn-warning mb-12" %><br>
-      <%= link_to '登録', new_user_registration_path ,class: "NewUser_btn btn btn-success mb-12" %>
+      <%= link_to "ログイン", new_user_session_path ,class: "Login_btn btn mb-12" %><br>
+      <%= link_to 'アカウント作成', new_user_registration_path ,class: "NewUser_btn btn mb-12" %>
     <% end %>
   </div>
 

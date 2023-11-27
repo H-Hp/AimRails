@@ -5,42 +5,45 @@
 <%= render 'shared/header' %>
 <%= render 'shared/sidemenu' %>
 <%= stylesheet_link_tag "contact" %>
-<h1>ご意見</h1>
 
-<%= form_with(model: @contact, url: contact_index_path, local: true) do |form| %>
-  <% flash.each do |name, msg| %>
-    <% if msg.is_a?(String) %>
-      <%= content_tag :div, msg, class: "alert alert-#{name == :notice ? 'success' : 'danger'}" %>
-    <% end %>
-  <% end %>
+<div class="footer_content_wrap">
+    <h1>ご意見</h1>
 
-  <% if @contact.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
-
-      <ul>
-      <% @contact.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+    <%= form_with(model: @contact, url: contact_index_path, local: true) do |form| %>
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <%= content_tag :div, msg, class: "alert alert-#{name == :notice ? 'success' : 'danger'}" %>
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.text_field :name, placeholder: "お名前", class: "name", required: true %>
+      <% if @contact.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
-  </div>
+          <ul>
+          <% @contact.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="field">
-    <%= form.email_field :email, placeholder: "メールアドレス", class: "email", required: true %>
-  </div>
+      <div class="field">
+        <%= form.text_field :name, placeholder: "お名前", class: "name", required: true %>
 
-  <div class="field">
-    <%= form.text_area :message, rows: 15, placeholder: "ご入力ください。", class: "message", required: true %>
+      </div>
 
-  </div>
+      <div class="field">
+        <%= form.email_field :email, placeholder: "メールアドレス", class: "email", required: true %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit "送信", class: "btn btn-primary" %>
-  </div>
-<% end %>
+      <div class="field">
+        <%= form.text_area :message, rows: 15, placeholder: "ご入力ください。", class: "message", required: true %>
+
+      </div>
+
+      <div class="actions">
+        <%= form.submit "送信", class: "btn btn-primary submit-btn" %>
+      </div>
+    <% end %>
+</div>
