@@ -33,9 +33,11 @@
         </div>
 
         <div class ="edit_btn_wrap">
-            <button id="edit-btn" class="edit_btn btn btn-primary">
-                プロフィールを編集する
-            </button>
+            <%= link_to  "/setting" ,class: "edit_btn btn btn-primary" do %>
+                    プロフィールを編集する
+     <!--<button id="edit-btn" class="edit_btn btn btn-primary">
+                </button>-->
+            <% end %>
         </div>
     </div>
 </div>
@@ -49,7 +51,6 @@
 
 
 <div class="create_aims_wrap tabcontent" id="create_aims_wrap" >
-<h1>作成したAim一覧</h1>
   <% @create_aims.each do |aim| %>
     <a href="/aim/<%= aim.id %>">
       <div class="aim_wrap">
@@ -129,52 +130,47 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
 
 
 
-<div class="likes_wrap tabcontent" id="likes_wrap">
-<div class="aim_wrap">
-  <h1>いいねしたAim一覧</h1>
-
-  <% 
-  likes = Like.where(user_id: @user)
-  likes.each do |like| 
-  aim=Aim.find(like.aim_id)
-  %>
-    <a href="/aim/<%= aim.id %>">
-      <div class="aim_wrap" id="">
-        <div class="aim_img_div">
-              <% if aim&.aim_thumb_img.attached? %>
-                  <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
-              <% else %>
-                  <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
-                  <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
-              <% end %>
-        </div>
-        <div class="aim_title_content_div">
-          <div class="aim_title_div">
-            <h2 class="aim_title"><%= aim.title %></h2>
+<div class="likes_wrap tabcontent create_aims_wrap" id="likes_wrap">
+    <% 
+    likes = Like.where(user_id: @user)
+    likes.each do |like| 
+      aim=Aim.find(like.aim_id)
+      %>
+      <a href="/aim/<%= aim.id %>">
+        <div class="aim_wrap">
+          <div class="aim_img_div">
+                <% if aim&.aim_thumb_img.attached? %>
+                    <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
+                <% else %>
+                    <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
+                    <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+                <% end %>
           </div>
-          <div class="aim_content_div">
-            <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+          <div class="aim_title_content_div">
+            <div class="aim_title_div">
+              <h2 class="aim_title"><%= aim.title %></h2>
+            </div>
+            <div class="aim_content_div">
+              <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+            </div>
           </div>
         </div>
-      </div>
-    </a>
-      <!--いいねを取り消し・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
-      <% if @user.id==@current_user_id %>
-          <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
-                <%= form.hidden_field :user_id, value: @user.id %>
-                <%= form.hidden_field :aim_id, value: aim.id %>
-                <%= button_tag(type: 'submit') do %>
-                    <%= render 'shared/favorite-btn-already' %>
-                 <% end %>
-          <% end %> 
-      <% end %> 
-  <% end %>
-</div>
+      </a>
+        <!--いいねを取り消し・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
+        <% if @user.id==@current_user_id %>
+            <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
+                  <%= form.hidden_field :user_id, value: @user.id %>
+                  <%= form.hidden_field :aim_id, value: aim.id %>
+                  <%= button_tag(type: 'submit') do %>
+                      <%= render 'shared/favorite-btn-already' %>
+                  <% end %>
+            <% end %> 
+        <% end %> 
+    <% end %>
 </div>
 
-<div id="followeds_wrap" class="followeds_wrap tabcontent">
-<div class="aim_wrap">
-  <p>フォロー</p> 
+
+<div id="followeds_wrap" class="followeds_wrap tabcontent create_aims_wrap">
     <% 
     #followerはフォローする人・followedはフォローされる人
     relationships = Relationship.where(follower_id: @user.id)
@@ -182,25 +178,48 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
         user=User.find(relationship.followed_id)
         @this_user=user
     %>
+    <div class="followed_wrap">
        <%= render 'shared/user_list' %> 
-        
-    <% end %>
     </div>
+    <% end %>
 </div>
+<style>
+.followed_wrap{
+  display: flex;
+  align-items: center;
+  margin-bottom:20px;
+  height: 50px;
+}
 
-<div id="followers_wrap" class="followers_wrap tabcontent">
-<div class="aim_wrap">
-  <p>フォロワー</p> 
+body.light-mode .followed_wrap:hover{background-color: #F2F2F2;}
+body.dark-mode .followed_wrap:hover{background-color: #272727;}
+
+.followed_wrap a{
+  display: flex;
+  align-items: center;
+  width:300px;
+  flex-shrink: 0;
+  object-fit: contain;
+  overflow: hidden;
+  color:white;
+}
+.follow_btn{
+  margin-left: 8px;
+    overflow: hidden;
+}
+</style>
+<div id="followers_wrap" class="followers_wrap tabcontent create_aims_wrap">
     <% 
     #followerはフォローする人・followedはフォローされる人
     relationships = Relationship.where(followed_id: @user.id)
     relationships.each do |relationship| 
         user=User.find(relationship.follower_id)
         @this_user=user
-    %>
-        <%= render 'shared/user_list' %> 
+        %>
+        <div class="followed_wrap">
+              <%= render 'shared/user_list' %> 
+        </div>
     <% end %>
-</div>
  </div>
 
 <script>

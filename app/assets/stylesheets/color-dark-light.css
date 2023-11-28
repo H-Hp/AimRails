@@ -3,9 +3,11 @@ body.light-mode {background-color: #eee;color: #333;transition: background-color
 /* ダークモードのスタイル */
 body.dark-mode {background-color: #333; color: #fff;transition: background-color 0.3s ease;}
 
+/*main*/
 body.light-mode main {background-color: #eee;color: #333;}
 body.dark-mode main {background-color: #333;color: #fff;}
 
+/*header*/
 body.light-mode header {background-color: white;color: #333;}
 body.dark-mode header {background-color: #0F0F0F;color: #fff;}
 
@@ -32,8 +34,31 @@ body.dark-mode .search-form-input {background-color: #494B4B;color: #fff;}
 /*サイドメニュー*/
 body.light-mode .Left {background-color: white;color: #333;}
 body.dark-mode .Left {background-color: black;color: #fff;}
-body.light-mode .Left a ,.Left span ,.Left.copyright{color: #333;}
-body.dark-mode .Left a ,.Left span ,.Left.copyright{color: #fff;}
+
+/*body.light-mode .Left a ,.Left span ,.Left.copyright{color: #333;}
+body.dark-mode .Left a ,.Left span ,.Left.copyright{color: #fff;}*/
+body.light-mode .Left a {color: #333;}
+body.dark-mode .Left a {color: #fff;}
+
+body.light-mode body > main > div.Left > div > div.footer-wrap > div:nth-child(11) > span{color: #333;}
+body.dark-mode body > main > div.Left > div > div.footer-wrap > div:nth-child(11) > span{color: #fff;}
+
+body.light-mode #follow_delete_btn {background-color: white;color: #333;}
+body.dark-mode #follow_delete_btn {background-color: #2f3232;color: #fff;border:1px solid #eee;}
+body.light-mode #follow_delete_btn:hover {background-color: white;color: #333;}
+body.dark-mode #follow_delete_btn:hover {background-color: rgb(255, 255, 51,0.9);;color: #333;border:1px solid #eee;}
+
+body.light-mode #follow_btn {background-color: white;color: #333;}
+body.dark-mode #follow_btn {background-color: #2f3232;color: #fff;border:1px solid #eee;}
+body.light-mode #follow_btn:hover {background-color: white;color: #333;}
+body.dark-mode #follow_btn:hover {background-color: green;color: #fff;border:1px solid #eee;}
+
+
+body.light-mode #lang_select {background-color: white;color: #333;}
+body.dark-mode #lang_select {background-color: #2f3232;color: #fff;}
+
+
+
 /*ユーザーランキング一覧*/
 body.light-mode .cont:hover{background-color: #F2F2F2;}
 body.dark-mode .cont:hover{background-color: #272727;}
@@ -88,6 +113,8 @@ body.dark-mode .setting_wrap .form-control  {background-color: #494B4B;color: #f
   color: var(--color-text-high-emphasis);
 }
 */
+
+/*マイページ*/
 
 /*Aim作成/編集*/
 body.light-mode .aim_create_edit_wrap input[type="text"]{background-color: white;color: black;}
@@ -157,7 +184,6 @@ body.dark-mode .Login_wrap2 input{background-color: #494B4B;color: #fff;}
 /*削除ダイアログ*/
 body.light-mode .dialog-box{background-color: white;color: black;}
 body.dark-mode .dialog-box{background-color: #494B4B;color: #fff;}
-
 .dialog-overlay {background: rgba(0, 0, 0, 0.7);}
 /*.dialog-box {background: white;}
 */
@@ -170,7 +196,6 @@ body.dark-mode .comments_wrap{background-color: #000000;color: #fff;}
 body.light-mode .comment_upload_form{background-color: white;color: black;}
 body.dark-mode .comment_upload_form{background-color: #000000;color: #fff;}
 .comment_submit_btn{background-color:#9147FF;color:white;}
-
 /*.comments_wrap{background-color: rgb(188, 207, 207);}*/
 
 /*LLM*/

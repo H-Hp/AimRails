@@ -1,11 +1,21 @@
 .cont{
   width: 200px;
+  height: 35px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+}
+.cont a{
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  height:35px;
 }
 /* user_wrapを横並びにする */
 .user_ranking_user_wrap {
-  display: flex;
-  height: 90px;
-  margin-bottom: 25px;
+  display: grid;
+  height: 35px;
+  margin-bottom: 5px;
 }
 
 /* No, icon, hopを横並び */  
@@ -19,9 +29,23 @@
 .hop {
   display: flex;
   flex-direction: column; 
+  overflow: hidden;
+
 }
 
 .user_ranking_username_wrap,
 .user_ranking_createNum_wrap {
   display: block;
+  overflow: hidden;
+  width: 90px;
+  height: 20px;
+}
+
+#follow_delete_btn {
+  border-radius: 8px;
+  cursor: pointer;
+}
+#follow_btn{
+  border-radius: 8px;
+  cursor: pointer;
 }
