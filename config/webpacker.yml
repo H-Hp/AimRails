@@ -93,6 +93,8 @@ production: &production
   # Cache manifest.json for performance
   cache_manifest: true
 
+production_render_com:
+  <<: *production
 production-aim-mini:
   <<: *production
 production-aim-big:
