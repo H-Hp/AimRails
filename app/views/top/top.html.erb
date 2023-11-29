@@ -10,43 +10,94 @@
 <%= render 'shared/ads-mobile' %>
 
 <div class="content_wrap">
-  <% @aim.each do |aim| %>
-    <a href="/aim/<%= aim.id %>" class="aim_wrap_a">
-      <div class="aim_wrap" id="">
-        <div class="aim_img_div">
-              <% if aim&.aim_thumb_img.attached? %>
-                  <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
-              <% else %>
-                  <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
-                  <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
-              <% end %>
-        </div>
-        <div class="aim_title_content_div">
-          <div class="aim_title_div">
-            <h2 class="aim_title"><%= aim.title %></h2>
-          </div>
-          <div class="aim_content_div">
-            <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
-          </div>
-          
-        </div>
-        <div class="aim_updated_div">
-          <% time = Time.parse(aim.updated_at.to_s)
-              #time = Time.parse('2023-11-04 14:17:24 UTC')
-              #2023-11-04 14:17:24 UTC
-              #2023-11-04 14:17:24 UTC
-             time_jst = time.in_time_zone('Tokyo')
-             formatted_time = time_jst.strftime('%Y年%m月%d日')
-          %>
-          <time datetime="<%= formatted_time %>" class="update-date"><%= formatted_time %></time>
-        </div>
-      </div>
-    </a>
-  <% end %>
+  
+
+<div id="aims">
+  <%= render @aims %>
+</div>
+
+<%= link_to 'More aims', '#', id: 'load-more' %>
+
+  <%= link_to "もっと読み込む", url_for(page: @page.to_i + 1) %>
 
   <button id="add_aim_btn" class="add_aim_btn btn btn-primary">
       さらに表示
   </button>
+
+  <%= link_to "0", url_for(page: 0) %>
+
+  <%= link_to "1", url_for(page: 1) %>
+    <%= link_to "2", url_for(page: 2) %>
+  <%= link_to "3", url_for(page: 3) %>
+  <%= link_to "4", url_for(page: 4) %>
+
 </div>
+
+<script>
+gon=2;
+$(document).on('click', '.add_aim_btn', function(e) {
+  e.preventDefault();
+  $.ajax({
+    url: '/',
+    dataType: 'script',
+    type: 'GET',
+    data: { page: gon.page },
+    success: function(response) {
+      gon.page += 1;
+      //console.log("response"+response)
+    }
+  });
+});
+/*
+// 記事のテンプレート
+const articleTemplate = (article) => {
+  return `
+    <div>
+      <h2>${aim.title}</h2>
+      <p>${aim.content}</p>
+    </div>
+  `
+}
+  let page = 1 // ページング
+  $articles =""
+  articles=""
+  $('#add_aim_btn').on('click', () => {
+    page += 1 
+    $.get('/', {page: page}, (data) => {
+        // 読み込んだ記事を追加表示 
+        console.log(data)
+        // すでに読み込んだ分とマージ
+        const articles = [...$articles, ...data.articles]
+        //const articles = [...articles, ...data.articles]  
+        //const articles = [...page, ...data.articles]  
+        //const articles =" aaa"
+
+        // HTMLを結合
+        let html = '';
+        articles.forEach(article => {
+          html += articleTemplate(article); 
+        });
+
+        // 表示を更新
+        $('#aims').append(html);
+
+        // 読み込んだ分を保存 
+        $articles = articles;
+      })
+  })  
+  */
+  /*var page = 2;
+  $(document).on('click', '#add_aim_btn', function() {
+ // $('#add_aim_btn').click(function() {
+    console.log("s")
+    $.ajax({
+      url: '/top/index',
+      data: { page: page },
+      dataType: 'script'
+    });
+    page++;
+ });
+ */
+</script>
 
 <%= render 'shared/ads-mobile' %>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   root 'top#top'
   get '/'  => 'top#top'
+  get '/top/index'  => 'top#index'
   
   
   resources :contact, only: [:new, :create]

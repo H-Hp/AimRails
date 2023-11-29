@@ -58,8 +58,16 @@ class TopController < ApplicationController
       req.body = payload 
     end
 =end
-    @aim = Aim.all
-    
+
+    #@aim = Aim.all
+    #@aim = Aim.limit(5) 
+    #@page = 0
+    #@aims = Aim.limit(5).offset(params[:page].to_i * 5)
+    @aims = Aim.limit(5).offset(params[:page].to_i)
+    respond_to do |format|
+      format.html
+      format.js
+    end
 
     if user_signed_in?
       # ログイン中の場合の処理
@@ -70,5 +78,19 @@ class TopController < ApplicationController
     end
 
   end
+
+  def index
+    @aim = Aim.limit(5).offset(params[:page].to_i * 5)  
+  end
+=begin
+  def index
+    @aim = Aim.order(created_at: :desc).page(params[:page]).per(5)
+    #@aim = Aim.all
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+=end
   
 end
