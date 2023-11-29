@@ -39,6 +39,15 @@ border-radius: 50%;
   margin-bottom: 200px;
 }
 
+.tab_change_menu{
+width:80%;
+}
+.tablink{
+  width:24%;
+  height:40px;
+  font-size: 15px;
+}
+
 .menu{
   display: flex;
   margin-top: 25px;

@@ -2,12 +2,12 @@
   height:fit-content;
   width: 65%;
   margin-left: 15px;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 .aim_wrap{
   height:130px;
   width: 100%;
-  margin: 5px;
+  margin: 0 5px ;
   padding: 20px;
   display: flex;
 }
@@ -45,7 +45,6 @@
   float: right;
 }
 .add_aim_btn{
-  width: 50%;
+  width: 100%;
   font-size: 20px;
-  border-radius: 10%;
 }
