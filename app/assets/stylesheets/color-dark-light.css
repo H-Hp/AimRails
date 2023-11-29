@@ -46,7 +46,7 @@ body.dark-mode body > main > div.Left > div > div.footer-wrap > div:nth-child(11
 body.light-mode #follow_delete_btn {background-color: white;color: #333;}
 body.dark-mode #follow_delete_btn {background-color: #2f3232;color: #fff;border:1px solid #eee;}
 body.light-mode #follow_delete_btn:hover {background-color: white;color: #333;}
-body.dark-mode #follow_delete_btn:hover {background-color: rgb(255, 255, 51,0.9);;color: #333;border:1px solid #eee;}
+body.dark-mode #follow_delete_btn:hover {background-color: rgb(255, 255, 51);;color: #333;border:1px solid #eee;}
 
 body.light-mode #follow_btn {background-color: white;color: #333;}
 body.dark-mode #follow_btn {background-color: #2f3232;color: #fff;border:1px solid #eee;}
