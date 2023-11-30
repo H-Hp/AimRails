@@ -7,8 +7,6 @@
 <%= render 'shared/side-ads' %>
 <%= stylesheet_link_tag "aim" %>
 
-
-
 <div class="aim_wrap">
 
 <div class="toolbar">
@@ -57,7 +55,41 @@
     <% if user_signed_in? && @aim.user_id == current_user.id %>
       <a href="/aim/edit/<%= @aim.id %>">編集</a>
     <% end %>
+
 </div>
+
+    <div class="relation_aims">
+    <h2 class="relation_aims_h">関連するaim</h2>
+          <% @relation_aims.each do |aim| %>
+              <a href="/aim/<%= aim.id %>" class="aim_wrap_a">
+                <div class="aim_wrap" id="">
+                  <div class="aim_img_div">
+                        <% if aim&.aim_thumb_img.attached? %>
+                            <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
+                        <% else %>
+                            <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+                        <% end %>
+                  </div>
+                  <div class="aim_title_content_div">
+                    <div class="aim_title_div">
+                      <h2 class="aim_title"><%= aim.title %></h2>
+                    </div>
+                    <div class="aim_content_div">
+                      <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+                    </div>    
+                  </div>
+                  <div class="aim_updated_div">
+                    <% time = Time.parse(aim.updated_at.to_s)
+                      time_jst = time.in_time_zone('Tokyo')
+                      formatted_time = time_jst.strftime('%Y年%m月%d日')
+                    %>
+                    <time datetime="<%= formatted_time %>" class="update-date"><%= formatted_time %></time>
+                  </div>
+                </div>
+              </a>
+            <% end %>
+    </div>
+
 <% if user_signed_in? %>
 <script>
 //いいねを非同期で行う

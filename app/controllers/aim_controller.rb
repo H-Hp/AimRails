@@ -31,6 +31,7 @@ class AimController < ApplicationController
     @aim = Aim.find_by(id: params[:id])
     @author_id =@aim.user_id
     @author = User.find_by(id: @author_id)
+    @relation_aims = Aim.order("RANDOM()").limit(2)
   end
 
   def edit
