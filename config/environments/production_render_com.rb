@@ -46,4 +46,8 @@ Rails.application.configure do
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     }
   }
+
+  Aws.config.update(
+    region: ENV['AWS_REGION'],
+  )
 end
