@@ -23,6 +23,8 @@ Rails.application.configure do
     }
   }
 =end
+
+=begin
   config.paperclip_defaults = {
     storage: :s3,
     s3_host_name: "s3-ap-northeast-1.amazonaws.com",
@@ -33,5 +35,5 @@ Rails.application.configure do
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     }
   }
-
+=end
 end
