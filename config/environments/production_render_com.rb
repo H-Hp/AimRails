@@ -6,17 +6,20 @@ Rails.application.configure do
   config.hosts.clear #全てのhostを受け入れる
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
-  config.x.aws.region = 'ap-northeast-1'
-  ENV['AWS_REGION'] = 'ap-northeast-1'
+  #config.x.aws.region = 'ap-northeast-1'
+  #ENV['AWS_REGION'] = 'ap-northeast-1'
   #config.assets.compile = true
   config.active_storage.service = :amazon
+    #config.active_storage.service = :local
+=begin
   config.active_storage.service_config = {
     service: 'S3',
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
     secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     region: ENV['AWS_REGION']
   }
-  #config.active_storage.service = :local
+=end
+
 =begin
   config.paperclip_defaults = {
     :storage        => :s3,
@@ -41,7 +44,7 @@ Rails.application.configure do
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     }
   }
-=end
+
   config.paperclip_defaults = {
     storage: :s3,
     s3_host_name: "s3-ap-northeast-1.amazonaws.com",
@@ -56,4 +59,5 @@ Rails.application.configure do
   Aws.config.update(
     region: ENV['AWS_REGION'],
   )
+=end
 end
