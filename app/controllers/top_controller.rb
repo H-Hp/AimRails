@@ -62,8 +62,8 @@ class TopController < ApplicationController
     #@aim = Aim.all
     #@aim = Aim.limit(5) 
     #@page = 0
-    #@aims = Aim.limit(5).offset(params[:page].to_i * 5)
-    @aims = Aim.limit(5).offset(params[:page].to_i)
+    @aims = Aim.limit(5).offset(params[:page].to_i * 5)
+    #@aims = Aim.limit(5).offset(params[:page].to_i)
     respond_to do |format|
       format.html
       format.js

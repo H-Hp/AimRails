@@ -193,6 +193,8 @@ top: 62px;
   .goLLM_btn{display: none;}
   .goPlay_btn{display: none;}
   .mobile-menu-icon{display: block;}
+  .Login_btn{left:0;width:70px;height:30px;font-size:12px;margin-left:5px;}
+  .NewUser_btn{left:0;width:95px;height:30px;font-size:12px;margin-left:5px;}
   /*top*/
   .aim_wrap{width: 100%!important; margin-left:0!important; margin-bottom:15px!important; padding:15px!important;}
   .aim_content_div{height: 60%!important;}

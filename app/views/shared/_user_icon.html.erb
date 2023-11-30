@@ -1,9 +1,9 @@
-<button id="header-user-icon-btn" class="header-user-icon-btn">
+<button  class="header-user-icon-btn">
       <% if @this_user.icon_url=="default" %>
             <img alt="default_user_icon" src="/default_user_icon.png"  class="user-icon_img">
       <% elsif @this_user.icon_url=="custom" %>
             <% if @this_user&.user_icon_image.attached? %>
-                  <%= image_tag @this_user.user_icon_image ,class:"user-icon_img" %>
+                  <%= image_tag @this_user.user_icon_image ,class:"user-icon_img", alt: "user-icon_img" %>
             <% else %>
                   <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
                   <img alt="default_user_icon" src="/default_user_icon.png"  class="user-icon_img">

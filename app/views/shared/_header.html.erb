@@ -12,7 +12,7 @@
     </div>
 
     <div class="Logo-a">
-    <a href="/">
+    <a href="/" class="Logo_a">
       <!-- 
       <svg viewBox="0 0 3000 250" role="img" aria-labelledby="BAKERY COLNE" class="b-hero-cover03-bg-logo">
         <use xlink:href="<%= s3_asset_path('Logo.svg') %>#Logo"></use>      
@@ -23,8 +23,8 @@
       
     image_tag(s3_asset_path('Logo.svg'), content_type: 'image/svg+xml', class: 'Logo Logo-white')  
     -->
-    <%= image_tag 'Logo_White.svg' , class: 'Logo Logo-white' %>
-    <%= image_tag 'Logo_Black.svg' , class: 'Logo Logo-black' %>
+    <%= image_tag 'Logo_White.svg' , class: 'Logo Logo-white', alt: "Logo_icon" %>
+    <%= image_tag 'Logo_Black.svg' , class: 'Logo Logo-black', alt: "Logo_icon" %>
     </a>
     </div>
       
