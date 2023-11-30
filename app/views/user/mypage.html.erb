@@ -41,46 +41,80 @@
 </div>
 
 <div class="tab_change_menu">
-    <button class="tablink btn btn-primary" onclick="openTab('create_aims_wrap', this)" id="defaultOpen">作成したAim</button>
-    <button class="tablink btn btn-primary" onclick="openTab('likes_wrap', this)">いいね</button>
-    <button class="tablink btn btn-primary" onclick="openTab('followeds_wrap', this)">フォロー</button>
-    <button class="tablink btn btn-primary" onclick="openTab('followers_wrap', this)">フォロワー</button>
+    <button class="tablink_mypage btn btn-primary" onclick="openTab('create_aims_wrap', this)" id="defaultOpen">作成したAim</button>
+    <button class="tablink_mypage btn btn-primary" onclick="openTab('likes_wrap', this)">いいね</button>
+    <button class="tablink_mypage btn btn-primary" onclick="openTab('followeds_wrap', this)">フォロー</button>
+    <button class="tablink_mypage btn btn-primary" onclick="openTab('followers_wrap', this)">フォロワー</button>
 </div>
 
 
 <div class="create_aims_wrap tabcontent" id="create_aims_wrap" >
   <% @create_aims.each do |aim| %>
     <a href="/aim/<%= aim.id %>">
-      <div class="aim_wrap">
-        <div class="aim_img_div">
-          <% if aim&.aim_thumb_img.attached? %>
-                  <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
-              <% else %>
-                  <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
-                  <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
-              <% end %>
+        <div class="aim_wrap">
+              <div class="aim_img_div">
+                    <% if aim&.aim_thumb_img.attached? %>
+                        <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
+                    <% else %>
+                        <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
+                        <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+                    <% end %>
+              </div>
+              <div class="aim_title_content_div">
+                    <div class="aim_title_div">
+                      <h2 class="aim_title"><%= aim.title %></h2>
+                    </div>
+                    <div class="aim_content_div">
+                      <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+                    </div>
+                    
+                    <div class="dot_menu-icon dot_menu-icon_<%= aim.id %>">...</div>
+                    <div class="dot_menu dot_menu_<%= aim.id %>">
+                          <!--aim削除・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
+                          <% if @user.id==@current_user_id %>
+                            <button id="open-dialog-<%= aim.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
+                            <div id="dialog-overlay-<%= aim.id %>" class="dialog-overlay" style=" display:none;">
+                              <div id="dialog-box-<%= aim.id %>" class="dialog-box">
+                                <p>本当に削除しますか？</p>
+                                <button type="submit" id="confirm-delete-<%= aim.id %>" class="confirm-delete">はい</button>
+                                <button id="cancel-delete-<%= aim.id %>" class="ancel-delete">いいえ</button>
+                              </div>
+                            </div>
+                          <% end %>
+                    </div>
+              </div>    
         </div>
-        <div class="aim_title_content_div">
-          <div class="aim_title_div">
-            <h2 class="aim_title"><%= aim.title %></h2>
-          </div>
-          <div class="aim_content_div">
-            <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
-          </div>
-        </div>
-      </div>
     </a>
-    <!--aim削除・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
-    <% if @user.id==@current_user_id %>
-      <button id="open-dialog-<%= aim.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
-      <div id="dialog-overlay-<%= aim.id %>" class="dialog-overlay" style=" display:none;">
-        <div id="dialog-box-<%= aim.id %>" class="dialog-box">
-          <p>本当に削除しますか？</p>
-          <button type="submit" id="confirm-delete-<%= aim.id %>" class="confirm-delete">はい</button>
-          <button id="cancel-delete-<%= aim.id %>" class="ancel-delete">いいえ</button>
-        </div>
-      </div>
-    <% end %>
+<script>
+$('.dot_menu-icon_<%= aim.id %>').on('click', function(event) {
+    event.stopPropagation();  // 親要素へのイベント伝播を停止
+    event.preventDefault();
+    $(".dot_menu_<%= aim.id %>").show();//$(".menu").css("display","block");
+    //document.querySelector('.menu').style.display = 'block';// メニューを表示
+});
+$('.dot_menu_<%= aim.id %>').on('click', function(event) {
+    event.stopPropagation();  // 親要素へのイベント伝播を停止
+    event.preventDefault();
+});
+$(document).on('click', function() { // ドキュメント全体をクリックしたときのイベントリスナー
+  $('.dot_menu_<%= aim.id %>').hide(); // メニューを非表示
+});
+/*
+document.querySelector('.menu-icon').addEventListener('click', function(event) {// メニューアイコンをクリックしたときのイベントリスナー
+  event.stopPropagation();// イベントの伝播を停止
+  document.querySelector('.menu').style.display = 'block';// メニューを表示
+  console.log("asaa")
+});
+document.querySelector('.menu').addEventListener('click', function(event) {// メニューをクリックしたときのイベントリスナー
+  event.stopPropagation();// イベントの伝播を停止
+});
+document.addEventListener('click', function() {// ドキュメント全体をクリックしたときのイベントリスナー
+  document.querySelector('.menu').style.display = 'none';// メニューを非表示
+});
+*/
+</script>
+
+
 
 <script>
 let openDialogButton_<%= aim.id %> = document.getElementById('open-dialog-<%= aim.id %>');
@@ -135,35 +169,55 @@ cancelDeleteButton_<%= aim.id %>.addEventListener('click', () => {
       aim=Aim.find(like.aim_id)
       %>
       <a href="/aim/<%= aim.id %>">
-        <div class="aim_wrap">
-          <div class="aim_img_div">
-                <% if aim&.aim_thumb_img.attached? %>
-                    <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
-                <% else %>
-                    <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
-                    <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
-                <% end %>
+            <div class="aim_wrap">
+                  <div class="aim_img_div">
+                        <% if aim&.aim_thumb_img.attached? %>
+                            <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
+                        <% else %>
+                            <!-- アイコンがアップロードされていない場合の代替コードをここに追加 -->
+                            <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+                        <% end %>
+                  </div>
+                  <div class="aim_title_content_div">
+                    <div class="aim_title_div">
+                      <h2 class="aim_title"><%= aim.title %></h2>
+                    </div>
+                    <div class="aim_content_div">
+                      <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
+                    </div>
+                  </div>
+
+                  <div class="dot_menu-icon dot_menu-icon_<%= aim.id %>">...</div>
+                  <div class="dot_menu dot_menu_<%= aim.id %>">
+                        <!--いいねを取り消し・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
+                        <% if @user.id==@current_user_id %>
+                            <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
+                                  <%= form.hidden_field :user_id, value: @user.id %>
+                                  <%= form.hidden_field :aim_id, value: aim.id %>
+                                  <%= button_tag(type: 'submit') do %>
+                                      <%= render 'shared/favorite-btn-already' %>
+                                  <% end %>
+                            <% end %> 
+                        <% end %> 
+                  </div>
+                  <script>
+                      $('.dot_menu-icon_<%= aim.id %>').on('click', function(event) {
+                          event.stopPropagation();  // 親要素へのイベント伝播を停止
+                          event.preventDefault();
+                          $(".dot_menu_<%= aim.id %>").show();//$(".menu").css("display","block");
+                          //document.querySelector('.menu').style.display = 'block';// メニューを表示
+                      });
+                      $('.dot_menu_<%= aim.id %>').on('click', function(event) {
+                          event.stopPropagation();  // 親要素へのイベント伝播を停止
+                          event.preventDefault();
+                      });
+                      $(document).on('click', function() { // ドキュメント全体をクリックしたときのイベントリスナー
+                        $('.dot_menu_<%= aim.id %>').hide(); // メニューを非表示
+                      });
+                  </script>
           </div>
-          <div class="aim_title_content_div">
-            <div class="aim_title_div">
-              <h2 class="aim_title"><%= aim.title %></h2>
-            </div>
-            <div class="aim_content_div">
-              <p class="aim_content"><%= sanitize(markdown(aim.content), tags: [])  %></p>
-            </div>
-          </div>
-        </div>
-      </a>
-        <!--いいねを取り消し・ログイン中のユーザー(自分)とそのマイページの持ち主が同じなら-->
-        <% if @user.id==@current_user_id %>
-            <%= form_with(url: "/aim/like_delete", local: true, html:{ class:"like_delete_form" ,id:"like_delete_form"}) do |form| %>
-                  <%= form.hidden_field :user_id, value: @user.id %>
-                  <%= form.hidden_field :aim_id, value: aim.id %>
-                  <%= button_tag(type: 'submit') do %>
-                      <%= render 'shared/favorite-btn-already' %>
-                  <% end %>
-            <% end %> 
-        <% end %> 
+    </a>
+        
     <% end %>
 </div>
 
@@ -284,7 +338,7 @@ function openTab(tabName, elmnt) {
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    tablinks = document.getElementsByClassName("tablink");
+    tablinks = document.getElementsByClassName("tablink_mypage");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].style.backgroundColor = "";
     }

@@ -211,6 +211,7 @@ top: 62px;
   .setting_wrap{margin-left: 0!important;margin-right: 0!important;}
   /*マイページ*/
   .create_aims_wrap.tabcontent{width: 100%!important;padding: 0!important;}
+  .dot_menu-icon{display: block;}
   /*通知一覧*/
   .nc_list_content_wrap{width: 100%!important;margin-left:0!important;}
   /*アカウント作成*/

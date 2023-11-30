@@ -115,6 +115,10 @@ body.dark-mode .setting_wrap .form-control  {background-color: #494B4B;color: #f
 body.light-mode .tablink {background-color: white;color: #333;}
 body.dark-mode .tablink {background-color: #2f3232;color: #fff;border:1px solid #eee;}
 
+body.light-mode .dot_menu-icon {color: black;}
+body.dark-mode .dot_menu-icon {color: white;}
+
+
 /*Aim作成/編集*/
 body.light-mode .aim_create_edit_wrap input[type="text"]{background-color: white;color: black;}
 body.dark-mode .aim_create_edit_wrap input[type="text"] {background-color: #494B4B;color: #fff;}
