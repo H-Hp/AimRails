@@ -7,9 +7,15 @@ Rails.application.configure do
 
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
   #config.x.aws.region = 'ap-northeast-1'
-  ENV['AWS_REGION'] = 'ap-northeast-1'
+  #ENV['AWS_REGION'] = 'ap-northeast-1'
   #config.assets.compile = true
   config.active_storage.service = :amazon
+  config.active_storage.service_config = {
+    service: 'S3',
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+    region: ENV['AWS_REGION']
+  }
   #config.active_storage.service = :local
 =begin
   config.paperclip_defaults = {
