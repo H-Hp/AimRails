@@ -25,8 +25,12 @@ class UserController < ApplicationController
   def follow
     follow_params=params.permit(:follower_id, :followed_id)
     relationship = Relationship.new(follow_params)
+    @follow_user = User.find_by(id: params[:follower_id])#フォローボタンを押したユーザー
     if relationship.save
-      #redirect_to aim
+      # 通知を作成・再度送られないように・aimの作成者が通知を消してなければ送信
+      unless Notification.exists?(user_id: params[:followed_id], title: "#{@follow_user.user_name}にフォローされました。")
+        Notification.create(user_id: params[:followed_id], sended_id: params[:follower_id], title: "#{@follow_user.user_name}にフォローされました。",url:"/", image_url:"default",action: 'follow')
+      end
       redirect_back(fallback_location: root_path)#リファラが利用できない場合にはルートパス（root_path）にリダイレクト
     else
       flash[:danger] = 'フォローできませんでした。'

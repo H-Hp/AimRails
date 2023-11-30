@@ -69,6 +69,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index, :new ,:create]
   patch '/notifications/check', to: 'notifications#check'
   post '/notifications/check', to: 'notifications#check'
+  post '/notifications/delete/:id', to: 'notifications#delete'
   #post '/notifications/create/', to: 'notifications#create'
 
   get '/llm'  => 'llm#index'

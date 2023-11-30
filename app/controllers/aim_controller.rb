@@ -81,7 +81,14 @@ class AimController < ApplicationController
     like_params=params.permit(:user_id, :aim_id)
     aim=Aim.find(params[:aim_id])
     @like = Like.new(like_params)
+    @like_user = User.find_by(id: params[:user_id])#いいねしたユーザー
     if @like.save
+      # 通知を作成・再度送られないように・aimの作成者が通知を消してなければ送信
+      #unless @like.previous_changes.empty?
+      unless Notification.exists?(user_id: aim.user_id, title: "#{@like_user.user_name}にいいねされました。")
+        Notification.create(user_id: aim.user_id, sended_id: params[:user_id], title: "#{@like_user.user_name}にいいねされました。",url:"/", image_url:"default",action: 'like')
+        #params.require(:notification).permit(:user_id, :sended_id, :title, :url, :image_url, :action)
+      end
       redirect_to aim
     else
       # お問い合わせ内容が保存されなかった場合の処理
@@ -95,6 +102,10 @@ class AimController < ApplicationController
     #like = Like.find(like_params)
     #like = Like.find(params[:id])
     like = Like.where(user_id: params[:user_id], aim_id: params[:aim_id]).first
+
+    # 通知を削除
+    #@notification = Notification.where(user_id: aim.user_id, sended_id: params[:user_id], action: 'like')
+    #@notification.destroy_all
     if like.destroy
       #redirect_to aim
       # 送信元のビューにリダイレクト

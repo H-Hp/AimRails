@@ -47,6 +47,12 @@ class NotificationsController < ApplicationController
     @nocheck_notification_count =0 #全部確認済みに変更
   end
 
+  def delete
+    notification = Notification.find(params[:id])
+    notification.destroy
+    redirect_to notifications_path
+  end
+
   private
 
   def notification_params

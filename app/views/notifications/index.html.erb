@@ -20,7 +20,73 @@
               <time datetime="<%= nc[:created_at] %>" class="style-19rsmo4"><%= formatted_time %></time>
             <!--<time datetime="2023-10-23T06:10:16Z" class="style-19rsmo4">2023/10/23 15:10</time>-->
           </a>
+            <div class="dot_menu-icon dot_menu-icon_<%= nc.id %>">...</div>
+            <div class="dot_menu dot_menu_<%= nc.id %>">
+                    <button id="open-dialog-<%= nc.id %>" class="open-dialog aim-delete-btn alert alert-danger" role="alert">削除</button>
+                    <div id="dialog-overlay-<%= nc.id %>" class="dialog-overlay" style=" display:none;">
+                      <div id="dialog-box-<%= nc.id %>" class="dialog-box">
+                        <p>本当に削除しますか？</p>
+                        <button type="submit" id="confirm-delete-<%= nc.id %>" class="confirm-delete">はい</button>
+                        <button id="cancel-delete-<%= nc.id %>" class="ancel-delete">いいえ</button>
+                      </div>
+                    </div>
+                    <!--通知削除form-->
+                    <%= form_with(url: "/notifications/delete/"+nc.id.to_s, local: true, html:{ class:"notifications-delete-form" ,id:"notifications-delete-form-#{nc.id}"}) do |form| %>
+                    <% end %>
+            </div>
+
+            <script>
+              $('.dot_menu-icon_<%= nc.id %>').on('click', function(event) {
+                  event.stopPropagation();  // 親要素へのイベント伝播を停止
+                  event.preventDefault();
+                  $(".dot_menu_<%= nc.id %>").show();//$(".menu").css("display","block");
+                  //document.querySelector('.menu').style.display = 'block';// メニューを表示
+              });
+              $('.dot_menu_<%= nc.id %>').on('click', function(event) {
+                  event.stopPropagation();  // 親要素へのイベント伝播を停止
+                  event.preventDefault();
+              });
+              $(document).on('click', function() { // ドキュメント全体をクリックしたときのイベントリスナー
+                $('.dot_menu_<%= nc.id %>').hide(); // メニューを非表示
+              });
+              </script>
+              <script>
+              let openDialogButton_<%= nc.id %> = document.getElementById('open-dialog-<%= nc.id %>');
+              let dialogOverlay_<%= nc.id %> = document.getElementById('dialog-overlay-<%= nc.id %>');
+              let dialogBox_<%= nc.id %> = document.getElementById('dialog-box-<%= nc.id %>');
+              let confirmDeleteButton_<%= nc.id %> = document.getElementById('confirm-delete-<%= nc.id %>');
+              let cancelDeleteButton_<%= nc.id %> = document.getElementById('cancel-delete-<%= nc.id %>');
+
+              openDialogButton_<%= nc.id %>.addEventListener('click', () => {
+                dialogOverlay_<%= nc.id %>.style.display = 'flex';
+              });
+
+              function closeDialog() {
+                dialogOverlay_<%= nc.id %>.style.display = 'none';
+              }
+
+              dialogOverlay_<%= nc.id %>.addEventListener('click', (e) => {
+                if (e.target === dialogOverlay_<%= nc.id %>) {
+                  dialogOverlay_<%= nc.id %>.style.display = 'none';
+                  //closeDialog();
+                }
+              });
+
+              confirmDeleteButton_<%= nc.id %>.addEventListener('click', () => {
+                // 削除の確認を実行
+                document.getElementById("notifications-delete-form-<%= nc.id %>").submit();
+                dialogOverlay_<%= nc.id %>.style.display = 'none';
+                //closeDialog();
+              });
+
+              cancelDeleteButton_<%= nc.id %>.addEventListener('click', () => {
+                dialogOverlay_<%= nc.id %>.style.display = 'none';
+                //closeDialog();
+              });
+              </script>
+
         </div>
       <% end %>
     </div>
 </div>
+
