@@ -11,7 +11,6 @@
     <div class='who'>aim_ai</div>
     <div class='ai_statement statement'>
       こんにちは！これからあなたのやりたいことを一緒に発見し決定していきましょう！手助けになれば幸いです！
-      あなたの好きな音楽を教えてください！
     </div>
 
     <div class="wrap"></div>
@@ -23,11 +22,51 @@
 
 
 <script>
+let question_num=0;
+let question_array = [
+  "好きなものや、興味のあるものや、今頭に浮かんだものを1つ教えてください。", 
+  "体力に自信がありますか？", 
+  "他人とコミュニケーションをとりたい感じですか？"
+  ];
+let prompt_text="";
+
+function Question(question_num){
+    //配列をランダムに並べ替え
+    for (let i = question_array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [question_array[i], question_array[j]] = [question_array[j], question_array[i]];
+    }
+    
+    //let randomNumber = Math.floor(Math.random() * 3);//質問の配列の個数だけの乱数を取得
+    $(".wrap").append("<div class='who'>aim_ai</div>");
+    //$(".wrap").append("<div class='ai_statement statement'>"+randomNumber+question_array[randomNumber]+"</div>");
+    $(".wrap").append("<div class='ai_statement statement'>"+question_array[0]+"</div>");
+    prompt_text=prompt_text+question_array[0]+":";
+
+    question_array.splice(0, 1);//質問配列から削除
+    //question_num++;
+    console.log(question_array)
+    
+}
+
 $(document).ready(function(){
    // ローカルストレージから値を取得
   const llm = localStorage.getItem('llm');
   $(".wrap").html(llm);
+  $('html, body').animate({scrollTop:$(document).height()}, 'slow');//一番下までスクロール
+
+  if (localStorage.getItem('question_num') === null) { // 初期値がない場合の処理
+   question_num=0;
+   Question(question_num);
+   question_num++;
+} else {// 初期値がある場合の処理
+    question_num= localStorage.getItem('question_num');
+}
 });
+
+
+//console.log(array);
+
 
 
 $(document).on('click', '.chat_submit_btn', function() {
@@ -38,8 +77,9 @@ $(document).on('click', '.chat_submit_btn', function() {
     $(".wrap").append("<div class='user_statement statement'>"+input_text+"</div>");
     $("#input").val("")
     console.log(input_text);
+    prompt_text=prompt_text+input_text+"。\n\n"
     
-
+/*
   var settings = {
   "url": "https://api.openai.com/v1/completions",
   "method": "POST",
@@ -50,7 +90,9 @@ $(document).on('click', '.chat_submit_btn', function() {
   "data": JSON.stringify({
     "model": "text-davinci-003",
     //"prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: [ここに質問を書く]\nA:",
-    "prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: "+input_text+"\nA:",
+    //"prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: "+input_text+"\nA:",
+    //"prompt": "私の好きな食べ物はりんごで、好きな音楽はaikoです。それを考慮に入れたとき、私の好きな色は何だと思いますか？",
+    "prompt": "次の特徴を持つ人に適した仕事もしくはやりたいことに適していることはなんだと思いますか？"+prompt_text,
     "temperature": 0,
     "max_tokens": 100,
     "top_p": 1,
@@ -59,26 +101,98 @@ $(document).on('click', '.chat_submit_btn', function() {
     "stop": ["\\n"]
   })
 };
-
-/*
-$.ajax(settings).done(function (response) {
-  console.log(response);
-
-  var answer = response['choices'][0]['text'].trim();//trim()関数は、取得したテキストの前後の空白を削除
-  console.log("Answer: " + answer);
-
-$(".wrap").text(answer)
-
-
-});
 */
-let answer="答え";
-$(".wrap").append("<div class='who'>aim_ai</div>");
-$(".wrap").append("<div class='ai_statement statement'>"+answer+"</div>");
+$(".wrap").append("<div class='who'>question_num: "+question_num+"+prompt_text:"+prompt_text+"</div>");
+if(question_num >=3){//質問を3つ以上答えていたら
+    /*$.ajax(settings).done(function (response) {
+      console.log(response);
 
+      var answer = response['choices'][0]['text'].trim();//trim()関数は、取得したテキストの前後の空白を削除
+      console.log("Answer: " + answer);
+
+    //$(".wrap").text(answer)
+    $(".wrap").append("<div class='who'>aim_ai</div>");
+    $(".wrap").append("<div class='ai_statement statement'>"+answer+"</div>");
+
+    });
+    */
+    //$(".wrap").append("<div class='who'>aim_ai</div>");$(".wrap").append("<div class='ai_statement statement'>答え</div>");
+    
+    $.ajax({
+        type: 'POST',
+        url: '/ai/generate',
+        data: { 
+            prompt: prompt_text
+            },
+        success: (res) => {
+          console.log("成功"+res.content)
+          $(".wrap").append("<div class='who'>aim_ai</div>");
+          $(".wrap").append("<div class='ai_statement statement'>"+res.content+"</div>");
+
+        },
+        error: (res) => {
+          console.log("失敗"+res.responseText)
+          $(".wrap").append("<div class='who'>aim_ai</div>");
+          $(".wrap").append("<div class='ai_statement statement'>"+res.responseText+"</div>");
+
+        }
+    });
+/*    
+    $.ajax({
+      url: '/llm/generate',
+      method: 'POST',
+      data: { prompt: 'hello' },
+      success: function(response) {
+        // Handle the response here
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        // Handle any errors here
+        console.error(error);
+      }
+    });
+*/
+    /*$.ajax({
+        url: '/llm/generate', // Railsのコントローラーとアクションへのパス
+        type: 'POST', // HTTPメソッド
+        dataType: 'json', // レスポンスのデータタイプ
+        data: { prompt: 'hello' }, // 送信するデータ
+        success: function(response) {
+          console.log(response); // レスポンスをコンソールに出力
+          $(".wrap").append("<div class='who'>aim_ai</div>");
+          $(".wrap").append("<div class='ai_statement statement'>"+response+"</div>");
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log("error:"+errorThrown); // エラーをコンソールに出力
+        }
+    });
+    */
+    
+   // jQuery側
+    /*$.ajax({
+      url: "/llm/generate",
+      type: 'POST', 
+      data: {
+        prompt: "Hello"  
+      } 
+    }).done(function(res) {
+      // 処理
+        $(".wrap").append("<div class='who'>aim_ai</div>");
+        $(".wrap").append("<div class='ai_statement statement'>"+res+"</div>");
+
+    });
+    */
+}else{
+    Question(question_num);
+    question_num++;
+}
 
 let wrap_html= $(".wrap").html();
 localStorage.setItem('llm', wrap_html);
+
+  $('html, body').animate({scrollTop:$(document).height()}, 'slow');//一番下までスクロール
+
 
 });
 
@@ -86,5 +200,9 @@ localStorage.setItem('llm', wrap_html);
 $(document).on('click', '#delete_btn', function() {
   $(".wrap").text("");
   localStorage.removeItem('llm');
+  localStorage.removeItem('question_num');
+  question_num=0;
+  Question(question_num);
+  question_num++;
 });
 </script>

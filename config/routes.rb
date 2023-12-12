@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   #post '/notifications/create/', to: 'notifications#create'
 
   get '/llm'  => 'llm#index'
+  post "/ai/generate/", to: "llm#generate"
 
   get '/play'  => 'play#index'
   post '/play', to: 'play#post'

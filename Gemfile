@@ -36,6 +36,9 @@ gem 'whenever', require: false
 gem 'redcarpet'
 gem 'kaminari'
 
+#gem "openai_ruby"
+gem "ruby-openai"
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
