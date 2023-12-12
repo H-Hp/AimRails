@@ -64,11 +64,6 @@ $(document).ready(function(){
 }
 });
 
-
-//console.log(array);
-
-
-
 $(document).on('click', '.chat_submit_btn', function() {
     
     let input_text=$("#input").val();
@@ -78,46 +73,8 @@ $(document).on('click', '.chat_submit_btn', function() {
     $("#input").val("")
     console.log(input_text);
     prompt_text=prompt_text+input_text+"。\n\n"
-    
-/*
-  var settings = {
-  "url": "https://api.openai.com/v1/completions",
-  "method": "POST",
-  "timeout": 0,
-  "headers": {
-    "Content-Type": "application/json",
-  },
-  "data": JSON.stringify({
-    "model": "text-davinci-003",
-    //"prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: [ここに質問を書く]\nA:",
-    //"prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: "+input_text+"\nA:",
-    //"prompt": "私の好きな食べ物はりんごで、好きな音楽はaikoです。それを考慮に入れたとき、私の好きな色は何だと思いますか？",
-    "prompt": "次の特徴を持つ人に適した仕事もしくはやりたいことに適していることはなんだと思いますか？"+prompt_text,
-    "temperature": 0,
-    "max_tokens": 100,
-    "top_p": 1,
-    "frequency_penalty": 0.0,
-    "presence_penalty": 0.0,
-    "stop": ["\\n"]
-  })
-};
-*/
 $(".wrap").append("<div class='who'>question_num: "+question_num+"+prompt_text:"+prompt_text+"</div>");
 if(question_num >=3){//質問を3つ以上答えていたら
-    /*$.ajax(settings).done(function (response) {
-      console.log(response);
-
-      var answer = response['choices'][0]['text'].trim();//trim()関数は、取得したテキストの前後の空白を削除
-      console.log("Answer: " + answer);
-
-    //$(".wrap").text(answer)
-    $(".wrap").append("<div class='who'>aim_ai</div>");
-    $(".wrap").append("<div class='ai_statement statement'>"+answer+"</div>");
-
-    });
-    */
-    //$(".wrap").append("<div class='who'>aim_ai</div>");$(".wrap").append("<div class='ai_statement statement'>答え</div>");
-    
     $.ajax({
         type: 'POST',
         url: '/ai/generate',
@@ -137,52 +94,6 @@ if(question_num >=3){//質問を3つ以上答えていたら
 
         }
     });
-/*    
-    $.ajax({
-      url: '/llm/generate',
-      method: 'POST',
-      data: { prompt: 'hello' },
-      success: function(response) {
-        // Handle the response here
-        console.log(response);
-      },
-      error: function(xhr, status, error) {
-        // Handle any errors here
-        console.error(error);
-      }
-    });
-*/
-    /*$.ajax({
-        url: '/llm/generate', // Railsのコントローラーとアクションへのパス
-        type: 'POST', // HTTPメソッド
-        dataType: 'json', // レスポンスのデータタイプ
-        data: { prompt: 'hello' }, // 送信するデータ
-        success: function(response) {
-          console.log(response); // レスポンスをコンソールに出力
-          $(".wrap").append("<div class='who'>aim_ai</div>");
-          $(".wrap").append("<div class='ai_statement statement'>"+response+"</div>");
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.log("error:"+errorThrown); // エラーをコンソールに出力
-        }
-    });
-    */
-    
-   // jQuery側
-    /*$.ajax({
-      url: "/llm/generate",
-      type: 'POST', 
-      data: {
-        prompt: "Hello"  
-      } 
-    }).done(function(res) {
-      // 処理
-        $(".wrap").append("<div class='who'>aim_ai</div>");
-        $(".wrap").append("<div class='ai_statement statement'>"+res+"</div>");
-
-    });
-    */
 }else{
     Question(question_num);
     question_num++;
