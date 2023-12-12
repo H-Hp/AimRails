@@ -1,4 +1,60 @@
+main{
+  top:0;
+  left:0;
+  width: 100%;
+  height:100%;
+  padding-top: 0;
+}
 .content_wrap{
-  min-height: 600px;
+  /*position: fixed;
+  top:0px;
+  left:0;
+  bottom: 0;*/
+  width: 100%;
+  min-height: 800px;
   padding: 20px;
+  margin-left: 0;
+}
+.chat_wrap{
+  position: fixed;
+  bottom: 30px;
+  right: 5%;
+}
+.input{
+  width: 350px;
+  height: 30px;
+  /*max-height: 200px;
+  height: 52px;*/
+  border-width: 0.1px;
+  font-size: 16px;
+  
+}
+.chat_submit_btn{
+float: right;
+width: 80px;
+height: 30px;
+font-size: 14px;
+}
+
+.wrap{
+  width: 50%;
+  height: fit-content;
+}
+.who{
+  font-size: 16px;
+  font-weight: 900;
+}
+.statement{
+  width: 500px;
+  min-height: 50px;
+  margin: 50px;
+  border-radius: 1%;
+  padding: 50px;
+
+}
+.user_statement{
+  background-color: rgb(141, 210, 92);
+}
+.ai_statement{
+  background-color: rgb(189, 255, 66);
 }

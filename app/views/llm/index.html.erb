@@ -1,10 +1,90 @@
 <% content_for :title do %>LLM<% end %>
-<%= render 'shared/header' %>
-<%= render 'shared/sidemenu' %>
 <%= stylesheet_link_tag "top" %>
 <%= render 'shared/side-ads' %>
 <%= stylesheet_link_tag "llm" %>
 
+
 <div class="content_wrap">
-  <h1>LLM</h1>
+<button id="delete_btn" class="btn alert-btn">履歴を削除</button>
+<div><h2>aimロゴ</h2></div>
+
+    <div class='who'>aim_ai</div>
+    <div class='ai_statement statement'>
+      こんにちは！これからあなたのやりたいことを一緒に発見し決定していきましょう！手助けになれば幸いです！
+      あなたの好きな音楽を教えてください！
+    </div>
+
+    <div class="wrap"></div>
+    <div class="chat_wrap">
+        <textarea type="text" class="input" id="input"></textarea>
+        <button id="submit" class="chat_submit_btn" >送信</button>
+    </div>
 </div>
+
+
+<script>
+$(document).ready(function(){
+   // ローカルストレージから値を取得
+  const llm = localStorage.getItem('llm');
+  $(".wrap").html(llm);
+});
+
+
+$(document).on('click', '.chat_submit_btn', function() {
+    
+    let input_text=$("#input").val();
+    //$(".wrap").html("<div>"+input_text+"</div>");
+    $(".wrap").append("<div class='who'>あなた</div>");
+    $(".wrap").append("<div class='user_statement statement'>"+input_text+"</div>");
+    $("#input").val("")
+    console.log(input_text);
+    
+
+  var settings = {
+  "url": "https://api.openai.com/v1/completions",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "application/json",
+  },
+  "data": JSON.stringify({
+    "model": "text-davinci-003",
+    //"prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: [ここに質問を書く]\nA:",
+    "prompt": "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: "+input_text+"\nA:",
+    "temperature": 0,
+    "max_tokens": 100,
+    "top_p": 1,
+    "frequency_penalty": 0.0,
+    "presence_penalty": 0.0,
+    "stop": ["\\n"]
+  })
+};
+
+/*
+$.ajax(settings).done(function (response) {
+  console.log(response);
+
+  var answer = response['choices'][0]['text'].trim();//trim()関数は、取得したテキストの前後の空白を削除
+  console.log("Answer: " + answer);
+
+$(".wrap").text(answer)
+
+
+});
+*/
+let answer="答え";
+$(".wrap").append("<div class='who'>aim_ai</div>");
+$(".wrap").append("<div class='ai_statement statement'>"+answer+"</div>");
+
+
+let wrap_html= $(".wrap").html();
+localStorage.setItem('llm', wrap_html);
+
+});
+
+
+$(document).on('click', '#delete_btn', function() {
+  $(".wrap").text("");
+  localStorage.removeItem('llm');
+});
+</script>
