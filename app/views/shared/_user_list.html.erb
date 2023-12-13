@@ -3,7 +3,7 @@
           <%= render 'shared/user_icon' %>
           <div class="hop">
                 <div class="user_ranking_username_wrap">@<%= @this_user.user_name %></div>
-                <div class="user_ranking_createNum_wrap">パワー：<%= 5 %></div>
+                <div class="user_ranking_createNum_wrap">パワー：<%= @this_user.aims.count %></div>
           </div>
     </a>
                     <% if user_signed_in? %>

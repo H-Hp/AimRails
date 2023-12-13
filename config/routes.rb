@@ -82,4 +82,6 @@ Rails.application.routes.draw do
 
   get '/play'  => 'play#index'
   post '/play', to: 'play#post'
+
+  get '/sitemap' => 'sitemaps#index' 
 end

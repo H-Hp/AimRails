@@ -16,14 +16,16 @@
   <%= render @aims %>
 </div>
 
-<%= link_to 'More aims', '#', id: 'load-more' %>
 
-  <%= link_to "もっと読み込む", url_for(page: @page.to_i + 1) %>
 
   <button id="add_aim_btn" class="add_aim_btn btn btn-primary">
       さらに表示
   </button>
 
+<!--
+<%= link_to 'More aims', '#', id: 'load-more' %>
+
+  <%= link_to "もっと読み込む", url_for(page: @page.to_i + 1) %>
   <%= link_to "0", url_for(page: 0) %>
   <%= link_to "1", url_for(page: 1) %>
   <%= link_to "2", url_for(page: 2) %>
@@ -31,6 +33,7 @@
   <%= link_to "4", url_for(page: 4) %>
 
 <button id="add_at" class="add_aim_btn" data-last-id="<%= @aims.last.id %>">Load More</button>
+-->
 </div>
 
 <script>

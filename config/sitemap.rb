@@ -19,4 +19,17 @@ SitemapGenerator::Sitemap.create do
     add aim_path(aim), lastmod: aim.updated_at , :changefreq => 'monthly', :priority => 0.8
   end
 
+  # 除外するページを指定
+  #except contact_path
+  #except about_path
+  #except privacy_path
+=begin
+  except '/users*'   # ワイルドカードでもOK
+  except '/pricing'
+  except '/sctl'
+  except '/policy'
+  except '/terms'
+  except '/contact*'
+  except '/pricing'
+=end
 end
