@@ -73,7 +73,7 @@ $(document).on('click', '.chat_submit_btn', function() {
     $("#input").val("")
     console.log(input_text);
     prompt_text=prompt_text+input_text+"。\n\n"
-$(".wrap").append("<div class='who'>question_num: "+question_num+"+prompt_text:"+prompt_text+"</div>");
+//$(".wrap").append("<div class='who'>question_num: "+question_num+"+prompt_text:"+prompt_text+"</div>");
 if(question_num >=3){//質問を3つ以上答えていたら
     $.ajax({
         type: 'POST',

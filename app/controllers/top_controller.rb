@@ -58,7 +58,7 @@ class TopController < ApplicationController
       req.body = payload 
     end
 =end
-
+=begin
     #@aim = Aim.all
     #@aim = Aim.limit(5) 
     #@page = 0
@@ -68,6 +68,8 @@ class TopController < ApplicationController
       format.html
       format.js
     end
+=end
+    @aims = Aim.limit(5) 
 
     if user_signed_in?
       # ログイン中の場合の処理
@@ -80,8 +82,25 @@ class TopController < ApplicationController
   end
 
   def index
-    @aim = Aim.limit(5).offset(params[:page].to_i * 5)  
+    @aim = Aim.limit(5).offset(params[:page].to_i * 5)
+    #@aim = Aim.limit(5) 
   end
+
+  def load_more
+    #@aims = Aim.offset(5).limit(5) 
+    @aims = Aim.offset(params[:page].to_i * 5).limit(5)
+    #@aims = Aim.offset(1 * 5).limit(5) #offsetでスキップする
+    render partial: "aim", collection: @aims 
+=begin
+    last_id = params[:last_id].to_i
+    @aim = Aim.where('id > ?', last_id).limit(5)
+    respond_to do |format|
+      format.html
+      format.js
+    end
+=end
+  end
+
 =begin
   def index
     @aim = Aim.order(created_at: :desc).page(params[:page]).per(5)

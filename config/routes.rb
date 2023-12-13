@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   get '/'  => 'top#top'
   get '/top/index'  => 'top#index'
   
+  get '/top/index'  => 'top#index'
+
+  get '/top/aim/load_more'  => 'top#load_more'
+  post '/top/aim/load_more'  => 'top#load_more'
+ 
   
   resources :contact, only: [:new, :create]
 

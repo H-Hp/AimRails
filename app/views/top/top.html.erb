@@ -25,28 +25,49 @@
   </button>
 
   <%= link_to "0", url_for(page: 0) %>
-
   <%= link_to "1", url_for(page: 1) %>
-    <%= link_to "2", url_for(page: 2) %>
+  <%= link_to "2", url_for(page: 2) %>
   <%= link_to "3", url_for(page: 3) %>
   <%= link_to "4", url_for(page: 4) %>
 
+<button id="add_at" class="add_aim_btn" data-last-id="<%= @aims.last.id %>">Load More</button>
 </div>
 
 <script>
-gon=2;
+let page=1;
 $(document).on('click', '.add_aim_btn', function(e) {
   e.preventDefault();
+  console.log("page="+page);
+
   $.ajax({
-    url: '/',
+    url: "/top/aim/load_more",
+    dataType: 'script',
+    data: { page: page },
+    success: (res) => {
+      $("#aims").append(res); 
+      console.log("成功"+res);
+      page++;
+    } ,
+    error: (res) => {
+      console.log("失敗"+res.responseText)
+    }
+  });
+  
+/*  
+  //var lastId = $(this).data("last-id");
+  var lastId = 32;
+  $.ajax({
+    url: '/top/aim/load_more',
     dataType: 'script',
     type: 'GET',
-    data: { page: gon.page },
+    //data: { page: gon.page },
+    data: { last_id: lastId },
     success: function(response) {
       gon.page += 1;
       //console.log("response"+response)
     }
   });
+  */
 });
 /*
 // 記事のテンプレート
