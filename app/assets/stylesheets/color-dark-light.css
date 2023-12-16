@@ -117,7 +117,8 @@ body.dark-mode .tablink {background-color: #2f3232;color: #fff;border:1px solid 
 
 body.light-mode .dot_menu-icon {color: black;}
 body.dark-mode .dot_menu-icon {color: white;}
-
+body.light-mode .hop{color: black;}
+body.dark-mode .hop{color: white;}
 
 /*Aim作成/編集*/
 body.light-mode .aim_create_edit_wrap input[type="text"]{background-color: white;color: black;}

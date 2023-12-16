@@ -6,8 +6,11 @@
 <%= render 'shared/header' %>
 <%= render 'shared/side-ads' %>
 <%= stylesheet_link_tag "aim" %>
+<%= stylesheet_link_tag "article" %>
 
 <div class="aim_wrap">
+
+ <h1><%= @aim.title %></h1>
 
 <div class="toolbar">
     <% if user_signed_in? %>
@@ -45,7 +48,7 @@
     <a href="/user/<%= @author.user_name %>">@<%= @author.user_name %></a>
     </h4>
 
-    <h1><%= @aim.title %></h1>
+   
 
     <div class="content_wrap">
     <%= markdown(@aim.content) %>
@@ -62,7 +65,7 @@
     <h2 class="relation_aims_h">関連するaim</h2>
           <% @relation_aims.each do |aim| %>
               <a href="/aim/<%= aim.id %>" class="aim_wrap_a">
-                <div class="aim_wrap" id="">
+                <div class="relation_aim_wrap" id="">
                   <div class="aim_img_div">
                         <% if aim&.aim_thumb_img.attached? %>
                             <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
@@ -70,7 +73,7 @@
                             <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
                         <% end %>
                   </div>
-                  <div class="aim_title_content_div">
+                  <div class="relation_aim_title_content_div">
                     <div class="aim_title_div">
                       <h2 class="aim_title"><%= aim.title %></h2>
                     </div>
