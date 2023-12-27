@@ -182,6 +182,7 @@ top: 62px;
 
 /* スマートフォン用：画面幅が600px以下 */
 @media only screen and (max-width: 600px) {
+  body{font-size: 12px;}
   .Logo{margin-left:10px;margin-top:-9px;}
    main{width: 100%;left:0;padding-top: 0;}
   .side-ads-wrap{display: none;}

@@ -128,7 +128,7 @@
         <% @notifications.each do |nc| %>
           <div class="nc_wrap">
             <div class="nc_img_wrap">
-              <%= image_tag '/default_notifications_icon.png', alt: "img",class: "nc_img", id: "thumbnail-img",loading:"lazy" ,height:"26", width:"26"%>
+              <%= image_tag '/default_notifications_icon.svg', alt: "img",class: "nc_img", id: "thumbnail-img",loading:"lazy" ,height:"26", width:"26"%>
             </div>
             <a href="<%= nc[:url] %>" class="nc_a_wrap">
               <p><%= nc[:title] %></p>

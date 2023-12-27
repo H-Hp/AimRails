@@ -43,15 +43,22 @@ class AimController < ApplicationController
     @aim = Aim.find(params[:id])
     #@aim = Aim.find_by(id: params[:id])
     if @aim.update(aim_params)
+      
+      
       #サムネのアップロード
-      params.permit(:aim_thumb_img) 
-      #if @aim.aim_thumb_img.attach(io: params[:aim_thumb_img], filename: "aim_thumb_"+@aim.id.to_s)
-      #@user.user_icon_image.attach key: "user_icon/#{@user.id.to_s}", io: params[:user_icon_image], filename: "#{@user.id.to_s}"
-      if @aim.aim_thumb_img.attach key: "aim_thumb/#{@aim.id.to_s}", io: params[:aim_thumb_img], filename: "#{@aim.id.to_s}"
-
-        redirect_to @aim
+      aim_thumb_img_params = params.permit(:aim_thumb_img) 
+      if aim_thumb_img_params.nil?
+        #puts params.permit(:aim_thumb_img) 
+        #binding.pry
+        #if @aim.aim_thumb_img.attach(io: params[:aim_thumb_img], filename: "aim_thumb_"+@aim.id.to_s)
+        #@user.user_icon_image.attach key: "user_icon/#{@user.id.to_s}", io: params[:user_icon_image], filename: "#{@user.id.to_s}"
+        if @aim.aim_thumb_img.attach key: "aim_thumb/#{@aim.id.to_s}", io: params[:aim_thumb_img], filename: "#{@aim.id.to_s}"
+          redirect_to @aim
+        else
+          render 'edit'
+        end
       else
-        render 'edit'
+        redirect_to @aim
       end
     else
       render 'edit'

@@ -77,7 +77,11 @@ header{
   margin-right: 12px;
     position: relative;
     width: 320px;
-} 
+}
+.search-form-input:active, .search-form-input:focus {
+  outline: none;
+}
+
 .search-form-span{
   display: inline-block;
     flex-shrink: 0;
@@ -107,7 +111,14 @@ header{
 
 .search-btn-mini {
   display: none;
+  cursor: pointer;
+  outline: none;
 } 
+.search-btn-mini:active, .search-btn-mini:focus {
+  outline: none;
+}
+
+
 @media (max-width: 991px) {
   .search-form{
     display: none;
@@ -152,6 +163,10 @@ header{
   border-radius: 0;
   margin: 0;
 }
+.notifications-button:active, .notifications-button:focus {
+  outline: none;
+}
+
 .material-symbols-outlined {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
@@ -194,6 +209,10 @@ header{
   user-select: none;
   background: none;
 }
+.header-user-icon-btn:active, .header-user-icon-btn:focus {
+  outline: none;
+}
+
 .user-icon button svg{
     border-radius: 50%;
     display: flex;

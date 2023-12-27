@@ -1,17 +1,20 @@
 <% content_for :title do %>遊<% end %>
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:description => "適当に時間をつぶせるサービスです。") %>
+<% end %>
 <%= render 'shared/header' %>
 <%= stylesheet_link_tag "top" %>
 <%= stylesheet_link_tag "play" %>
 
 <div class="content_wrap">
   <h1>遊・完全匿名/Completely anonymous・好きなこと書いてね/Write what you like</h1>
-     <h5>毎日24時間、先着1人だけ配信できます。</h5>
-     <h5>1人6時間までです。</h5>
-     <h5>画面全部使うのでバナー広告</h5>
-     <h5>作業中や暇なときになんとなくアクセスできて、なんとなくいられればいい</h5>
-     <h5>完全匿名/Completely anonymous</h5>
-     <h5>好きなこと書いてね/Write what you like</h5>
-     <h5>Twitterでゲームやります！この画面内で謎を解いてアイテムを発見すると1000円プレゼントします！</h5>
+     <p>毎日24時間、先着1人だけ配信できます。</p>
+     <p>1人6時間までです。</p>
+     <p>画面全部使うのでバナー広告</p>
+     <p>作業中や暇なときになんとなくアクセスできて、なんとなくいられればいい</p>
+     <p>完全匿名/Completely anonymous</p>
+     <p>好きなこと書いてね/Write what you like</p>
+     <p>Twitterでゲームやります！この画面内で謎を解いてアイテムを発見すると1000円プレゼントします！</p>
      <p>同時接続数：12355人</p>
 
   <div class="live_wrap">

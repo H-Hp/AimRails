@@ -1,4 +1,4 @@
-<% content_for :title do %><% @aim.title %><% end %>
+<% content_for :title do %>【<% @aim.title %>】になる方法や仕事内容や年収は？徹底解説<% end %>
 <% content_for :meta_tags do %>
   <%= display_meta_tags(:description => sanitize(markdown(@aim.content))) %>
 <% end %>
@@ -10,7 +10,7 @@
 
 <div class="aim_wrap">
 
- <h1><%= @aim.title %></h1>
+ <h1>【<%= @aim.title %>】になる方法や仕事内容や年収は？徹底解説</h1>
 
 <div class="toolbar">
     <% if user_signed_in? %>
@@ -44,9 +44,9 @@
 </div>
 
 
-    <h4>
+    <div>
     <a href="/user/<%= @author.user_name %>">@<%= @author.user_name %></a>
-    </h4>
+    </div>
 
    
 
@@ -70,7 +70,7 @@
                         <% if aim&.aim_thumb_img.attached? %>
                             <%= image_tag aim.aim_thumb_img ,class:"thumbnail-img", id: "thumbnail-img" %>
                         <% else %>
-                            <%= image_tag '/default_aim_thumb.png', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
+                            <%= image_tag '/default_aim_thumb.webp', alt: "img", class: "thumbnail-img", id: "thumbnail-img" %>
                         <% end %>
                   </div>
                   <div class="relation_aim_title_content_div">

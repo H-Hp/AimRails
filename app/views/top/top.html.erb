@@ -16,11 +16,30 @@
   <%= render @aims %>
 </div>
 
+<!--
+<i class="fa-duotone fa-spinner loading" id="loading"></i>
+-->
+<div class="loader loading"  id="loading"></div>
 
+<style>
+.loader {
+  display:none;
+  position: relative;
+  left: 40%;
+  transform: translateX(-40%);
 
-  <button id="add_aim_btn" class="add_aim_btn btn btn-primary">
-      さらに表示
-  </button>
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+</style>
+<button id="add_aim_btn" class="add_aim_btn btn btn-primary">
+    さらに表示
+</button>
 
 <!--
 <%= link_to 'More aims', '#', id: 'load-more' %>
@@ -38,9 +57,12 @@
 
 <script>
 let page=1;
+let $loading = $("#loading"); 
 $(document).on('click', '.add_aim_btn', function(e) {
   e.preventDefault();
   console.log("page="+page);
+  $loading.show();
+  $('html, body').animate({scrollTop:$(document).height()}, 'slow');//一番下までスクロール
 
   $.ajax({
     url: "/top/aim/load_more",
@@ -50,6 +72,8 @@ $(document).on('click', '.add_aim_btn', function(e) {
       $("#aims").append(res); 
       console.log("成功"+res);
       page++;
+      $('html, body').animate({scrollTop:$(document).height()}, 'slow');//一番下までスクロール
+      $loading.hide();
     } ,
     error: (res) => {
       console.log("失敗"+res.responseText)

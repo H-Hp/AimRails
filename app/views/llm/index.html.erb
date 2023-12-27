@@ -1,12 +1,15 @@
 <% content_for :title do %>LLM<% end %>
+<% content_for :meta_tags do %>
+  <%= display_meta_tags(:description => "LLMによって目標を発見するWebサービスです。") %>
+<% end %>
+<%= render 'shared/header' %>
 <%= stylesheet_link_tag "top" %>
 <%= render 'shared/side-ads' %>
 <%= stylesheet_link_tag "llm" %>
 
 
 <div class="content_wrap">
-<button id="delete_btn" class="btn alert-btn">履歴を削除</button>
-<div><h2>aimロゴ</h2></div>
+    <button id="delete_btn" class="delete_btn btn alert-btn">履歴を削除</button>
 
     <div class='who'>aim_ai</div>
     <div class='ai_statement statement'>
@@ -15,7 +18,7 @@
 
     <div class="wrap"></div>
     <div class="chat_wrap">
-        <textarea type="text" class="input" id="input"></textarea>
+        <textarea type="text" class="input" id="input" placeholder="入力" aria-label="入力"></textarea>
         <button id="submit" class="chat_submit_btn" >送信</button>
     </div>
 </div>
