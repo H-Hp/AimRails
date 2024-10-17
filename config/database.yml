@@ -61,6 +61,7 @@ production_render_com: #Render.comのDB設定
   username: <%= ENV["SUPABASE_USERNAME"] %>
   database: <%= ENV["SUPABASE_DATABASE"] %>
   port: <%= ENV["SUPABASE_PORT"] %>
+  prepared_statements: false
 
 production-supabase:
   <<: *production

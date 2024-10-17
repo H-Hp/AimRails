@@ -69,8 +69,8 @@ class TopController < ApplicationController
       format.js
     end
 =end
-    #@aims = Aim.limit(5) 
-    @aims = Aim.recent 
+    @aims = Aim.limit(5) 
+    #@aims = Aim.recent 
 
     if user_signed_in?
       # ログイン中の場合の処理
