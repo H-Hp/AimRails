@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Phaser from 'phaser'
 
+import LoginPlugin from './LoginPlugin';
 import MainScene from '../scenes/MainScene'
 import GachaScene from '../scenes/GachaScene'
 /*import MissionScene from '../scenes/MissionScene'
@@ -30,12 +31,11 @@ const AimRoom = () => {
       },
       //scene: [MainScene,MissionScene,GachaScene,ChargeScene],
       scene: [MainScene,GachaScene],
-      /*plugins: {
+      plugins: {
         global: [
           { key: 'LoginPlugin', plugin: LoginPlugin, start: true }
         ]
       },
-      */
     }
     const game = new Phaser.Game(config)
     //gameRef.current = game

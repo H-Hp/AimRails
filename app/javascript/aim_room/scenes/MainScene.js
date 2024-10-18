@@ -2,16 +2,25 @@ import Phaser from 'phaser'
 import CristalAmountButton from '../components/CristalAmountButton.js';
 import ModalWindow from '../components/ModalWindow'
 import Music from '../components/Music.js';
+import LoginoutButton from '../components/LoginoutButton.js';
 
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
     super('MainScene')
+
+   this.isLoggedIn = false;
   }
   init() {
-    // データ属性から値を読み取る
+    //素材のアセットコンパイルでのフィンガープリント付きのパスを取得
     const gameElement = document.querySelector('[data-react-class="AimRoom"]');
     this.props = JSON.parse(gameElement.getAttribute('data-react-props'));
+
+    //ログイン判定
+    this.loginPlugin = this.plugins.get('LoginPlugin');
+    this.loginPlugin.checkLoginStatus().then(isLoggedIn => {
+      this.isLoggedIn=isLoggedIn
+    });
 
   }
   preload() {
@@ -58,6 +67,9 @@ export default class MainScene extends Phaser.Scene {
 
     this.bagButton = this.add.image(window.innerWidth*0.7, 50, 'bag_icon').setScale(0.2).setInteractive();
     this.menuContainer.add(this.bagButton);
+
+    //this.LoginoutButton = new LoginoutButton(this, window.innerWidth*0.2, 0, this.isLoggedIn);
+    //this.menuContainer.add(this.LoginoutButton);
 
     this.mission_button = this.add.image(window.innerWidth*0.75, 50, 'mission_icon').setInteractive().setScale(0.2);
     this.menuContainer.add(this.mission_button);

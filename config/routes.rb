@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   #get '/'  => 'top#top'
   root 'aim_room#index'
   get '/'  => 'aim_room#aim_room'
-  #get 'aim_room/index'
+  get 'check_login_status', to: 'aim_room#check_login_status'
 
-  
   
 
   #devise_for :users
