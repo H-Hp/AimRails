@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-//import ButtonText from './ButtonText.js';
+import ButtonText from './ButtonText.js';
 
 export default class ModalWindow extends Phaser.GameObjects.Container {
   constructor(scene, x, y, width, height, content) {

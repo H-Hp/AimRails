@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import CristalAmountButton from '../components/CristalAmountButton.js';
+import ModalWindow from '../components/ModalWindow'
 
 export default class MainScene extends Phaser.Scene {
   constructor() {

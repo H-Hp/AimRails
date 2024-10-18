@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-//import ModalWindow from './ModalWindow'
+import ModalWindow from './ModalWindow'
 
 export default class CristalAmountButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, isLoggedIn) {
@@ -66,8 +66,8 @@ export default class CristalAmountButton extends Phaser.GameObjects.Container {
       if (this.scene.isLoggedIn) {
           this.scene.scene.start('ChargeScene');
       } else {
-          //this.modal = new ModalWindow(this.scene, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。');
-          //this.modal.open();
+          this.modal = new ModalWindow(this.scene, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。');
+          this.modal.open();
       }
   }
 
