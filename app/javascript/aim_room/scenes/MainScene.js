@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import CristalAmountButton from '../components/CristalAmountButton.js';
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -58,7 +59,8 @@ export default class MainScene extends Phaser.Scene {
     this.gacha_button = this.add.image(window.innerWidth*0.8, 50, 'gacha_icon').setInteractive().setScale(0.05);
     this.menuContainer.add(this.gacha_button);
 
-    
+    this.CristalAmountButton = new CristalAmountButton(this, window.innerWidth*0.9, 50, this.isLoggedIn); 
+    this.menuContainer.add(this.CristalAmountButton); 
   }
 
 
