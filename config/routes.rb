@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  #root 'top#top'
+  #get '/'  => 'top#top'
+  root 'aim_room#index'
+  get '/'  => 'aim_room#aim_room'
+  #get 'aim_room/index'
+
+  
+  
+
   #devise_for :users
   devise_for :users, controllers: {       # ← 恐らく最初は”devise_for:”のみの記載かと
     registrations: "users/registrations",
@@ -11,8 +20,7 @@ Rails.application.routes.draw do
   post '/user/follow_delete', to: 'user#follow_delete'
 
 
-  root 'top#top'
-  get '/'  => 'top#top'
+
   get '/top/index'  => 'top#index'
   
   get '/top/index'  => 'top#index'
