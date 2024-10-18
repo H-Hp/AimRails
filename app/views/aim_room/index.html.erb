@@ -1,2 +1,46 @@
 <h1>Welcome to Phaser Game in Rails!</h1>
-<%= react_component("PhaserGame") %>
+
+<%= asset_path('aimroom/back.png') %>
+
+<div 
+  data-react-class="PhaserGame" 
+  data-react-props="<%= {
+    backImagePath: asset_path('aimroom/back.png'),
+    deskImagePath: asset_path('aimroom/desk.png')
+  }.to_json %>"
+></div>
+
+
+<%= 
+=begin
+react_component("PhaserGame", {
+  backImagePath: asset_path('aimroom/back.png'),
+  deskImagePath: asset_path('aimroom/desk.png')
+})
+
+
+
+react_component("PhaserGame", {
+  backImagePath: asset_path('aimroom/back.png'),
+  deskImagePath: asset_path('aimroom/desk.png')
+}) 
+
+
+react_component("PhaserGame", {
+  backImagePath: asset_path('aimroom/back.png'),
+  deskImagePath: asset_path('aimroom/desk.png')
+}.to_json.html_safe) 
+
+=begin
+
+#react_component("PhaserGame") 
+
+
+react_component("PhaserGame", {
+  #backImagePath: asset_path('aimroom/back.png'),
+  #deskImagePath: asset_path('aimroom/desk.png')
+  backImagePath: asset_path('back.png'),
+  deskImagePath: asset_path('desk.png')
+}) 
+=end
+%>
