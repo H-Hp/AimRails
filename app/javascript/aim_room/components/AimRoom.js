@@ -12,7 +12,7 @@ const AimRoom = () => {
   const gameRef = useRef(null)
 
   // データ属性から値を読み取る
-  const gameElement = document.querySelector('[data-react-class="PhaserGame"]');
+  const gameElement = document.querySelector('[data-react-class="AimRoom"]');
   const props = JSON.parse(gameElement.getAttribute('data-react-props'));
   const { backImagePath, deskImagePath } = props;
 
