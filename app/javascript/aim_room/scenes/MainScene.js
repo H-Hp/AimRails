@@ -61,7 +61,20 @@ export default class MainScene extends Phaser.Scene {
 
     this.CristalAmountButton = new CristalAmountButton(this, window.innerWidth*0.9, 50, this.isLoggedIn); 
     this.menuContainer.add(this.CristalAmountButton); 
+
+    //自動リサイズ 
+    this.scale.on('resize', this.resize, this);// リサイズイベントのリスナーを追加 
+    this.resize.call(this, this.scale.gameSize);// 初期配置 
   }
 
-
+  resize(gameSize) { 
+    // キャンバスのサイズを取得 
+    const width = gameSize.width; 
+    const height = gameSize.height; 
+    //this.menuContainer.setPosition(0, window.innerHeight-100); 
+    this.bagButton.setPosition(window.innerWidth*0.7, 50); 
+    this.mission_button.setPosition(window.innerWidth*0.75, 50); 
+    this.gacha_button.setPosition(window.innerWidth*0.8, 50); 
+    this.CristalAmountButton.setPosition(window.innerWidth*0.9, 50);  
+  } 
 }
