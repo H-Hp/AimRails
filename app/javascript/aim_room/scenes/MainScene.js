@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 import CristalAmountButton from '../components/CristalAmountButton.js';
 import ModalWindow from '../components/ModalWindow'
+import Music from '../components/Music.js';
+
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -16,6 +18,9 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('background', this.props.back);
     this.load.image('desk', this.props.desk);
     this.load.spritesheet('character', this.props.chara, { frameWidth: 341, frameHeight: 341 });
+    this.load.audio('music01', this.props.music1);
+    this.load.audio('music02', this.props.music2);
+
     this.load.image('shop_icon', this.props.shop_icon);
     this.load.image('bag_icon', this.props.bag_icon);
     this.load.image('gacha_icon', this.props.gacha_icon);
@@ -62,6 +67,22 @@ export default class MainScene extends Phaser.Scene {
 
     this.CristalAmountButton = new CristalAmountButton(this, window.innerWidth*0.9, 50, this.isLoggedIn); 
     this.menuContainer.add(this.CristalAmountButton); 
+
+    const music=[
+      {"name": "静けき音楽","path": "music01"},
+      {"name": "シャイニングスター","path": "music02"}
+    ];
+    const musicNames = [];
+    const musicPaths = [];
+    music.forEach(music => {
+      console.log(`Name: ${music.name}, Path: ${music.path}`);
+      musicNames.push(music.name);
+      musicPaths.push(music.path);
+      //this.load.audio(`${music.path}`, `assets/images/item/${music.path}.mp3`);
+    }); 
+
+    this.music = new Music(this, 0, 0,musicPaths,musicNames);
+    this.menuContainer.add(this.music);
 
     //自動リサイズ 
     this.scale.on('resize', this.resize, this);// リサイズイベントのリスナーを追加 
