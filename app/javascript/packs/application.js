@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import PhaserGame from '../aim_room/components/PhaserGame'
+import AimRoom from "../aim_room/components/AimRoom"
 
 //Webpackerが処理できるように画像をインポートする Import images so Webpacker processes them
 require.context('../../assets/images', true)
@@ -34,5 +35,6 @@ require.context('../../assets/images', true)
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.body.appendChild(document.createElement('div'))
   const root = createRoot(container)
-  root.render(<PhaserGame />)
+  //root.render(<PhaserGame />)
+  root.render(<AimRoom />)
 })
