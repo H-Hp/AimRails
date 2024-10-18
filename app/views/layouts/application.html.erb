@@ -90,10 +90,9 @@ window.PushCodeInit = function() {
 
   <body class="light-mode">
   
-  
-
+  <%= yield %>
+<!--10/18ケシ
 <main>
-
     <% flash.each do |key, value| %>
       <div class="flash <%= key %>">
         <%= value %>
@@ -101,11 +100,12 @@ window.PushCodeInit = function() {
     <% end %>
     <%= yield %>
 </main>
-
+-->
 
 
 
 <script>
+/*10/18ケシ
 // ローカルストレージから値を取得
   const theme = localStorage.getItem('theme');
   const stretch = localStorage.getItem('stretch');
@@ -156,9 +156,8 @@ $(function(){
 		location.href="/";
 	});
 });
-</script>
 
-<script>
+
 //こっからヘッダーの処理
 $(function(){
 
@@ -187,6 +186,7 @@ document.documentElement.addEventListener("click", function () {
   }
 });
 
+
 const dropdownBtn_notifications = document.getElementById("notifications-button");
 const dropdownMenu_notifications = document.getElementById("dropdown-notifications");
 // Toggle dropdown function
@@ -213,6 +213,8 @@ document.documentElement.addEventListener("click", function () {
   }
 });
 
+});
+
 /*
 //ログアウト
 const logout_btn = document.getElementById("logout-btn");
@@ -236,7 +238,6 @@ logout_btn.addEventListener("click", function (e) {
 
 */
 
-});
 //こっからヘッダーの処理ここまで
 </script>
 
