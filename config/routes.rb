@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/'  => 'aim_room#aim_room'
   get 'check_login_status', to: 'aim_room#check_login_status'
 
+  post 'getMyItem', to: 'aim_room#getmyitem'
+
   
 
   #devise_for :users

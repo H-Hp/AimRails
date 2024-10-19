@@ -3,6 +3,7 @@ import CristalAmountButton from '../components/CristalAmountButton.js';
 import ModalWindow from '../components/ModalWindow'
 import Music from '../components/Music.js';
 import LoginoutButton from '../components/LoginoutButton.js';
+import ItemListModalWindow from '../components/ItemListModalWindow.js'
 
 
 export default class MainScene extends Phaser.Scene {
@@ -67,6 +68,50 @@ export default class MainScene extends Phaser.Scene {
 
     this.bagButton = this.add.image(window.innerWidth*0.7, 50, 'bag_icon').setScale(0.2).setInteractive();
     this.menuContainer.add(this.bagButton);
+    this.bagButton.on('pointerdown', () => {
+        if (this.isLoggedIn) {// ログイン済みの場合の処理
+          fetch('/getMyItem', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+              user_id: 1
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log("data:"+data.myitems);
+              const numberString = data.myitems;
+              const itemData=data.itemData;
+              console.log(`itemData ：${itemData}`);
+              const my_items=[];
+              numberString.forEach(id => {
+                const item = itemData.find(item => item.id === id);
+                if (item) {
+                  my_items.push({ id: item.id, name: item.name, description: item.description, quantity: item.max_quantity, path: item.path, type: item.type});
+                  console.log(`ID: ${item.id}, Name: ${item.name}, Type: ${item.type}, Description: ${item.description}, Rarity: ${item.rarity}, Max Quantity: ${item.max_quantity}, path: ${item.path}`);
+                }
+              });
+              //this.modal = new ItemListModalWindow(this, window.innerWidth/2, window.innerHeight/2, window.innerWidth*0.6, window.innerHeight*0.6, '保有アイテム',my_items,this.updateEnvironment.bind(this))
+              this.modal = new ItemListModalWindow(this, window.innerWidth/2, window.innerHeight/2, window.innerWidth*0.6, window.innerHeight*0.6, '保有アイテム',my_items,console.log("a"))
+              this.modal.open()
+          })
+          .catch(error => console.error('Error:', error));
+        } else {// 未ログインの場合の処理
+          this.modal = new ModalWindow(this, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。')
+          this.modal.open()
+        }
+    });
+    this.bagButton.on('pointerover', () => {
+      this.input.setDefaultCursor('pointer')
+      this.bagButton.setTint(0x44ff44);  // ホバー時に緑色にティント
+    })
+    this.bagButton.on('pointerout', () => {
+      this.input.setDefaultCursor('default')
+      this.bagButton.clearTint();  // ホバーが外れたらティントをクリア
+    });
 
     //this.LoginoutButton = new LoginoutButton(this, window.innerWidth*0.2, 0, this.isLoggedIn);
     //this.menuContainer.add(this.LoginoutButton);
