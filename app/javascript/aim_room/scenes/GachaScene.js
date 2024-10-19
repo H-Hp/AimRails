@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 import CristalAmountButton from '../components/CristalAmountButton.js';
 import ModalWindow from '../components/ModalWindow'
-//import Header from '../components/Header.js';
+import Header from '../components/Header.js';
 import ButtonText from '../components/ButtonText.js';
 //import LoginPlugin from '../components/LoginPlugin';
 
@@ -52,7 +52,7 @@ export default class GachaScene extends Phaser.Scene {
     backgroud.setScale(2);
     backgroud.setScale(1.5);
 
-    ////this.Header = new Header(this, 'ガチャ',this.loginPlugin);
+    this.Header = new Header(this, 'ガチャ',this.loginPlugin);
 
     const gachasContainer = this.add.container(50, 50);
   const gacha_data=[
