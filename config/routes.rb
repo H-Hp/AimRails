@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   root 'aim_room#index'
   get '/'  => 'aim_room#aim_room'
   get 'check_login_status', to: 'aim_room#check_login_status'
+  get 'check_crystal_amount', to: 'aim_room#check_crystal_amount'
+
 
   post 'getMyItem', to: 'aim_room#getmyitem'
+  post 'gacha', to: 'aim_room#gacha'
 
   
 

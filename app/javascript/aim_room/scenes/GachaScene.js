@@ -1,12 +1,9 @@
 import Phaser from 'phaser'
-/*import CristalAmountButton from '../components/CristalAmountButton.js';
+import CristalAmountButton from '../components/CristalAmountButton.js';
 import ModalWindow from '../components/ModalWindow'
-import Header from '../components/Header.js';
+//import Header from '../components/Header.js';
 import ButtonText from '../components/ButtonText.js';
-*/
-
 //import LoginPlugin from '../components/LoginPlugin';
-
 
 export default class GachaScene extends Phaser.Scene {
 
@@ -15,28 +12,11 @@ export default class GachaScene extends Phaser.Scene {
     this.isLoggedIn=false;
   }
 
-  preload() {
-    this.load.image('gacha_backgroud', 'assets/images/Gacha/backgroud.png');
-    this.load.image('gacha_thumbnail1', 'assets/images/Gacha/gacha_thumbnail1.png');
-    this.load.image('gacha_thumbnail2', 'assets/images/Gacha/gacha_thumbnail2.png');
-    this.load.image('get_icon', 'assets/images/Gacha/get.png');
-    this.load.image('getModal1', 'assets/images/Gacha/getModal1.jpeg');
-    this.load.image('getModal2', 'assets/images/Gacha/getModal2.jpeg');
-    this.load.image('getModal3', 'assets/images/Gacha/getModal3.jpg');
-
-    this.load.spritesheet('box', 'assets/images/Gacha/gachaAnime612x612.png', { frameWidth: 204, frameHeight: 204 });
-    this.load.spritesheet('sweet', 'assets/images/Gacha/pipo-sweetseffect001_480.png', { frameWidth: 480, frameHeight: 480 });
-    this.load.spritesheet('pipofm', 'assets/images/Gacha/pipofm-topen03_480.png', { frameWidth: 480, frameHeight: 480 });
-
-      //this.load.image('sky', 'assets/sky.png');
-      //this.load.image('button', 'assets/sky.png');
-      //this.load.spritesheet('gachaAnimation', '/assets/gacha_animation.png', { frameWidth: 200, frameHeight: 200 })
-      //this.load.spritesheet('gachaAnimation', 'assets/images/Chara/SpriteSheet/image_fx_.png', { frameWidth: 200, frameHeight: 200 })
-
- }
-
  init() {
-  /*
+    //素材のアセットコンパイルでのフィンガープリント付きのパスを取得
+    const gameElement = document.querySelector('[data-react-class="AimRoom"]');
+    this.props = JSON.parse(gameElement.getAttribute('data-react-props'));
+  
     this.loginPlugin = this.plugins.get('LoginPlugin');
     this.loginPlugin.checkLoginStatus().then(isLoggedIn => {
       this.isLoggedIn=isLoggedIn
@@ -48,13 +28,26 @@ export default class GachaScene extends Phaser.Scene {
         // 未ログイン時の処理
       }
     });
-  */
   }
+
+  preload() {
+    this.load.image('gacha_backgroud', this.props.gacha_backgroud);
+    this.load.image('gacha_thumbnail1', this.props.gacha_thumbnail1);
+    this.load.image('gacha_thumbnail2', this.props.gacha_thumbnail2);
+    this.load.image('get_icon', this.props.get_icon);
+    this.load.image('getModal1', this.props.getModal1);
+    this.load.image('getModal2', this.props.getModal2);
+    this.load.image('getModal3', this.props.getModal3);
+
+    this.load.spritesheet('box', this.props.gachaAnime, { frameWidth: 204, frameHeight: 204 });
+    this.load.spritesheet('sweet', this.props.pipo, { frameWidth: 480, frameHeight: 480 });
+    this.load.spritesheet('pipofm', this.props.pipofm, { frameWidth: 480, frameHeight: 480 });
+ }
+
     
 
   create() {
-    
-    
+  
     const backgroud = this.add.image(window.innerWidth/2,window.innerHeight/2,'gacha_backgroud');
     backgroud.setScale(2);
     backgroud.setScale(1.5);
@@ -106,15 +99,8 @@ export default class GachaScene extends Phaser.Scene {
       color: '#ffffff'
     }).setOrigin(0.5)
 
-    //this.gachaAnimation = this.add.sprite(400, 300, 'gachaAnimation').setVisible(false).setDisplaySize(1000, 800);
-    /*this.gachaAnimation = this.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'gachaAnimation').setVisible(false).setDisplaySize(window.innerWidth / 2, window.innerHeight / 2);
+    
     this.anims.create({
-      key: 'spin',
-      frames: this.anims.generateFrameNumbers('gachaAnimation', { start: 0, end: 4 }),
-      frameRate: 10,
-      repeat: 2
-    })*/
-      this.anims.create({
         key: 'open',
         frames: this.anims.generateFrameNumbers('box', { start: 0, end: 5 }),
         frameRate: 5,
@@ -167,15 +153,7 @@ export default class GachaScene extends Phaser.Scene {
     //gachaConfirmModalContainer.add(this.window)
 
     // 背景（半透明の黒）
-    //this.background = this.add.rectangle(0, 0, width, height, 0x000000, 0.7)
-    //gachaConfirmModalContainer.add(this.background)
-    //this.background = this.add.image(width, height, 'getModal2');
-    //this.background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
-    //gachaConfirmModalContainer.add(this.background)
-    //this.modalBg = this.add.image(modalX, modalY, 'getModal2');
     this.modalBg = this.add.image(0, 0, 'getModal2');
-    //this.modalBg.setOrigin(0);
-    //this.modalBg.setDisplaySize(modalWidth, modalHeight);
     this.modalBg.setDisplaySize(width*2, height*1.5);
     gachaConfirmModalContainer.add(this.modalBg)
 
@@ -190,15 +168,6 @@ export default class GachaScene extends Phaser.Scene {
     this.description = this.add.text(100, 50, gacha.description, {fontSize: '24px',fill: '#f8f8ff',align: 'center', wordWrap: { width: width - 80 }}).setOrigin(0.5)
     gachaConfirmModalContainer.add(this.description)
 
-    // コンテンツテキスト
-    /*this.content = this.add.text(0, -20, item.name, {
-      fontSize: '24px',
-      fill: '#000000',
-      align: 'center',
-      wordWrap: { width: width - 80 }
-    }).setOrigin(0.5)
-    this.add(this.content)*/
-
     const gachaButton = this.add.text(0, 250, 'ガチャを引く', {
       fontSize: '32px',
       color: '#ffffff',
@@ -211,16 +180,9 @@ export default class GachaScene extends Phaser.Scene {
     gachaConfirmModalContainer.add(gachaButton)
 
     // 閉じるボタン
-    //this.closeButton = new ButtonText(this, width / 2 - 60, height / 2 - 60, '閉じる', () => {this.close()});
-    //this.closeButton = this.add.text(width / 2 - 60, height / 2 - 60, '閉じる', {fontSize: '20px',fill: '#000000',backgroundColor: '#cccccc',padding: { x: 10, y: 5 }}).setOrigin(0.5).setInteractive()
-    //this.closeButton = this.add.text(width / 2 - 60, height / 2 - 60, '閉じる', {fontSize: '20px',fill: '#000000',backgroundColor: '#cccccc',padding: { x: 10, y: 5 }}).setOrigin(0.5).setInteractive()
-    //this.closeButton = new ButtonText(this, 100, 0, '閉じる', () => { this.close(gachaConfirmModalContainer) });
     this.closeButton = this.add.image(window.innerWidth*0.4 , 70, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true });
-    //this.closeButton.on('pointerdown', this.close, gachaConfirmModalContainer);// 閉じるボタンのイベントリスナー
     this.closeButton.on('pointerdown', () => { this.close(gachaConfirmModalContainer)  });// 閉じるボタンのイベントリスナー
-    //this.closeButton.setOrigin(0.5)
     gachaConfirmModalContainer.add(this.closeButton)
-    //this.closeButton.on('pointerdown', this.close, gachaConfirmModalContainer)
   }
 
   startGacha(btn,gacha_id,gachaConfirmModalContainer) {
@@ -274,7 +236,8 @@ export default class GachaScene extends Phaser.Scene {
         .then(response => response.json())
         .then(data => {
           this.time.delayedCall(1500, () => {
-            console.log(data.item.name);
+            //console.log(data.item.name);
+            console.log(data.item);
             //this.gachaAnimation.setVisible(false)
 
             this.updateCristal();
@@ -357,19 +320,16 @@ export default class GachaScene extends Phaser.Scene {
       let item_img =null;
       loader.once('complete', () => {// 読み込み完了後に画像を表示
         item_img = this.add.image(-500, -100, 'myitem'+item.id);
-        //item_img.setScale(0.5);
         item_img.setDisplaySize(700, 550);// 画像の幅と高さを指定
         item_img.setInteractive();
         gachaGetModalContainer.add(item_img)
-        //this.add(item_img)
-        //itemContainer.add(item_img);
       });
       loader.start();// 読み込みを開始
       
 
 
     // 閉じるボタン
-    ////this.closeButton = new ButtonText(this, 100, 0, '閉じる', () => { this.close(gachaGetModalContainer) });
+    this.closeButton = new ButtonText(this, 100, 0, '閉じる', () => { this.close(gachaGetModalContainer) });
     gachaGetModalContainer.add(this.closeButton)
   }
 
