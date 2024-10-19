@@ -73,9 +73,42 @@ export default class MainScene extends Phaser.Scene {
 
     this.mission_button = this.add.image(window.innerWidth*0.75, 50, 'mission_icon').setInteractive().setScale(0.2);
     this.menuContainer.add(this.mission_button);
+    this.mission_button.on('pointerdown', () => {
+        if (this.isLoggedIn) {// ログイン済みの場合の処理
+          this.scene.start('MissionScene'); // TestSceneに遷移
+        } else {// 未ログインの場合の処理
+          this.modal = new ModalWindow(this, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。')
+          this.modal.open()
+        }
+    });      
+    this.mission_button.on('pointerover', () => {// ボタンのホバーエフェクト
+      this.input.setDefaultCursor('pointer')
+      this.mission_button.setTint(0x44ff44);  // ホバー時に緑色にティント
+    });
+    this.mission_button.on('pointerout', () => {
+      this.input.setDefaultCursor('default')
+      this.mission_button.clearTint();  // ホバーが外れたらティントをクリア
+    });
 
     this.gacha_button = this.add.image(window.innerWidth*0.8, 50, 'gacha_icon').setInteractive().setScale(0.05);
     this.menuContainer.add(this.gacha_button);
+    this.gacha_button.on('pointerdown', () => {
+        console.log('ガチャボタンがクリックされました');
+        if (this.isLoggedIn) {// ログイン済みの場合の処理
+          this.scene.start('GachaScene');
+        } else {// 未ログインの場合の処理
+          this.modal = new ModalWindow(this, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。')
+          this.modal.open()
+        }
+    });      
+    this.gacha_button.on('pointerover', () => {// ボタンのホバーエフェクト
+      this.input.setDefaultCursor('pointer')
+      this.gacha_button.setTint(0x44ff44);  // ホバー時に緑色にティント
+    });
+    this.gacha_button.on('pointerout', () => {
+      this.input.setDefaultCursor('default')
+      this.gacha_button.clearTint();  // ホバーが外れたらティントをクリア
+    });
 
     this.CristalAmountButton = new CristalAmountButton(this, window.innerWidth*0.9, 50, this.isLoggedIn); 
     this.menuContainer.add(this.CristalAmountButton); 
