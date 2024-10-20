@@ -9,19 +9,6 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
-//react
-/*import React from 'react'
-import ReactDOM from 'react-dom'
-import HelloWorld from '../aim_room/components/HelloWorld'
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <HelloWorld />,
-    document.body.appendChild(document.createElement('div')),
-  )
-})*/
-
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import AimRoom from "../aim_room/components/AimRoom"
@@ -32,6 +19,5 @@ require.context('../../assets/images', true)
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.body.appendChild(document.createElement('div'))
   const root = createRoot(container)
-  //root.render(<PhaserGame />)
   root.render(<AimRoom />)
 })

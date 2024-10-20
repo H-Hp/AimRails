@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   post 'getMyItem', to: 'aim_room#getmyitem'
   post 'gacha', to: 'aim_room#gacha'
 
-  
+  post 'stripe/webhook', to: 'aim_room#stripe'
+  get 'payment/success', to: 'aim_room#index'
+
 
   #devise_for :users
   devise_for :users, controllers: {       # ← 恐らく最初は”devise_for:”のみの記載かと

@@ -77,4 +77,67 @@ class AimRoomController < ApplicationController
     myitems = [1,2,3,4,6,13,12,11];
     render json: { myitems: myitems ,itemData: $itemData }
   end
+
+  def stripe
+    # The library needs to be configured with your account's secret key.
+    # Ensure the key is kept out of any version control system you might be using.
+    #Stripe.api_key = 'sk_test_...'
+    Stripe.api_key = 'sk_test_...'
+    # This is your Stripe CLI webhook secret for testing your endpoint locally.
+    endpoint_secret = ''
+    #set :port, 3000
+
+    payload = request.body.read
+    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    event = nil
+
+    begin
+        event = Stripe::Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    rescue JSON::ParserError => e
+        # Invalid payload
+        status 400
+        return
+    rescue Stripe::SignatureVerificationError => e
+        # Invalid signature
+        status 400
+        return
+    end
+
+    # Handle the event
+    case event.type
+    when 'payment_intent.succeeded'
+        payment_intent = event.data.object
+
+        # PaymentIntentから金額を取得
+        amount = payment_intent.amount
+        currency = payment_intent.currency
+        Rails.logger.info "Payment succeeded: Amount: #{amount} : #{currency}"
+
+        #購入金額によって増加するクリスタルを変化
+        new_Cristal=0
+        if amount == 120
+          new_Cristal = 100
+        elsif a == 220
+          new_Cristal = 200
+        else
+          new_Cristal = nil # 他の値の場合の処理
+        end
+
+        #data更新
+        json_path = Rails.root.join('public', 'data.json')
+        data = JSON.parse(File.read(json_path))
+        now_Cristal = data['Cristal']
+        Rails.logger.error "ロロロロログ: #{now_Cristal}"
+        data['Cristal'] = now_Cristal+new_Cristal
+        File.write(json_path, JSON.pretty_generate(data))
+    # ... handle other event types
+    else
+        puts "Unhandled event type: #{event.type}"
+    end
+
+    #status 200
+  end
+
 end
