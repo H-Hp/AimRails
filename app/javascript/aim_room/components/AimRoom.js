@@ -4,7 +4,7 @@ import Phaser from 'phaser'
 import LoginPlugin from './LoginPlugin';
 import MainScene from '../scenes/MainScene'
 import GachaScene from '../scenes/GachaScene'
-//import MissionScene from '../scenes/MissionScene'
+import MissionScene from '../scenes/MissionScene'
 import ChargeScene from '../scenes/ChargeScene'
 //import LoginPlugin from './LoginPlugin';
 
@@ -29,8 +29,7 @@ const AimRoom = () => {
         width: window.innerWidth,
         height: window.innerHeight
       },
-      //scene: [MainScene,MissionScene,GachaScene,ChargeScene],
-      scene: [MainScene,GachaScene,ChargeScene],
+      scene: [MainScene,MissionScene,GachaScene,ChargeScene],
       plugins: {
         global: [
           { key: 'LoginPlugin', plugin: LoginPlugin, start: true }

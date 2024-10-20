@@ -17,6 +17,10 @@ export default class ChargeScene extends Phaser.Scene {
   }
 
   init() {
+    //素材のアセットコンパイルでのフィンガープリント付きのパスを取得
+    const gameElement = document.querySelector('[data-react-class="AimRoom"]');
+    this.props = JSON.parse(gameElement.getAttribute('data-react-props'));
+    
     this.loginPlugin = this.plugins.get('LoginPlugin');
     this.loginPlugin.checkLoginStatus().then(isLoggedIn => {
       this.isLoggedIn=isLoggedIn
@@ -24,6 +28,19 @@ export default class ChargeScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('gacha_backgroud', this.props.gacha_backgroud);
+    this.load.image('getModal1', this.props.getModal1);
+    this.load.image('getModal2', this.props.getModal2);
+    this.load.image('getModal3', this.props.getModal3);
+
+    this.load.image('charge_item1', this.props.money_icon);
+    this.load.image('charge_item2', this.props.money_icon);
+    this.load.image('charge_item3', this.props.money_icon);
+    this.load.image('charge_item4', this.props.money_icon);
+    this.load.image('charge_item5', this.props.money_icon);
+    this.load.image('charge_item6', this.props.money_icon);
+
+
     /*this.load.image('gacha_backgroud', 'assets/images/Gacha/backgroud.png');
     this.load.image('charge_item1', 'assets/images/money/money.png');
     this.load.image('charge_item2', 'assets/images/money/money.png');

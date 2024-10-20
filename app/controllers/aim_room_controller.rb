@@ -140,4 +140,59 @@ class AimRoomController < ApplicationController
     #status 200
   end
 
+
+  def check_mission_bonus
+    json_path = Rails.root.join('public', 'data.json')
+    data = JSON.parse(File.read(json_path))
+    newAchiveNum = LoginBonusCheck(data['LastLoginDay'])
+
+    #statusがyetの中から新たにミッションを達成できてる数を取得し、その数を返す
+=begin
+    lastLoginDate = data['lastLoginDate']
+    #lastLoginDate = localStorage.getItem('lastLoginDate') 
+    today = new Date().toDateString() 
+    # 今日の日付を取得
+    today = Date.today
+=end
+    render json: { login: newAchiveNum ,GettedLoginBonus: data['GettedLoginBonus'],longstay: '1' }
+  end
+  def all_get_mission_bonus
+    longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
+    longstayBonusNewAchiveNum = params[:longstayBonusNewAchiveNum]
+
+    #lastLoginDay = data['LastLoginDay']
+    #newAchiveNum = LoginBonusCheck(lastLoginDay)
+    data['GettedLoginBonus'] = data['GettedLoginBonus']+longinBonusNewAchiveNum
+    data['Cristal'] = data['Cristal']+50
+    File.write(json_path, JSON.pretty_generate(data))
+    #statusがyetの中から、新たにミッションを達成できてるもの取得し、statusをgettedに上書きし、報酬のクリスタルを増加させ、
+    render json: { GettedLoginBonus: data['GettedLoginBonus'] ,longstay: longstayBonusNewAchiveNum }
+  end
+
+  def one_get_mission_bonus
+    longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
+    longstayBonusNewAchiveNum = params[:longstayBonusNewAchiveNum]
+    json_path = Rails.root.join('public', 'data.json')
+    data = JSON.parse(File.read(json_path))
+    #lastLoginDay = data['LastLoginDay']
+    #newAchiveNum = LoginBonusCheck(lastLoginDay)
+    data['GettedLoginBonus'] = data['GettedLoginBonus']+longinBonusNewAchiveNum
+    data['Cristal'] = data['Cristal']+50
+    File.write(json_path, JSON.pretty_generate(data))
+    #statusがyetの中から、新たにミッションを達成できてるもの取得し、statusをgettedに上書きし、報酬のクリスタルを増加させ、
+    render json: { GettedLoginBonus: data['GettedLoginBonus'] ,longstay: longstayBonusNewAchiveNum }
+  end
+  def LoginBonusCheck(lastLoginDay)
+    today = Date.today.strftime('%Y/%m/%d')
+    #LastLoginDay = Date.new(2024, 10, 30)
+    newAchiveNum = 0
+    if lastLoginDay != today
+      #this.awardDailyBonus()
+      #localStorage.setItem('lastLoginDate', today) 
+      newAchiveNum = 1
+    end
+    newAchiveNum
+  end
+
+
 end

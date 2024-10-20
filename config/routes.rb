@@ -7,9 +7,12 @@ Rails.application.routes.draw do
   get 'check_login_status', to: 'aim_room#check_login_status'
   get 'check_crystal_amount', to: 'aim_room#check_crystal_amount'
 
-
   post 'getMyItem', to: 'aim_room#getmyitem'
   post 'gacha', to: 'aim_room#gacha'
+
+  post 'checkMissionBonus', to: 'aim_room#check_mission_bonus'
+  post 'all_getMissionBonus', to: 'aim_room#all_get_mission_bonus'
+  post 'one_getMissionBonus', to: 'aim_room#one_get_mission_bonus'
 
   post 'stripe/webhook', to: 'aim_room#stripe'
   get 'payment/success', to: 'aim_room#index'
