@@ -3,8 +3,8 @@ require 'uri'
 require 'json'
 
 class TopController < ApplicationController
-  PUSHCODE_API_KEY="bf423538549f5ef9cda811050cb82eba2af9dcf7732e708234fa15f87e094298"
-  PUSHCODE_endpoint="https://api.pushcode.jp/v1/push/af9db06579f5de5aa32a5c165d269c2f69e0fc0cae45b607993edbb28d45b37d"
+  PUSHCODE_API_KEY=ENV['PUSHCODE_API_KEY']
+  PUSHCODE_endpoint=ENV['PUSHCODE_endpoint']
 
   def top
 
