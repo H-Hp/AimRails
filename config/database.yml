@@ -21,6 +21,7 @@ development:
   username: <%= ENV["SUPABASE_USERNAME"] %>
   database: <%= ENV["SUPABASE_DATABASE"] %>
   port: <%= ENV["SUPABASE_PORT"] %>
+  prepared_statements: false
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
