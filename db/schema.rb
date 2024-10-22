@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_22_055957) do
+ActiveRecord::Schema.define(version: 2024_10_22_125522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -115,6 +115,24 @@ ActiveRecord::Schema.define(version: 2024_10_22_055957) do
     t.string "url"
   end
 
+  create_table "placed_items", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "x_position", null: false
+    t.integer "y_position", null: false
+    t.integer "z_index", null: false
+    t.integer "rotation", default: 0
+    t.float "scale", default: 1.0
+    t.boolean "active", default: true
+    t.jsonb "properties", default: {}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["active"], name: "index_placed_items_on_active"
+    t.index ["item_id"], name: "index_placed_items_on_item_id"
+    t.index ["user_id"], name: "index_placed_items_on_user_id"
+    t.index ["z_index"], name: "index_placed_items_on_z_index"
+  end
+
   create_table "plays", force: :cascade do |t|
     t.string "message", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -158,6 +176,8 @@ ActiveRecord::Schema.define(version: 2024_10_22_055957) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "aim_rooms", "users"
+  add_foreign_key "placed_items", "items"
+  add_foreign_key "placed_items", "users"
   add_foreign_key "user_items", "items"
   add_foreign_key "user_items", "users"
 end
