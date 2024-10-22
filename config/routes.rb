@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   post '/user/follow_delete', to: 'user#follow_delete'
 
 
-  get '/top/top'  => 'top#top'
+  get '/top'  => 'top#top'
   get '/top/index'  => 'top#index'
 
   get '/top/aim/load_more'  => 'top#load_more'
