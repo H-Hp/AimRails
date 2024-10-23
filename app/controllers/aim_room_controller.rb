@@ -19,20 +19,31 @@ class AimRoomController < ApplicationController
   ];
 
   def index
+    if user_signed_in?
+      # ログイン中の場合の処理
+      @login_or_out = 'ログイン中'
+      puts "ログイン中";Rails.logger.error "ログイン中"
+    else
+      # ログインしていない場合の処理
+      @login_or_out = 'ログアウト中'
+      puts "ログアウト中";Rails.logger.error "ログアウト中"
+    end
+
   end
 
   def check_login_status
-    data = 'login'
-    #data = 'logout'
-    if data == 'logout'
-      render json: { logged_in: false }
-    elsif data == 'login'
+    if user_signed_in?
       render json: { logged_in: true }
+    else
+      render json: { logged_in: false }
     end
   end
 
   def check_crystal_amount
-    render json: { cristal_amount: 500 }
+    @AimRoom = AimRoom.find_by(user_id: current_user.id)
+    puts "@AimRoom.currency: #{@AimRoom.currency}";Rails.logger.error "@AimRoom.currency: #{@AimRoom.currency}"
+    render json: { cristal_amount: @AimRoom.currency }
+    #render json: { cristal_amount: 500 }
   end
 
 
