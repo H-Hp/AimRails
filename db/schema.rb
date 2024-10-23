@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_23_032639) do
+ActiveRecord::Schema.define(version: 2024_10_23_034217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -104,6 +104,15 @@ ActiveRecord::Schema.define(version: 2024_10_23_032639) do
     t.integer "aim_id"
   end
 
+  create_table "mission_rewards", force: :cascade do |t|
+    t.bigint "mission_id", null: false
+    t.integer "threshold"
+    t.integer "currency_amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mission_id"], name: "index_mission_rewards_on_mission_id"
+  end
+
   create_table "missions", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -186,6 +195,7 @@ ActiveRecord::Schema.define(version: 2024_10_23_032639) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "aim_rooms", "users"
+  add_foreign_key "mission_rewards", "missions"
   add_foreign_key "placed_items", "items"
   add_foreign_key "placed_items", "users"
   add_foreign_key "user_items", "items"
