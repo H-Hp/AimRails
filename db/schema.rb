@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_23_034217) do
+ActiveRecord::Schema.define(version: 2024_10_23_034735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -177,6 +177,19 @@ ActiveRecord::Schema.define(version: 2024_10_23_034217) do
     t.index ["user_id"], name: "index_user_items_on_user_id"
   end
 
+  create_table "user_missions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "mission_id", null: false
+    t.integer "progress", default: 0
+    t.boolean "completed", default: false
+    t.boolean "rewarded", default: false
+    t.datetime "last_reset_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mission_id"], name: "index_user_missions_on_mission_id"
+    t.index ["user_id"], name: "index_user_missions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -200,4 +213,6 @@ ActiveRecord::Schema.define(version: 2024_10_23_034217) do
   add_foreign_key "placed_items", "users"
   add_foreign_key "user_items", "items"
   add_foreign_key "user_items", "users"
+  add_foreign_key "user_missions", "missions"
+  add_foreign_key "user_missions", "users"
 end
