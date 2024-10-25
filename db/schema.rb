@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_23_034735) do
+ActiveRecord::Schema.define(version: 2024_10_25_211409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -83,6 +83,9 @@ ActiveRecord::Schema.define(version: 2024_10_23_034735) do
     t.jsonb "pickup", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name", default: "", null: false
+    t.text "description", default: "", null: false
+    t.integer "cost", default: 0, null: false
   end
 
   create_table "items", force: :cascade do |t|
