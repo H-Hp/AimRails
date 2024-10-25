@@ -13,7 +13,7 @@ export default class CristalAmountButton extends Phaser.GameObjects.Container {
   }
 
   checkCristalAmount() {
-/*    fetch('/check_crystal_amount', {
+    fetch('/check_crystal_amount', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -29,8 +29,8 @@ export default class CristalAmountButton extends Phaser.GameObjects.Container {
       //this.scene.restart()  // シーンを再起動してログイン状態を反映
     })
     .catch(error => console.error('Error:', error))
-    */
-    this.cristalAmount = 100
+    
+    //this.cristalAmount = 100
     this.createButton();
   }
   createButton() {

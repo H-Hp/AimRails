@@ -13,9 +13,14 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     const window_innerWidth = window.innerWidth
     const window_innerHeight = window.innerHeight
 
+    this.init(scene, x, y, window_innerWidth, window_innerHeight, content,my_items, updateCallback);
+  
+  }
+
+  async init(scene, x, y, window_innerWidth, window_innerHeight, content,my_items, updateCallback){
     const ModalContainer = scene.add.container(10, 10);
 
-    this.modalBg = scene.add.image(0, 0, 'bg');
+    this.modalBg = scene.add.image(0, 0, 'item_modal_bg');
     this.modalBg.setOrigin(0, 0);//画像の中心がcontainerに入るので、原点を画像の左上に変更
     this.modalBg.setDisplaySize(window_innerWidth*0.45, window_innerHeight*0.8);
     ModalContainer.add(this.modalBg)
@@ -32,6 +37,25 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
 
     const itemsPerColumn = 7;
     const columnCount = Math.ceil(my_items.length / itemsPerColumn);
+
+    //const my_items_path_array = my_items.map(item => item.path);
+    //const my_items_path_array = my_items.filter(item => item.path.includes('music')).map(item => item.path);
+    const my_items_path_array = my_items.map(item => {
+      if (item.path.includes('music')) {
+        return 'music';
+      } else {
+        return item.path;
+      }
+    });
+
+    const resolved_paths = await this.resolve_asset_path(my_items_path_array)
+    console.log("resolved_paths: "+resolved_paths)
+
+    // もしくは従来のループを使用する場合
+    //const my_items_path_array = [];
+    //for (const item of my_items) {
+    //    my_items_path_array.push(item.path);
+    //}
 
     my_items.forEach((item, i) => {
       console.log(`name: ${item.name}, description: ${item.description}`);
@@ -55,17 +79,34 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
         console.log("音楽ふぁｆ")
         loader.image('myitem'+item.id, 'assets/images/item/music.png');// 画像を読み込む
       }else{
-        loader.image('myitem'+item.id, 'assets/images/item/'+item.path+'.png');// 画像を読み込む
+        /*const asset_path = this.resolve_asset_path(my_items_path_array,scene, itemContainer, item, item.path+'.png')
+        .then(result => {
+            console.log("上の処理が終わってから実行したい");
+            // 以降の処理
+        })
+        .catch(error => {
+            console.error("エラーが発生:", error);
+        });
+        */
+        //const resolve_asset_path = await this.resolve_asset_path(scene,itemContainer,item,item.path+'.png')        
+        //console.log("aresolve_asset_path="+asset_path)
+        //loader.image('myitem'+item.id, 'assets/images/item/'+item.path+'.png');// 画像を読み込む
+        //loader.image('myitem'+item.id, resolve_asset_path);// 画像を読み込む
+        loader.image('myitem'+resolved_paths[i], resolved_paths[i]);
+        
       }
+      console.log("resolved_paths[i]: "+resolved_paths[i])
       let item_img =null;
       loader.once('complete', () => {  // 読み込み完了後に画像を表示
-        item_img = scene.add.image(0, -25, 'myitem'+item.id);
+        //item_img = scene.add.image(0, -25, 'myitem'+item.id);
+        item_img = scene.add.image(0, -25, 'myitem'+resolved_paths[i]);
         item_img.setDisplaySize(100, 75);// 画像の幅と高さを指定
         item_img.setInteractive();
         itemContainer.add(item_img);
         item_img.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
       });
       loader.start();// 読み込みを開始
+      
 
       const nameText = scene.add.text(-40, 40, item.name, { fontSize: '16px', fill: '#ffffff' });
       itemContainer.add(nameText);
@@ -74,11 +115,14 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       const hitArea = new Phaser.Geom.Rectangle(-150, -100, 200, 250)
       itemContainer.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains)
 
-      itemContainer.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) });
+      //itemContainer.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) });
+      itemContainer.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) });
       itemContainer.on('pointerover', () => { scene.input.setDefaultCursor('pointer');itemBackground.setScale(1.1) })
       itemContainer.on('pointerout', () => { scene.input.setDefaultCursor('default');itemBackground.setScale(1); })
-      itemBackground.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
-      nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
+      //itemBackground.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
+      //nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
+      itemBackground.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
+      nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
       //this.add(itemContainer)
       
   });
@@ -108,15 +152,16 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       // 最初は非表示
       this.setVisible(false)
   }
-  oneitem_modalOpen(scene,item) {
-    
+  //oneitem_modalOpen(scene,item) {
+  oneitem_modalOpen(scene,item,resolved_path) {
+      console.log("resolved_path: "+resolved_path)
     //const oneitemModalContainer = scene.add.container(window.innerWidth/2+450, 500);// Create a container for the button
     const oneitemModalContainer = scene.add.container(window.innerWidth*0.5, 10);// Create a container for the button
     //const oneitem_background = scene.add.rectangle(0, 0, window.innerWidth / 2.5, height*1.5, 0x000000, 0.7)
     //const oneitem_background = scene.add.rectangle(0, 0, window.innerWidth / 2.5, window.innerHeight/1.5, 0x000000, 0.7)
     //oneitemModalContainer.add(oneitem_background)
 
-    this.oneitem_modalBg = scene.add.image(0, 0, 'bg2');
+    this.oneitem_modalBg = scene.add.image(0, 0, 'item_modal_bg2');
     this.oneitem_modalBg.setOrigin(0, 0);//画像の中心がcontainerに入るので、原点を画像の左上に変更
     //this.oneitem_modalBg.setDisplaySize(window.innerWidth / 2.5, height*1.5);
     //this.oneitem_modalBg.setDisplaySize(window.innerWidth / 2.5, window.innerHeight/1.3);
@@ -134,7 +179,8 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     oneitemModalContainer.add(oneitem_descriptionText)
 
     //const one_item_img = scene.add.image(0, 0, 'myitem'+item.id);
-    const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+item.id);
+    //const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+item.id);
+    const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+resolved_path);
     //one_item_img.setDisplaySize(width/1.5, height/1.5);// 画像の幅と高さを指定
     one_item_img.setOrigin(0, 0);//画像の中心がcontainerに入るので、原点を画像の左上に変更
     //one_item_img.setDisplaySize(window.innerWidth/2/3, window.innerHeight/2/3);// 画像の幅と高さを指定
@@ -234,4 +280,61 @@ update() {
     // 新しい画像のロードを開始
     this.load.start();
   }
+
+  //async resolve_asset_path(my_items_path_array,scene,itemContainer,item,path) {
+  async resolve_asset_path(my_items_path_array) {
+    //if(assets/images/item/music.png)
+
+    //console.log("ぱぱぱpath"+path);
+
+    
+      const response = await fetch('/resolve_asset_path', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        paths: my_items_path_array
+        //path: "aimroom/item/"+path
+        //path: "aimroom/item/bg0.png"
+      })
+    })
+    //if (!response.ok) {
+    //    throw new Error('Network response was not ok');
+    //}
+    
+    const data = await response.json();
+    console.log("huuhuudata.resolved_path: "+data.resolved_paths);
+
+    return data.resolved_paths;
+
+    //.then(response => response.json())
+    //.then(data => {
+      console.log("huuhuudata.resolved_path: "+data.resolved_paths);
+      /*
+      console.log("huuhuudata.resolved_path: "+data.resolved_path);
+      let loader = new Phaser.Loader.LoaderPlugin(scene);// 新しいローダーを作成
+
+      //loader.image('myitem'+item.id, data.resolve_asset_path);// 画像を読み込む
+      //loader.image('myitem'+item.id, '/assets/aimroom/item/obj1-a385406c7b407028ba9257f8d69efd122418475d5932fb6074938b533dbc3a27.png');// 画像を読み込む
+      loader.image('myitem'+data.resolved_path, data.resolved_path);// 画像を読み込む
+
+      let item_img =null;
+      loader.once('complete', () => {  // 読み込み完了後に画像を表示
+        //item_img = scene.add.image(0, -25, 'myitem'+item.id);
+        item_img = scene.add.image(0, -25, 'myitem'+data.resolved_path);
+        item_img.setDisplaySize(100, 75);// 画像の幅と高さを指定
+        item_img.setInteractive();
+        itemContainer.add(item_img);
+        item_img.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
+      });
+      loader.start();// 読み込みを開始
+      */
+      //return data.resolved_paths;
+    //})
+    //.catch(error => console.error('Error:', error))
+  }
+
+  
 }

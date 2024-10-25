@@ -1,4 +1,5 @@
 class AimRoomController < ApplicationController
+  include ActionView::Helpers::AssetUrlHelper
 
   $itemData = [
     { "id": 1, "gacha_id": 0, "name": "デフォ壁紙", "type": "background", "description": "デフォルトの壁紙", "rarity": 0, "max_quantity": 1, "path": "bg0" },
@@ -31,6 +32,27 @@ class AimRoomController < ApplicationController
 
   end
 
+  def resolve_path
+    original_paths = params[:paths]
+    Rails.logger.error "original_paths: #{original_paths}"
+    #my_items_path_array = original_paths.pluck(:path)
+    resolved_paths=[]
+    original_paths.each do |path|
+      #resolved_paths.push(helpers.asset_path(path))
+      resolved_paths.push(helpers.asset_path("aimroom/item/"+path+".png"))
+    end
+    Rails.logger.error "resolved_paths: #{resolved_paths}"
+    render json: { resolved_paths: resolved_paths }
+=begin
+    original_path = params[:path]
+    resolved_path = helpers.asset_path(original_path)
+    #resolved_path = helpers.asset_path('aimroom/shop.png')
+    Rails.logger.error "resolved_path: #{resolved_path}"
+    #render json: { original_path: original_path, resolved_path: resolved_path }
+    render json: { resolved_path: resolved_path }
+=end
+  end
+
   def check_login_status
     if user_signed_in?
       render json: { logged_in: true }
@@ -49,6 +71,8 @@ class AimRoomController < ApplicationController
 
   def gacha
     gacha_id = params[:gacha_id]
+    @gacha = Gacha.find_by(id: gacha_id)
+
 
     #DB読込
 
@@ -83,10 +107,17 @@ class AimRoomController < ApplicationController
   end
 
   def getmyitem
-    user_id = params[:user_id]
+    #user_id = params[:user_id]
     #user_idで、$itemDataはアイテムの全データjson、itemsは保有しているアイテムidたちのjson
-    myitems = [1,2,3,4,6,13,12,11];
-    render json: { myitems: myitems ,itemData: $itemData }
+    #myitems = [1,2,3,4,6,13,12,11];
+    #render json: { myitems: myitems ,itemData: $itemData }
+
+    @user = User.find(params[:user_id])
+    @owned_items = @user.items.includes(:user_items)
+
+    #owned_items = user.items.includes(:user_items)
+    #owned_items = current_user.items.includes(:user_items)
+    render json: { itemData: @owned_items }
   end
 
   def stripe

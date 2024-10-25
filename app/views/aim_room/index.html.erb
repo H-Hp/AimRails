@@ -1,5 +1,8 @@
 <%= stylesheet_link_tag 'aim_room', media: 'all' %>
 <%= javascript_pack_tag 'aim_init_room' %>
+
+<%= react_component("AssetPathResolver") %>
+
 <div 
   data-react-class="AimRoom" 
   data-react-props="<%= {
@@ -20,7 +23,9 @@
     next_button: asset_path('aimroom/music/next-button.png'),
     prev_button: asset_path('aimroom/music/prev-button.png'),
 
-
+    item_modal_bg: asset_path('aimroom/bag/2.png'),
+    #item_modal_bg2: asset_path('aimroom/bag/1.png'),
+    close: asset_path('aimroom/close.png'),
 
     gacha_backgroud: asset_path('aimroom/Gacha/backgroud.png'),
     gacha_thumbnail1: asset_path('aimroom/Gacha/gacha_thumbnail1.png'),

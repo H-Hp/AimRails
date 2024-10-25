@@ -42,8 +42,13 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('nextButton', this.props.next_button);
     this.load.image('prevButton', this.props.prev_button);
 
+    this.load.image('item_modal_bg', this.props.item_modal_bg);
+    this.load.image('item_modal_bg2', this.props.item_modal_bg2);
+    this.load.image('close', this.props.close);
   }
   create() {
+    //this.resolve_asset_path();
+
     this.background = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'background');
 
     this.desk = this.add.image(window.innerWidth/2,window.innerHeight/2+500,'desk');
@@ -87,7 +92,7 @@ export default class MainScene extends Phaser.Scene {
               const itemData=data.itemData;
               console.log(`itemData ：${itemData}`);
               const my_items=[];
-              numberString.forEach(id => {
+              /*numberString.forEach(id => {
                 const item = itemData.find(item => item.id === id);
                 if (item) {
                   my_items.push({ id: item.id, name: item.name, description: item.description, quantity: item.max_quantity, path: item.path, type: item.type});
@@ -96,7 +101,10 @@ export default class MainScene extends Phaser.Scene {
               });
               //this.modal = new ItemListModalWindow(this, window.innerWidth/2, window.innerHeight/2, window.innerWidth*0.6, window.innerHeight*0.6, '保有アイテム',my_items,this.updateEnvironment.bind(this))
               this.modal = new ItemListModalWindow(this, window.innerWidth/2, window.innerHeight/2, window.innerWidth*0.6, window.innerHeight*0.6, '保有アイテム',my_items,console.log("a"))
+              this.modal.open()*/
+              this.modal = new ItemListModalWindow(this, window.innerWidth/2, window.innerHeight/2, window.innerWidth*0.6, window.innerHeight*0.6, '保有アイテム',data.itemData,console.log("a"))
               this.modal.open()
+
           })
           .catch(error => console.error('Error:', error));
         } else {// 未ログインの場合の処理
@@ -189,4 +197,26 @@ export default class MainScene extends Phaser.Scene {
     this.gacha_button.setPosition(window.innerWidth*0.8, 50); 
     this.CristalAmountButton.setPosition(window.innerWidth*0.9, 50);  
   } 
+
+
+/*
+resolve_asset_path() {
+  fetch('/resolve_asset_path', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+    },
+    body: JSON.stringify({
+      path: "aimroom/item/bg0.png"
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("data.resolved_path"+data.resolved_path);
+  })
+  .catch(error => console.error('Error:', error))
+}*/
+
+
 }

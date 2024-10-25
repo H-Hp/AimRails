@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   #get '/'  => 'top#top'
   root 'aim_room#index'
   get '/'  => 'aim_room#aim_room'
+  post 'resolve_asset_path', to: 'aim_room#resolve_path'
   get 'check_login_status', to: 'aim_room#check_login_status'
   get 'check_crystal_amount', to: 'aim_room#check_crystal_amount'
 
