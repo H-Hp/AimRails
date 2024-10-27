@@ -70,40 +70,62 @@ class AimRoomController < ApplicationController
 
 
   def gacha
-    gacha_id = params[:gacha_id]
-    @gacha = Gacha.find_by(id: gacha_id)
+    @gacha_id = params[:gacha_id]
+    Rails.logger.error "ガガガチャロロロロログ:gacha_id： #{@gacha_id}"
+    @gacha = Gacha.find_by(id: @gacha_id)
+    #@gacha = Gacha.find_by(id: params[:gacha_id])
+    #@gacha = Gacha.find_by(id: 1)
+    #@gacha = Gacha.find(1) 
 
-
-    #DB読込
+=begin
+    # 単発ガチャの実行
+    @single_results = [
+      GachaLottery.gacha(config, { ceil_count: 40 }, 0.005),
+      GachaLottery.gacha(config, { ceil_count: 40 }, 0.04),
+      GachaLottery.gacha(config, { ceil_count: 40 }, 0.7),
+      GachaLottery.gacha(config, { ceil_count: 99 }, 0.7)
+    ]
+    @get_item=GachaLottery.gacha(config, { ceil_count: 40 }, 0.7)
+=end
+    #config = GachaConfig.get_config
+    config = GachaConfig.get_config(@gacha_id)
+    #random_number = rand(0.005..1.0)#0.005から1までのランダムな小数を生成
+    #random_number = ((rand * 0.995) + 0.005).round(3)# 0.005~1の範囲で乱数を生成し、小数点以下3桁までに丸める
+    #possible_values = [0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] # 可能な値を配列で定義
+    possible_values = [0.005, 0.04, 0.7] # 可能な値を配列で定義
+    random_number = possible_values.sample# ランダムに1つ選択
+    @get_item=GachaLottery.gacha(config, { ceil_count: 40 }, random_number)
+    Rails.logger.error "ガガガチャロロロロログ:random_number： #{random_number}"
+    Rails.logger.error "当たったget_items： #{@get_item}"
+    #data = master.find { |item| item[:id] == 3 }# idが3のデータを探し出す
+    #当たったアイテムidからデータを持ってくる
+    @get_item_data = Item.find { |item| item[:id] == @get_item[:id] }# idが3のデータを探し出す
+    Rails.logger.error "アイテムのデータ #{@get_item_data}"
 
     #クリスタル消費
-    now_Cristal = 500
-    #data['Cristal'] = now_Cristal-100
-
-    #アイテムのデータはDBで管理でもいい
-
-    #gacha_idが一致しているものから取得
-    #gacha_idが指定された値のアイテムをフィルタリング
-    
-    #selected_items = $itemData.select { |item| item["gacha_id"] == gacha_id }
-    #selected_items = $itemData.select { |item| item["id"] == 2 }.first
-    #filtered_data = $itemData.select { |item| item["gacha_id"] == 1 }
-
-    # フィルタリングされたデータからランダムに1つ選びます
-    #@result  = filtered_data.sample
-
-    #@result = selected_items.sample
-    #@result = $itemData[0]
-
-    @result  = { "id": 8, "gacha_id": 1, "name": "壁紙2", "type": "background", "description": "シンガポール風の背景", "rarity": 25, "max_quantity": 1, "path": "bg2" };
-
+    aimRoom = AimRoom.find_by(user_id: current_user.id)
+    now_Cristal = aimRoom.currency - @gacha.cost
+    aimRoom.update(currency: now_Cristal)
 
     #アイテムをdbに格納
-    myitems = [1,2,3,4,6,13,12,11];
-    #myitems.push(@result[:id])
-    #myitems.push(3)
-    #render json: { item: filtered_data}
-    render json: { item: @result }
+    user_item = UserItem.find_by(user_id: current_user.id, item_id: @get_item_data.id)
+    #if UserItem.exists?(user_id: current_user.id, item_id: @get_item_data.id)
+    #if (UserItem.find_by(user_id: current_user.id,item_id: @get_item_data.id)){
+    if user_item
+      user_item.increment!(:quantity)
+      #UserItem.find_by(user_id: current_user.id, item_id: @get_item_data.id).increment!(:quantity)
+      #UserItem.update(quantity: )
+      puts "Quantity incremented!"
+    else
+      @quantity=1
+      @userItem = UserItem.new(user_id: current_user.id, item_id: @get_item_data.id, quantity: @quantity, acquired_at: Time.current)
+      #@userItem = UserItem.new(user_id: current_user.id, item_id: @get_item_data.id, acquired_at: Time.current)
+      @userItem.save
+      #@userItem = UserItem.create!(user_id: 1,item_id: 11,quantity: 1,acquired_at: Time.current)
+      puts "Record not found!"
+    end
+    #render json: { item: @result }
+    render json: { item: @get_item_data }
   end
 
   def getmyitem
@@ -236,5 +258,9 @@ class AimRoomController < ApplicationController
     newAchiveNum
   end
 
+  private
 
+  def user_item_params
+    params.permit(:user_id, :item_id, :quantity, :acquired_at)
+  end
 end

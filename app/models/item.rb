@@ -22,4 +22,20 @@ class Item < ApplicationRecord
       end
     end
   end
+
+  scope :formatted_for_master, -> {
+    select(:id, :gacha_id, :name, :item_type, :description, :rarity, :max_quantity, :path)
+      .map do |item|
+        {
+          id: item.id,
+          gacha_id: item.gacha_id,
+          name: item.name,
+          type: item.item_type,
+          description: item.description,
+          rarity: item.rarity,
+          max_quantity: item.max_quantity,
+          path: item.path
+        }
+      end
+  }
 end

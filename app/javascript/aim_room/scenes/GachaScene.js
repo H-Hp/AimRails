@@ -235,7 +235,8 @@ export default class GachaScene extends Phaser.Scene {
       })
         .then(response => response.json())
         .then(data => {
-          this.time.delayedCall(1500, () => {
+          //this.time.delayedCall(1500, () => {
+          this.time.delayedCall(300, () => {
             //console.log(data.item.name);
             console.log(data.item);
             //this.gachaAnimation.setVisible(false)
@@ -281,7 +282,9 @@ export default class GachaScene extends Phaser.Scene {
     const width = window.innerWidth/2
     const height = window.innerHeight/2
 
-    const gachaGetModalContainer = this.add.container(width, height);// Create a container for the button
+    //const gachaGetModalContainer = this.add.container(width, height);// Create a container for the button
+    let gachaGetModalContainer = null
+    gachaGetModalContainer =this.add.container(width, height);// Create a container for the button
 
     // 半透明の黒いオーバーレイを作成
     this.overlay = this.add.rectangle(0, 0, this.sys.game.config.width, this.sys.game.config.height, 0x000000, 0.7);
@@ -334,6 +337,7 @@ export default class GachaScene extends Phaser.Scene {
   }
 
   close(container) {
-    container.setVisible(false)
+    //container.setVisible(false)
+    container.destroy();
   }
 }

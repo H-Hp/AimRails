@@ -5,6 +5,19 @@ class Gacha < ApplicationRecord
   validate :validate_weights_format
   validate :validate_pickup_format
 
+  validates :name, presence: true
+  validates :description, presence: true
+  validates :cost, presence: true, numericality: { greater_than_or_equal_to: 0 }
+
+
+  def formatted_weights
+    weights.map { |weight| weight.map(&:to_f) }
+  end
+
+  def formatted_pickup
+    pickup.map { |item| [item[0].to_i, item[1].to_f] }
+  end
+  
   private
 
   def validate_weights_format
@@ -14,3 +27,4 @@ class Gacha < ApplicationRecord
       errors.add(:weights, 'must be an array of [rarity, probability] pairs')
     end
   end
+end
