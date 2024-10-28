@@ -200,7 +200,7 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     }
     if(item.type!="music"){
       //const in_Button = new ButtonText(scene, width/2/2-60, height/2, '壁紙にする', () => {  if (this.updateCallback) { this.updateCallback(item); }  });
-      const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.updateCallback(item); }  });
+      const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.updateCallback(item,resolved_path); }  });
       oneitemModalContainer.add(in_Button)
     }
 
@@ -296,6 +296,7 @@ update() {
       },
       body: JSON.stringify({
         paths: my_items_path_array
+        //data: my_items_path_array
         //path: "aimroom/item/"+path
         //path: "aimroom/item/bg0.png"
       })

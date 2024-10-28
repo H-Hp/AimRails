@@ -34,6 +34,7 @@ class AimRoomController < ApplicationController
 
   def resolve_path
     original_paths = params[:paths]
+    #original_paths = params[:data]
     Rails.logger.error "original_paths: #{original_paths}"
     #my_items_path_array = original_paths.pluck(:path)
     resolved_paths=[]
@@ -52,6 +53,94 @@ class AimRoomController < ApplicationController
     render json: { resolved_path: resolved_path }
 =end
   end
+
+  def init_env
+    #env_data = PlacedItem.find_by(user_id: current_user.id)
+    env_data = PlacedItem.where(user_id: current_user.id)
+    Rails.logger.error "env_data: #{env_data}"
+    env_data.each do |item|
+      type = item.properties['type']  # または item.properties["type"]
+      puts "type: #{type}"  # "background", "chara", "desk" などが出力されます
+    end
+
+    background_path = PlacedItem.joins(:item)
+                          .where(user_id: current_user.id)
+                          .where(items: { item_type: 'background' })
+                          .first
+                          &.item
+                          &.path
+    puts "background_path: #{background_path}" 
+    background_path = helpers.asset_path("aimroom/item/"+background_path+".png")
+    puts "アセットコンパイルのbackground_path: #{background_path}" 
+
+    desk_path = PlacedItem.joins(:item)
+                          .where(user_id: current_user.id)
+                          .where(items: { item_type: 'desk' })
+                          .first
+                          &.item
+                          &.path
+    desk_path = helpers.asset_path("aimroom/item/"+desk_path+".png")
+    puts "アセットコンパイルのdesk_path: #{desk_path}"
+
+    chara_path = PlacedItem.joins(:item)
+                          .where(user_id: current_user.id)
+                          .where(items: { item_type: 'chara' })
+                          .first
+                          &.item
+                          &.path
+    chara_path = helpers.asset_path("aimroom/item/"+chara_path+".png")
+    puts "アセットコンパイルのchara_path: #{chara_path}" 
+                      
+
+    background_info = Item.joins("INNER JOIN placed_items ON items.id = placed_items.item_id")
+                     .where(placed_items: { user_id: current_user.id })
+                     .where(item_type: 'background')
+                     .select('items.path, items.name, placed_items.x_position, placed_items.y_position')
+                     .first
+    puts "background_info: #{background_info.x_position}" 
+
+    musics = UserItem.joins(:item)
+       .where(items: { item_type: 'music' })
+       .select('user_items.*, items.*')
+
+    
+    render json: { background_path: background_path,desk_path: desk_path,chara_path: chara_path ,musics: musics}
+  end
+  def update_env
+    #received_data = params[:sendData]  # Or just params for accessing sent data
+    #type = received_data[:type]
+    #path = received_data[:path]
+    new_item_id = params[:id]
+    type = params[:type]
+    path = params[:path]
+    puts "new_item_id: #{new_item_id}" 
+    puts "type: #{type}" 
+    puts "path: #{path}" 
+
+
+    if type=="background"
+      #data['env'][0]['background'] = path
+      #PlacedItem.update
+      item = PlacedItem.find_by("properties->>'type' = ?", 'background')
+      item.update(item_id: new_item_id) if item
+    elsif type=="desk"
+      #data['env'][0]['desk'] = path
+      item = PlacedItem.find_by("properties->>'type' = ?", 'desk')
+      item.update(item_id: new_item_id) if item
+
+    elsif type=="chara"
+      #data['env'][0]['chara'] = path
+      item = PlacedItem.find_by("properties->>'type' = ?", 'chara')
+      item.update(item_id: new_item_id) if item
+    end
+
+    #item = PlacedItem.find_by("properties->>'type' = ?", type)
+    #item.update(item_id: new_item_id) if item
+
+
+    render json: { env_data: new_item_id }
+  end
+
 
   def check_login_status
     if user_signed_in?

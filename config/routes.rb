@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'check_login_status', to: 'aim_room#check_login_status'
   get 'check_crystal_amount', to: 'aim_room#check_crystal_amount'
 
+  post 'init_env', to: 'aim_room#init_env'
+  post 'update_env', to: 'aim_room#update_env'
+
   post 'getMyItem', to: 'aim_room#getmyitem'
   post 'gacha', to: 'aim_room#gacha'
 
