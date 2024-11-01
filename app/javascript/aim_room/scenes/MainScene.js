@@ -284,7 +284,9 @@ async ajax(path,sendData){
         //this.load.image(`background-${bg_path}`, `assets/images/item/${bg_path}.png`);
         //this.load.image(`desk-${desk_path}`, `assets/images/item/${desk_path}.png`);
         //this.load.spritesheet(`${chara_path}`, `assets/images/item/${chara_path}.png`, { frameWidth: 230,frameHeight: 230});
-        this.load.image(`background-${bg_path}`, `${bg_path}`);
+        if (!this.textures.exists(bg_path)) {
+          this.load.image(`background-${bg_path}`, `${bg_path}`);
+        }
         this.load.image(`desk-${desk_path}`, `${desk_path}`);
         //this.load.spritesheet(`${chara_path}`, `${chara_path}`, { frameWidth: 230,frameHeight: 230});
         this.load.spritesheet(`chara-${chara_path}`, `${chara_path}`, { frameWidth: 230,frameHeight: 230});
@@ -306,7 +308,10 @@ async ajax(path,sendData){
         console.log('Music Paths:', musicPaths);
 
         this.load.once('complete', () => {
+          console.log(`background-${bg_path}`)
+          if (!this.textures.exists(bg_path)) {
             this.background.setTexture(`background-${bg_path}`);
+          }
             //this.background.setDisplaySize(window.innerWidth, window.innerHeight);
             //this.background = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'back');
             //this.background = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, `background-${bg_path}`);

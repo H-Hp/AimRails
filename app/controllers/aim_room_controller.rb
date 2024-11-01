@@ -295,19 +295,27 @@ class AimRoomController < ApplicationController
 
 
   def check_mission_bonus
-    json_path = Rails.root.join('public', 'data.json')
-    data = JSON.parse(File.read(json_path))
-    newAchiveNum = LoginBonusCheck(data['LastLoginDay'])
+    aimRoom = AimRoom.find_by(user_id: current_user.id)
+    aimRoom.last_login_at
+    #now_Cristal = aimRoom.currency - @gacha.cost
+    #user_mission = UserMission.find_by(user_id: current_user.id)
+    user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
+    user_mission_gachaRoll = UserMission.find_by(user_id: current_user.id, mission_id: 2)
+    user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
 
-    #statusがyetの中から新たにミッションを達成できてる数を取得し、その数を返す
-=begin
-    lastLoginDate = data['lastLoginDate']
-    #lastLoginDate = localStorage.getItem('lastLoginDate') 
-    today = new Date().toDateString() 
-    # 今日の日付を取得
-    today = Date.today
-=end
-    render json: { login: newAchiveNum ,GettedLoginBonus: data['GettedLoginBonus'],longstay: '1' }
+    mission_rewards = MissionReward.all()
+    missions = Mission.all()
+
+    newAchiveNum = LoginBonusCheck(aimRoom.last_login_at)
+
+    #まだ取得してないけど、獲得条件を満たしているミッション数 #statusがyetの中から新たにミッションを達成できてる数を取得し、その数を返す
+
+
+    loginMission = { newAchiveNum: 1 , alreadyGetted: user_mission_login.progress}
+    gachaRollMission = { newAchiveNum: 1, alreadyGetted: user_mission_gachaRoll.progress }
+    playtimeMission = { newAchiveNum: 1 , alreadyGetted: user_mission_playtime}
+
+    render json: { loginMission: loginMission ,gachaRollMission: gachaRollMission ,playtimeMission: playtimeMission }
   end
   def all_get_mission_bonus
     longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
@@ -323,25 +331,32 @@ class AimRoomController < ApplicationController
   end
 
   def one_get_mission_bonus
-    longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
-    longstayBonusNewAchiveNum = params[:longstayBonusNewAchiveNum]
-    json_path = Rails.root.join('public', 'data.json')
-    data = JSON.parse(File.read(json_path))
+    mission_type_num = params[:mission_type]
+    user_mission = UserMission.find_by(user_id: current_user.id , mission_id: mission_type_num)  
+    user_mission.progress.increment
+
+    #longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
+    #longstayBonusNewAchiveNum = params[:longstayBonusNewAchiveNum]
+    #json_path = Rails.root.join('public', 'data.json')
+    #data = JSON.parse(File.read(json_path))
     #lastLoginDay = data['LastLoginDay']
     #newAchiveNum = LoginBonusCheck(lastLoginDay)
-    data['GettedLoginBonus'] = data['GettedLoginBonus']+longinBonusNewAchiveNum
-    data['Cristal'] = data['Cristal']+50
-    File.write(json_path, JSON.pretty_generate(data))
+    mission_rewards=MissionRewards.find_by( mission_id: mission_type_num)
+    if user_mission_login.progress + newAchiveNum < mission_rewards.threshold #thresholdはしきい値
+      newCurrency = mission_rewards.currency_amount #取得するゲーム内通貨
+
+    aimRoom = AimRoom.find_by(user_id: current_user.id)
+    now_currency = aimRoom.currency + newCurrency
+    aimRoom.update(currency: now_currency)
+
     #statusがyetの中から、新たにミッションを達成できてるもの取得し、statusをgettedに上書きし、報酬のクリスタルを増加させ、
-    render json: { GettedLoginBonus: data['GettedLoginBonus'] ,longstay: longstayBonusNewAchiveNum }
+    render json: { GettedCurrency: now_currency }
   end
   def LoginBonusCheck(lastLoginDay)
     today = Date.today.strftime('%Y/%m/%d')
     #LastLoginDay = Date.new(2024, 10, 30)
     newAchiveNum = 0
     if lastLoginDay != today
-      #this.awardDailyBonus()
-      #localStorage.setItem('lastLoginDate', today) 
       newAchiveNum = 1
     end
     newAchiveNum
