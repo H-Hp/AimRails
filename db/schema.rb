@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_25_211409) do
+ActiveRecord::Schema.define(version: 2024_11_01_160722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(version: 2024_10_25_211409) do
     t.datetime "last_reset_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "unclaimed_rewards_count", default: 0
     t.index ["mission_id"], name: "index_user_missions_on_mission_id"
     t.index ["user_id"], name: "index_user_missions_on_user_id"
   end
