@@ -30,6 +30,9 @@ class AimRoomController < ApplicationController
       puts "ログアウト中";Rails.logger.error "ログアウト中"
     end
 
+    #毎日深夜3時にリセット・batで処理させる
+    #mission_daylly_reset
+
   end
 
   def resolve_path
@@ -194,7 +197,7 @@ class AimRoomController < ApplicationController
     #クリスタル消費
     aimRoom = AimRoom.find_by(user_id: current_user.id)
     now_Cristal = aimRoom.currency - @gacha.cost
-    aimRoom.update(currency: now_Cristal)
+    aimRoom.update(currency: now_Cristal, total_gacha_rolls: aimRoom.total_gacha_rolls+=1)
 
     #アイテムをdbに格納
     user_item = UserItem.find_by(user_id: current_user.id, item_id: @get_item_data.id)
@@ -295,72 +298,225 @@ class AimRoomController < ApplicationController
 
 
   def check_mission_bonus
+    #テーブルからレコード取得
     aimRoom = AimRoom.find_by(user_id: current_user.id)
-    aimRoom.last_login_at
-    #now_Cristal = aimRoom.currency - @gacha.cost
-    #user_mission = UserMission.find_by(user_id: current_user.id)
+    mission_rewards = MissionReward.all()
+    missions = Mission.all()
     user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
     user_mission_gachaRoll = UserMission.find_by(user_id: current_user.id, mission_id: 2)
     user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
 
-    mission_rewards = MissionReward.all()
-    missions = Mission.all()
-
-    newAchiveNum = LoginBonusCheck(aimRoom.last_login_at)
-
     #まだ取得してないけど、獲得条件を満たしているミッション数 #statusがyetの中から新たにミッションを達成できてる数を取得し、その数を返す
+    #unclaimed_rewards_count また報酬は獲得してないけど報酬の獲得権をゲットした数字
+    new_login_unclaimed_rewards_count = LoginMissionClearCheck(user_mission_login.completed, aimRoom.last_login_at, user_mission_login.unclaimed_rewards_count)
+    new_gacharoll_unclaimed_rewards_count = GachaMissionClearCheck(aimRoom.total_gacha_rolls, user_mission_gachaRoll.unclaimed_rewards_count, user_mission_gachaRoll.progress)
+    new_playtime_unclaimed_rewards_count = PlaytimeMissionClearCheck(aimRoom.daily_play_time, user_mission_playtime.unclaimed_rewards_count, user_mission_playtime.progress)
 
+    #user_missionテーブル更新
+    user_mission_login.update(unclaimed_rewards_count: new_login_unclaimed_rewards_count)
+    user_mission_gachaRoll.update(unclaimed_rewards_count: new_gacharoll_unclaimed_rewards_count)
+    user_mission_playtime.update(unclaimed_rewards_count: new_playtime_unclaimed_rewards_count)
 
-    loginMission = { newAchiveNum: 1 , alreadyGetted: user_mission_login.progress}
-    gachaRollMission = { newAchiveNum: 1, alreadyGetted: user_mission_gachaRoll.progress }
-    playtimeMission = { newAchiveNum: 1 , alreadyGetted: user_mission_playtime}
+    #jsに渡すデータ作成json・すでにゲットした数と、新しく獲得権を得た数
+    loginMission = { newAchiveNum: new_login_unclaimed_rewards_count , alreadyGetted: user_mission_login.progress}
+    gachaRollMission = { newAchiveNum: new_gacharoll_unclaimed_rewards_count, alreadyGetted: user_mission_gachaRoll.progress }
+    playtimeMission = { newAchiveNum: new_playtime_unclaimed_rewards_count , alreadyGetted: user_mission_playtime.progress}
 
     render json: { loginMission: loginMission ,gachaRollMission: gachaRollMission ,playtimeMission: playtimeMission }
   end
   def all_get_mission_bonus
-    longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
-    longstayBonusNewAchiveNum = params[:longstayBonusNewAchiveNum]
+    user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
+    user_mission_gachaRoll = UserMission.find_by(user_id: current_user.id, mission_id: 2)
+    user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
 
-    #lastLoginDay = data['LastLoginDay']
-    #newAchiveNum = LoginBonusCheck(lastLoginDay)
-    data['GettedLoginBonus'] = data['GettedLoginBonus']+longinBonusNewAchiveNum
-    data['Cristal'] = data['Cristal']+50
-    File.write(json_path, JSON.pretty_generate(data))
+    this_login_mission_rewards=MissionReward.find_by( mission_id: 1) #MissionRewardsテーブルからそのミッションのレコード取得
+    this_gachaRoll_mission_rewards=MissionReward.find_by( mission_id: 2) #MissionRewardsテーブルからそのミッションのレコード取得
+    this_playtime_mission_rewards=MissionRewards.find_by( mission_id: 3) #MissionRewardsテーブルからそのミッションのレコード取得
+
+    aimRoom = AimRoom.find_by(user_id: current_user.id)#AimRoomテーブルからそのユーザーのレコード取得
+
+    #報酬額の計算
+    #login_mission_new_currency = login_mission_get_Currency(user_mission_login.progress, user_mission_login.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+    login_mission_new_currency = mission_get_Currency(1, user_mission_login.progress, user_mission_login.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+    gachaRoll_mission_new_currency = mission_get_Currency(2, user_mission_gachaRoll.progress, user_mission_gachaRoll.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+    playtime_mission_new_currency = mission_get_Currency(3, user_mission_playtime.progress, user_mission_playtime.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+
+    newCurrency = login_mission_new_currency + gachaRoll_mission_new_currency + playtime_mission_new_currency
+    now_currency = aimRoom.currency + newCurrency #集計
+    aimRoom.update(currency: now_currency) #aimRoomテーヴルのゲーム内通貨currencyを更新
+    user_mission.update(progress: user_mission.progress+=1, unclaimed_rewards_count: user_mission.unclaimed_rewards_count-=1) #progressをインクリメント、unclaimed_rewards_countをデクリメントしてテーブル更新
+
+    user_mission_login.update(progress: user_mission_login+user_mission_login.unclaimed_rewards_count, unclaimed_rewards_count:0)
+        
     #statusがyetの中から、新たにミッションを達成できてるもの取得し、statusをgettedに上書きし、報酬のクリスタルを増加させ、
-    render json: { GettedLoginBonus: data['GettedLoginBonus'] ,longstay: longstayBonusNewAchiveNum }
+    render json: { GettedLoginBonus: now_currency }
   end
 
   def one_get_mission_bonus
-    mission_type_num = params[:mission_type]
-    user_mission = UserMission.find_by(user_id: current_user.id , mission_id: mission_type_num)  
-    user_mission.progress.increment
+    mission_type_num = params[:mission_type_num] #ミッションのタイプの番号を取得・1.ログイン、2.ガチャ回転数、3.プレイ時間報酬
+    user_mission = UserMission.find_by(user_id: current_user.id , mission_id: mission_type_num) #UserMission テーブルからuser_idとmission_idで検索したレコードを1件取得
+    this_mission_rewards=MissionReward.find_by( mission_id: mission_type_num) #MissionRewardsテーブルからそのミッションのレコード取得
+    aimRoom = AimRoom.find_by(user_id: current_user.id)#AimRoomテーブルからそのユーザーのレコード取得
 
-    #longinBonusNewAchiveNum = params[:longinBonusNewAchiveNum]
-    #longstayBonusNewAchiveNum = params[:longstayBonusNewAchiveNum]
-    #json_path = Rails.root.join('public', 'data.json')
-    #data = JSON.parse(File.read(json_path))
-    #lastLoginDay = data['LastLoginDay']
-    #newAchiveNum = LoginBonusCheck(lastLoginDay)
-    mission_rewards=MissionRewards.find_by( mission_id: mission_type_num)
-    if user_mission_login.progress + newAchiveNum < mission_rewards.threshold #thresholdはしきい値
-      newCurrency = mission_rewards.currency_amount #取得するゲーム内通貨
-
-    aimRoom = AimRoom.find_by(user_id: current_user.id)
-    now_currency = aimRoom.currency + newCurrency
-    aimRoom.update(currency: now_currency)
+    #報酬額の計算
+    #login_mission_new_currency = login_mission_get_Currency(user_mission_login.progress, user_mission_login.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+    new_currency = mission_get_Currency(mission_type_num, user_mission.progress, user_mission.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+    now_currency = aimRoom.currency + new_currency #集計
+    aimRoom.update(currency: now_currency) #aimRoomテーヴルのゲーム内通貨currencyを更新
+    user_mission.update(progress: user_mission.progress+=1, unclaimed_rewards_count: user_mission.unclaimed_rewards_count-=1, rewarded: true) #progressをインクリメント、unclaimed_rewards_countをデクリメントしてテーブル更新
 
     #statusがyetの中から、新たにミッションを達成できてるもの取得し、statusをgettedに上書きし、報酬のクリスタルを増加させ、
     render json: { GettedCurrency: now_currency }
   end
-  def LoginBonusCheck(lastLoginDay)
+  #def login_mission_get_Currency(progress, unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+  def mission_get_Currency(mission_type_num, progress, unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
+    #ログインボーナスにはしきい値は関係ないけど、ガチャ回した回数ボーナスには関係があるから処理を分ける
+    newCurrency=0
+    if mission_type_num == 1 #ログインミッションなら
+      newCurrency = this_mission_rewards.currency_amount #取得するゲーム内通貨
+    elsif mission_type_num == 2 #ガチャ回転ミッションなら
+      aimRoom = AimRoom.find_by(user_id: current_user.id)#AimRoomテーブルからそのユーザーのレコード取得
+      #ガチャの回転数としきい値を比較して報酬額を決定
+      #if aimRoom.total_gacha_rolls >= this_mission_rewards.threshold #ガチャ5回
+      #if 5 <= aimRoom.total_gacha_rolls && aimRoom.total_gacha_rolls <= 9 #ガチャ5回(9以下)
+      #elsif
+      #end
+
+      # 変数 a と threshold を比較して、対応する currency_amount を取得
+        #例えば：
+          #a が 7 の場合、threshold 5 のレコードが選択され、currency_amount 200 が返される
+          #a が 15 の場合、threshold 10 のレコードが選択され、currency_amount 500 が返される
+        #説明
+          #where(mission_id: 2) で mission_id が 2 のレコードをフィルタリング
+          #where('threshold <= ?', a) で変数 a 以下の threshold を持つレコードを選択
+          #order(threshold: :desc) で threshold の降順にソート（最も近い値を取得するため）
+          #first で最初のレコード（最も条件に近い値）を取得
+          #&.currency_amount || 0 で該当するレコードがない場合は 0 を返す
+        newCurrency = MissionReward.where(mission_id: 2)
+          .where('threshold <= ?', aimRoom.total_gacha_rolls)
+          .order(threshold: :desc)
+          .first
+          &.currency_amount || 0
+    elsif mission_type_num == 3 #プレイ時間ミッションなら・1日1時間で報酬ゲットを毎日なので固定でおｋ
+      newCurrency = this_mission_rewards.currency_amount #取得するゲーム内通貨
+    end
+
+    #if user_mission_login.progress + newAchiveNum < this_mission_rewards.threshold #thresholdはしきい値
+    if progress + unclaimed_rewards_count <= this_mission_rewards.threshold #thresholdはしきい値
+      newCurrency = this_mission_rewards.currency_amount #取得するゲーム内通貨
+      Rails.logger.error "login_mission_get_CurrencyのnewCurrency: #{newCurrency}"
+    end
+    newCurrency
+  end
+
+  def LoginMissionClearCheck(todayCompleted,lastLoginDay,unclaimed_rewards_count)
     today = Date.today.strftime('%Y/%m/%d')
     #LastLoginDay = Date.new(2024, 10, 30)
-    newAchiveNum = 0
-    if lastLoginDay != today
-      newAchiveNum = 1
+    #newAchiveNum = 0
+    if lastLoginDay != today && todayCompleted == false
+      unclaimed_rewards_count += 1
+      user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
+      user_mission_login.update(completed: true)
     end
-    newAchiveNum
+    unclaimed_rewards_count
   end
+  def GachaMissionClearCheck(total_gacha_rolls,unclaimed_rewards_count,progress)
+    #1回回してた場合
+    if 5 <= total_gacha_rolls && unclaimed_rewards_count=0 && progress=0
+      unclaimed_rewards_count+=1
+      Rails.logger.info "ガチャ5回ボーナス発生: total_gacha_rolls:#{total_gacha_rolls}・unclaimed_rewards_count: #{unclaimed_rewards_count}・progress: #{progress}"
+    end
+
+    if 10 <= total_gacha_rolls && unclaimed_rewards_count=1 && progress=1
+      unclaimed_rewards_count+=1
+      Rails.logger.info "ガチャ10回ボーナス発生: total_gacha_rolls:#{total_gacha_rolls}・unclaimed_rewards_count: #{unclaimed_rewards_count}・progress: #{progress}"
+    end
+
+    if 15 <= total_gacha_rolls && unclaimed_rewards_count>=2 && progress>=2
+      unclaimed_rewards_count+=1
+      Rails.logger.info "ガチャ15回ボーナス発生: total_gacha_rolls:#{total_gacha_rolls}・unclaimed_rewards_count: #{unclaimed_rewards_count}・progress: #{progress}"
+    end
+
+    unclaimed_rewards_count
+  end
+  def PlaytimeMissionClearCheck(todayCompleted,daily_play_time,unclaimed_rewards_count)
+    if todayCompleted=false && daily_play_time>=30
+      unclaimed_rewards_count+=1
+      user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
+      user_mission_login.uodate(completed: true)
+    end
+    unclaimed_rewards_count
+  end
+
+  def mission_daylly_reset
+    Mission.where(reset_frequency: 1).find_each do |mission| 
+      #UserMission.where(mission: mission).update_all(progress: 0, completed: false, last_reset_at: Time.current)
+      UserMission.where(mission: mission).update_all( completed: false, last_reset_at: Time.current) 
+    end
+  end 
+
+
+=begin  
+  def self.update_login_bonus(user) 
+    mission = Mission.find_by(mission_type: 'login') 
+    user_mission = UserMission.find_or_create_by(user: user, mission: mission) 
+    if user_mission.last_reset_at.nil? || user_mission.last_reset_at < Date.today 
+      user_mission.progress = 1 
+      user_mission.completed = true 
+      user_mission.last_reset_at = Date.today 
+      user_mission.save 
+    end 
+  end 
+  def self.update_playtime_bonus(user, playtime_seconds) 
+    mission = Mission.find_by(mission_type: 'playtime') 
+    user_mission = UserMission.find_or_create_by(user: user, mission: mission) 
+    user_mission.progress += playtime_seconds 
+    if user_mission.progress >= mission.required_amount 
+      user_mission.completed = true 
+    end 
+    user_mission.save 
+  end 
+  def self.update_gacha_bonus(user) 
+    mission = Mission.find_by(mission_type: 'gacha') 
+    user_mission = UserMission.find_or_create_by(user: user, mission: mission) 
+    user_mission.progress += 1 
+    if user_mission.progress % 5 == 0 
+      user_mission.completed = true 
+    end 
+    user_mission.save 
+  end
+  ## 報酬付与ロジック 
+  def self.grant_reward(user, mission) 
+    user_mission = UserMission.find_by(user: user, mission: mission) 
+    return unless user_mission.completed && !user_mission.rewarded 
+    reward = MissionReward.find_by(mission: mission, threshold: user_mission.progress) 
+    if reward 
+      user.user_game_state.currency += reward.currency_amount 
+      user.user_game_state.save 
+      user_mission.rewarded = true 
+      user_mission.save 
+    end 
+  end
+  ## コントローラー実装例 
+  #def index 
+    #@user_missions = current_user.user_missions.includes(:mission) 
+  #end 
+  def claim_reward 
+    mission = Mission.find(params[:mission_id]) 
+    RewardService.grant_reward(current_user, mission) 
+    redirect_to missions_path, notice: '報酬を受け取りました！' 
+  end 
+
+  ## 定期的なリセット処理 定期的なリセット（例：日次リセット）を行うために、バックグラウンドジョブを使用することをお勧めします。例えば、Sidekiqを使用する場合： 
+  # app/jobs/daily_mission_reset_job.rb 
+  class DailyMissionResetJob < ApplicationJob 
+    queue_as :default 
+    def perform 
+      Mission.where(reset_frequency: 1).find_each do |mission| 
+        UserMission.where(mission: mission).update_all(progress: 0, completed: false, last_reset_at: Time.current) 
+      end 
+    end 
+=end
 
   private
 

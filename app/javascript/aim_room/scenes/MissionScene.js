@@ -88,7 +88,7 @@ export default class MissionScene extends Phaser.Scene {
     this.gachaRollSection = this.add.container(20, 560);
     const gachaRollBg = this.add.rectangle(20, 0, 2500, 200, 0x003366).setOrigin(0, 0);
     const gachaRollBgInside = this.add.rectangle(40, 40, 2400, 150, "#00003f").setOrigin(0, 0);
-    const gachaRollTitle = this.add.text(40, 20, 'プレイタイムボーナス', { fontSize: '28px', fill: '#ffffff' });
+    const gachaRollTitle = this.add.text(40, 20, 'ガチャ回転回数', { fontSize: '28px', fill: '#ffffff' });
     this.gachaRollSection.add([gachaRollBg,gachaRollBgInside, gachaRollTitle]);
 
     //const getButton = this.add.text(window.innerWidth / 2, window.innerHeight / 2 + 360, '報酬をゲット', {
@@ -141,16 +141,30 @@ export default class MissionScene extends Phaser.Scene {
           //console.log(data.longstay)
           this.longinBonusNewAchiveNum = data.loginMission.newAchiveNum
           this.longinBonusAlreadyGettedNum = data.loginMission.alreadyGetted
-          console.log(`data.loginMission.newAchiveNum: ${data.loginMission.newAchiveNum}`)
+          let longinBonusNewAchiveNum_for = data.loginMission.newAchiveNum;//forで使う
+          let loginYetGettingNewAchiveNum = 0 < this.longinBonusNewAchiveNum;//true or false
+
+          this.gachaRollBonusNewAchiveNum = data.gachaRollMission.newAchiveNum
+          this.gachaRollBonusAlreadyGettedNum = data.gachaRollMission.alreadyGetted
+          let gachaRollBonusNewAchiveNum_for = data.gachaRollMission.newAchiveNum;//forで使う
+          let gachaRollYetGettingNewAchiveNum = 0 < this.gachaRollBonusNewAchiveNum;//true or false
+
+          this.playtimeBonusNewAchiveNum = data.playtimeMission.newAchiveNum
+          this.playtimeBonusAlreadyGettedNum = data.playtimeMission.alreadyGetted
+          let playtimeBonusNewAchiveNum_for = data.playtimeMission.newAchiveNum;//forで使う
+          let playtimeYetGettingNewAchiveNum = 0 < this.playtimeBonusNewAchiveNum;//true or false
+
+          console.log(`longinBonusNewAchiveNum: ${this.longinBonusNewAchiveNum}`)
           console.log(`longinBonusAlreadyGettedNum: ${this.longinBonusAlreadyGettedNum}`)
+          console.log(`loginYetGettingNewAchiveNum: ${loginYetGettingNewAchiveNum}`)
 
-          //let longinBonusNewAchiveNum_for = data.login;//forで使う
-          let longinBonusNewAchiveNum_for = data.loginMission.newAchiveNum
+          console.log(`gachaRollBonusNewAchiveNum: ${this.gachaRollBonusNewAchiveNum}`)
+          console.log(`gachaRollBonusAlreadyGettedNum: ${this.gachaRollBonusAlreadyGettedNum}`)
+          console.log(`gachaRollYetGettingNewAchiveNum: ${gachaRollYetGettingNewAchiveNum}`)
 
-          let yetGettingNewAchiveNum=false
-          if(0<this.longinBonusNewAchiveNum){
-            yetGettingNewAchiveNum=true
-          }
+          console.log(`playtimeBonusNewAchiveNum: ${this.playtimeBonusNewAchiveNum}`)
+          console.log(`playtimeBonusAlreadyGettedNum: ${this.playtimeBonusAlreadyGettedNum}`)
+          console.log(`playtimeYetGettingNewAchiveNum: ${playtimeYetGettingNewAchiveNum}`)
 
           this.containers = [];
 
@@ -168,120 +182,25 @@ export default class MissionScene extends Phaser.Scene {
           const containerSpacing = (lineEndX - lineStartX - containerWidth) / 19; // 19 spaces for 20 containers
 
           this.mission_create(this.loginSection.y-20,longinBonusNewAchiveNum_for,this.longinBonusAlreadyGettedNum,this.loginSection,1);
-          this.mission_create(100,longinBonusNewAchiveNum_for,this.longinBonusAlreadyGettedNum,this.playTimeSection,2);
-          this.mission_create(100,longinBonusNewAchiveNum_for,this.longinBonusAlreadyGettedNum,this.gachaRollSection,3);
-
-          //mission_create(scene,lineY,BonusNewAchiveNum){
-
-          //const container = null
-          /*for (let i = 0; i < 20; i++) {
-            const containerX = lineStartX + (containerWidth + containerSpacing) * i*2;
-            if (i < this.longinBonusAlreadyGettedNum){//すでに取得済みのミッション
-              //const container = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x660066);
-              //const container.setStrokeStyle(1, 0x008000);
-              //this.container = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x660066);
-              this.container = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x474695);
-              //this.container = this.add.rectangle(containerX, lineY-200, containerWidth, containerHeight, 0x474695);
-              //this.container.setStrokeStyle(1, 0x008000);
-              this.container.setStrokeStyle(1, 0x808080);
-              //this.loginSection.add(this.container);
-
-              // Add text to container
-              //this.add.text(containerX, lineY+20, `50`, {fontSize: '24px',fill: '#000'}).setOrigin(0.5);
-              const cristal =this.add.text(containerX, lineY+20, `50`, {fontSize: '24px',fill: '#f5f5f5'}).setOrigin(0.5);
-              //const cristal =this.add.text(containerX, lineY-180, `50`, {fontSize: '24px',fill: '#f5f5f5'}).setOrigin(0.5);
-              //this.loginSection.add(cristal);
-
-              const gacha_thumbnail = this.add.image(containerX, lineY-20, 'money');
-              //const gacha_thumbnail = this.add.image(containerX, lineY-180, 'money');
-              gacha_thumbnail.setDisplaySize(50, 50);// 画像の幅と高さを指定
-              gacha_thumbnail.setInteractive();
-              //this.loginSection.add(gacha_thumbnail);
-              //this.add(gacha_thumbnail)
-              //this.loginSection.add(container);
-              this.loginSection.add([this.container,cristal, gacha_thumbnail]);
-
-            }else{//まだ未取得のミッション
-
-              //const container = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x00FF00);
-              //const container.setStrokeStyle(1, 0x008000);
-              //this.container = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x00FF00);
-              this.container = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x474695);
-              //this.container.setStrokeStyle(1, 0x008000);
-              this.container.setStrokeStyle(1, 0x808080);
-              
-              //まだ取得してないけど、獲得条件を満たしているミッションなら
-              //if(0<this.longinBonusNewAchiveNum){
-              if(0<longinBonusNewAchiveNum_for){
-                const yetGettingNewAchive_bg = this.add.rectangle(containerX, lineY, containerWidth+5, containerHeight+5, 0xCCCC00).setStrokeStyle(20, 0xffffff).setInteractive({ useHandCursor: true });
-                this.loginSection.add(yetGettingNewAchive_bg)
-                //yetGettingNewAchive_bg.on('pointerdown', () => { console.log("a") });
-                yetGettingNewAchive_bg.on('pointerdown', () => { this.one_getMissionBonus(this.container,containerX, lineY,containerWidth, containerHeight) });
-                //yetGettingNewAchive_bg.on('pointerdown', this.one_getMissionBonus,this);
-                //this.getButton.on('pointerdown', this.all_getMissionBonus, this)// 閉じるボタンのイベントリスナー
-
-                //this.longinBonusNewAchiveNum--;
-              }
-
-              const cristal =this.add.text(containerX, lineY+20, `50`, {fontSize: '24px',fill: '#f5f5f5'}).setOrigin(0.5);
-              //this.add.text(containerX, lineY+20, `50`, {fontSize: '24px',fill: '#000'}).setOrigin(0.5);
-
-              const gacha_thumbnail = this.add.image(containerX, lineY-20, 'money');
-              gacha_thumbnail.setDisplaySize(50, 50);// 画像の幅と高さを指定
-              gacha_thumbnail.setInteractive();
-
-              
-              this.loginSection.add([this.container,cristal, gacha_thumbnail]);
-              
-              //まだ取得してないけど、獲得条件を満たしているミッションなら
-              //if(0<this.longinBonusNewAchiveNum){
-              if(0<longinBonusNewAchiveNum_for){
-                //this.longinBonusNewAchiveNum--;//ここで引いておけば獲得権持っててまだ未獲得のボーナスが2なら2回処理・1なら1回処理がされるのでいける
-                longinBonusNewAchiveNum_for--;//ここで引いておけば獲得権持っててまだ未獲得のボーナスが2なら2回処理・1なら1回処理がされるのでいける
-              }
-
-            }
-            this.containers.push(this.container); 
-
-            
-            //if (i < data.GettedLoginBonus){
-            if (i <this.longinBonusAlreadyGettedNum){
-              this.overlay = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x000000, 0.7);
-              const checkBtn = this.add.image(containerX+30, lineY-30, 'check');
-              checkBtn.setDisplaySize(30, 30);// 画像の幅と高さを指定
-              this.loginSection.add([this.overlay, checkBtn]);
-            }
-
-            
-        }*/
-
+          this.mission_create(100,playtimeBonusNewAchiveNum_for,this.playtimeBonusAlreadyGettedNum,this.playTimeSection,2);
+          this.mission_create(150,gachaRollBonusNewAchiveNum_for,this.gachaRollBonusAlreadyGettedNum,this.gachaRollSection,3);
           
-          if(yetGettingNewAchiveNum){
+          //通知バッジ
+          if(loginYetGettingNewAchiveNum){
             const loginSection_badgeX = this.loginSection.x + this.loginSection.width / 2 + 30;
             const loginSection_badgeY = this.loginSection.y - this.loginSection.height / 2 + 10;
-            //const { loginSection_badge, loginSection_text } = this.createBadge(this, loginSection_badgeX, loginSection_badgeY, data.login);
-            //this.loginSection_badge = this.createBadge(this, loginSection_badgeX, loginSection_badgeY, data.login);
             this.loginSection_badge = this.createBadge(this, loginSection_badgeX, loginSection_badgeY, this.longinBonusNewAchiveNum);
-            //const loginSection_badge = this.createBadge(this, loginSection_badgeX, loginSection_badgeY, data.login);
-            //this.loginSection_badge =loginSection_badge
-            //this.loginSection_badge=loginSection_badge;
-            //this.loginSection_badge.setVisible(false)
-            //loginSection_badge.destroy();
-            
-            //this.result = this.createBadge(this, loginSection_badgeX, loginSection_badgeY, data.login);
-            //this.loginSection_badge = this.result.loginSection_Badge
-            //this.loginSection_text = this.result.loginSection_text
-            //let { this.loginSection_badge, this.loginSection_text } = this.createBadge(this, loginSection_badgeX, loginSection_badgeY, data.login);
           }
-
-          const gachaRollSection_badgeX = this.gachaRollSection.x + this.gachaRollSection.width / 2 + 30;
-          const gachaRollSection_badgeY = this.gachaRollSection.y - this.gachaRollSection.height / 2 + 10;
-          this.gachaRollSectionbadge = this.createBadge(this, gachaRollSection_badgeX, gachaRollSection_badgeY, this.longinBonusNewAchiveNum);
-          
-          const playTimeSection_badgeX = this.playTimeSection.x + this.playTimeSection.width / 2 + 30;
-          const playTimeSection_badgeY = this.playTimeSection.y - this.playTimeSection.height / 2 + 10;
-          this.playTimeSection_badge = this.createBadge(this, playTimeSection_badgeX, playTimeSection_badgeY, this.longinBonusNewAchiveNum);
-
+          if(playtimeYetGettingNewAchiveNum){
+            const playTimeSection_badgeX = this.playTimeSection.x + this.playTimeSection.width / 2 + 30;
+            const playTimeSection_badgeY = this.playTimeSection.y - this.playTimeSection.height / 2 + 10;
+            this.playTimeSection_badge = this.createBadge(this, playTimeSection_badgeX, playTimeSection_badgeY, this.longinBonusNewAchiveNum);
+          }
+          if(gachaRollYetGettingNewAchiveNum){
+            const gachaRollSection_badgeX = this.gachaRollSection.x + this.gachaRollSection.width / 2 + 30;
+            const gachaRollSection_badgeY = this.gachaRollSection.y - this.gachaRollSection.height / 2 + 10;
+            this.gachaRollSectionbadge = this.createBadge(this, gachaRollSection_badgeX, gachaRollSection_badgeY, this.longinBonusNewAchiveNum);
+          }
 
           //通知バッジ作成
           //const badgeX = this.button.x + this.button.width / 2 - 10;
@@ -304,6 +223,9 @@ export default class MissionScene extends Phaser.Scene {
   }
 
   mission_create(lineY,NewAchiveNum_for,AlreadyGettedNum,section,mission_type_num){
+    console.log(`mission_createのsection: ${section}`)
+    console.log(`mission_createのNewAchiveNum_for: ${NewAchiveNum_for}`)
+    console.log(`mission_createのAlreadyGettedNum: ${AlreadyGettedNum}`)
     this.containers = [];
 
     //線
@@ -363,7 +285,8 @@ export default class MissionScene extends Phaser.Scene {
 
           
           //if (i < data.GettedLoginBonus){
-          if (i <this.longinBonusAlreadyGettedNum){
+          //if (i <this.longinBonusAlreadyGettedNum){
+          if (i <AlreadyGettedNum){
             this.overlay = this.add.rectangle(containerX, lineY, containerWidth, containerHeight, 0x000000, 0.7);
             const checkBtn = this.add.image(containerX+30, lineY-30, 'check');
             checkBtn.setDisplaySize(30, 30);// 画像の幅と高さを指定
@@ -439,7 +362,7 @@ export default class MissionScene extends Phaser.Scene {
 
           //this.containers[data.GettedLoginBonus-1].setFillStyle(0xFF0000);
           console.log(data.GettedLoginBonus)
-          console.log(data.longstay)
+          //console.log(data.longstay)
           //this.loginSection_badge.setVisible(false)
           //this.signupSection_badge.setVisible(false)
           //this.getButton_badge.setVisible(false)
