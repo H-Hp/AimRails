@@ -1,0 +1,1069 @@
+{
+	"textures": [
+		{
+			"image": "bg1-1",
+			"format": "RGBA8888",
+			"size": {
+				"w": 4096,
+				"h": 4096
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "open_toons_output/bg1.0201.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0202.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0203.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0204.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 1200,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0205.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 1600,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0206.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 2000,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0207.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 2400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0208.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 2800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0209.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 3200,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0210.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 0,
+						"y": 3600,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0211.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0212.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0213.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 1200,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0214.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 1600,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0215.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2000,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0216.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2400,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0217.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2800,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0218.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 3200,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0219.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 3600,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0220.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0221.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0222.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 1200,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0223.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 1600,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0224.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 2000,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0225.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 2400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0226.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 2800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0227.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 3200,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0228.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 400,
+						"y": 3600,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0229.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0230.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 1200,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0231.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 1600,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0232.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2000,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0233.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2400,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0234.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2800,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0235.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 3200,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0236.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 3600,
+						"y": 400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0237.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0238.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 1200,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0239.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 1600,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0240.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 2000,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0241.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 2400,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0242.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 2800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0243.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 3200,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0244.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 800,
+						"y": 3600,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0245.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 1200,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0246.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 1600,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0247.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2000,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0248.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2400,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0249.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 2800,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				},
+				{
+					"filename": "open_toons_output/bg1.0250.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 400,
+						"h": 400
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 400,
+						"h": 400
+					},
+					"frame": {
+						"x": 3200,
+						"y": 800,
+						"w": 400,
+						"h": 400
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}
