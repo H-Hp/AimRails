@@ -1,6 +1,6 @@
 class AimRoomController < ApplicationController
   include ActionView::Helpers::AssetUrlHelper
-
+=begin
   $itemData = [
     { "id": 1, "gacha_id": 0, "name": "デフォ壁紙", "type": "background", "description": "デフォルトの壁紙", "rarity": 0, "max_quantity": 1, "path": "bg0" },
     { "id": 2, "gacha_id": 0, "name": "デフォキャラ", "type": "chara", "description": "デフォルトの壁紙", "rarity": 0, "max_quantity": 1, "path": "chara0" },
@@ -18,7 +18,7 @@ class AimRoomController < ApplicationController
     { "id": 12, "gacha_id": 2, "name": "音楽1", "type": "music", "description": "洋風の音楽", "rarity": 25, "max_quantity": 1, "path": "music1" },
     { "id": 13, "gacha_id": 2, "name": "机", "type": "desk", "description": "おしゃれな机", "rarity": 25, "max_quantity": 1, "path": "desk1" }
   ];
-
+=end
   def index
     if user_signed_in?
       # ログイン中の場合の処理
@@ -57,46 +57,80 @@ class AimRoomController < ApplicationController
 =end
   end
 
+  def resolve_path_img_json
+    path = params[:path]
+    img_path = helpers.asset_path("aimroom/item/"+path+".png")
+    json_path = helpers.asset_path("aimroom/item/"+path+".json")
+    render json: { img_path: img_path, json_path:json_path}
+  end
   def init_env
+    current_user_id = 0
+    if user_signed_in?
+      current_user_id = current_user.id
+    else
+      current_user_id = 1
+    end
     #env_data = PlacedItem.find_by(user_id: current_user.id)
-    env_data = PlacedItem.where(user_id: current_user.id)
+    #env_data = PlacedItem.where(user_id: current_user.id)
+    env_data = PlacedItem.where(user_id: current_user_id)
     Rails.logger.error "env_data: #{env_data}"
     env_data.each do |item|
       type = item.properties['type']  # または item.properties["type"]
       puts "type: #{type}"  # "background", "chara", "desk" などが出力されます
     end
 
-    background_path = PlacedItem.joins(:item)
-                          .where(user_id: current_user.id)
+    background = PlacedItem.joins(:item)
+                          .where(user_id: current_user_id)
                           .where(items: { item_type: 'background' })
-                          .first
-                          &.item
-                          &.path
+                          .first            
+    background_path = background&.item&.path
+    background_properties = background&.item&.properties
+    background_prefix = background&.item&.properties&.dig('prefix')
     puts "background_path: #{background_path}" 
-    background_path = helpers.asset_path("aimroom/item/"+background_path+".png")
-    puts "アセットコンパイルのbackground_path: #{background_path}" 
+    background_img_path = helpers.asset_path("aimroom/item/"+background_path+".png")
+    background_json_path = helpers.asset_path("aimroom/item/"+background_path+".json")
+    puts "アセットコンパイルのbackground_img_path: #{background_img_path}" 
+    puts "アセットコンパイルのbackground_json_path: #{background_json_path}" 
+    puts "アセットコンパイルのbackground_prefix: #{background_prefix}" 
 
-    desk_path = PlacedItem.joins(:item)
-                          .where(user_id: current_user.id)
-                          .where(items: { item_type: 'desk' })
-                          .first
-                          &.item
-                          &.path
+
+    #desk_path = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'desk' }).first&.item&.path
+    desk = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'desk' }).first
+    desk_path = desk&.item&.path
+    desk_properties = desk&.item&.properties
+    desk_prefix = desk&.item&.properties&.dig('prefix')
     desk_path = helpers.asset_path("aimroom/item/"+desk_path+".png")
     puts "アセットコンパイルのdesk_path: #{desk_path}"
+    puts "アセットコンパイルのdesk_desk_prefix: #{desk_prefix}"
 
-    chara_path = PlacedItem.joins(:item)
-                          .where(user_id: current_user.id)
-                          .where(items: { item_type: 'chara' })
-                          .first
-                          &.item
-                          &.path
-    chara_path = helpers.asset_path("aimroom/item/"+chara_path+".png")
-    puts "アセットコンパイルのchara_path: #{chara_path}" 
-                      
+    chara = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'chara' }).first
+    chara_path = chara&.item&.path
+    chara_properties = chara&.item&.properties
+    chara_prefix = chara&.item&.properties&.dig('prefix')
+    chara_img_path = helpers.asset_path("aimroom/item/"+chara_path+".png")
+    chara_json_path = helpers.asset_path("aimroom/item/"+chara_path+".json")
+    puts "アセットコンパイルのchara_img_path: #{chara_img_path}" 
+    puts "アセットコンパイルのchara_json_path: #{chara_json_path}"
+
+    obj = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'obj' }).first
+    obj_path = obj&.item&.path
+    puts "obj_path: #{obj_path}" 
+    obj_properties = obj&.item&.properties
+    obj_prefix = obj&.item&.properties&.dig('prefix')
+    obj_img_path = helpers.asset_path("aimroom/item/"+obj_path+".png")
+    obj_json_path = helpers.asset_path("aimroom/item/"+obj_path+".json")
+    puts "アセットコンパイルのobj_img_path: #{obj_img_path}" 
+    puts "アセットコンパイルのobj_json_path: #{obj_json_path}"
+
+    picture = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'picture' }).first
+    picture_path = picture&.item&.path
+    picture_path = helpers.asset_path("aimroom/item/"+picture_path+".png")
+    puts "アセットコンパイルのpicture_path: #{picture_path}" 
+
+
 
     background_info = Item.joins("INNER JOIN placed_items ON items.id = placed_items.item_id")
-                     .where(placed_items: { user_id: current_user.id })
+                     .where(placed_items: { user_id: current_user_id })
                      .where(item_type: 'background')
                      .select('items.path, items.name, placed_items.x_position, placed_items.y_position')
                      .first
@@ -107,7 +141,20 @@ class AimRoomController < ApplicationController
        .select('user_items.*, items.*')
 
     
-    render json: { background_path: background_path,desk_path: desk_path,chara_path: chara_path ,musics: musics}
+    render json: { 
+      background_img_path: background_img_path,
+      background_json_path: background_json_path,
+      background_prefix: background_prefix ,
+      chara_img_path: chara_img_path, 
+      chara_json_path: chara_json_path, 
+      chara_prefix: chara_prefix,
+      obj_img_path: obj_img_path, 
+      obj_json_path: obj_json_path, 
+      obj_prefix: obj_prefix,
+      picture_path: picture_path,
+      desk_path: desk_path,
+      musics: musics
+    }
   end
   def update_env
     #received_data = params[:sendData]  # Or just params for accessing sent data
@@ -115,30 +162,26 @@ class AimRoomController < ApplicationController
     #path = received_data[:path]
     new_item_id = params[:id]
     type = params[:type]
-    path = params[:path]
+    #path = params[:path]
     puts "new_item_id: #{new_item_id}" 
     puts "type: #{type}" 
-    puts "path: #{path}" 
+    #puts "path: #{path}" 
 
-
+    item_type=''
     if type=="background"
-      #data['env'][0]['background'] = path
-      #PlacedItem.update
-      item = PlacedItem.find_by("properties->>'type' = ?", 'background')
-      item.update(item_id: new_item_id) if item
+      item_type="background"
     elsif type=="desk"
-      #data['env'][0]['desk'] = path
-      item = PlacedItem.find_by("properties->>'type' = ?", 'desk')
-      item.update(item_id: new_item_id) if item
-
+      item_type="desk"
     elsif type=="chara"
-      #data['env'][0]['chara'] = path
-      item = PlacedItem.find_by("properties->>'type' = ?", 'chara')
-      item.update(item_id: new_item_id) if item
+      item_type="chara"
+    elsif type=="obj"
+      item_type="obj"
+    elsif type=="picture"
+      item_type="picture"
     end
 
-    #item = PlacedItem.find_by("properties->>'type' = ?", type)
-    #item.update(item_id: new_item_id) if item
+    item = PlacedItem.find_by("properties->>'type' = ?", type)
+    item.update(item_id: new_item_id) if item
 
 
     render json: { env_data: new_item_id }
@@ -154,10 +197,14 @@ class AimRoomController < ApplicationController
   end
 
   def check_crystal_amount
-    @AimRoom = AimRoom.find_by(user_id: current_user.id)
-    puts "@AimRoom.currency: #{@AimRoom.currency}";Rails.logger.error "@AimRoom.currency: #{@AimRoom.currency}"
-    render json: { cristal_amount: @AimRoom.currency }
-    #render json: { cristal_amount: 500 }
+    if user_signed_in?
+      @AimRoom = AimRoom.find_by(user_id: current_user.id)
+      puts "@AimRoom.currency: #{@AimRoom.currency}";Rails.logger.error "@AimRoom.currency: #{@AimRoom.currency}"
+      render json: { cristal_amount: @AimRoom.currency }
+      #render json: { cristal_amount: 500 }
+    else
+      render json: { cristal_amount: 0 }
+    end
   end
 
 
@@ -231,7 +278,7 @@ class AimRoomController < ApplicationController
 
     #owned_items = user.items.includes(:user_items)
     #owned_items = current_user.items.includes(:user_items)
-    render json: { itemData: @owned_items }
+    render json: { owned_items: @owned_items }
   end
 
   def stripe

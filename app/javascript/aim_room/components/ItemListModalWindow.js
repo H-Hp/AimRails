@@ -18,20 +18,30 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
   }
 
   async init(scene, x, y, window_innerWidth, window_innerHeight, content,my_items, updateCallback){
-    const ModalContainer = scene.add.container(10, 10);
+    
+    if (this.ModalContainer!=null){
+      this.ModalContainer.destroy()
+    }
+    if (this.itemsContainer!=null){
+      this.itemsContainer.destroy()
+    }
+    
+
+    //const ModalContainer = scene.add.container(10, 10);
+    this.ModalContainer = scene.add.container(10, 10);
 
     this.modalBg = scene.add.image(0, 0, 'item_modal_bg');
     this.modalBg.setOrigin(0, 0);//画像の中心がcontainerに入るので、原点を画像の左上に変更
     this.modalBg.setDisplaySize(window_innerWidth*0.45, window_innerHeight*0.8);
-    ModalContainer.add(this.modalBg)
+    this.ModalContainer.add(this.modalBg)
 
     this.itemsContainer = scene.add.container(0, 0);
-    ModalContainer.add(this.itemsContainer)
+    this.ModalContainer.add(this.itemsContainer)
 
     // 閉じるボタンのイベントリスナー
     this.closeButton = scene.add.image(window_innerWidth*0.45,  20, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true });
-    this.closeButton.on('pointerdown', this.close, ModalContainer);// 閉じるボタンのイベントリスナー
-    ModalContainer.add(this.closeButton)
+    this.closeButton.on('pointerdown', this.close, this.ModalContainer);// 閉じるボタンのイベントリスナー
+    this.ModalContainer.add(this.closeButton)
 
 
 
@@ -41,8 +51,13 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     //const my_items_path_array = my_items.map(item => item.path);
     //const my_items_path_array = my_items.filter(item => item.path.includes('music')).map(item => item.path);
     const my_items_path_array = my_items.map(item => {
-      if (item.path.includes('music')) {
+      console.log("aa item.item_type: "+item.item_type)
+      //if (item.path.includes('music')) {
+      if (item.item_type=='music') {
         return 'music';
+        //return item.path;
+      }else if (item.item_type=='background' || item.item_type=='chara' || item.item_type=='obj') {
+        return item.path+'_thm';
       } else {
         return item.path;
       }
@@ -77,7 +92,9 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       let loader = new Phaser.Loader.LoaderPlugin(scene);// 新しいローダーを作成
       if(item.type=="music"){
         console.log("音楽ふぁｆ")
-        loader.image('myitem'+item.id, 'assets/images/item/music.png');// 画像を読み込む
+        loader.image('music'+item.id, 'assets/images/item/music.png');// 画像を読み込む
+        //loader.image('myitem'+resolved_paths[i], 'assets/images/item/music.png');// 画像を読み込む
+
       }else{
         /*const asset_path = this.resolve_asset_path(my_items_path_array,scene, itemContainer, item, item.path+'.png')
         .then(result => {
@@ -99,7 +116,12 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       let item_img =null;
       loader.once('complete', () => {  // 読み込み完了後に画像を表示
         //item_img = scene.add.image(0, -25, 'myitem'+item.id);
-        item_img = scene.add.image(0, -25, 'myitem'+resolved_paths[i]);
+        item_img=null
+        if(item.type=="music"){
+          item_img = scene.add.image(0, -25, 'music'+item.id);
+        }else{
+          item_img = scene.add.image(0, -25, 'myitem'+resolved_paths[i]);
+        }
         item_img.setDisplaySize(100, 75);// 画像の幅と高さを指定
         item_img.setInteractive();
         itemContainer.add(item_img);
@@ -144,8 +166,6 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       scene.input.on('pointermove', this.doDrag, this);
       scene.input.on('pointerup', this.endDrag, this);
       
-
-
       // シーンにこのコンテナを追加
       scene.add.existing(this)
 
@@ -154,9 +174,14 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
   }
   //oneitem_modalOpen(scene,item) {
   oneitem_modalOpen(scene,item,resolved_path) {
-      console.log("resolved_path: "+resolved_path)
+    console.log("resolved_path: "+resolved_path)
+    if (this.oneitemModalContainer!=null){
+      this.oneitemModalContainer.destroy()
+    }
+    //const oneitemModalContainer = scene.add.container(window.innerWidth*0.5, 10);// Create a container for the button
+    this.oneitemModalContainer = scene.add.container(window.innerWidth*0.5, 10);// Create a container for the button
+
     //const oneitemModalContainer = scene.add.container(window.innerWidth/2+450, 500);// Create a container for the button
-    const oneitemModalContainer = scene.add.container(window.innerWidth*0.5, 10);// Create a container for the button
     //const oneitem_background = scene.add.rectangle(0, 0, window.innerWidth / 2.5, height*1.5, 0x000000, 0.7)
     //const oneitem_background = scene.add.rectangle(0, 0, window.innerWidth / 2.5, window.innerHeight/1.5, 0x000000, 0.7)
     //oneitemModalContainer.add(oneitem_background)
@@ -166,17 +191,17 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     //this.oneitem_modalBg.setDisplaySize(window.innerWidth / 2.5, height*1.5);
     //this.oneitem_modalBg.setDisplaySize(window.innerWidth / 2.5, window.innerHeight/1.3);
     this.oneitem_modalBg.setDisplaySize(window.innerWidth*0.45, window.innerHeight*0.8);
-    oneitemModalContainer.add(this.oneitem_modalBg)
+    this.oneitemModalContainer.add(this.oneitem_modalBg)
 
     //const one_nameText = scene.add.text(-width/2.7, -height/1.5, item.name, { fontSize: '40px', fill: '#ffffff' });
     //const one_nameText = scene.add.text(-width/5, -height/3, item.name, { fontSize: '40px', fill: '#ffffff' });
     //const one_nameText = scene.add.text(-window.innerWidth/2/5, -window.innerHeight/2/3, item.name, { fontSize: '40px', fill: '#ffffff' });
     const one_nameText = scene.add.text(window.innerWidth*0.1, 50, item.name, { fontSize: '20px', fill: '#ffffff' });
-    oneitemModalContainer.add(one_nameText)
+    this.oneitemModalContainer.add(one_nameText)
 
     //const oneitem_descriptionText = scene.add.text(-window.innerWidth/2/5, -window.innerHeight/2/4, item.description, { fontSize: '25px', fill: '#ffffff' });
     const oneitem_descriptionText = scene.add.text(window.innerWidth*0.1, 90, item.description, { fontSize: '15px', fill: '#ffffff' });
-    oneitemModalContainer.add(oneitem_descriptionText)
+    this.oneitemModalContainer.add(oneitem_descriptionText)
 
     //const one_item_img = scene.add.image(0, 0, 'myitem'+item.id);
     //const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+item.id);
@@ -186,7 +211,7 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     //one_item_img.setDisplaySize(window.innerWidth/2/3, window.innerHeight/2/3);// 画像の幅と高さを指定
     one_item_img.setDisplaySize(window.innerWidth*0.45, window.innerHeight*0.3);// 画像の幅と高さを指定
     one_item_img.setInteractive();
-    oneitemModalContainer.add(one_item_img)
+    this.oneitemModalContainer.add(one_item_img)
 
     let text="設定する"
     if(item.type=="background"){
@@ -200,18 +225,18 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     }
     if(item.type!="music"){
       //const in_Button = new ButtonText(scene, width/2/2-60, height/2, '壁紙にする', () => {  if (this.updateCallback) { this.updateCallback(item); }  });
-      const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.updateCallback(item,resolved_path); }  });
-      oneitemModalContainer.add(in_Button)
+      const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.oneitemModalContainer.destroy();this.updateCallback(item,resolved_path); }  });
+      this.oneitemModalContainer.add(in_Button)
     }
 
     // 閉じるボタン
     //this.oneitem_closeButton = scene.add.image(-window.innerWidth/2/2/2/2+600 ,  -window.innerHeight/2/2-50, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true });
     this.oneitem_closeButton = scene.add.image(window.innerWidth*0.45 , 20, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true });
-    this.oneitem_closeButton.on('pointerdown', this.oneitem_close, oneitemModalContainer);// 閉じるボタンのイベントリスナー
-    oneitemModalContainer.add(this.oneitem_closeButton)
+    this.oneitem_closeButton.on('pointerdown', this.oneitem_close, this.oneitemModalContainer);// 閉じるボタンのイベントリスナー
+    this.oneitemModalContainer.add(this.oneitem_closeButton)
 
     const oneitem_sellButton = new ButtonText(scene, 150, 90, '売る', () => { this.item_sell(item) });
-    oneitemModalContainer.add(oneitem_sellButton)
+    this.oneitemModalContainer.add(oneitem_sellButton)
 
   }
 
