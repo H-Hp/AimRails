@@ -22,63 +22,35 @@ export default class CristalAmountButton extends Phaser.GameObjects.Container {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      //this.registry.set('cristal_amount', data.cristal_amount);
+      //console.log(data);
       this.cristalAmount = data.cristal_amount
-      this.createButton();
-      //this.scene.restart()  // シーンを再起動してログイン状態を反映
+
+      this.buttonBackground = this.scene.add.rectangle(0, 0, window.innerWidth/8, 50, 0x4a4a4a);
+      this.chargeImage = this.scene.add.image(-50, 0, 'money').setScale(0.05);
+      this.buttonText = this.scene.add.text(20, 0, `${this.cristalAmount}`, {fontSize: '15px',fontFamily: 'Arial',color: '#ffffff' }).setOrigin(0, 0.5);
+
+      const container = this.scene.add.container(0, 0, [ this.buttonBackground, this.buttonText,this.chargeImage ]);
+      this.add(container);
+      this.buttonBackground.setInteractive();
+  
+      this.buttonBackground.on('pointerdown', () => {
+        if (this.scene.isLoggedIn) {
+          this.scene.scene.start('ChargeScene');
+        } else {
+            this.modal = new ModalWindow(this.scene, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。');
+            this.modal.open();
+        }
+      });
+      this.buttonBackground.on('pointerover', () => {
+        this.scene.input.setDefaultCursor('pointer');
+        this.buttonBackground.fillColor = 0x6c757d;
+      });
+      this.buttonBackground.on('pointerout', () => {
+        this.scene.input.setDefaultCursor('default');
+        this.buttonBackground.fillColor = 0x4a4a4a;
+      });
     })
     .catch(error => console.error('Error:', error))
-    
-    //this.cristalAmount = 100
-    this.createButton();
-  }
-  createButton() {
-      this.buttonBackground = this.scene.add.rectangle(0, 0, window.innerWidth/8, 50, 0x4a4a4a);
-      this.add(this.buttonBackground);
-
-      // Add the money image to the button
-      this.chargeImage = this.scene.add.image(-50, 0, 'money');
-      //this.chargeImage.setScale(0.1);
-      this.chargeImage.setScale(0.07);
-      this.add(this.chargeImage);
-
-      // Add the currency text
-      //this.buttonText = this.scene.add.text(20, 0, `${this.cristalAmount}`, {fontSize: '32px',fontFamily: 'Arial',color: '#ffffff' }).setOrigin(0, 0.5);
-      this.buttonText = this.scene.add.text(20, 0, `${this.cristalAmount}`, {fontSize: '15px',fontFamily: 'Arial',color: '#ffffff' }).setOrigin(0, 0.5);
-      this.add(this.buttonText);
-
-      // Create a hit area for the entire container
-      //const hitArea = new Phaser.Geom.Rectangle(-150, -100, 300, 200);
-      const hitArea = new Phaser.Geom.Rectangle(-window.innerWidth/8, -50, window.innerWidth/8, 50);
-      this.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains);
-
-      this.createEvents();
-  }
-
-  createEvents() {
-      this.on('pointerdown', this.handleClick, this);
-      this.on('pointerover', this.handlePointerOver, this);
-      this.on('pointerout', this.handlePointerOut, this);
-  }
-
-  handleClick() {
-      if (this.scene.isLoggedIn) {
-          this.scene.scene.start('ChargeScene');
-      } else {
-          this.modal = new ModalWindow(this.scene, window.innerWidth / 2, window.innerHeight / 2, 400, 300, 'ログインしてください。\n会員限定でのサービスとなります。');
-          this.modal.open();
-      }
-  }
-
-  handlePointerOver() {
-      this.scene.input.setDefaultCursor('pointer');
-      this.buttonBackground.setScale(1.1);
-  }
-
-  handlePointerOut() {
-      this.scene.input.setDefaultCursor('default');
-      this.buttonBackground.setScale(1);
   }
 
   updateCristalAmount(amount) {

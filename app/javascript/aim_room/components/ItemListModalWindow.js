@@ -123,28 +123,37 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
           item_img = scene.add.image(0, -25, 'myitem'+resolved_paths[i]);
         }
         item_img.setDisplaySize(100, 75);// 画像の幅と高さを指定
-        item_img.setInteractive();
+        //item_img.setInteractive();
         itemContainer.add(item_img);
-        item_img.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
+        //item_img.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
       });
       loader.start();// 読み込みを開始
-      
 
       const nameText = scene.add.text(-40, 40, item.name, { fontSize: '16px', fill: '#ffffff' });
       itemContainer.add(nameText);
       
       // コンテナ全体をカバーする透明な長方形を作成
-      const hitArea = new Phaser.Geom.Rectangle(-150, -100, 200, 250)
-      itemContainer.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains)
+      //const hitArea = new Phaser.Geom.Rectangle(-150, -100, 200, 250)
+      //itemContainer.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains)
 
       //itemContainer.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) });
-      itemContainer.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) });
-      itemContainer.on('pointerover', () => { scene.input.setDefaultCursor('pointer');itemBackground.setScale(1.1) })
-      itemContainer.on('pointerout', () => { scene.input.setDefaultCursor('default');itemBackground.setScale(1); })
+      itemBackground.on('pointerdown', () => { 
+        this.oneitem_modalOpen(scene,item,resolved_paths[i]) 
+      });
+      itemBackground.on('pointerover', () => { 
+        scene.input.setDefaultCursor('pointer');
+        //itemBackground.setScale(1.1) 
+        itemBackground.fillColor = 0x17a2b8;
+      })
+      itemBackground.on('pointerout', () => { 
+        scene.input.setDefaultCursor('default');
+        //itemBackground.setScale(1); 
+        itemBackground.fillColor = 0x192f60;
+      })
       //itemBackground.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
       //nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
-      itemBackground.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
-      nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
+      ///itemBackground.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
+      ///nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
       //this.add(itemContainer)
       
   });
