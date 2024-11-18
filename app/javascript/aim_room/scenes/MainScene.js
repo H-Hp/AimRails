@@ -197,7 +197,8 @@ async ajax(path,sendData){
             //this.background.setTexture(`background-${bg_path}`);
             this.anims.create({key: 'bg_key',frames: this.anims.generateFrameNames('bg', {prefix: bg_prefix,suffix: '.png',start: 0,end: 75,zeroPad: 2}),frameRate: 18,repeat: -1});
             //this.background = this.add.sprite(window.innerWidth, window.innerHeight,'bg').setScale(2)
-            this.background = this.add.sprite(window.innerWidth/2,window.innerHeight/2,'bg').setScale(2)
+            //this.background = this.add.sprite(window.innerWidth/2,window.innerHeight/2,'bg').setScale(2)
+            this.background = this.add.sprite(window.innerWidth/2,window.innerHeight/2,'bg').setDisplaySize(window.innerWidth, window.innerHeight);
             this.background.play('bg_key');
           }
             //this.background.setDisplaySize(window.innerWidth, window.innerHeight);

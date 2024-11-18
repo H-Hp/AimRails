@@ -40,6 +40,7 @@ export default class MissionScene extends Phaser.Scene {
 
   preload() {
     this.load.image('gacha_backgroud', this.props.gacha_backgroud);
+    this.load.image('other_backgroud', this.props.other_backgroud);
     this.load.image('check', this.props.check_icon);
   }
 
@@ -49,8 +50,10 @@ export default class MissionScene extends Phaser.Scene {
       {id: 2, name: 'レアガチャ', description: 'レアなパックです。',cristalCost: 150},
     ];
 
-    const background = this.add.image(0, 0, 'gacha_backgroud').setOrigin(0, 0);
-    background.setDisplaySize(1600, 1200);
+    //const background = this.add.image(0, 0, 'gacha_backgroud').setOrigin(0, 0);
+    //background.setDisplaySize(1600, 1200);
+    const background = this.add.image(window.innerWidth/2, window.innerHeight/2, 'other_backgroud')
+    background.setDisplaySize(window.innerWidth, window.innerHeight);
 
     const mainContainer = this.add.container(0, 0);
 

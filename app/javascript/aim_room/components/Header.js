@@ -21,11 +21,11 @@ export default class Header extends Phaser.GameObjects.Container {
       this.add(this.backButton)
 
       //this.add.text(400, 50, text, {fontSize: '48px',fill: '#fff'}).setOrigin(0.5);
-      this.title = scene.add.text(400, 50, text, {fontSize: '48px',fill: '#fff'}).setOrigin(0.5);
+      this.title = scene.add.text(150, 50, text, {fontSize: '24px',fill: '#fff'}).setOrigin(0.5);
       this.add(this.title)
 
       //クリスタル所持数を取得
-      this.CristalAmountButton = new CristalAmountButton(scene, window.innerWidth*0.5, 50, isLoggedIn);
+      this.CristalAmountButton = new CristalAmountButton(scene, window.innerWidth-100, 50, isLoggedIn);
       this.add(this.CristalAmountButton)
 
       //this.add([this.backButton, this.title]);

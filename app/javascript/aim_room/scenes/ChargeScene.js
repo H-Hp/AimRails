@@ -29,49 +29,28 @@ export default class ChargeScene extends Phaser.Scene {
 
   preload() {
     this.load.image('gacha_backgroud', this.props.gacha_backgroud);
+    this.load.image('other_backgroud', this.props.other_backgroud);
     this.load.image('getModal1', this.props.getModal1);
     this.load.image('getModal2', this.props.getModal2);
     this.load.image('getModal3', this.props.getModal3);
 
-    this.load.image('charge_item1', this.props.money_icon);
-    this.load.image('charge_item2', this.props.money_icon);
-    this.load.image('charge_item3', this.props.money_icon);
-    this.load.image('charge_item4', this.props.money_icon);
-    this.load.image('charge_item5', this.props.money_icon);
-    this.load.image('charge_item6', this.props.money_icon);
-
-
-    /*this.load.image('gacha_backgroud', 'assets/images/Gacha/backgroud.png');
-    this.load.image('charge_item1', 'assets/images/money/money.png');
-    this.load.image('charge_item2', 'assets/images/money/money.png');
-    this.load.image('charge_item3', 'assets/images/money/money.png');
-    this.load.image('charge_item4', 'assets/images/money/money.png');
-    this.load.image('charge_item5', 'assets/images/money/money.png');
-    this.load.image('charge_item6', 'assets/images/money/money.png');
-
-    this.load.image('getModal1', 'assets/images/Gacha/getModal1.jpeg');
-    this.load.image('getModal2', 'assets/images/Gacha/getModal2.jpeg');
-    this.load.image('getModal3', 'assets/images/Gacha/getModal3.jpg');*/
+    this.load.image('charge_item1', this.props.charge_item1);
+    this.load.image('charge_item2', this.props.charge_item2);
+    this.load.image('charge_item3', this.props.charge_item3);
+    this.load.image('charge_item4', this.props.charge_item4);
   }
 
   create() {
 
-    const background = this.add.image(0, 0, 'gacha_backgroud').setOrigin(0, 0);
+    //const background = this.add.image(0, 0, 'gacha_backgroud').setOrigin(0, 0);
+    const background = this.add.image(window.innerWidth/2, window.innerHeight/2, 'other_backgroud')
+    background.setDisplaySize(window.innerWidth, window.innerHeight);
     //background.setDisplaySize(1600, 1200);
-    background.setScale(3)
+    //background.setScale(3)
 
     //クリスタル所持数を取得
     this.Header = new Header(this, 'クリスタル購入',this.loginPlugin);
     this.items = this.add.group();
-
-    /*const itemData = [
-      { name: 'クリスタルパック 1,500', price: '¥1480', image: 'item1' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'},
-      { name: 'クリスタルパック 3,500', price: '¥3540', image: 'item2' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'},
-      { name: 'クリスタルパック 50', price: '¥130', image: 'item3' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'},
-      { name: 'クリスタルパック 110', price: '¥250', image: 'item4' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'},
-      { name: 'クリスタルパック 330', price: '¥730', image: 'item5' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'},
-      { name: 'クリスタルパック 680', price: '¥1480', image: 'item6' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'}
-    ];*/
 
     const itemData = [
       { id: 1, name: 'クリスタルパック 100', description: '基本的なパックです。', price: '¥120', image: 'item1' , url: 'https://buy.stripe.com/test_00gdRK8c92ib1EYcMM'},
@@ -80,72 +59,73 @@ export default class ChargeScene extends Phaser.Scene {
       { id: 4, name: 'クリスタルパック 1200', description: '基本的なパックです。', price: '¥1440', image: 'item4' , url: 'https://buy.stripe.com/test_fZefZSbol3mf83mfZ1'}
     ];
 
-
+    const item_width = window.innerWidth * 0.20;
+    const item_height=window.innerWidth*0.30
+    const spacing = item_width + 50; // コンテナ間の間隔を設定
+  
     itemData.forEach((item, i) => {
-      const x = 150 + i * 450;
-      const y = 400;
+      //const x = 150 + i * 450;
+      const x = i * spacing;
+      const y = 150;
 
-      const item_Container = this.add.container(x, y+150);// Create a container for the button
+      const item_Container = this.add.container(x+50, y);// Create a container for the button
 
       //const item_Background = this.add.rectangle(0, 0, 200, 400, 0x4a4a4a);
-      const item_Background = this.add.rectangle(0, 0, 350, 600, 0x4a4a4a);
+      const item_Background = this.add.rectangle(0, 0, item_width, item_height, 0x000066);
       item_Background.setInteractive({ useHandCursor: true });
-      //item_Background.on('pointerdown', () => this.showModal(item.name, item.price, item.url));
-      item_Background.on('pointerdown', () => this.showModal(item));
-      //item_Background.on('pointerdown', () => this.goStripe(item.url));
+      item_Background.setStrokeStyle(5, 0xffffff);
+      item_Background.setOrigin(0, 0);//オブジェクトの中心がcontainerに入るので、原点を画像の左上に変更
       item_Container.add(item_Background);
 
       //const nameText = this.add.text(x, y + 100, itemData[i].name, { fontSize: '16px', fill: '#fff' });
-      const nameText = this.add.text(0, -130, item.name, { fontSize: '30px', fill: '#fff' });
-      nameText.setOrigin(0.5);
-      //nameText.on('pointerdown', () => this.showModal(item.name, item.price, item.url));
-      nameText.on('pointerdown', () => this.showModal(item));
-      //nameText.on('pointerdown', () => this.goStripe(item.url));
+      const nameText = this.add.text(0,20, item.name, { fontSize: '16px', fill: '#fff',align: 'center',padding: { x: 20, y: 10 } });
+      nameText.setOrigin(0,0);
+      nameText.setFixedSize(item_width, 50)
       item_Container.add(nameText);
 
-      const item_image = this.add.image(0, 0, 'charge_'+item.image);
-      item_image.setScale(0.2);
-      //item_image.setScale(0.5);
-      item_image.setInteractive();
-      //item.on('pointerdown', () => this.showModal(itemData[i].name, itemData[i].price));
-      //item_image.on('pointerdown', () => this.showModal(itemData[i].name, itemData[i].price, itemData[i].url));
-      //item_image.on('pointerdown', () => this.showModal(item.name, item.price, item.url));
-      item_image.on('pointerdown', () => this.showModal(item));
-      //item_image.on('pointerdown', () => this.goStripe(item.url));
+      const item_image = this.add.image(item_width/2, 100, 'charge_'+item.image).setOrigin(0,0).setScale(0.1);
+      //const item_image2 = this.add.image(item_width/2+20, 120, 'charge_'+item.image).setOrigin(0,0).setScale(0.1);
       item_Container.add(item_image);
+      //item_Container.add(item_image2);
             
       //const priceText = this.add.text(x, y + 130, itemData[i].price, { fontSize: '20px', fill: '#fff' });
-      const priceText = this.add.text(0, 160, item.price, { fontSize: '25px', fill: '#fff' });
-      priceText.setOrigin(0.5);//goStripe(url) 
-      //priceText.on('pointerdown', () => this.showModal(item.name, item.price, item.url));
-      priceText.on('pointerdown', () => this.goStripe(item.url));
+      //const priceText = this.add.text(0, 160, item.price, { fontSize: '25px', fill: '#fff' });
+      const priceText = this.add.text(item_width/2, 300, item.price, {fontSize: '16px',color: '#ccff00',backgroundColor: '#212121',align: 'center',padding: { x: 20, y: 20 }}).setOrigin(0, 0.5).setFixedSize(item_width/3, 50);
+      //priceText.setOrigin(0,0);//goStripe(url) 
       item_Container.add(priceText);
 
       //const urlText = this.add.text(x, y + 130, itemData[i].price, { fontSize: '20px', fill: '#fff' });
       //urlText.setOrigin(0.5);
       
       this.items.add(item_Container);
+
+      item_Background.on('pointerdown', () => {
+        this.showModal(item)
+        //this.goStripe(item.url)
+      });
+      item_Background.on('pointerover', () => {
+        this.input.setDefaultCursor('pointer');
+        item_Background.fillColor = 0x003366;
+  
+      });
+      item_Background.on('pointerout', () => {
+        this.input.setDefaultCursor('default');
+        item_Background.fillColor = 0x000066;
+      });
+  
       
     });
 
-    const termsButton = this.add.text(1000, 900, '利用規約', {
-      fontSize: '32px',
-      color: '#ffffff',
-      backgroundColor: '#ff0000',
-      padding: { x: 20, y: 10 }
-    })
-    .setOrigin(0.5)
-    .setInteractive({ useHandCursor: true })
+    const termsButton = this.add.text(50, window.innerHeight-150, '利用規約', {fontSize: '20px',color: '#ffffff',backgroundColor: '#212121',padding: { x: 10, y: 10 }}).setOrigin(0.5).setInteractive({ useHandCursor: true })
     .on('pointerdown', () => this.showTerms(this))
 
-    const announcementText = this.add.text(300, 950, "クリスタルパックを選択したことにより、上記利用規約に同意したものとみなされます。\nクリスタルは購入手続き完了後に加算されます。クリスタルはこのアプリ内でのみご利用いただけます。", { fontSize: '18px', fill: '#fff' });
-    //announcementText.setOrigin(0.5);
-
-    //this.scrollBar = this.add.rectangle(400, 550, 600, 10, 0x888888);
+    const announcementText = this.add.text(50, window.innerHeight-100, "クリスタルパックを選択したことにより、上記利用規約に同意したものとみなされます。\nクリスタルは購入手続き完了後に加算されます。クリスタルはこのアプリ内でのみご利用いただけます。", { fontSize: '18px', fill: '#fff' });
 
     this.input.on('pointerdown', this.startDrag, this);
     this.input.on('pointermove', this.doDrag, this);
     this.input.on('pointerup', this.stopDrag, this);
+
+    
 
     // モーダルウィンドウの作成（初期状態は非表示）
     //this.createModal();
@@ -184,7 +164,7 @@ export default class ChargeScene extends Phaser.Scene {
     const modal = scene.add.container(window.innerWidth / 2, window.innerHeight / 2);
     modal.setDepth(1000);
 
-    const modalBg = scene.add.rectangle(0, 0, 1000, 800, 0x000000, 0.8);
+    const modalBg = scene.add.rectangle(0, 0, window.innerWidth, window.innerHeight*0.8, 0x000000, 0.8);
     const modalContent = scene.add.text(0, -180, 
         '利用規約\n\n' +
         '1. ゲーム内通貨の購入は、実際の金銭取引を伴います。\n\n' +
@@ -195,7 +175,7 @@ export default class ChargeScene extends Phaser.Scene {
         '6. ゲームアカウントの削除時、未使用のゲーム内通貨は失効します。\n\n' +
         '7. 未成年者がゲーム内通貨を購入する場合、保護者の同意が必要です。\n\n' +
         '8. 当社は、本規約を随時更新する権利を有します。更新後の継続使用をもって、新規約に同意したものとみなします。',
-        { fontSize: '20px', fill: '#ffffff', align: 'left', wordWrap: { width: 780 } }
+        { fontSize: '16px', fill: '#ffffff', align: 'left', wordWrap: { width: 780 } }
     );
     modalContent.setOrigin(0.5, 0);
 
@@ -222,14 +202,13 @@ export default class ChargeScene extends Phaser.Scene {
       //gachaConfirmModalContainer.add(this.window)
 
       // 背景（半透明の黒）
-      this.modalBg = this.add.image(0, 0, 'getModal2');
-      this.modalBg.setDisplaySize(width*2, height*1.5);
+      this.modalBg = this.add.image(0, 0, 'getModal2').setDisplaySize(width*2, height*1.5).setInteractive();
       gachaConfirmModalContainer.add(this.modalBg)
 
       //const gacha_thumbnail = this.add.image(-400, 0, 'gacha_thumbnail'+gacha.id);
       const gacha_thumbnail = this.add.image(-400, 0, 'charge_item'+item.id);
       gacha_thumbnail.setDisplaySize(400, 350);// 画像の幅と高さを指定
-      gacha_thumbnail.setInteractive();
+      //gacha_thumbnail.setInteractive();
       gachaConfirmModalContainer.add(gacha_thumbnail)
 
       this.name = this.add.text(100, -150, item.name, {fontSize: '48px',fill: '#f8f8ff',align: 'center',wordWrap: { width: width - 80 }}).setOrigin(0.5)
@@ -238,27 +217,19 @@ export default class ChargeScene extends Phaser.Scene {
       this.description = this.add.text(100, 50, item.description, {fontSize: '24px',fill: '#f8f8ff',align: 'center', wordWrap: { width: width - 80 }}).setOrigin(0.5)
       gachaConfirmModalContainer.add(this.description)
 
-      const gachaButton = this.add.text(0, 250, '購入する', {
-        fontSize: '32px',
-        color: '#ffffff',
-        backgroundColor: '#ff0000',
-        padding: { x: 20, y: 10 }
-      })
-      .setOrigin(0.5)
-      .setInteractive({ useHandCursor: true })
-      //.on('pointerdown', () => this.startGacha(gachaButton,item.id,gachaConfirmModalContainer))
-      .on('pointerdown', () => this.goStripe(item.url))
-      //item_image.on('pointerdown', () => this.goStripe(item.url));
+      //const gachaButton = this.add.text(0, 250, '購入する', {fontSize: '32px',color: '#ffffff',backgroundColor: '#ff0000',padding: { x: 20, y: 10 }}).setOrigin(0.5).setInteractive({ useHandCursor: true })
+      const gachaButton = this.add.text(0, 250, item.price+'で購入する', {fontSize: '24px',color: '#ccff00',backgroundColor: '#212121',align: 'center',padding: { x: 20, y: 20 }}).setOrigin(0, 0.5).setFixedSize(300, 50);
+      gachaButton.setInteractive();
+      gachaButton.on('pointerdown', () => {this.goStripe(item.url)});
+      gachaButton.on('pointerover', () => {this.input.setDefaultCursor('pointer');gachaButton.setTint(0xfdd35c);});
+      gachaButton.on('pointerout', () => {this.input.setDefaultCursor('default');gachaButton.setTint(0xccff00);});
+      //gachaButton.on('pointerover', () => {this.input.setDefaultCursor('pointer');gachaButton.fillColor = 0x003366;});
+      //gachaButton.on('pointerout', () => {this.input.setDefaultCursor('default');gachaButton.fillColor = 0x000066;});
       gachaConfirmModalContainer.add(gachaButton)
 
-      // 閉じるボタン
-      //this.closeButton = new ButtonText(this, width / 2 - 60, height / 2 - 60, '閉じる', () => {this.close()});
-      //this.closeButton = this.add.text(width / 2 - 60, height / 2 - 60, '閉じる', {fontSize: '20px',fill: '#000000',backgroundColor: '#cccccc',padding: { x: 10, y: 5 }}).setOrigin(0.5).setInteractive()
-      //this.closeButton = this.add.text(width / 2 - 60, height / 2 - 60, '閉じる', {fontSize: '20px',fill: '#000000',backgroundColor: '#cccccc',padding: { x: 10, y: 5 }}).setOrigin(0.5).setInteractive()
-      this.closeButton = new ButtonText(this, 100, 0, '閉じる', () => { this.closeModal(gachaConfirmModalContainer) });
-      //this.closeButton.setOrigin(0.5)
+      this.closeButton = this.add.image(window.innerWidth*0.4 , -height/2, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true }).setOrigin(0,0);
+      this.closeButton.on('pointerdown', () => { this.closeModal(gachaConfirmModalContainer)  });// 閉じるボタンのイベントリスナー
       gachaConfirmModalContainer.add(this.closeButton)
-      //this.closeButton.on('pointerdown', this.close, gachaConfirmModalContainer)
     }
     closeModal(container) {
       container.setVisible(false);
