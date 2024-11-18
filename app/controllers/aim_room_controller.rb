@@ -369,6 +369,10 @@ class AimRoomController < ApplicationController
     gachaRollMission = { newAchiveNum: new_gacharoll_unclaimed_rewards_count, alreadyGetted: user_mission_gachaRoll.progress }
     playtimeMission = { newAchiveNum: new_playtime_unclaimed_rewards_count , alreadyGetted: user_mission_playtime.progress}
 
+    Rails.logger.error "loginMission: #{loginMission}"
+    Rails.logger.error "gachaRollMission: #{gachaRollMission}"
+    Rails.logger.error "playtimeMission: #{playtimeMission}"
+
     render json: { loginMission: loginMission ,gachaRollMission: gachaRollMission ,playtimeMission: playtimeMission }
   end
   def all_get_mission_bonus

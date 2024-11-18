@@ -212,9 +212,10 @@ async ajax(path,sendData){
             this.boad.setTexture('boad');
             this.boad.setScale(0.5)
 
-            this.picture = this.add.image(window.innerWidth/2+200,window.innerHeight/2+100,'picture');
+            this.picture = this.add.image(window.innerWidth/2+200,window.innerHeight/2+50,'picture');
             this.picture.setTexture('picture');
-            this.picture.setScale(0.3)
+            this.picture.setDisplaySize(200,200)
+            //this.picture.setScale(0.3)
 
 
 
