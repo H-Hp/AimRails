@@ -36,6 +36,7 @@ export default class AjaxUtility {
 
     // Add body only if sendData is not null
     if (sendData !== null) {
+      //console.log("sendData:",sendData)
       fetchOptions.body = JSON.stringify(sendData);
     }
 

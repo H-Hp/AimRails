@@ -8,17 +8,22 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     
     this.updateCallback = updateCallback;
 
-    this.width = width
+    //const game_width = this.scale.width
+    //const game_height = this.scale.height
+    const game_width = window.innerWidth
+    const game_height = window.innerHeight
+    /*this.width = width
     this.height = height
     const window_innerWidth = window.innerWidth
     const window_innerHeight = window.innerHeight
+    */
 
-    this.init(scene, x, y, window_innerWidth, window_innerHeight, content,my_items, updateCallback);
-  
+    //this.init(scene, x, y, window_innerWidth, window_innerHeight, content,my_items, updateCallback);
+    this.init(scene, x, y, game_width, game_height, content,my_items, updateCallback);
   }
 
-  async init(scene, x, y, window_innerWidth, window_innerHeight, content,my_items, updateCallback){
-    
+  async init(scene, x, y, game_width, game_height, content,my_items, updateCallback){
+    console.log(my_items)
     if (this.ModalContainer!=null){
       this.ModalContainer.destroy()
     }
@@ -32,17 +37,16 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
 
     this.modalBg = scene.add.image(0, 0, 'item_modal_bg');
     this.modalBg.setOrigin(0, 0);//画像の中心がcontainerに入るので、原点を画像の左上に変更
-    this.modalBg.setDisplaySize(window_innerWidth*0.45, window_innerHeight*0.8);
+    this.modalBg.setDisplaySize(game_width*0.45, game_height*0.8);
     this.ModalContainer.add(this.modalBg)
 
     this.itemsContainer = scene.add.container(0, 0);
     this.ModalContainer.add(this.itemsContainer)
 
     // 閉じるボタンのイベントリスナー
-    this.closeButton = scene.add.image(window_innerWidth*0.45,  20, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true });
+    this.closeButton = scene.add.image(game_width*0.45,  20, 'close').setDisplaySize(50, 50).setInteractive({ useHandCursor: true });
     this.closeButton.on('pointerdown', this.close, this.ModalContainer);// 閉じるボタンのイベントリスナー
     this.ModalContainer.add(this.closeButton)
-
 
 
     const itemsPerColumn = 7;
@@ -63,8 +67,9 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       }
     });
 
-    const resolved_paths = await this.resolve_asset_path(my_items_path_array)
-    console.log("resolved_paths: "+resolved_paths)
+    const resolved_paths = ""
+    //const resolved_paths = await this.resolve_asset_path(my_items_path_array)
+    //console.log("resolved_paths: "+resolved_paths)
 
     // もしくは従来のループを使用する場合
     //const my_items_path_array = [];
@@ -72,6 +77,7 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     //    my_items_path_array.push(item.path);
     //}
 
+    //ループさせてアイテムをモーダル内に配置していく
     my_items.forEach((item, i) => {
       console.log(`name: ${item.name}, description: ${item.description}`);
       const columnIndex = Math.floor(i / itemsPerColumn);
@@ -89,22 +95,27 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       itemBackground.setInteractive({ useHandCursor: true });
       itemContainer.add(itemBackground);
       
-      let loader = new Phaser.Loader.LoaderPlugin(scene);// 新しいローダーを作成
-      if(item.type=="music"){
-        console.log("音楽ふぁｆ")
+
+      //アイテムの画像
+      let img_key=item.key
+      if(item.item_type=="chara" || item.item_type=="background" || item.item_type=="obj" ){
+        img_key=img_key+"_thm"
+      }else if (item.item_type=="music"){
+        img_key="music_thm"
+      }
+
+      let item_img
+      item_img = scene.add.image(0, -25, img_key);
+      //item_img = scene.add.image(0, -25, 'music_thm');
+      item_img.setDisplaySize(100, 75);// 画像の幅と高さを指定
+      itemContainer.add(item_img);
+
+      
+      /*let loader = new Phaser.Loader.LoaderPlugin(scene);// 新しいローダーを作成
+      if(item.item_type=="music"){
         loader.image('music'+item.id, 'assets/images/item/music.png');// 画像を読み込む
         //loader.image('myitem'+resolved_paths[i], 'assets/images/item/music.png');// 画像を読み込む
-
       }else{
-        /*const asset_path = this.resolve_asset_path(my_items_path_array,scene, itemContainer, item, item.path+'.png')
-        .then(result => {
-            console.log("上の処理が終わってから実行したい");
-            // 以降の処理
-        })
-        .catch(error => {
-            console.error("エラーが発生:", error);
-        });
-        */
         //const resolve_asset_path = await this.resolve_asset_path(scene,itemContainer,item,item.path+'.png')        
         //console.log("aresolve_asset_path="+asset_path)
         //loader.image('myitem'+item.id, 'assets/images/item/'+item.path+'.png');// 画像を読み込む
@@ -128,6 +139,16 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
         //item_img.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) })
       });
       loader.start();// 読み込みを開始
+      */
+      /*const asset_path = this.resolve_asset_path(my_items_path_array,scene, itemContainer, item, item.path+'.png')
+      .then(result => {
+          console.log("上の処理が終わってから実行したい");
+          // 以降の処理
+      })
+      .catch(error => {
+          console.error("エラーが発生:", error);
+      });
+      */
 
       const nameText = scene.add.text(-40, 40, item.name, { fontSize: '16px', fill: '#ffffff' });
       itemContainer.add(nameText);
@@ -138,7 +159,8 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
 
       //itemContainer.on('pointerdown', () => { this.oneitem_modalOpen(scene,item) });
       itemBackground.on('pointerdown', () => { 
-        this.oneitem_modalOpen(scene,item,resolved_paths[i]) 
+        //this.oneitem_modalOpen(scene,item,resolved_paths[i]) 
+        this.oneitem_modalOpen(scene,item,img_key) 
       });
       itemBackground.on('pointerover', () => { 
         scene.input.setDefaultCursor('pointer');
@@ -156,34 +178,36 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
       ///nameText.on('pointerdown', () => { this.oneitem_modalOpen(scene,item,resolved_paths[i]) })
       //this.add(itemContainer)
       
-  });
+    });
 
 
-      // マスクを作成し、アイテムコンテナに適用
-      //const mask = this.make.graphics({});
-      const mask = scene.make.graphics({});
-      mask.fillRect(50, 0,window_innerWidth*0.45, window_innerHeight*0.8);
-      this.itemsContainer.setMask(mask.createGeometryMask());
+    // マスクを作成し、アイテムコンテナに適用
+    //const mask = this.make.graphics({});
+    const mask = scene.make.graphics({});
+    mask.fillRect(50, 0,game_width*0.45, game_height*0.8);
+    this.itemsContainer.setMask(mask.createGeometryMask());
 
-      this.camera = scene.cameras.main;
-      this.camera.setBounds(0, 0, 1600, 1200);
+    this.camera = scene.cameras.main;
+    this.camera.setBounds(0, 0, 1600, 1200);
 
-      this.cursors = scene.input.keyboard.createCursorKeys();
+    this.cursors = scene.input.keyboard.createCursorKeys();
 
-      scene.input.on('wheel', this.handleScroll, this);
-      scene.input.on('pointerdown', this.startDrag, this);
-      scene.input.on('pointermove', this.doDrag, this);
-      scene.input.on('pointerup', this.endDrag, this);
-      
-      // シーンにこのコンテナを追加
-      scene.add.existing(this)
+    scene.input.on('wheel', this.handleScroll, this);
+    scene.input.on('pointerdown', this.startDrag, this);
+    scene.input.on('pointermove', this.doDrag, this);
+    scene.input.on('pointerup', this.endDrag, this);
+    
+    // シーンにこのコンテナを追加
+    scene.add.existing(this)
 
-      // 最初は非表示
-      this.setVisible(false)
+    // 最初は非表示
+    this.setVisible(false)
   }
-  //oneitem_modalOpen(scene,item) {
-  oneitem_modalOpen(scene,item,resolved_path) {
-    console.log("resolved_path: "+resolved_path)
+  oneitem_modalOpen(scene,item,img_key) {
+    //oneitem_modalOpen(scene,item) {
+    //oneitem_modalOpen(scene,item,resolved_path) {
+
+    //console.log("resolved_path: "+resolved_path)
     if (this.oneitemModalContainer!=null){
       this.oneitemModalContainer.destroy()
     }
@@ -212,9 +236,12 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     const oneitem_descriptionText = scene.add.text(window.innerWidth*0.1, 90, item.description, { fontSize: '15px', fill: '#ffffff' });
     this.oneitemModalContainer.add(oneitem_descriptionText)
 
+
     //const one_item_img = scene.add.image(0, 0, 'myitem'+item.id);
     //const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+item.id);
-    const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+resolved_path);
+    //const one_item_img = scene.add.image(0, window.innerHeight*0.3, 'myitem'+resolved_path);
+    const one_item_img = scene.add.image(0, window.innerHeight*0.3, img_key);
+
     //one_item_img.setDisplaySize(width/1.5, height/1.5);// 画像の幅と高さを指定
     one_item_img.setOrigin(0, 0);//画像の中心がcontainerに入るので、原点を画像の左上に変更
     //one_item_img.setDisplaySize(window.innerWidth/2/3, window.innerHeight/2/3);// 画像の幅と高さを指定
@@ -223,18 +250,20 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     this.oneitemModalContainer.add(one_item_img)
 
     let text="設定する"
-    if(item.type=="background"){
+    if(item.item_type=="background"){
       text="背景に設定"
-    }else if(item.type=="obj"){
+    }else if(item.item_type=="obj"){
       text="配置する"
-    }else if(item.type=="chara"){
+    }else if(item.item_type=="chara"){
       text="メインキャラに設定する"
-    }else if(item.type=="desk"){
+    }else if(item.item_type=="desk"){
       text="机に設定する"
     }
-    if(item.type!="music"){
+    if(item.item_type!="music"){
       //const in_Button = new ButtonText(scene, width/2/2-60, height/2, '壁紙にする', () => {  if (this.updateCallback) { this.updateCallback(item); }  });
-      const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.oneitemModalContainer.destroy();this.updateCallback(item,resolved_path); }  });
+      //const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.oneitemModalContainer.destroy();this.updateCallback(item,resolved_path); }  });
+      const in_Button = new ButtonText(scene, 10, 90, text, () => {  if (this.updateCallback) { this.oneitemModalContainer.destroy();this.updateCallback(item,img_key); }  });
+
       this.oneitemModalContainer.add(in_Button)
     }
 
@@ -244,8 +273,9 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     this.oneitem_closeButton.on('pointerdown', this.oneitem_close, this.oneitemModalContainer);// 閉じるボタンのイベントリスナー
     this.oneitemModalContainer.add(this.oneitem_closeButton)
 
-    const oneitem_sellButton = new ButtonText(scene, 150, 90, '売る', () => { this.item_sell(item) });
-    this.oneitemModalContainer.add(oneitem_sellButton)
+    //売るボタン
+    //const oneitem_sellButton = new ButtonText(scene, 150, 90, '売る', () => { this.item_sell(item) });
+    //this.oneitemModalContainer.add(oneitem_sellButton)
 
   }
 
@@ -270,37 +300,37 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     //if(this.itemsContainer.y <= -430){this.itemsContainer.y=-430+1;return}
     this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y - deltaY * scrollSpeed, -720, 0);
     //console.log("ホイール・handleScroll"+this.itemsContainer.y)
-}
-startDrag(pointer) {
-    this.isDragging = true;
-    this.lastPointerPosition = { x: pointer.x, y: pointer.y };
-    //console.log("vvｍ"+pointer.y)
-}
+  }
+  startDrag(pointer) {
+      this.isDragging = true;
+      this.lastPointerPosition = { x: pointer.x, y: pointer.y };
+      //console.log("vvｍ"+pointer.y)
+  }
 
-doDrag(pointer) {
-    if (!this.isDragging) return;
+  doDrag(pointer) {
+      if (!this.isDragging) return;
 
-    const dx = pointer.x - this.itemsContainer.x;
-    const dy = pointer.y - this.itemsContainer.y;
+      const dx = pointer.x - this.itemsContainer.x;
+      const dy = pointer.y - this.itemsContainer.y;
 
-    this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y + dy, -720, 0);
-    this.lastPointerPosition = { x: pointer.x, y: pointer.y };
-}
+      this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y + dy, -720, 0);
+      this.lastPointerPosition = { x: pointer.x, y: pointer.y };
+  }
 
-endDrag() {
-this.isDragging = false;
-}
+  endDrag() {
+  this.isDragging = false;
+  }
 
-update() {
-    const scrollSpeed = 10;
-    //const pointer = scene.input.activePointer;
-    const pointer = this.input.activePointer;
-    if (this.cursors.down.isDown) {
-        this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y + scrollSpeed, -720, 0);
-    } else if (this.cursors.up.isDown) {
-        this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y - scrollSpeed, -720, 0);
-    }
-}
+  update() {
+      const scrollSpeed = 10;
+      //const pointer = scene.input.activePointer;
+      const pointer = this.input.activePointer;
+      if (this.cursors.down.isDown) {
+          this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y + scrollSpeed, -720, 0);
+      } else if (this.cursors.up.isDown) {
+          this.itemsContainer.y = Phaser.Math.Clamp(this.itemsContainer.y - scrollSpeed, -720, 0);
+      }
+  }
 
   OverwriteBackground(id){
     console.log("かべがーみ"+this);

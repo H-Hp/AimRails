@@ -7,9 +7,18 @@ class TopController < ApplicationController
   PUSHCODE_endpoint=ENV['PUSHCODE_endpoint']
 
   def top
+    @aims = Aim.limit(5) 
+    #@aims = Aim.recent 
 
+    if user_signed_in?
+      # ログイン中の場合の処理
+      @login_or_out = 'ログイン中'
+    else
+      # ログインしていない場合の処理
+      @login_or_out = 'ログアウト中'
+    end
 
-
+  end
 =begin     
     response = `curl -H 'X-PUSHCODE-APIKEY: #{PUSHCODE_API_KEY}' 'https://api.pushcode.jp/v1/push/list'`
     #response = `curl -H 'X-PUSHCODE-APIKEY: #{@PUSHCODE_API_KEY}' {@PUSHCODE_endpoint}`
@@ -69,18 +78,6 @@ class TopController < ApplicationController
       format.js
     end
 =end
-    @aims = Aim.limit(5) 
-    #@aims = Aim.recent 
-
-    if user_signed_in?
-      # ログイン中の場合の処理
-      @login_or_out = 'ログイン中'
-    else
-      # ログインしていない場合の処理
-      @login_or_out = 'ログアウト中'
-    end
-
-  end
 
   def index
     @aim = Aim.limit(5).offset(params[:page].to_i * 5)
@@ -92,6 +89,7 @@ class TopController < ApplicationController
     @aims = Aim.offset(params[:page].to_i * 5).limit(5)
     #@aims = Aim.offset(1 * 5).limit(5) #offsetでスキップする
     render partial: "aim", collection: @aims 
+  end
 =begin
     last_id = params[:last_id].to_i
     @aim = Aim.where('id > ?', last_id).limit(5)
@@ -100,7 +98,6 @@ class TopController < ApplicationController
       format.js
     end
 =end
-  end
 
 =begin
   def index

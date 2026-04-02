@@ -8,7 +8,7 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     this.width = width
     this.height = height
 
-    // 背景（半透明の黒）
+    // モーダルの背景
     this.background = scene.add.rectangle(0, 0, width, height, 0x000000, 0.7)
     this.add(this.background)
 
@@ -26,7 +26,8 @@ export default class ModalWindow extends Phaser.GameObjects.Container {
     this.add(this.content)
 
     // 閉じるボタン
-    this.closeButton = new ButtonText(scene, width / 2 - 60, height / 2 - 60, '閉じる', () => {this.close()});
+    this.closeButton = new ButtonText(scene, width / 4-100 , height / 3 - 60, '閉じる', () => {this.close()});
+    //this.closeButton.setOrigin(0.5)
     this.add(this.closeButton)
 
     // シーンにこのコンテナを追加

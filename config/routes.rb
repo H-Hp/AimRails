@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   #root 'top#top'
   #get '/'  => 'top#top'
   root 'aim_room#index'
-  get '/'  => 'aim_room#aim_room'
+  #get '/'  => 'aim_room#index'
   post 'resolve_asset_path', to: 'aim_room#resolve_path'
   post 'resolve_path_img_json', to: 'aim_room#resolve_path_img_json'
   get 'check_login_status', to: 'aim_room#check_login_status'
@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   post 'getMyItem', to: 'aim_room#getmyitem'
   post 'gacha', to: 'aim_room#gacha'
 
+  post 'debug_get_gacha_config', to: 'aim_room#debug_get_gacha_config'
+  post 'debug_gacha1', to: 'aim_room#debug_gacha1'
+  post 'debug_gacha10', to: 'aim_room#debug_gacha10'
+
   post 'checkMissionBonus', to: 'aim_room#check_mission_bonus'
   post 'all_getMissionBonus', to: 'aim_room#all_get_mission_bonus'
   post 'one_getMissionBonus', to: 'aim_room#one_get_mission_bonus'
@@ -22,9 +26,11 @@ Rails.application.routes.draw do
   post 'stripe/webhook', to: 'aim_room#stripe'
   get 'payment/success', to: 'aim_room#index'
 
+  get "/health_check", to: "application#health_check"
+
 
   #devise_for :users
-  devise_for :users, controllers: {       # ← 恐らく最初は”devise_for:”のみの記載かと
+  devise_for :users, controllers: { 
     registrations: "users/registrations",
     confirmations: "users/confirmations"
   }, skip: :confirmations

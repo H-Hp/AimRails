@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_01_160722) do
+ActiveRecord::Schema.define(version: 2026_03_21_083906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_graphql"
@@ -57,8 +57,9 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
     t.integer "total_login_days", default: 0
     t.integer "total_gacha_rolls", default: 0
     t.integer "daily_play_time", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "placed_items", default: {"bg"=>"bg0", "obj"=>"obj2", "desk"=>"desk0", "board"=>"board0", "chara"=>"chara0", "picture"=>"picture0"}, null: false
+    t.integer "pickup_ceil_count", default: 0, null: false
+    t.integer "total_ssr_count", default: 0, null: false
     t.index ["user_id"], name: "index_aim_rooms_on_user_id"
   end
 
@@ -81,8 +82,6 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
   create_table "gachas", force: :cascade do |t|
     t.jsonb "weights", default: {}, null: false
     t.jsonb "pickup", default: {}, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "name", default: "", null: false
     t.text "description", default: "", null: false
     t.integer "cost", default: 0, null: false
@@ -95,10 +94,8 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
     t.text "description"
     t.string "rarity"
     t.integer "max_quantity"
-    t.string "path"
+    t.string "key"
     t.jsonb "properties", default: {}
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "likes", force: :cascade do |t|
@@ -111,8 +108,6 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
     t.bigint "mission_id", null: false
     t.integer "threshold"
     t.integer "currency_amount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["mission_id"], name: "index_mission_rewards_on_mission_id"
   end
 
@@ -122,8 +117,6 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
     t.string "mission_type", null: false
     t.integer "required_amount", null: false
     t.integer "reset_frequency", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -169,13 +162,21 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "user_gachas", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "gacha_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "acquired_at", null: false
+    t.index ["gacha_id"], name: "index_user_gachas_on_gacha_id"
+    t.index ["item_id"], name: "index_user_gachas_on_item_id"
+    t.index ["user_id"], name: "index_user_gachas_on_user_id"
+  end
+
   create_table "user_items", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.integer "quantity", default: 1
     t.datetime "acquired_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_user_items_on_item_id"
     t.index ["user_id"], name: "index_user_items_on_user_id"
   end
@@ -215,6 +216,9 @@ ActiveRecord::Schema.define(version: 2024_11_01_160722) do
   add_foreign_key "mission_rewards", "missions"
   add_foreign_key "placed_items", "items"
   add_foreign_key "placed_items", "users"
+  add_foreign_key "user_gachas", "gachas"
+  add_foreign_key "user_gachas", "items"
+  add_foreign_key "user_gachas", "users"
   add_foreign_key "user_items", "items"
   add_foreign_key "user_items", "users"
   add_foreign_key "user_missions", "missions"

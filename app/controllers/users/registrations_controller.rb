@@ -53,26 +53,74 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # サインアップ後に使用されるパス。The path used after sign up.
    def after_sign_up_path_for(resource)
-     #super(resource)
-     user_id = resource.id
-     @notifications = Notification.new
-     #@notifications = Notification.create(user_id:current_user.id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
-     @notifications = Notification.create(user_id:user_id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
-     @notifications.save
+    #super(resource)
+    user_id = resource.id
+    
+    @notifications = Notification.new
+    #@notifications = Notification.create(user_id:current_user.id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
+    @notifications = Notification.create(
+      user_id:user_id, 
+      sended_id:1, 
+      title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", 
+      url:"/", 
+      image_url:"default", 
+      action:"signup"
+    )
+    @notifications.save
+
+    @AimRoom = AimRoom.new
+    @AimRoom = AimRoom.create(
+      user_id: user.id,
+      currency: 100,
+      total_gacha_rolls: 0,
+      last_login_at: Time.current,
+      total_login_days: 1,
+      daily_play_time: 0,
+      placed_items: {
+        bg: "bg0",
+        chara: "chara0",
+        desk: "desk0",
+        board: "board0",
+        picture: "picture0",
+        obj: "obj2"
+      }
+    )
+    @AimRoom.save
      
-     user_regist_after_path
-     #sign_in(resource)# ユーザー登録が成功した後にログイン状態にする
+    user_regist_after_path
+    #sign_in(resource)# ユーザー登録が成功した後にログイン状態にする
    end
 
   # 非アクティブなアカウントのサインアップ後に使用されるパス。The path used after sign up for inactive accounts.
    def after_inactive_sign_up_path_for(resource)
-     #super(resource)
-     user_id = resource.id
-     @notifications = Notification.new
-     #@notifications = Notification.create(user_id:current_user.id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
-     @notifications = Notification.create(user_id:user_id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
-     @notifications.save
-     user_regist_after_path
-     #sign_in(resource)# ユーザー登録が成功した後にログイン状態にする
+    #super(resource)
+    user_id = resource.id
+
+    @notifications = Notification.new
+    #@notifications = Notification.create(user_id:current_user.id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
+    @notifications = Notification.create(user_id:user_id, sended_id:1, title:"【登録完了のお知らせ】アカウントを作成いただき、誠にありがとうございます。私たちのコミュニティへようこそ！", url:"/", image_url:"default", action:"signup")
+    @notifications.save
+
+    @AimRoom = AimRoom.new
+    @AimRoom = AimRoom.create(
+      user_id: user.id,
+      currency: 100,
+      total_gacha_rolls: 0,
+      last_login_at: Time.current,
+      total_login_days: 1,
+      daily_play_time: 0,
+      placed_items: {
+        bg: "bg0",
+        chara: "chara0",
+        desk: "desk0",
+        board: "board0",
+        picture: "picture0",
+        obj: "obj2"
+      }
+    )
+    @AimRoom.save
+
+    user_regist_after_path
+    #sign_in(resource)# ユーザー登録が成功した後にログイン状態にする
    end
 end

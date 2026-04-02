@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
+  
 
   def set_init
     #@notifications = Notification.find_by(user_id: current_user.id)
@@ -36,7 +37,10 @@ class ApplicationController < ActionController::Base
  
   PUSHCODE_API_KEY=ENV['PUSHCODE_API_KEY']
   PUSHCODE_endpoint=ENV['PUSHCODE_endpoint']
+
 	def top
+    render html: "Top hello, world!"
+	end
 =begin 
     payload = {when: {immediate: true}}.to_json
     response = Faraday.post PUSHCODE_endpoint do |req|
@@ -46,7 +50,6 @@ class ApplicationController < ActionController::Base
 
     end
 =end
-
 =begin  
     uri = URI.parse(PUSHCODE_endpoint)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -82,16 +85,63 @@ class ApplicationController < ActionController::Base
 
     @pushes = JSON.parse(response.body)["pushes"]
 =end
-    render html: "Top hello, world!"
-	end
-
 
   def index
-   
-    
-    
+        
   end
 
+  def health_check
+    url = params[:url]
+    puts "url: #{url}"
+
+		result = {
+      external: nil,
+      db: nil
+    }
+
+    #外部URLチェック
+    begin
+      uri = URI(url)
+      res = Net::HTTP.get_response(uri)
+      result[:external] = res.code.to_i
+    rescue => e
+      result[:external] = 0
+      Rails.logger.error("External error: #{e.message}")
+    end
+
+    #DBチェック
+    begin
+      ActiveRecord::Base.connection.execute("SELECT 1")
+      result[:db] = true
+    rescue => e
+      result[:db] = false
+      Rails.logger.error("DB error: #{e.message}")
+    end
+    
+    #ステータス判定
+    status_code = (result[:external] == 200 && result[:db]) ? 200 : 500
+      render json: result, status: status_code
+  end
+
+
+=begin
+    begin
+      uri = URI(url)
+      res = Net::HTTP.get_response(uri)
+      puts "res.code.to_i: #{res.code.to_i}"
+      render json: {
+        status: res.code.to_i
+      }
+    rescue => e
+      puts "res.code.to_i: #{res.code.to_i}"
+      puts "e: #{e}"
+
+      render json: {
+        status: 0,
+        error: e.message
+      }
+    end
+=end
 
   private
 
@@ -101,8 +151,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cors_headers
-    response.set_header('Access-Control-Allow-Origin', 'd2hcwuo8gsf97u.cloudfront.net')
-		response.set_header('Access-Control-Allow-Origin', 'http://0.0.0.0:3000')
+    #response.set_header('Access-Control-Allow-Origin', 'd2hcwuo8gsf97u.cloudfront.net')
+		#response.set_header('Access-Control-Allow-Origin', 'http://0.0.0.0:3000')
     response.set_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     response.set_header('Access-Control-Allow-Headers', 'Content-Type')
   end

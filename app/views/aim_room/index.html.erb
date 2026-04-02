@@ -6,20 +6,58 @@
 <div 
   data-react-class="AimRoom" 
   data-react-props="<%= {
-    back: asset_path('aimroom/item/bg0.png'),
-    desk: asset_path('aimroom/item/desk0.png'),
-    chara: asset_path('aimroom/item/chara0.png'),
-    music1: asset_path('aimroom/item/music01.mp3'),
-    music2: asset_path('aimroom/item/music02.mp3'),
+    rails_env: Rails.env,
+
+    isLoggedIn: @isLoggedIn,
+    user_id: @user_id,
+    user_name: @user_name,
+
+    gachas_data: @gachas,
+    missions_data: @missions,
+
+    aim_room_data: (user_signed_in? ? @AimRoom : nil), #ログインしているなら@AimRoomを入れ、ログインしていないならnilを入れる
+    user_items_not_default_data: (user_signed_in? ? @user_items_not_default : nil), #ログインしているなら@UserItemを入れ、ログインしていないならnilを入れる
+    
+    bg0_img: asset_path('aimroom/item/bg0.png'),
+    bg0_json: asset_path('aimroom/item/bg0.json'),
+    bg0_thm: asset_path('aimroom/item/bg0_thm.png'),
+
+    bg1_img: asset_path('aimroom/item/bg1.png'),
+    bg1_json: asset_path('aimroom/item/bg1.json'),
+    bg1_thm: asset_path('aimroom/item/bg1_thm.png'),
+
+    chara0_img: asset_path('aimroom/item/chara0.png'),
+    chara0_json: asset_path('aimroom/item/chara0.json'),
+    chara0_thm: asset_path('aimroom/item/chara0_thm.png'),
+
+    chara1_img: asset_path('aimroom/item/chara1.png'),
+    chara1_json: asset_path('aimroom/item/chara1.json'),
+    chara1_thm: asset_path('aimroom/item/chara1_thm.png'),
+
+    desk0_img: asset_path('aimroom/item/desk0.png'),
+    desk1_img: asset_path('aimroom/item/desk1.png'),
+
+    default_music_thm: asset_path('aimroom/item/music.png'),
+    default_music1: asset_path('aimroom/item/music01.mp3'),
+    default_music2: asset_path('aimroom/item/music02.mp3'),
+
+    board0_img: asset_path('aimroom/item/boad.png'),
+    picture0_img: asset_path('aimroom/item/picture0.png'),
+
+    obj2_img: asset_path('aimroom/item/obj2.png'),
+    obj2_json: asset_path('aimroom/item/obj2.json'),
+    obj2_thm: asset_path('aimroom/item/obj2_thm.png'),
 
     shop_icon: asset_path('aimroom/icons/shop.png'),
     bag_icon: asset_path('aimroom/icons/bag.png'),
     gacha_icon: asset_path('aimroom/icons/Gacha.png'),
     mission_icon: asset_path('aimroom/icons/mission.png'),
     money_icon: asset_path('aimroom/icons/money.png'),
-
-    boad: asset_path('aimroom/item/boad.png'),
-
+    music_icon: asset_path('aimroom/icons/music_icon.png'),
+    focus_on_icon: asset_path('aimroom/icons/focus_on.png'),
+    focus_off_icon: asset_path('aimroom/icons/focus_off.png'),
+    fullscreen_icon: asset_path('aimroom/icons/fullscreen.png'),
+    
     play_button: asset_path('aimroom/icons/music/play-button.png'),
     pause_button: asset_path('aimroom/icons/music/pause-button.png'),
     next_button: asset_path('aimroom/icons/music/next-button.png'),
@@ -28,6 +66,8 @@
     item_modal_bg: asset_path('aimroom/bg/bag_modal1.png'),
     item_modal_bg2: asset_path('aimroom/bg/bag_modal2.jpg'),
     close: asset_path('aimroom/icons/close.png'),
+
+    aim_logo: asset_path('aim/light_bulb.png'),
 
     gacha_backgroud: asset_path('aimroom/bg/bg1.png'),
     other_backgroud: asset_path('aimroom/bg/bg0.jpg'),

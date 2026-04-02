@@ -5,6 +5,9 @@ export default class Header extends Phaser.GameObjects.Container {
     constructor(scene, text,isLoggedIn) {
       super(scene);
 
+      const game_width = this.scale.width
+      const game_height = this.scale.height
+
       //this.backButton = this.add.text(50, 50, '＜', {
       this.backButton = scene.add.text(50, 50, '＜', {fontSize: '24px',fill: '#fff' }).setOrigin(0.5).setInteractive();
       this.backButton.on('pointerdown', () => {
@@ -25,7 +28,7 @@ export default class Header extends Phaser.GameObjects.Container {
       this.add(this.title)
 
       //クリスタル所持数を取得
-      this.CristalAmountButton = new CristalAmountButton(scene, window.innerWidth-100, 50, isLoggedIn);
+      this.CristalAmountButton = new CristalAmountButton(scene, game_width-100, 50, isLoggedIn);
       this.add(this.CristalAmountButton)
 
       //this.add([this.backButton, this.title]);

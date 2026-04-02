@@ -19,22 +19,54 @@ class AimRoomController < ApplicationController
     { "id": 13, "gacha_id": 2, "name": "机", "type": "desk", "description": "おしゃれな机", "rarity": 25, "max_quantity": 1, "path": "desk1" }
   ];
 =end
+  before_action do
+    if Rails.env.development? && !user_signed_in? #環境がdevelopmentで、かつログアウト中なら
+      @user_id = 1
+      @user_name="development_user"
+    else
+      # ログインしてればそのID、してなければ 0 (またはゲスト用ID)
+      @user_id = current_user&.id || 0 
+      @user_name = current_user.user_name
+    end
+  end
+
   def index
     if user_signed_in?
       # ログイン中の場合の処理
-      @login_or_out = 'ログイン中'
+      @isLoggedIn = true
       puts "ログイン中";Rails.logger.error "ログイン中"
+
+      @AimRoom = AimRoom.find_by(user_id: @user_id)
+      #@UserItem = UserItem.find_by(user_id: @user_id) #1つのデータだけ取得
+      
+      @user_items_not_default = UserItem.where(user_id: @user_id) #複数取得・デフォルトアイテム以外の取得したアイテム情報
+      if @user_items_not_default.present? #データがあるなら
+        item_ids = @user_items_not_default.pluck(:item_id) #item_id配列を取り出す
+        @user_items_not_default = Item.where(id: item_ids) #itemsテーブルから取得
+      end
+
+      puts "@AimRoom: #{@AimRoom.to_json}"
+      puts "@UserItem: #{@user_items_not_default.to_json}"
     else
       # ログインしていない場合の処理
-      @login_or_out = 'ログアウト中'
+      @isLoggedIn = false
       puts "ログアウト中";Rails.logger.error "ログアウト中"
     end
+
+    gachas = Gacha.all
+    #@gachas=gachas.to_json
+    @gachas=gachas.to_a
+    puts "@gachas:#{@gachas}"
+
+    mission = Mission.all
+    @missions=mission.to_a
+    puts "@missions:#{@missions}"
 
     #毎日深夜3時にリセット・batで処理させる
     #mission_daylly_reset
 
   end
-
+  
   def resolve_path
     original_paths = params[:paths]
     #original_paths = params[:data]
@@ -47,6 +79,7 @@ class AimRoomController < ApplicationController
     end
     Rails.logger.error "resolved_paths: #{resolved_paths}"
     render json: { resolved_paths: resolved_paths }
+  end
 =begin
     original_path = params[:path]
     resolved_path = helpers.asset_path(original_path)
@@ -55,10 +88,10 @@ class AimRoomController < ApplicationController
     #render json: { original_path: original_path, resolved_path: resolved_path }
     render json: { resolved_path: resolved_path }
 =end
-  end
 
   def resolve_path_img_json
     path = params[:path]
+    puts "resolve_path_img_jsonのpath:#{path}"
     img_path = helpers.asset_path("aimroom/item/"+path+".png")
     json_path = helpers.asset_path("aimroom/item/"+path+".json")
     render json: { img_path: img_path, json_path:json_path}
@@ -75,8 +108,8 @@ class AimRoomController < ApplicationController
     env_data = PlacedItem.where(user_id: current_user_id)
     Rails.logger.error "env_data: #{env_data}"
     env_data.each do |item|
-      type = item.properties['type']  # または item.properties["type"]
-      puts "type: #{type}"  # "background", "chara", "desk" などが出力されます
+      type = item.properties['type']  # "background", "chara", "desk" など
+      puts "type: #{type}"
     end
 
     background = PlacedItem.joins(:item)
@@ -85,10 +118,13 @@ class AimRoomController < ApplicationController
                           .first            
     background_path = background&.item&.path
     background_properties = background&.item&.properties
-    background_prefix = background&.item&.properties&.dig('prefix')
-    puts "background_path: #{background_path}" 
-    background_img_path = helpers.asset_path("aimroom/item/"+background_path+".png")
-    background_json_path = helpers.asset_path("aimroom/item/"+background_path+".json")
+    #background_prefix = background&.item&.properties&.dig('prefix') #"bg0_"など
+    background_prefix = "bg0_"
+    puts "background_path: #{background_path}"
+    if background_path.present?
+      background_img_path = helpers.asset_path("aimroom/item/#{background_path}.png")
+      background_json_path = helpers.asset_path("aimroom/item/"+background_path+".json")
+    end
     puts "アセットコンパイルのbackground_img_path: #{background_img_path}" 
     puts "アセットコンパイルのbackground_json_path: #{background_json_path}" 
     puts "アセットコンパイルのbackground_prefix: #{background_prefix}" 
@@ -98,17 +134,23 @@ class AimRoomController < ApplicationController
     desk = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'desk' }).first
     desk_path = desk&.item&.path
     desk_properties = desk&.item&.properties
-    desk_prefix = desk&.item&.properties&.dig('prefix')
-    desk_path = helpers.asset_path("aimroom/item/"+desk_path+".png")
+    #desk_prefix = desk&.item&.properties&.dig('prefix') #desk0_など
+    desk_prefix = "desk0_"
+    if desk_path.present?
+      desk_path = helpers.asset_path("aimroom/item/"+desk_path+".png")
+    end
     puts "アセットコンパイルのdesk_path: #{desk_path}"
     puts "アセットコンパイルのdesk_desk_prefix: #{desk_prefix}"
 
     chara = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'chara' }).first
     chara_path = chara&.item&.path
     chara_properties = chara&.item&.properties
-    chara_prefix = chara&.item&.properties&.dig('prefix')
-    chara_img_path = helpers.asset_path("aimroom/item/"+chara_path+".png")
-    chara_json_path = helpers.asset_path("aimroom/item/"+chara_path+".json")
+    #chara_prefix = chara&.item&.properties&.dig('prefix')#"chara0_"など
+    chara_prefix = "chara0_"
+    if chara_path.present?
+      chara_img_path = helpers.asset_path("aimroom/item/"+chara_path+".png")
+      chara_json_path = helpers.asset_path("aimroom/item/"+chara_path+".json")
+    end
     puts "アセットコンパイルのchara_img_path: #{chara_img_path}" 
     puts "アセットコンパイルのchara_json_path: #{chara_json_path}"
 
@@ -116,15 +158,20 @@ class AimRoomController < ApplicationController
     obj_path = obj&.item&.path
     puts "obj_path: #{obj_path}" 
     obj_properties = obj&.item&.properties
-    obj_prefix = obj&.item&.properties&.dig('prefix')
-    obj_img_path = helpers.asset_path("aimroom/item/"+obj_path+".png")
-    obj_json_path = helpers.asset_path("aimroom/item/"+obj_path+".json")
+    #obj_prefix = obj&.item&.properties&.dig('prefix')#obj0_など
+    obj_prefix = "obj0_"
+    if obj_path.present?
+      obj_img_path = helpers.asset_path("aimroom/item/"+obj_path+".png")
+      obj_json_path = helpers.asset_path("aimroom/item/"+obj_path+".json")
+    end
     puts "アセットコンパイルのobj_img_path: #{obj_img_path}" 
     puts "アセットコンパイルのobj_json_path: #{obj_json_path}"
 
     picture = PlacedItem.joins(:item).where(user_id: current_user_id).where(items: { item_type: 'picture' }).first
     picture_path = picture&.item&.path
-    picture_path = helpers.asset_path("aimroom/item/"+picture_path+".png")
+    if picture_path.present?
+      picture_path = helpers.asset_path("aimroom/item/"+picture_path+".png")
+    end
     puts "アセットコンパイルのpicture_path: #{picture_path}" 
 
 
@@ -157,6 +204,15 @@ class AimRoomController < ApplicationController
     }
   end
   def update_env
+    new_placed_items = params[:new_placed_items]
+    puts "受け取った新しいnew_placed_items: #{new_placed_items}"
+    new_placed_items = JSON.parse(new_placed_items) if new_placed_items.is_a?(String)# 文字列ならパース "{\"bg\":\"bg0\",\"obj\":\"obj2\"...}"とかならjsonに変換
+    
+    aim_room = AimRoom.find_by(user_id: @user_id)
+    aim_room.update!( placed_items: params[:new_placed_items] )
+    render json: { env_data: "end" }
+  end
+=begin
     #received_data = params[:sendData]  # Or just params for accessing sent data
     #type = received_data[:type]
     #path = received_data[:path]
@@ -185,7 +241,7 @@ class AimRoomController < ApplicationController
 
 
     render json: { env_data: new_item_id }
-  end
+=end
 
 
   def check_login_status
@@ -207,15 +263,6 @@ class AimRoomController < ApplicationController
     end
   end
 
-
-  def gacha
-    @gacha_id = params[:gacha_id]
-    Rails.logger.error "ガガガチャロロロロログ:gacha_id： #{@gacha_id}"
-    @gacha = Gacha.find_by(id: @gacha_id)
-    #@gacha = Gacha.find_by(id: params[:gacha_id])
-    #@gacha = Gacha.find_by(id: 1)
-    #@gacha = Gacha.find(1) 
-
 =begin
     # 単発ガチャの実行
     @single_results = [
@@ -226,45 +273,124 @@ class AimRoomController < ApplicationController
     ]
     @get_item=GachaLottery.gacha(config, { ceil_count: 40 }, 0.7)
 =end
+  def gacha
+    @gacha_id = params[:gacha_id]
+    isGachaSkipSave = params[:isGachaSkipSave]
+    isGachaNoCost = params[:isGachaNoCost]
+    Rails.logger.error "ガガガチャロロロロログ:gacha_id： #{@gacha_id}"
+    @gacha = Gacha.find_by(id: @gacha_id)
+    #@gacha = Gacha.find_by(id: params[:gacha_id])
+    #@gacha = Gacha.find_by(id: 1)
+    #@gacha = Gacha.find(1) 
+
     #config = GachaConfig.get_config
     config = GachaConfig.get_config(@gacha_id)
+    #config = get_gacha_config(@gacha_id)
+    Rails.logger.error "config： #{config}"
+
     #random_number = rand(0.005..1.0)#0.005から1までのランダムな小数を生成
     #random_number = ((rand * 0.995) + 0.005).round(3)# 0.005~1の範囲で乱数を生成し、小数点以下3桁までに丸める
     #possible_values = [0.005, 0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] # 可能な値を配列で定義
-    possible_values = [0.005, 0.04, 0.7] # 可能な値を配列で定義
-    random_number = possible_values.sample# ランダムに1つ選択
-    @get_item=GachaLottery.gacha(config, { ceil_count: 40 }, random_number)
-    Rails.logger.error "ガガガチャロロロロログ:random_number： #{random_number}"
-    Rails.logger.error "当たったget_items： #{@get_item}"
-    #data = master.find { |item| item[:id] == 3 }# idが3のデータを探し出す
-    #当たったアイテムidからデータを持ってくる
-    @get_item_data = Item.find { |item| item[:id] == @get_item[:id] }# idが3のデータを探し出す
-    Rails.logger.error "アイテムのデータ #{@get_item_data}"
+    #possible_values = [0.005, 0.04, 0.7] # 可能な値を配列で定義
+    #random_number = possible_values.sample# ランダムに1つ選択
 
-    #クリスタル消費
-    aimRoom = AimRoom.find_by(user_id: current_user.id)
-    now_Cristal = aimRoom.currency - @gacha.cost
-    aimRoom.update(currency: now_Cristal, total_gacha_rolls: aimRoom.total_gacha_rolls+=1)
-
-    #アイテムをdbに格納
-    user_item = UserItem.find_by(user_id: current_user.id, item_id: @get_item_data.id)
-    #if UserItem.exists?(user_id: current_user.id, item_id: @get_item_data.id)
-    #if (UserItem.find_by(user_id: current_user.id,item_id: @get_item_data.id)){
-    if user_item
-      user_item.increment!(:quantity)
-      #UserItem.find_by(user_id: current_user.id, item_id: @get_item_data.id).increment!(:quantity)
-      #UserItem.update(quantity: )
-      puts "Quantity incremented!"
-    else
-      @quantity=1
-      @userItem = UserItem.new(user_id: current_user.id, item_id: @get_item_data.id, quantity: @quantity, acquired_at: Time.current)
-      #@userItem = UserItem.new(user_id: current_user.id, item_id: @get_item_data.id, acquired_at: Time.current)
-      @userItem.save
-      #@userItem = UserItem.create!(user_id: 1,item_id: 11,quantity: 1,acquired_at: Time.current)
-      puts "Record not found!"
+    # ガチャの乱数決定
+    rval=""
+    if Rails.env.development? #開発環境
+      #特定の挙動（SSR/SR/R）をテストするために配列から選ぶ
+      possible_values = [0.005, 0.04, 0.7] #（SSR/SR/R）
+      rval = possible_values.sample
+      Rails.logger.debug "Debug Gacha: rval固定値 #{rval} を使用"
+    else #本番環境
+      rval = rand #0.0000...から0.9999...までの完全な乱数を生成
+      Rails.logger.error "rval： #{rval}"
     end
-    #render json: { item: @result }
+
+    #user作成
+    aimRoom = AimRoom.find_by(user_id: @user_id)
+    Rails.logger.error "これがとれるかどうか@AimRoom： #{aimRoom.to_json}"
+    Rails.logger.error "これがとれるかどうか@AimRoom： #{aimRoom.pickup_ceil_count}"
+
+    #@get_item=GachaLottery.gacha1(config, { ceil_count: 40 }, rval) #ガチャを一回回し、抽選し、アイテムのデータを1つ取得
+    @gacha_result=GachaLottery.gacha1(config, aimRoom, rval, @gacha_id) #ガチャを一回回し、抽選し、アイテムのデータを1つ取得
+
+    Rails.logger.error "ガチャの結果： #{@gacha_result}"
+    #data = master.find { |item| item[:id] == 3 }# idが3のデータを探し出す
+
+    #当たったアイテムidからデータを持ってくる
+    @get_item_data = Item.find { |item| item[:id] == @gacha_result[:id] }# idが3のデータを探し出す
+    Rails.logger.error "ゲットしたアイテムのデータ #{@get_item_data.to_json}"
+
+    #user_gachasテーブルにガチャの結果を入れる
+    UserGacha.new(user_id: current_user.id, item_id: @gacha_result[:id], gacha_id: @gacha_id, acquired_at: Time.current)
+
+    #AimRoomテーブルの総回転数+1、ピックアップの天井カウント+1(gacha_lottery内で更新)、共通保証の天井カウント+1(gacha_lottery内で更新)
+    aimRoom = AimRoom.find_by(user_id: current_user.id)
+    aimRoom.update(total_gacha_rolls: @gacha_result[:new_total_ssr_count]+=1, total_ssr_count: @gacha_result[:new_total_ssr_count], pickup_ceil_count: @gacha_result[:new_pickup_ceil_count])
+
+    #クリスタル消費とガチャ回した回数を更新
+    unless isGachaNoCost #falseの時だけ処理
+      #aimRoom = AimRoom.find_by(user_id: current_user.id)
+      now_Cristal = aimRoom.currency - @gacha.cost
+      aimRoom.update(currency: now_Cristal)
+    end
+
+    #アイテムをdbのUserItemテーブルに格納・保有量も増やす
+    unless isGachaSkipSave #falseの時だけ処理
+      user_item = UserItem.find_by(user_id: current_user.id, item_id: @get_item_data.id)#そのアイテムをUserItemテーブルにすでに保有しているかデータ取得
+      #そのアイテムの保有量を増やす
+      if user_item #すでにそのアイテムを取得していた場合
+        user_item.increment!(:quantity) 
+      else #まだそのアイテムを保有していなかった場合
+        @userItem = UserItem.new(user_id: current_user.id, item_id: @get_item_data.id, quantity: 1, acquired_at: Time.current)
+        @userItem.save
+      end
+    end
+
     render json: { item: @get_item_data }
+  end
+  #デバッグ用
+  def debug_get_gacha_config
+    gacha_id = params[:gacha_id]
+    config = GachaConfig.get_config(gacha_id) #Configを取得
+    render json: config # JSONとして返却
+  end
+  #def debug_gacha1(config,user,rval,gacha_id)
+  def debug_gacha1
+    config = params[:config]
+    #user = params[:user]
+    #user = OpenStruct.new(params[:user]) #Railsが扱えるハッシュに変換・#{"pickup_ceil_count"=>"0", "new_total_ssr_count"=>"0"}
+    rval = params[:rval].to_f
+    #puts "あああrval:#{rval}"
+    gacha_id = params[:gacha_id]
+
+    #値を数値に変換しながら新しいハッシュを作る
+    user_data = {
+      pickup_ceil_count:   params[:user][:pickup_ceil_count].to_i,
+      total_ssr_count: params[:user][:total_ssr_count].to_i
+    }
+    #数値が入った状態で OpenStruct を作成
+    user = OpenStruct.new(user_data)
+
+    #config = config.is_a?(String) ? JSON.parse(config) : config #StringをHash (オブジェクト) に変換する・もしconfigが既にHashならそのままでOKだが、StringならJSON.parseが必要です
+    config = JSON.parse(config, symbolize_names: true)
+    puts "config: #{config}"
+
+    gacha_result=GachaLottery.gacha1(config, user, rval, gacha_id)
+    get_item_data = Item.find { |item| item[:id] == gacha_result[:id] }# idが3のデータを探し出す
+
+    render json: get_item_data # JSONとして返却
+  end
+  #def debug_gacha10(config,user,rval,gacha_id)
+  def debug_gacha10
+    config = params[:config]
+    #user = params[:user]
+    user = OpenStruct.new(params[:user]) #Railsが扱えるハッシュに変換・#{"pickup_ceil_count"=>"0", "new_total_ssr_count"=>"0"}
+    rval = params[:rval]
+    gacha_id = params[:gacha_id]
+
+    gacha_result=GachaLottery.gacha10(config, user, rval, gacha_id) 
+    render json: gacha_result # JSONとして返却
   end
 
   def getmyitem
@@ -345,46 +471,48 @@ class AimRoomController < ApplicationController
 
 
   def check_mission_bonus
+
     #テーブルからレコード取得
-    aimRoom = AimRoom.find_by(user_id: current_user.id)
+    aimRoom = AimRoom.find_by(user_id: @user_id)
     mission_rewards = MissionReward.all()
     missions = Mission.all()
-    user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
-    user_mission_gachaRoll = UserMission.find_by(user_id: current_user.id, mission_id: 2)
-    user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
+    user_mission_login = UserMission.find_by(user_id: @user_id , mission_id: 1)
+    user_mission_playtime = UserMission.find_by(user_id: @user_id, mission_id: 3)
+    user_mission_gachaRoll = UserMission.find_by(user_id: @user_id, mission_id: 2)
 
     #まだ取得してないけど、獲得条件を満たしているミッション数 #statusがyetの中から新たにミッションを達成できてる数を取得し、その数を返す
     #unclaimed_rewards_count また報酬は獲得してないけど報酬の獲得権をゲットした数字
     new_login_unclaimed_rewards_count = LoginMissionClearCheck(user_mission_login.completed, aimRoom.last_login_at, user_mission_login.unclaimed_rewards_count)
-    new_gacharoll_unclaimed_rewards_count = GachaMissionClearCheck(aimRoom.total_gacha_rolls, user_mission_gachaRoll.unclaimed_rewards_count, user_mission_gachaRoll.progress)
     new_playtime_unclaimed_rewards_count = PlaytimeMissionClearCheck(aimRoom.daily_play_time, user_mission_playtime.unclaimed_rewards_count, user_mission_playtime.progress)
+    new_gacharoll_unclaimed_rewards_count = GachaMissionClearCheck(aimRoom.total_gacha_rolls, user_mission_gachaRoll.unclaimed_rewards_count, user_mission_gachaRoll.progress)
 
     #user_missionテーブル更新
     user_mission_login.update(unclaimed_rewards_count: new_login_unclaimed_rewards_count)
-    user_mission_gachaRoll.update(unclaimed_rewards_count: new_gacharoll_unclaimed_rewards_count)
     user_mission_playtime.update(unclaimed_rewards_count: new_playtime_unclaimed_rewards_count)
+    user_mission_gachaRoll.update(unclaimed_rewards_count: new_gacharoll_unclaimed_rewards_count)
 
     #jsに渡すデータ作成json・すでにゲットした数と、新しく獲得権を得た数
     loginMission = { newAchiveNum: new_login_unclaimed_rewards_count , alreadyGetted: user_mission_login.progress}
-    gachaRollMission = { newAchiveNum: new_gacharoll_unclaimed_rewards_count, alreadyGetted: user_mission_gachaRoll.progress }
     playtimeMission = { newAchiveNum: new_playtime_unclaimed_rewards_count , alreadyGetted: user_mission_playtime.progress}
+    gachaRollMission = { newAchiveNum: new_gacharoll_unclaimed_rewards_count, alreadyGetted: user_mission_gachaRoll.progress }
 
     Rails.logger.error "loginMission: #{loginMission}"
-    Rails.logger.error "gachaRollMission: #{gachaRollMission}"
     Rails.logger.error "playtimeMission: #{playtimeMission}"
+    Rails.logger.error "gachaRollMission: #{gachaRollMission}"
 
-    render json: { loginMission: loginMission ,gachaRollMission: gachaRollMission ,playtimeMission: playtimeMission }
+    render json: { loginMission: loginMission  ,playtimeMission: playtimeMission ,gachaRollMission: gachaRollMission}
   end
   def all_get_mission_bonus
-    user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
-    user_mission_gachaRoll = UserMission.find_by(user_id: current_user.id, mission_id: 2)
-    user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
+
+    user_mission_login = UserMission.find_by(user_id: @user_id , mission_id: 1)
+    user_mission_gachaRoll = UserMission.find_by(user_id: @user_id, mission_id: 2)
+    user_mission_playtime = UserMission.find_by(user_id: @user_id, mission_id: 3)
 
     this_login_mission_rewards=MissionReward.find_by( mission_id: 1) #MissionRewardsテーブルからそのミッションのレコード取得
     this_gachaRoll_mission_rewards=MissionReward.find_by( mission_id: 2) #MissionRewardsテーブルからそのミッションのレコード取得
-    this_playtime_mission_rewards=MissionRewards.find_by( mission_id: 3) #MissionRewardsテーブルからそのミッションのレコード取得
+    this_playtime_mission_rewards=MissionReward.find_by( mission_id: 3) #MissionRewardsテーブルからそのミッションのレコード取得
 
-    aimRoom = AimRoom.find_by(user_id: current_user.id)#AimRoomテーブルからそのユーザーのレコード取得
+    aimRoom = AimRoom.find_by(user_id: @user_id)#AimRoomテーブルからそのユーザーのレコード取得
 
     #報酬額の計算
     #login_mission_new_currency = login_mission_get_Currency(user_mission_login.progress, user_mission_login.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
@@ -402,12 +530,12 @@ class AimRoomController < ApplicationController
     #statusがyetの中から、新たにミッションを達成できてるもの取得し、statusをgettedに上書きし、報酬のクリスタルを増加させ、
     render json: { GettedLoginBonus: now_currency }
   end
-
   def one_get_mission_bonus
+
     mission_type_num = params[:mission_type_num] #ミッションのタイプの番号を取得・1.ログイン、2.ガチャ回転数、3.プレイ時間報酬
-    user_mission = UserMission.find_by(user_id: current_user.id , mission_id: mission_type_num) #UserMission テーブルからuser_idとmission_idで検索したレコードを1件取得
+    user_mission = UserMission.find_by(user_id: @user_id , mission_id: mission_type_num) #UserMission テーブルからuser_idとmission_idで検索したレコードを1件取得
     this_mission_rewards=MissionReward.find_by( mission_id: mission_type_num) #MissionRewardsテーブルからそのミッションのレコード取得
-    aimRoom = AimRoom.find_by(user_id: current_user.id)#AimRoomテーブルからそのユーザーのレコード取得
+    aimRoom = AimRoom.find_by(user_id: @user_id)#AimRoomテーブルからそのユーザーのレコード取得
 
     #報酬額の計算
     #login_mission_new_currency = login_mission_get_Currency(user_mission_login.progress, user_mission_login.unclaimed_rewards_count ,this_mission_rewards) #すでに獲得した数と、獲得権がある数を足して、しきい値と比べて判断
@@ -426,7 +554,7 @@ class AimRoomController < ApplicationController
     if mission_type_num == 1 #ログインミッションなら
       newCurrency = this_mission_rewards.currency_amount #取得するゲーム内通貨
     elsif mission_type_num == 2 #ガチャ回転ミッションなら
-      aimRoom = AimRoom.find_by(user_id: current_user.id)#AimRoomテーブルからそのユーザーのレコード取得
+      aimRoom = AimRoom.find_by(user_id: @user_id)#AimRoomテーブルからそのユーザーのレコード取得
       #ガチャの回転数としきい値を比較して報酬額を決定
       #if aimRoom.total_gacha_rolls >= this_mission_rewards.threshold #ガチャ5回
       #if 5 <= aimRoom.total_gacha_rolls && aimRoom.total_gacha_rolls <= 9 #ガチャ5回(9以下)
@@ -459,14 +587,13 @@ class AimRoomController < ApplicationController
     end
     newCurrency
   end
-
   def LoginMissionClearCheck(todayCompleted,lastLoginDay,unclaimed_rewards_count)
     today = Date.today.strftime('%Y/%m/%d')
     #LastLoginDay = Date.new(2024, 10, 30)
     #newAchiveNum = 0
     if lastLoginDay != today && todayCompleted == false
       unclaimed_rewards_count += 1
-      user_mission_login = UserMission.find_by(user_id: current_user.id , mission_id: 1)
+      user_mission_login = UserMission.find_by(user_id: @user_id , mission_id: 1)
       user_mission_login.update(completed: true)
     end
     unclaimed_rewards_count
@@ -493,12 +620,11 @@ class AimRoomController < ApplicationController
   def PlaytimeMissionClearCheck(todayCompleted,daily_play_time,unclaimed_rewards_count)
     if todayCompleted=false && daily_play_time>=30
       unclaimed_rewards_count+=1
-      user_mission_playtime = UserMission.find_by(user_id: current_user.id, mission_id: 3)
+      user_mission_playtime = UserMission.find_by(user_id: @user_id, mission_id: 3)
       user_mission_login.uodate(completed: true)
     end
     unclaimed_rewards_count
   end
-
   def mission_daylly_reset
     Mission.where(reset_frequency: 1).find_each do |mission| 
       #UserMission.where(mission: mission).update_all(progress: 0, completed: false, last_reset_at: Time.current)

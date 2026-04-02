@@ -8,28 +8,11 @@ export default class CristalAmountButton extends Phaser.GameObjects.Container {
       this.cristalAmount = 0;
       this.isLoggedIn = isLoggedIn;
 
-      this.checkCristalAmount();
-      scene.add.existing(this);
-  }
-
-  checkCristalAmount() {
-    fetch('/check_crystal_amount', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      //console.log(data);
-      this.cristalAmount = data.cristal_amount
-
       this.buttonBackground = this.scene.add.rectangle(0, 0, window.innerWidth/8, 50, 0x4a4a4a);
       this.chargeImage = this.scene.add.image(-50, 0, 'money').setScale(0.05);
       this.buttonText = this.scene.add.text(20, 0, `${this.cristalAmount}`, {fontSize: '15px',fontFamily: 'Arial',color: '#ffffff' }).setOrigin(0, 0.5);
 
-      const container = this.scene.add.container(0, 0, [ this.buttonBackground, this.buttonText,this.chargeImage ]);
+      const container = this.scene.add.container(x, y, [ this.buttonBackground, this.buttonText,this.chargeImage ]);
       this.add(container);
       this.buttonBackground.setInteractive();
   
@@ -49,6 +32,28 @@ export default class CristalAmountButton extends Phaser.GameObjects.Container {
         this.scene.input.setDefaultCursor('default');
         this.buttonBackground.fillColor = 0x4a4a4a;
       });
+
+      this.checkCristalAmount();//クリスタルの量を取得後に更新
+
+      scene.add.existing(this);
+  }
+
+  checkCristalAmount() {
+    fetch('/check_crystal_amount', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      //console.log(data);
+      //this.cristalAmount = data.cristal_amount
+      //return data.cristal_amount
+      //this.checkCristalAmount();
+      this.cristalAmount = data.cristal_amount
+      this.buttonText.setText(`${this.cristalAmount}`);//値を更新
     })
     .catch(error => console.error('Error:', error))
   }

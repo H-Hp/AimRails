@@ -5,6 +5,7 @@ class DropdownMenu extends Phaser.GameObjects.Container {
       super(scene, x, y);
       this.scene = scene;
       this.options = options;
+      console.log("これoptions:"+options)
       //this.selectedOption = 'Select an option';
       this.selectedOption = options[0];
       this.isOpen = false;
@@ -19,48 +20,33 @@ class DropdownMenu extends Phaser.GameObjects.Container {
       const dropdownHeight = 40;
       const optionHeight = 30;
 
-      // ドロップダウンの背景
-      this.dropdownBg = this.scene.add.graphics();
-      this.dropdownBg.fillStyle(0x444444, 1);
-      this.dropdownBg.fillRect(0, 0, dropdownWidth, dropdownHeight);
-
-      // ドロップダウンのテキスト
-      this.dropdownText = this.scene.add.text(10, 10, this.selectedOption, {
-          fontSize: '18px',
-          fill: '#ffffff'
-      });
-
-      // ドロップダウン矢印
-      this.arrow = this.scene.add.triangle(180, 20, 0, 0, 10, 10, 20, 0, 0xffffff);
-
-      // オプションのコンテナ（初期状態では非表示）
-      this.optionsContainer = this.scene.add.container(0, 40);
-      this.optionsContainer.setVisible(false);
+      this.dropdownBg = this.scene.add.graphics().fillStyle(0x444444, 1).fillRect(0, 0, dropdownWidth, dropdownHeight);// ドロップダウンの背景
+      this.dropdownText = this.scene.add.text(10, 10, this.selectedOption, {fontSize: '12px',fill: '#ffffff'});// ドロップダウンのテキスト
+      this.arrow = this.scene.add.triangle(145, 20, 0, 0, 10, 10, 20, 0, 0xffffff);// ドロップダウン矢印
+      this.optionsContainer = this.scene.add.container(0, -40).setVisible(false);// オプションのコンテナ（初期状態では非表示）
 
       // オプションの背景とテキストを作成
       this.options.forEach((option, index) => {
+         let option_y = index * optionHeight
+
           const optionBg = this.scene.add.graphics();
           optionBg.fillStyle(0x666666, 1);
-          optionBg.fillRect(0, index * optionHeight, dropdownWidth, optionHeight);
+          optionBg.fillRect(0, -option_y, dropdownWidth, optionHeight);
 
-          const optionText = this.scene.add.text(10, index * optionHeight + 5, option, {
-              //fontSize: '16px',
-              fontSize: '10px',
-              fill: '#ffffff'
-          });
+          const optionText = this.scene.add.text(10, -option_y + 5, option, {fontSize: '10px',fill: '#ffffff'});
 
-          optionBg.setInteractive(new Phaser.Geom.Rectangle(0, index * optionHeight, dropdownWidth, optionHeight), Phaser.Geom.Rectangle.Contains);
+          optionBg.setInteractive(new Phaser.Geom.Rectangle(0, -option_y, dropdownWidth, optionHeight), Phaser.Geom.Rectangle.Contains);
           
           optionBg.on('pointerover', () => {
               optionBg.clear();
               optionBg.fillStyle(0x888888, 1);
-              optionBg.fillRect(0, index * optionHeight, dropdownWidth, optionHeight);
+              optionBg.fillRect(0, -option_y, dropdownWidth, optionHeight);
           });
 
           optionBg.on('pointerout', () => {
               optionBg.clear();
               optionBg.fillStyle(0x666666, 1);
-              optionBg.fillRect(0, index * optionHeight, dropdownWidth, optionHeight);
+              optionBg.fillRect(0, -option_y, dropdownWidth, optionHeight);
           });
 
           optionBg.on('pointerdown', () => {
