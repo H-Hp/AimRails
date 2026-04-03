@@ -173,8 +173,8 @@ export default class PreloadScene extends Phaser.Scene {
       progressBox.destroy()
       //loadingText.destroy()
       
-      //this.scene.start('MainScene')
-      this.scene.start('MissionScene')
+      this.scene.start('MainScene')
+      //this.scene.start('MissionScene')
 
     })
 

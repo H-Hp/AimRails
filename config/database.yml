@@ -35,11 +35,19 @@ test:
 
 production: &production
   <<: *default
+  host: <%= ENV["SUPABASE_HOST"] %>
+  password: <%= ENV["SUPABASE_PASSWORD"] %>
+  username: <%= ENV["SUPABASE_USERNAME"] %>
+  database: <%= ENV["SUPABASE_DATABASE"] %>
+  port: <%= ENV["SUPABASE_PORT"] %>
+  prepared_statements: false
   #database: db/production.sqlite3
-  username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
-  host: <%= Rails.application.credentials.dig(:development, :db_host) %>
-  password: <%= Rails.application.credentials.dig(:development, :db_password) %>
-  database: <%= Rails.application.credentials.dig(:development, :db) %>
+  #username: <%= Rails.application.credentials.dig(:development, :db_user_name) %>
+  #host: <%= Rails.application.credentials.dig(:development, :db_host) %>
+  #password: <%= Rails.application.credentials.dig(:development, :db_password) %>
+  #database: <%= Rails.application.credentials.dig(:development, :db) %>
+
+
 
 production-aim-mini:
   <<: *production

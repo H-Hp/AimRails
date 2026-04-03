@@ -25,8 +25,10 @@ class AimRoomController < ApplicationController
       @user_name="development_user"
     else
       # ログインしてればそのID、してなければ 0 (またはゲスト用ID)
-      @user_id = current_user&.id || 0 
-      @user_name = current_user.user_name
+      #@user_id = current_user&.id || 0 
+      #@user_name = current_user.user_name
+      @user_id = current_user&.id || 0
+      @user_name = current_user&.user_name || "guest"
     end
   end
 
