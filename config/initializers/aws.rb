@@ -1,3 +1,6 @@
+
+#Rails8にしてadd_action_mailer_delivery_methodが古いメソッドになってなので消した
+=begin
 creds = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
 
 Aws::Rails.add_action_mailer_delivery_method(
@@ -5,3 +8,4 @@ Aws::Rails.add_action_mailer_delivery_method(
   credentials: creds,
   region: 'ap-northeast-1',
 )
+=end

@@ -9,7 +9,10 @@
 <%= render 'shared/side-ads' %>
 <%= render 'shared/ads-mobile' %>
 
-<%= javascript_pack_tag 'aim_article' %>
+<%#= javascript_pack_tag 'aim_article' %>
+<%#= javascript_include_tag "aim_article", type: "module" %>
+<%= javascript_include_tag "aim_article" %>
+
 
 
 <div class="content_wrap">

@@ -1,7 +1,9 @@
 <%= stylesheet_link_tag 'aim_room', media: 'all' %>
-<%= javascript_pack_tag 'aim_init_room' %>
+<%#= javascript_pack_tag 'aim_init_room' %>
+<%#= javascript_include_tag "aim_init_room" %>
+<%= javascript_include_tag "aim_init_room", type: "module" %>
 
-<%= react_component("AssetPathResolver") %>
+<%#= react_component("AssetPathResolver") %>
 
 <div 
   data-react-class="AimRoom" 

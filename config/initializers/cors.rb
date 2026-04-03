@@ -1,12 +1,16 @@
-Rails.application.config.middleware.insert_before 0, Rack::Cors do
-  allow do
-    origins '*'  # 開発中だけ
-    #origins 'https://aegis-mysite-checker.vercel.app/' #許可するのはフロント側のURL・監視ツールのURLを許可
-    #origins 'https://aim-room.com' #https://aim-room.comは自身なのでoriginsに書かなくても普通に通る
+# Be sure to restart your server when you modify this file.
 
-    resource '/health_check',
-    #resource '*',
-      headers: :any,
-      methods: [:get, :options]
-  end
-end
+# Avoid CORS issues when API is called from the frontend app.
+# Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin Ajax requests.
+
+# Read more: https://github.com/cyu/rack-cors
+
+# Rails.application.config.middleware.insert_before 0, Rack::Cors do
+#   allow do
+#     origins "example.com"
+#
+#     resource "*",
+#       headers: :any,
+#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
+#   end
+# end

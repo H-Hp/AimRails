@@ -57,7 +57,8 @@ Rails.application.routes.draw do
   #get 'aim/search'
   
   #resources :aim, only: [:new, :create, :edit, :aim, :search]
-  resources :aim, only: [:new, :create, :edit, :aim]
+  #resources :aim, only: [:new, :create, :edit, :aim]
+  resources :aim, only: [:new, :create, :edit]
   
   #get 'aim'  =>'aim#aim'
   #get '/search/:id', to: 'aim#search'
@@ -75,7 +76,9 @@ Rails.application.routes.draw do
   post '/aim/like/', to: 'aim#like'
   post '/aim/like_delete/', to: 'aim#like_delete'
 
-  resources :user, only: [:new, :create, :edit, :aim]
+  #resources :user, only: [:new, :create, :edit, :aim]
+  resources :user, only: [:new, :create, :edit]
+  
   get 'new_user'  => 'user#new_user'
   get 'mypage'  => 'user#mypage'
   get 'account_delete'  => 'user#account_delete'

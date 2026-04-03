@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
 // ローカルストレージから値を取得
-  const theme = localStorage.getItem('theme');
+  let theme = localStorage.getItem('theme');
   const stretch = localStorage.getItem('stretch');
   console.log("theme:"+theme)
   if(!theme){//値がセットされてない初期

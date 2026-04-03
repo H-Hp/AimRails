@@ -8,24 +8,20 @@ Bundler.require(*Rails.groups)
 
 module AimRails
   class Application < Rails::Application
-
-    #devide日本語化
-    config.i18n.default_locale = :ja
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        # 許可するドメイン
-        #origins "{{ ローカル環境ドメイン }}", "{{ テスト環境ドメイン }}", "{{ 本番環境ドメイン }}"
-        origins "{{ localhost:3000 }}", "{{ 0.0.0.0:3000 }}", "{{ https://aim-yw6r.onrender.com/ }}", "{{ https://www.aim-get.com/ }}"
-        #origins 'http://localhost:3000'
-        #resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
-        # 許可するヘッダとメソッドの種類
-        resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :head, :options]
-      end
-    end
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
   end
 end

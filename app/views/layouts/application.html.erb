@@ -28,8 +28,8 @@
     <!--fontawesomeキット読込-->
     <script async src="https://kit.fontawesome.com/95bdc402cd.js" crossorigin="anonymous"></script>
 
-    <!-- <%= favicon_link_tag 'favicon.ico' %> -->
-    <%= cloudfront_favicon_link_tag 'favicon.ico' %>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <!-- <%#= cloudfront_favicon_link_tag 'favicon.ico' %> -->
     
     <!-- Bootstrap CSS -->
     <link rel="preload" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
@@ -41,7 +41,9 @@
     <%= stylesheet_link_tag "color-dark-light" %>
 
     <%= stylesheet_link_tag 'application' %> 
-    <%= javascript_pack_tag 'application' %>
+    <%#= javascript_pack_tag 'application' %>
+    <%= javascript_include_tag "application" %>
+
 
     <!-- Google アナリティクスtag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJYSMQ091V"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KJYSMQ091V'); </script>
     
@@ -84,6 +86,7 @@
     };
     */
     </script>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 </head>
 <body class="light-mode">
 

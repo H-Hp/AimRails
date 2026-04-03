@@ -1,3 +1,1 @@
-User-agent: *
-Disallow:
-Sitemap: https://aim-get.com/sitemap.xml.gz
+# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
